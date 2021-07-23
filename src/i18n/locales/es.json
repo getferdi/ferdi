@@ -256,6 +256,7 @@
   "settings.app.form.universalDarkMode": "Activar modo oscuro universal",
   "settings.app.form.useTouchIdToUnlock": "Permitir usar TouchID para desbloquear Ferdi",
   "settings.app.form.useVerticalStyle": "Usar estilo vertical",
+  "settings.app.form.wakeUpStrategy": "Wake up strategy",
   "settings.app.headline": "Configuración",
   "settings.app.headlineAdvanced": "Avanzado",
   "settings.app.headlineAppearance": "Apariencia",
