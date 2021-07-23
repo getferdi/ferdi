@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "맞춤법 검사 활성화",
   "settings.app.form.enableSystemTray": "Ferdi 시스템 트레이에 표시",
   "settings.app.form.enableTodos": "Enable Ferdi Todos",
-  "settings.app.form.hibernate": "Service Hibernation 허용",
   "settings.app.form.hibernateOnStartup": "Keep services in hibernation on startup",
   "settings.app.form.hibernationStrategy": "하이버네이션 전략",
   "settings.app.form.iconSize": "Service icon size",
