@@ -256,6 +256,7 @@
   "settings.app.form.universalDarkMode": "Enable universal Dark Mode",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
   "settings.app.form.useVerticalStyle": "Use vertical style",
+  "settings.app.form.wakeUpStrategy": "Wake up strategy",
   "settings.app.headline": "Beállítások",
   "settings.app.headlineAdvanced": "Haladó",
   "settings.app.headlineAppearance": "Megjelenés",
