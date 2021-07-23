@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "Aktivera stavningskontroll",
   "settings.app.form.enableSystemTray": "Visa Ferdi i systemfältet",
   "settings.app.form.enableTodos": "Aktivera Ferdi Todos",
-  "settings.app.form.hibernate": "Sätt tjänst i vila",
   "settings.app.form.hibernateOnStartup": "Keep services in hibernation on startup",
   "settings.app.form.hibernationStrategy": "Strategi för vila",
   "settings.app.form.iconSize": "Ikonstorlek för tjänster",
