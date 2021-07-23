@@ -256,6 +256,7 @@
   "settings.app.form.universalDarkMode": "Ota käyttöön yleinen tumma tila",
   "settings.app.form.useTouchIdToUnlock": "Salli TouchID:n käyttö Ferdin avaamiseksi",
   "settings.app.form.useVerticalStyle": "Käytä pystysuoraa tyyliä",
+  "settings.app.form.wakeUpStrategy": "Wake up strategy",
   "settings.app.headline": "Asetukset",
   "settings.app.headlineAdvanced": "Lisäasetukset",
   "settings.app.headlineAppearance": "Ulkoasu",
