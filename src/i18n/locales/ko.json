@@ -256,6 +256,7 @@
   "settings.app.form.universalDarkMode": "전체 다크 모드 활성화",
   "settings.app.form.useTouchIdToUnlock": "TouchID로 Ferdi 여는 것을 허용",
   "settings.app.form.useVerticalStyle": "수직 스타일 사용",
+  "settings.app.form.wakeUpStrategy": "Wake up strategy",
   "settings.app.headline": "설정",
   "settings.app.headlineAdvanced": "고급",
   "settings.app.headlineAppearance": "모양",
