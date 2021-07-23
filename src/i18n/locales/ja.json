@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "スペルチェックを有効にする",
   "settings.app.form.enableSystemTray": "Ferdiをシステムトレイに表示する",
   "settings.app.form.enableTodos": "Ferdi ToDoを有効にする",
-  "settings.app.form.hibernate": "サービスの休止を有効化する",
   "settings.app.form.hibernateOnStartup": "起動時にサービスを休止状態にする",
   "settings.app.form.hibernationStrategy": "休止状態の方法",
   "settings.app.form.iconSize": "サービスのアイコンサイズ",
