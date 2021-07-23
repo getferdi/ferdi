@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "Włącz sprawdzanie pisowni",
   "settings.app.form.enableSystemTray": "Pokaż Ferdia w obszarze powiadomień",
   "settings.app.form.enableTodos": "Włącz Zadania Ferdi",
-  "settings.app.form.hibernate": "Włącz hibernację usługi",
   "settings.app.form.hibernateOnStartup": "Hibernacja usług po starcie systemu",
   "settings.app.form.hibernationStrategy": "Hibernation strategy",
   "settings.app.form.iconSize": "Rozmiar ikony usługi",
