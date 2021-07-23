@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "Helyesírás-ellenőrzés engedélyezése",
   "settings.app.form.enableSystemTray": "Ferdi mutatása a tálcán",
   "settings.app.form.enableTodos": "Ferdi Tennivalók bekapcsolása",
-  "settings.app.form.hibernate": "Enable service hibernation",
   "settings.app.form.hibernateOnStartup": "Keep services in hibernation on startup",
   "settings.app.form.hibernationStrategy": "Hibernation strategy",
   "settings.app.form.iconSize": "Service icon size",
