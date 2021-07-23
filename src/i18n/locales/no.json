@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "Aktiver stavekontroll",
   "settings.app.form.enableSystemTray": "Vis Ferdi i systemstatusfeltet",
   "settings.app.form.enableTodos": "Aktiver Ferdi gjøremål",
-  "settings.app.form.hibernate": "Aktiver dvalemodus for tjeneste",
   "settings.app.form.hibernateOnStartup": "Hold tjenestene i dvalemodus ved oppstart",
   "settings.app.form.hibernationStrategy": "Dvalemodus-strategi",
   "settings.app.form.iconSize": "Ikonstørrelse på tjenester",
