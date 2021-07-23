@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "Omogući provjeru pravopisa",
   "settings.app.form.enableSystemTray": "Prikaži aplikaciju u sustavskoj traci",
   "settings.app.form.enableTodos": "Enable Ferdi Todos",
-  "settings.app.form.hibernate": "Enable service hibernation",
   "settings.app.form.hibernateOnStartup": "Keep services in hibernation on startup",
   "settings.app.form.hibernationStrategy": "Hibernation strategy",
   "settings.app.form.iconSize": "Service icon size",
