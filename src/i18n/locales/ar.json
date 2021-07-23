@@ -256,6 +256,7 @@
   "settings.app.form.universalDarkMode": "تمكين الوضع المظلم الكامل",
   "settings.app.form.useTouchIdToUnlock": "السماح باستخدام TouchID لفتح فردي",
   "settings.app.form.useVerticalStyle": "Use vertical style",
+  "settings.app.form.wakeUpStrategy": "Wake up strategy",
   "settings.app.headline": "الإعدادات",
   "settings.app.headlineAdvanced": "متقدم",
   "settings.app.headlineAppearance": "المظهر",
