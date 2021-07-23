@@ -133,7 +133,8 @@ export const DEFAULT_APP_SETTINGS = {
   scheduledDNDStart: '17:00',
   scheduledDNDEnd: '09:00',
   hibernateOnStartup: true,
-  hibernationStrategy: 300,
+  hibernationStrategy: '300', // seconds
+  wakeUpStrategy: '300', // seconds
   inactivityLock: 0,
   automaticUpdates: true,
   showServiceNavigationBar: false,

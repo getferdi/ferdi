@@ -347,6 +347,8 @@ export default @observer class EditSettingsForm extends Component {
                   </span>
                 </p>
 
+                <Select field={form.$('wakeUpStrategy')} />
+
                 <Hr />
 
                 {isWorkspaceEnabled && (

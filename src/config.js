@@ -41,6 +41,17 @@ export const HIBERNATION_STRATEGIES = {
   3600: 'Extremely Slow Hibernation (1hour)',
 };
 
+export const WAKE_UP_STRATEGIES = {
+  0: 'Never wake up',
+  10: 'Wake up after 10sec',
+  30: 'Wake up after 30sec',
+  60: 'Wake up after 1min',
+  300: 'Wake up after 5min',
+  600: 'Wake up after 10min',
+  1800: 'Wake up after 30min',
+  3600: 'Wake up after 1hour',
+};
+
 export const NAVIGATION_BAR_BEHAVIOURS = {
   custom: 'Show navigation bar on custom websites only',
   always: 'Show navigation bar on all services',

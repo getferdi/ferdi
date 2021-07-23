@@ -11,7 +11,7 @@ import Form from '../../lib/Form';
 import { APP_LOCALES, SPELLCHECKER_LOCALES } from '../../i18n/languages';
 import {
   HIBERNATION_STRATEGIES, SIDEBAR_WIDTH, ICON_SIZES, NAVIGATION_BAR_BEHAVIOURS, SEARCH_ENGINE_NAMES, TODO_APPS,
-  DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED, DEFAULT_IS_FEATURE_ENABLED_BY_USER,
+  DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED, DEFAULT_IS_FEATURE_ENABLED_BY_USER, WAKE_UP_STRATEGIES,
 } from '../../config';
 import { DEFAULT_APP_SETTINGS, isMac } from '../../environment';
 
@@ -94,6 +94,10 @@ const messages = defineMessages({
   hibernationStrategy: {
     id: 'settings.app.form.hibernationStrategy',
     defaultMessage: '!!!Hibernation strategy',
+  },
+  wakeUpStrategy: {
+    id: 'settings.app.form.wakeUpStrategy',
+    defaultMessage: '!!!Wake up strategy',
   },
   predefinedTodoServer: {
     id: 'settings.app.form.predefinedTodoServer',
@@ -255,6 +259,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         hibernate: settingsData.hibernate,
         hibernateOnStartup: settingsData.hibernateOnStartup,
         hibernationStrategy: settingsData.hibernationStrategy,
+        wakeUpStrategy: settingsData.wakeUpStrategy,
         predefinedTodoServer: settingsData.predefinedTodoServer,
         customTodoServer: settingsData.customTodoServer,
         lockingFeatureEnabled: settingsData.lockingFeatureEnabled,
@@ -331,6 +336,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
 
     const hibernationStrategies = getSelectOptions({
       locales: HIBERNATION_STRATEGIES,
+      sort: false,
+    });
+
+    const wakeUpStrategies = getSelectOptions({
+      locales: WAKE_UP_STRATEGIES,
       sort: false,
     });
 
@@ -438,6 +448,12 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           value: settings.all.app.hibernationStrategy,
           options: hibernationStrategies,
           default: DEFAULT_APP_SETTINGS.hibernationStrategy,
+        },
+        wakeUpStrategy: {
+          label: intl.formatMessage(messages.wakeUpStrategy),
+          value: settings.all.app.wakeUpStrategy,
+          options: wakeUpStrategies,
+          default: DEFAULT_APP_SETTINGS.wakeUpStrategy,
         },
         predefinedTodoServer: {
           label: intl.formatMessage(messages.predefinedTodoServer),

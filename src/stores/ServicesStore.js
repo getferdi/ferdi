@@ -824,18 +824,24 @@ export default class ServicesStore extends Store {
       return;
     }
     if (service.isActive) {
-      debug('Skipping service hibernation');
+      debug(`Skipping service hibernation for ${service.name}`);
       return;
     }
 
     debug(`Hibernate ${service.name}`);
 
     service.isHibernationRequested = true;
+
+    if (Number(this.stores.settings.all.app.wakeUpStrategy) > 0) {
+      setTimeout(() => {
+        this._awake({ serviceId: service.id });
+      }, ms(`${this.stores.settings.all.app.wakeUpStrategy}s`));
+    }
   }
 
   @action _awake({ serviceId }) {
-    debug('Waking up from service hibernation');
     const service = this.one(serviceId);
+    debug(`Waking up from service hibernation for ${service.name}`);
     service.isHibernationRequested = false;
     service.liveFrom = Date.now();
   }
