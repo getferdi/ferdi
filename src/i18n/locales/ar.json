@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "تفعيل التصحيح الإملائي",
   "settings.app.form.enableSystemTray": "إظهار فردي في شريط النظام",
   "settings.app.form.enableTodos": "تفعيل فردي للمهام",
-  "settings.app.form.hibernate": "تفعيل وضع النوم للخدمة",
   "settings.app.form.hibernateOnStartup": "الإبقاء على الخدمات في وضع النوم عند بدء التشغيل",
   "settings.app.form.hibernationStrategy": "استراتيجية وضع النوم",
   "settings.app.form.iconSize": "حجم أيقونة الخدمة",
