@@ -256,6 +256,7 @@
   "settings.app.form.universalDarkMode": "Увімкнути універсальний темний режим",
   "settings.app.form.useTouchIdToUnlock": "Дозволити використання TouchID для розблокування Ferdi",
   "settings.app.form.useVerticalStyle": "Use vertical style",
+  "settings.app.form.wakeUpStrategy": "Wake up strategy",
   "settings.app.headline": "Налаштування",
   "settings.app.headlineAdvanced": "Додаткові налаштування",
   "settings.app.headlineAppearance": "Вигляд",
