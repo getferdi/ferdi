@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "הפעל בדיקת איות",
   "settings.app.form.enableSystemTray": "הצג את פרדי בסרגל הכלים",
   "settings.app.form.enableTodos": "אפשר את רשימת המשימות של Ferdi",
-  "settings.app.form.hibernate": "אפשר מצב שינה",
   "settings.app.form.hibernateOnStartup": "Keep services in hibernation on startup",
   "settings.app.form.hibernationStrategy": "Hibernation strategy",
   "settings.app.form.iconSize": "גודל סמל השירות",
