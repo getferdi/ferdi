@@ -239,7 +239,6 @@
   "settings.app.form.enableSpellchecking": "Ativar correção ortográfica",
   "settings.app.form.enableSystemTray": "Mostrar Ferdi na barra de sistema",
   "settings.app.form.enableTodos": "Ativar Tarefas Ferdi",
-  "settings.app.form.hibernate": "Ativar hibernação do serviço",
   "settings.app.form.hibernateOnStartup": "Manter os serviços em hibernação durante a inicialização",
   "settings.app.form.hibernationStrategy": "Estratégia de hibernação",
   "settings.app.form.iconSize": "Tamanho de ícone de serviço",
