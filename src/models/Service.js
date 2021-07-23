@@ -79,6 +79,8 @@ export default class Service {
 
   @observable lastUsed = Date.now(); // timestamp
 
+  @observable lastHibernated = null; // timestamp
+
   @observable lastPoll = Date.now();
 
   @observable lastPollAnswer = Date.now();

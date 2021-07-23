@@ -165,10 +165,19 @@ export default class ServicesStore extends Store {
    */
   _serviceMaintenance() {
     this.all.forEach((service) => {
-      // Defines which services should be hibernated.
-      if (!service.isActive && (Date.now() - service.lastUsed > ms(`${this.stores.settings.all.app.hibernationStrategy}s`))) {
-        // If service is stale, hibernate it.
-        this._hibernate({ serviceId: service.id });
+      // Defines which services should be hibernated or woken up
+      if (!service.isActive) {
+        if (!service.lastHibernated && (Date.now() - service.lastUsed > ms(`${this.stores.settings.all.app.hibernationStrategy}s`))) {
+          // If service is stale, hibernate it.
+          this._hibernate({ serviceId: service.id });
+        }
+
+        if (service.lastHibernated && Number(this.stores.settings.all.app.wakeUpStrategy) > 0) {
+          // If service is in hibernation and the wakeup time has elapsed, wake it.
+          if ((Date.now() - service.lastHibernated > ms(`${this.stores.settings.all.app.wakeUpStrategy}s`))) {
+            this._awake({ serviceId: service.id });
+          }
+        }
       }
 
       if (service.lastPoll && (service.lastPoll - service.lastPollAnswer > ms('1m'))) {
@@ -473,12 +482,11 @@ export default class ServicesStore extends Store {
     if (!keepActiveRoute) this.stores.router.push('/');
     const service = this.one(serviceId);
 
-    this.all.forEach((s, index) => {
-      this.all[index].isActive = false;
+    this.all.forEach((s) => {
+      s.isActive = false;
     });
     service.isActive = true;
     this._awake({ serviceId: service.id });
-    service.lastUsed = Date.now();
 
     if (this.isTodosServiceActive && !this.stores.todos.settings.isFeatureEnabledByUser) {
       this.actions.todos.toggleTodosFeatureVisibility();
@@ -831,19 +839,15 @@ export default class ServicesStore extends Store {
     debug(`Hibernate ${service.name}`);
 
     service.isHibernationRequested = true;
-
-    if (Number(this.stores.settings.all.app.wakeUpStrategy) > 0) {
-      setTimeout(() => {
-        this._awake({ serviceId: service.id });
-      }, ms(`${this.stores.settings.all.app.wakeUpStrategy}s`));
-    }
+    service.lastHibernated = Date.now();
   }
 
   @action _awake({ serviceId }) {
     const service = this.one(serviceId);
     debug(`Waking up from service hibernation for ${service.name}`);
     service.isHibernationRequested = false;
-    service.liveFrom = Date.now();
+    service.lastUsed = Date.now();
+    service.lastHibernated = null;
   }
 
   @action _resetLastPollTimer({ serviceId = null }) {
