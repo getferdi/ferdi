@@ -10,9 +10,12 @@
   "homepage": "https://github.com/getferdi/ferdi",
   "repository": "https://github.com/getferdi/ferdi.git",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "engines": {
     "node": ">=14",
-    "npm": ">=6",
+    "npm": "^7",
     "node-gyp": "^8"
   },
   "engine-strict": true,

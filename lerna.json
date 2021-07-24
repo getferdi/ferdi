@@ -1,14 +1,12 @@
 {
   "packages": [
-    "packages/theme",
-    "packages/forms",
-    "packages/ui",
-    "packages/typings"
+    "packages/*"
   ],
+  "npmClient": "npm",
+  "useWorkspaces": true,
   "version": "independent",
   "ignoreChanges": [
     "**/*.md",
-    "**/.eslintrc.{js,json,yaml,yml}",
-    "**/package-lock.json"
+    "**/.eslintrc.{js,json,yaml,yml}"
   ]
 }
