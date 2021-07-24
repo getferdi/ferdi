@@ -1,4 +1,4 @@
-import color from 'color';
+const color = require('color');
 import { cloneDeep } from 'lodash';
 
 import * as legacyStyles from '../legacy';
