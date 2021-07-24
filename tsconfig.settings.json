@@ -3,14 +3,11 @@
     "baseUrl": ".",
     "target": "esnext",
     "module": "commonjs",
-    "lib": [
-      "es2015",
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2015", "es2017", "dom"],
     "jsx": "react",
     "sourceMap": true,
     "strict": true,
+    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "composite": true,
