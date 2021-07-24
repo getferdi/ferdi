@@ -1,7 +1,23 @@
 {
-  "extends": "./tsconfig.settings.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": ".tstmp",
-    "rootDir": "./"
-  },
+    "rootDir": "./",
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["es2015", "es2017", "dom"],
+    "jsx": "react",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "composite": true,
+    "esModuleInterop": true,
+    "typeRoots": ["packages/typings/types", "node_modules/@types"],
+    "paths": {
+      "@types/*": ["packages/typings/types/*.d.ts"],
+      "*": ["packages/typings/types/*.d.ts"]
+    }
+  }
 }
