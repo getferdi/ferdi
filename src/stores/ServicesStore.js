@@ -18,8 +18,6 @@ import { matchRoute } from '../helpers/routing-helpers';
 import { isInTimeframe } from '../helpers/schedule-helpers';
 import { getRecipeDirectory, getDevRecipeDirectory } from '../helpers/recipe-helpers';
 import { workspaceStore } from '../features/workspaces';
-import { serviceLimitStore } from '../features/serviceLimit';
-import { RESTRICTION_TYPES } from '../models/Service';
 import { KEEP_WS_LOADED_USID } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
 
@@ -94,7 +92,6 @@ export default class ServicesStore extends Store {
       this._saveActiveService.bind(this),
       this._logoutReaction.bind(this),
       this._handleMuteSettings.bind(this),
-      this._restrictServiceAccess.bind(this),
       this._checkForActiveService.bind(this),
     ]);
 
@@ -168,10 +165,19 @@ export default class ServicesStore extends Store {
    */
   _serviceMaintenance() {
     this.all.forEach((service) => {
-      // Defines which services should be hibernated.
-      if (!service.isActive && (Date.now() - service.lastUsed > ms('5m'))) {
-        // If service is stale for 5 min, hibernate it.
-        this._hibernate({ serviceId: service.id });
+      // Defines which services should be hibernated or woken up
+      if (!service.isActive) {
+        if (!service.lastHibernated && (Date.now() - service.lastUsed > ms(`${this.stores.settings.all.app.hibernationStrategy}s`))) {
+          // If service is stale, hibernate it.
+          this._hibernate({ serviceId: service.id });
+        }
+
+        if (service.lastHibernated && Number(this.stores.settings.all.app.wakeUpStrategy) > 0) {
+          // If service is in hibernation and the wakeup time has elapsed, wake it.
+          if ((Date.now() - service.lastHibernated > ms(`${this.stores.settings.all.app.wakeUpStrategy}s`))) {
+            this._awake({ serviceId: service.id });
+          }
+        }
       }
 
       if (service.lastPoll && (service.lastPoll - service.lastPollAnswer > ms('1m'))) {
@@ -297,8 +303,6 @@ export default class ServicesStore extends Store {
   async _createService({
     recipeId, serviceData, redirect = true, skipCleanup = false,
   }) {
-    if (serviceLimitStore.userHasReachedServiceLimit) return;
-
     if (!this.stores.recipes.isInstalled(recipeId)) {
       debug(`Recipe "${recipeId}" is not installed, installing recipe`);
       await this.stores.recipes._install({ recipeId });
@@ -478,12 +482,11 @@ export default class ServicesStore extends Store {
     if (!keepActiveRoute) this.stores.router.push('/');
     const service = this.one(serviceId);
 
-    this.all.forEach((s, index) => {
-      this.all[index].isActive = false;
+    this.all.forEach((s) => {
+      s.isActive = false;
     });
     service.isActive = true;
     this._awake({ serviceId: service.id });
-    service.lastUsed = Date.now();
 
     if (this.isTodosServiceActive && !this.stores.todos.settings.isFeatureEnabledByUser) {
       this.actions.todos.toggleTodosFeatureVisibility();
@@ -825,20 +828,26 @@ export default class ServicesStore extends Store {
 
   @action _hibernate({ serviceId }) {
     const service = this.one(serviceId);
-    if (service.isActive || !service.isHibernationEnabled) {
-      debug('Skipping service hibernation');
+    if (!service.canHibernate) {
+      return;
+    }
+    if (service.isActive) {
+      debug(`Skipping service hibernation for ${service.name}`);
       return;
     }
 
     debug(`Hibernate ${service.name}`);
 
-    service.isHibernating = true;
+    service.isHibernationRequested = true;
+    service.lastHibernated = Date.now();
   }
 
   @action _awake({ serviceId }) {
     const service = this.one(serviceId);
-    service.isHibernating = false;
-    service.liveFrom = Date.now();
+    debug(`Waking up from service hibernation for ${service.name}`);
+    service.isHibernationRequested = false;
+    service.lastUsed = Date.now();
+    service.lastHibernated = null;
   }
 
   @action _resetLastPollTimer({ serviceId = null }) {
@@ -959,35 +968,6 @@ export default class ServicesStore extends Store {
     }
 
     return serviceData;
-  }
-
-  _restrictServiceAccess() {
-    const { features } = this.stores.features;
-    const { userHasReachedServiceLimit, serviceLimit } = this.stores.serviceLimit;
-
-    this.all.map((service, index) => {
-      if (userHasReachedServiceLimit) {
-        service.isServiceAccessRestricted = index >= serviceLimit;
-
-        if (service.isServiceAccessRestricted) {
-          service.restrictionType = RESTRICTION_TYPES.SERVICE_LIMIT;
-
-          debug('Restricting access to server due to service limit');
-        }
-      }
-
-      if (service.isUsingCustomUrl) {
-        service.isServiceAccessRestricted = !features.isCustomUrlIncludedInCurrentPlan;
-
-        if (service.isServiceAccessRestricted) {
-          service.restrictionType = RESTRICTION_TYPES.CUSTOM_URL;
-
-          debug('Restricting access to server due to custom url');
-        }
-      }
-
-      return service;
-    });
   }
 
   _checkForActiveService() {

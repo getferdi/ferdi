@@ -1,3 +1,4 @@
+import os from 'os';
 import path from 'path';
 
 import { is, api as electronApi } from 'electron-util';
@@ -60,6 +61,10 @@ export const useLiveAPI = process.env.LIVE_API;
 export const isMac = is.macos;
 export const isWindows = is.windows;
 export const isLinux = is.linux;
+export const osPlatform = os.platform();
+export const osArch = os.arch();
+export const osRelease = os.release();
+export const is64Bit = osArch.match(/64/);
 
 export const ctrlKey = isMac ? '⌘' : 'Ctrl';
 export const cmdKey = isMac ? 'Cmd' : 'Ctrl';
@@ -115,7 +120,6 @@ export const DEFAULT_APP_SETTINGS = {
   beta: false,
   isAppMuted: false,
   enableGPUAcceleration: true,
-  serviceLimit: 5,
 
   // Ferdi specific options
   server: LIVE_FERDI_API,
@@ -128,9 +132,9 @@ export const DEFAULT_APP_SETTINGS = {
   scheduledDNDEnabled: false,
   scheduledDNDStart: '17:00',
   scheduledDNDEnd: '09:00',
-  hibernate: false,
   hibernateOnStartup: true,
-  hibernationStrategy: 300,
+  hibernationStrategy: '300', // seconds
+  wakeUpStrategy: '300', // seconds
   inactivityLock: 0,
   automaticUpdates: true,
   showServiceNavigationBar: false,

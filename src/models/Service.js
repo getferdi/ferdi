@@ -10,11 +10,6 @@ import UserAgent from './UserAgent';
 
 const debug = require('debug')('Ferdi:Service');
 
-export const RESTRICTION_TYPES = {
-  SERVICE_LIMIT: 0,
-  CUSTOM_URL: 1,
-};
-
 export default class Service {
   id = '';
 
@@ -41,8 +36,6 @@ export default class Service {
   @observable isEnabled = true;
 
   @observable isMuted = false;
-
-  @observable isHibernating = false;
 
   @observable team = '';
 
@@ -82,9 +75,11 @@ export default class Service {
 
   @observable isHibernationEnabled = false;
 
-  @observable isHibernating = false;
+  @observable isHibernationRequested = false;
 
   @observable lastUsed = Date.now(); // timestamp
+
+  @observable lastHibernated = null; // timestamp
 
   @observable lastPoll = Date.now();
 
@@ -150,14 +145,11 @@ export default class Service {
     this.recipe = recipe;
 
     // Check if "Hibernate on Startup" is enabled and hibernate all services except active one
-    const {
-      hibernate,
-      hibernateOnStartup,
-    } = window.ferdi.stores.settings.app;
+    const { hibernateOnStartup } = window.ferdi.stores.settings.app;
     // The service store is probably not loaded yet so we need to use localStorage data to get active service
     const isActive = window.localStorage.service && JSON.parse(window.localStorage.service).activeService === this.id;
-    if (hibernate && hibernateOnStartup && !isActive) {
-      this.isHibernating = true;
+    if (hibernateOnStartup && !isActive) {
+      this.isHibernationRequested = true;
     }
 
     autorun(() => {
@@ -188,6 +180,14 @@ export default class Service {
 
   @computed get isTodosService() {
     return this.recipe.id === todosStore.todoRecipeId;
+  }
+
+  @computed get canHibernate() {
+    return this.isHibernationEnabled;
+  }
+
+  @computed get isHibernating() {
+    return this.canHibernate && this.isHibernationRequested;
   }
 
   get webview() {
@@ -275,11 +275,17 @@ export default class Service {
       debug(this.name, 'modifyRequestHeaders is not defined in the recipe');
     }
 
-    this.webview.addEventListener('ipc-message', e => handleIPCMessage({
-      serviceId: this.id,
-      channel: e.channel,
-      args: e.args,
-    }));
+    this.webview.addEventListener('ipc-message', async (e) => {
+      if (e.channel === 'inject-js-unsafe') {
+        await Promise.all(e.args.map(script => this.webview.executeJavaScript(`"use strict"; (() => { ${script} })();`)));
+      } else {
+        handleIPCMessage({
+          serviceId: this.id,
+          channel: e.channel,
+          args: e.args,
+        });
+      }
+    });
 
     this.webview.addEventListener('new-window', (event, url, frameName, options) => {
       debug('new-window', event, url, frameName, options);
@@ -332,6 +338,11 @@ export default class Service {
     this.webview.addEventListener('crashed', () => {
       debug('Service crashed', this.name);
       this.hasCrashed = true;
+    });
+
+    this.webview.addEventListener('found-in-page', ({ result }) => {
+      debug('Found in page', result);
+      this.webview.send('found-in-page', result);
     });
 
     webviewWebContents.on('login', (event, request, authInfo, callback) => {

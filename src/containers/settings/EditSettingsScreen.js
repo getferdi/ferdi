@@ -11,10 +11,9 @@ import Form from '../../lib/Form';
 import { APP_LOCALES, SPELLCHECKER_LOCALES } from '../../i18n/languages';
 import {
   HIBERNATION_STRATEGIES, SIDEBAR_WIDTH, ICON_SIZES, NAVIGATION_BAR_BEHAVIOURS, SEARCH_ENGINE_NAMES, TODO_APPS,
-  DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED, DEFAULT_IS_FEATURE_ENABLED_BY_USER,
+  DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED, DEFAULT_IS_FEATURE_ENABLED_BY_USER, WAKE_UP_STRATEGIES,
 } from '../../config';
 import { DEFAULT_APP_SETTINGS, isMac } from '../../environment';
-import { config as spellcheckerConfig } from '../../features/spellchecker';
 
 import { getSelectOptions } from '../../helpers/i18n-helpers';
 import { hash } from '../../helpers/password-helpers';
@@ -88,10 +87,6 @@ const messages = defineMessages({
     id: 'settings.app.form.sentry',
     defaultMessage: '!!!Send telemetry data',
   },
-  hibernate: {
-    id: 'settings.app.form.hibernate',
-    defaultMessage: '!!!Enable service hibernation',
-  },
   hibernateOnStartup: {
     id: 'settings.app.form.hibernateOnStartup',
     defaultMessage: '!!!Keep services in hibernation on startup',
@@ -99,6 +94,10 @@ const messages = defineMessages({
   hibernationStrategy: {
     id: 'settings.app.form.hibernationStrategy',
     defaultMessage: '!!!Hibernation strategy',
+  },
+  wakeUpStrategy: {
+    id: 'settings.app.form.wakeUpStrategy',
+    defaultMessage: '!!!Wake up strategy',
   },
   predefinedTodoServer: {
     id: 'settings.app.form.predefinedTodoServer',
@@ -260,6 +259,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         hibernate: settingsData.hibernate,
         hibernateOnStartup: settingsData.hibernateOnStartup,
         hibernationStrategy: settingsData.hibernationStrategy,
+        wakeUpStrategy: settingsData.wakeUpStrategy,
         predefinedTodoServer: settingsData.predefinedTodoServer,
         customTodoServer: settingsData.customTodoServer,
         lockingFeatureEnabled: settingsData.lockingFeatureEnabled,
@@ -336,6 +336,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
 
     const hibernationStrategies = getSelectOptions({
       locales: HIBERNATION_STRATEGIES,
+      sort: false,
+    });
+
+    const wakeUpStrategies = getSelectOptions({
+      locales: WAKE_UP_STRATEGIES,
       sort: false,
     });
 
@@ -433,11 +438,6 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           value: settings.all.app.sentry,
           default: DEFAULT_APP_SETTINGS.sentry,
         },
-        hibernate: {
-          label: intl.formatMessage(messages.hibernate),
-          value: settings.all.app.hibernate,
-          default: DEFAULT_APP_SETTINGS.hibernate,
-        },
         hibernateOnStartup: {
           label: intl.formatMessage(messages.hibernateOnStartup),
           value: settings.all.app.hibernateOnStartup,
@@ -448,6 +448,12 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           value: settings.all.app.hibernationStrategy,
           options: hibernationStrategies,
           default: DEFAULT_APP_SETTINGS.hibernationStrategy,
+        },
+        wakeUpStrategy: {
+          label: intl.formatMessage(messages.wakeUpStrategy),
+          value: settings.all.app.wakeUpStrategy,
+          options: wakeUpStrategies,
+          default: DEFAULT_APP_SETTINGS.wakeUpStrategy,
         },
         predefinedTodoServer: {
           label: intl.formatMessage(messages.predefinedTodoServer),
@@ -516,8 +522,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         },
         enableSpellchecking: {
           label: intl.formatMessage(messages.enableSpellchecking),
-          value: !this.props.stores.user.data.isPremium && !spellcheckerConfig.isIncludedInCurrentPlan ? false : settings.all.app.enableSpellchecking,
-          default: !this.props.stores.user.data.isPremium && !spellcheckerConfig.isIncludedInCurrentPlan ? false : DEFAULT_APP_SETTINGS.enableSpellchecking,
+          value: settings.all.app.enableSpellchecking,
+          default: DEFAULT_APP_SETTINGS.enableSpellchecking,
         },
         spellcheckerLanguage: {
           label: intl.formatMessage(globalMessages.spellcheckerLanguage),
@@ -650,12 +656,10 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           getCacheSize={() => app.cacheSize}
           isClearingAllCache={isClearingAllCache}
           onClearAllCache={clearAllCache}
-          isSpellcheckerIncludedInCurrentPlan={spellcheckerConfig.isIncludedInCurrentPlan}
           isTodosEnabled={todos.isFeatureActive}
           isWorkspaceEnabled={workspaces.isFeatureActive}
           lockingFeatureEnabled={lockingFeatureEnabled}
           automaticUpdates={this.props.stores.settings.app.automaticUpdates}
-          hibernationEnabled={this.props.stores.settings.app.hibernate}
           isDarkmodeEnabled={this.props.stores.settings.app.darkMode}
           isAdaptableDarkModeEnabled={this.props.stores.settings.app.adaptableDarkMode}
           isTodosActivated={this.props.stores.todos.isFeatureEnabledByUser}

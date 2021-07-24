@@ -19,7 +19,6 @@ import { required, url, oneRequired } from '../../helpers/validation-helpers';
 import { getSelectOptions } from '../../helpers/i18n-helpers';
 
 import { config as proxyFeature } from '../../features/serviceProxy';
-import { config as spellcheckerFeature } from '../../features/spellchecker';
 
 import { SPELLCHECKER_LOCALES } from '../../i18n/languages';
 
@@ -346,7 +345,7 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
 
   render() {
     const {
-      recipes, services, user, settings,
+      recipes, services, user,
     } = this.props.stores;
     const { action } = this.props.router.params;
 
@@ -399,9 +398,6 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
           onDelete={() => this.deleteService()}
           openRecipeFile={file => this.openRecipeFile(file)}
           isProxyFeatureEnabled={proxyFeature.isEnabled}
-          isServiceProxyIncludedInCurrentPlan={proxyFeature.isIncludedInCurrentPlan}
-          isSpellcheckerIncludedInCurrentPlan={spellcheckerFeature.isIncludedInCurrentPlan}
-          isHibernationFeatureActive={settings.app.hibernate}
         />
       </ErrorBoundary>
     );

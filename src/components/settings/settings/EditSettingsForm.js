@@ -10,7 +10,6 @@ import Button from '../../ui/Button';
 import Toggle from '../../ui/Toggle';
 import ToggleRaw from '../../ui/ToggleRaw';
 import Select from '../../ui/Select';
-import PremiumFeatureContainer from '../../ui/PremiumFeatureContainer';
 import Input from '../../ui/Input';
 
 import {
@@ -168,12 +167,10 @@ export default @observer class EditSettingsForm extends Component {
     isClearingAllCache: PropTypes.bool.isRequired,
     onClearAllCache: PropTypes.func.isRequired,
     getCacheSize: PropTypes.func.isRequired,
-    isSpellcheckerIncludedInCurrentPlan: PropTypes.bool.isRequired,
     isTodosEnabled: PropTypes.bool.isRequired,
     isTodosActivated: PropTypes.bool.isRequired,
     isWorkspaceEnabled: PropTypes.bool.isRequired,
     automaticUpdates: PropTypes.bool.isRequired,
-    hibernationEnabled: PropTypes.bool.isRequired,
     isDarkmodeEnabled: PropTypes.bool.isRequired,
     isAdaptableDarkModeEnabled: PropTypes.bool.isRequired,
     isNightlyEnabled: PropTypes.bool.isRequired,
@@ -224,11 +221,9 @@ export default @observer class EditSettingsForm extends Component {
       isClearingAllCache,
       onClearAllCache,
       getCacheSize,
-      isSpellcheckerIncludedInCurrentPlan,
       isTodosEnabled,
       isWorkspaceEnabled,
       automaticUpdates,
-      hibernationEnabled,
       isDarkmodeEnabled,
       isTodosActivated,
       isNightlyEnabled,
@@ -339,13 +334,8 @@ export default @observer class EditSettingsForm extends Component {
 
                 <Hr />
 
-                <Toggle field={form.$('hibernate')} />
-                {hibernationEnabled && (
-                  <>
-                    <Select field={form.$('hibernationStrategy')} />
-                    <Toggle field={form.$('hibernateOnStartup')} />
-                  </>
-                )}
+                <Select field={form.$('hibernationStrategy')} />
+                <Toggle field={form.$('hibernateOnStartup')} />
                 <p
                   className="settings__message"
                   style={{
@@ -356,6 +346,8 @@ export default @observer class EditSettingsForm extends Component {
                     { intl.formatMessage(messages.hibernateInfo) }
                   </span>
                 </p>
+
+                <Select field={form.$('wakeUpStrategy')} />
 
                 <Hr />
 
@@ -564,22 +556,16 @@ export default @observer class EditSettingsForm extends Component {
 
                 <Hr />
 
-                <PremiumFeatureContainer
-                  condition={!isSpellcheckerIncludedInCurrentPlan}
-                  gaEventInfo={{ category: 'User', event: 'upgrade', label: 'spellchecker' }}
-                >
-                  <>
-                    <Toggle
-                      field={form.$('enableSpellchecking')}
-                    />
-                    {!isMac && form.$('enableSpellchecking').value && (
-                      <Select field={form.$('spellcheckerLanguage')} />
-                    )}
-                    {isMac && form.$('enableSpellchecking').value && (
-                      <p>{intl.formatMessage(messages.spellCheckerLanguageInfo)}</p>
-                    )}
-                  </>
-                </PremiumFeatureContainer>
+                <Toggle
+                  field={form.$('enableSpellchecking')}
+                />
+                {!isMac && form.$('enableSpellchecking').value && (
+                  <Select field={form.$('spellcheckerLanguage')} />
+                )}
+                {isMac && form.$('enableSpellchecking').value && (
+                  <p>{intl.formatMessage(messages.spellCheckerLanguageInfo)}</p>
+                )}
+
                 <a
                   href={FRANZ_TRANSLATION}
                   target="_blank"
