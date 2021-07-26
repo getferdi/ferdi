@@ -48,7 +48,7 @@ jobs:
       - name: Uninstall locally and reinstall node-gyp globally
         run: |
           npm uninstall node-gyp
-          npm i -g node-gyp@8.0.0 && npm config set node_gyp "$(which node-gyp)"
+          npm i -g node-gyp@8.1.0
       - name: Install node dependencies recursively
         run: npx lerna bootstrap
       - name: Update submodules

@@ -3,7 +3,7 @@
   "productName": "Ferdi",
   "desktopName": "ferdi.desktop",
   "appId": "com.kytwb.ferdi",
-  "version": "5.6.1-nightly.3",
+  "version": "5.6.1-nightly.4",
   "description": "Messaging app for WhatsApp, Slack, Telegram, HipChat, Hangouts and many many more.",
   "copyright": "kytwb",
   "main": "index.js",
@@ -16,7 +16,7 @@
   "engines": {
     "node": ">=14",
     "npm": "^7",
-    "node-gyp": "^8"
+    "node-gyp": "^8.1"
   },
   "engine-strict": true,
   "scripts": {
@@ -170,7 +170,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "dotenv": "10.0.0",
     "electron": "13.1.7",
-    "electron-builder": "22.11.9",
+    "electron-builder": "22.11.10",
     "electron-notarize": "1.0.0",
     "electron-rebuild": "2.3.5",
     "eslint": "7.29.0",

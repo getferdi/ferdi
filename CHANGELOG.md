@@ -1,3 +1,47 @@
+## [5.6.1-nightly.4](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.2...v5.6.1-nightly.4) (2021-07-25)
+
+- Upgraded electron-builder to '22.11.10' (which supposedly fixes issues with packaging of node_modules) 💖 @vraravam
+- 5.6.1-nightly.4
+- Update submodules, browserslist data updates and linter fixes [skip ci]
+- 5.6.1-nightly.3
+- Trying to fix issue with CHANGES_COUNT not being deduced properly on CI runs (thus skipping the ferdi version). [skip ci] 💖 @vraravam
+- Updated recipes to pull in context-isolation changes. [skip ci] 💖 @kris7t
+- Recipe context isolation (#1456) 💖 @kris7t
+- Update submodules, browserslist data updates and linter fixes [skip ci]
+- New Crowdin updates (#1681)
+- Added a 'wakeUpStrategy' that the user can control to wake up a previously hibernated service (#1680) 💖 @vraravam
+- New Crowdin updates (#1678)
+- Removed unused i18n keys. [skip ci] 💖 @vraravam
+- Fix hibernation mode (#1486) 💖 @kytwb, @kris7t
+- Removed references to 'premium' i18n keys that are no longer used. 💖 @vraravam
+- New translations en-US.json (Korean) (#1677)
+
+## [5.6.1-nightly.2](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.0...v5.6.1-nightly.2) (2021-07-23)
+
+- 5.6.1-nightly.2
+- Fixed issue with the version-bumping check not registering as an env var for GH actions. [skip ci] 💖 @vraravam
+- Update submodules, browserslist data updates and linter fixes [skip ci]
+- New Crowdin updates (#1671)
+- Removed Franz paid plans features: - serviceLimit - planSelection - trialStatusBar 💖 @vraravam
+- New Crowdin updates (#1668)
+- New translations en-US.json (Italian)
+- Change contributor template to allow more contributors. [skip ci] Regenerate with new contributors added. 💖 @kytwb, @vraravam
+- 5.6.1-nightly.1
+- Resurrect 'fetch-depth' since its needed for merging of branches. [skip ci] 💖 @vraravam
+- Minor refactoring to avoid leaking of objects. 💖 @vraravam
+- New translations en-US.json (Chinese Simplified)
+
+## [5.6.0](https://github.com/getferdi/ferdi/compare/v5.6.0-beta.8...v5.6.0) (2021-07-23)
+
+- Upgrade changelogs for 5.6.0-beta.7 and 5.6.0-beta.8 [skip ci] 💖 @vraravam
+- Added debug logs for auto-updater. [skip ci] 💖 @vraravam
+- Fixed issue with error hiding version bump. 💖 @vraravam
+- Slight perf improvement for GH build checkout action; removed unused workflow. 💖 @vraravam
+- Update submodules, browserslist data updates and linter fixes [skip ci]
+- Skip bumping of app version if there are no other changes in a scheduled build. 💖 @vraravam
+- Fixed issue where the 'copy page url' didn't honor silent notifications for clipboard events. 💖 @vraravam
+- 5.6.0-nightly.88
+
 # [5.6.0-beta.8](https://github.com/getferdi/ferdi/compare/v5.6.0-beta.7...v5.6.0-beta.8) (2021-07-16)
 
 - Upgraded electron to '13.1.7' 💖 @vraravam
@@ -30,6 +74,7 @@
 # [5.6.0-beta.6](https://github.com/getferdi/ferdi/compare/v5.6.0-beta.5...v5.6.0-beta.6) (2021-05-31)
 
 ### Features
+
 - Add new setting to minimize to tray when closing on Windows (#1087) 💖 @1mm0rt41PC
 - Add Search with Google and DuckDuckGo items in the context menu 💖 @MosheGross, @vraravam
 - Add support for Apple M1 💖 @arioki1, @vraravam
@@ -40,6 +85,7 @@
 - Add MSI installer for Windows (#1443) 💖 @vraravam
 
 ### Minor changes
+
 - Display search input when service is not found 💖 @arioki1
 - Expose Electron version information in "About Ferdi" (#1109) 💖 @vraravam
 - Add delete service confirmation (#1286) 💖 @vraravam
@@ -51,6 +97,7 @@
 - Improve screen sharing selector appearance and add screen sharing cancellation
 
 ### Recipes
+
 - Add 14 new recipes! Intercom, Infomaniak Mail, Clockify, BiP, Azure DevOps, Canvas, Webex Teams, Erepublik, Kimai, Snapdrop, Amazon WorkMail, Google Contacts, Harvest, Inoreader 💖 @guillaume-ro-fr, @bidouilles, @sysuin, @arioki1, @BilelJegham, @Sagir-mo, @rbertoncelj, @kevinpapst, @vraravam, @annagrram
 - Update Google Calendar icon 💖 @jobo90
 - Fix WhatsApp unread message counter 💖 @bpwned, @TheBoroer
@@ -74,6 +121,7 @@
 - Fix Telegram React unread count 💖 @vraravam
 
 ### Fixes
+
 - Fix installation instructions for Homebrew (#1143) 💖 @kawarimidoll
 - Show username and lastname fetched from server in account settings (#1040) 💖 @k0staa
 - Fix "Service Developer Tools not available" (#147) 💖 @arioki1
@@ -84,6 +132,7 @@
 - Fix "Show Ferdi In Menu Bar" nomenclature on macOS (#1417) 💖 @vraravam
 
 ### Under the hood
+
 - Update to Electron 13.0.1 💖 @vraravam, @kris7t
 - Update dependencies 💖 @vraravam, @kris7t
 - Synchronize with Ferdi 5.6.0 💖 @vraravam
@@ -92,6 +141,7 @@
 # [5.6.0-beta.5](https://github.com/getferdi/ferdi/compare/v5.6.0-beta.2...v5.6.0-beta.5) (2020-12-20)
 
 ### Features
+
 - Add FAB to service dashboard (#824)
 - Add "Go to Home Page" in services context menu (#900) 💖 @raicerk
 - Add vertical style and "Always show workspace drawer" setting (#567)
@@ -99,6 +149,7 @@
 - Add danish translations 💖 @madsmtm
 
 ### Minor changes
+
 - Update dependencies
 - Add Norwegian translations (#840) 💖 @larsmagnusherland
 - Update adaptable dark mode to work on all platforms (#834)
@@ -107,6 +158,7 @@
 - Improve Ferdi's design (#977)
 
 ### Recipes
+
 - Add 24 new recipes! Nextcloud, Nextcloud Cospend, Nextcloud Tasks, StackExchange, Noisli, Yahoo Mail, TickTick, DevDocs, Figma, iCloud Reminders, OneNote, YouTrack, SimpleNote, Lark, Slite, Pinterest, Disqus, Microsoft Todo, Google Podcasts, YouTube Music, Sync.com, Wire, Fleep, Google Classroom 💖 @eandersons, @kittywhiskers, @andrsussa, @vraravam, @arioki1, @hongshaoyang, @tofran, @stephenpapierski, @marcolussetti, @alopix, @iansearly, @TanZng
 - Fix connection error in case of audio/video call in Google Meet (getferdi/recipes#186) 💖 @Room4O4
 - Fix Wrike notification counter (getferdi/recipes#237) 💖 @mvdgun
@@ -130,11 +182,13 @@
 - Add notification count for Habitica 💖 @iansearly
 
 ### Fixes
+
 - Fix Electron 9 crash on Windows 10 (#986) 💖 @mahadevans87
 - Patch getDisplayMedia for screen sharing in all services (#802)
 - Fix "Open folder" button on "Custom services" screen (#991)
 
 ### Under the hood
+
 - Update to Electron 9
 - Remove Ferdi string from default user agent (#806) 💖 @dannyqiu
 - Add recipes packaging to development setup (#985)
@@ -144,9 +198,11 @@
 # [5.6.0-beta.2](https://github.com/getferdi/ferdi/compare/v5.5.0...v5.6.0-beta.2) (2020-06-14)
 
 ### Features
+
 - Make the notifications badge work with LauncherAPI-compliant (#736) 💖 @gabspeck
 
 ### Minor changes
+
 - Update node-sass to 4.14.0 for compatibility with Node 14.x (#656) 💖 @dpeukert
 - Change Keyboard shortcut tooltip text in Sidebar for Settings (#665) 💖 @sampathBlam
 - Restore "delete service" option in sidebar (#692) 💖 @sampathBlam
@@ -161,6 +217,7 @@
 - Update global user agent to conform with spec (#779) 💖 @dannyqiu
 
 ### Bug Fixes
+
 - Prevent unnecessary electron popup windows for links (#685) 💖 @mahadevans87
 - Refactor locking feature (#693)
 - Review launch on startup for macOS, start Ferdi app, not renderer (#696) 💖 @dannyqiu
