@@ -311,7 +311,7 @@ jobs:
       - name: Uninstall locally and reinstall node-gyp globally
         run: |
           npm uninstall node-gyp
-          npm i -g node-gyp@8.1.0"
+          npm i -g node-gyp@8.1.0
         shell: bash
       - name: Fix corrupted node cache
         run: npm cache clean --force
