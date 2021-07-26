@@ -312,6 +312,7 @@ jobs:
         run: |
           npm uninstall node-gyp
           npm i -g node-gyp@8.0.0 && npm config set node_gyp "$(which node-gyp)"
+        shell: bash
       - name: Fix corrupted node cache
         run: npm cache clean --force
         shell: bash
