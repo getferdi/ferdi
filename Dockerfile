@@ -21,7 +21,7 @@ WORKDIR /usr/src/ferdi
 COPY package*.json ./
 COPY lerna.json ./
 
-RUN npm i -g node-gyp@8.0.0 \
+RUN npm i -g node-gyp@8.1.0 \
   && npm config set node_gyp "$(which node-gyp)"
 
 COPY . .
