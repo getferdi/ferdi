@@ -41,22 +41,31 @@ jobs:
     steps:
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled'
         uses: actions/checkout@v2
-        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch')) }}
+        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]')) }}
         with:
           ref: nightly
           submodules: recursive
           fetch-depth: 0    # Note: Needed to be able to pull the 'develop' branch as well for merging
       - id: should_run
         name: Check whether there are any commits since this run was last triggered and push them and/or set the output
-        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch')) }}
+        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]')) }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
 
+          CHANGES_COUNT=$(git diff --shortstat origin/develop | wc -l)
+          if [ $CHANGES_COUNT -gt 0 ] || [ {{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[version bump]') }} ]; then
+            # Do the version bump in the 'develop' branch ONLY if there were other changes coming from the 'develop' branch
+            git checkout develop
+            npm version -m "%s [skip ci]" prerelease --preid=nightly
+            git push origin develop
+
+            git checkout nightly
+          fi
+
           echo "Merge with fast-forward from 'origin/develop'"
           git merge --ff-only origin/develop --no-verify
 
-          CHANGES_COUNT=$(git diff --shortstat origin/nightly | wc -l)
           MANUAL_REBUILD="${{ github.event_name == 'workflow_dispatch' }}"
           echo "Number of changes: $CHANGES_COUNT"
           if [ $CHANGES_COUNT -eq 0 ] && [ $MANUAL_REBUILD != "true" ]; then
@@ -70,7 +79,7 @@ jobs:
   build_mac:
     name: 'macos ${{ github.event.inputs.message }}'
     needs: check_updates
-    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, 'macOS') || (!contains(github.event.inputs.message, 'macOS') && !contains(github.event.inputs.message, 'Linux') && !contains(github.event.inputs.message, 'Windows'))))) }}
+    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[macOS]') || (!contains(github.event.inputs.message, '[macOS]') && !contains(github.event.inputs.message, '[Linux]') && !contains(github.event.inputs.message, '[Windows]'))))) }}
     runs-on: macos-10.15
     steps:
       - name: Set env vars
@@ -78,7 +87,7 @@ jobs:
           echo "NPM_CACHE=$HOME/.npm" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$HOME/.cache/electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
-          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch') }}" >> $GITHUB_ENV
+          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
           echo "SKIP_NOTARIZATION=${{ !contains(github.repository_owner, 'getferdi') }}" >> $GITHUB_ENV
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled' or this is a forced rebuild on the nightly branch
         uses: actions/checkout@v2
@@ -167,7 +176,7 @@ jobs:
   build_linux:
     name: 'ubuntu ${{ github.event.inputs.message }}'
     needs: check_updates
-    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, 'Linux') || (!contains(github.event.inputs.message, 'macOS') && !contains(github.event.inputs.message, 'Linux') && !contains(github.event.inputs.message, 'Windows'))))) }}
+    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[Linux]') || (!contains(github.event.inputs.message, '[macOS]') && !contains(github.event.inputs.message, '[Linux]') && !contains(github.event.inputs.message, '[Windows]'))))) }}
     runs-on: ubuntu-20.04
     steps:
       - name: Set env vars
@@ -175,7 +184,7 @@ jobs:
           echo "NPM_CACHE=$HOME/.npm" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$HOME/.cache/electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
-          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch') }}" >> $GITHUB_ENV
+          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
           echo "SKIP_NOTARIZATION=${{ !contains(github.repository_owner, 'getferdi') }}" >> $GITHUB_ENV
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled' or this is a forced rebuild on the nightly branch
         uses: actions/checkout@v2
@@ -254,7 +263,7 @@ jobs:
   build_windows:
     name: 'windows ${{ github.event.inputs.message }}'
     needs: check_updates
-    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, 'Windows') || (!contains(github.event.inputs.message, 'macOS') && !contains(github.event.inputs.message, 'Linux') && !contains(github.event.inputs.message, 'Windows'))))) }}
+    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[Windows]') || (!contains(github.event.inputs.message, '[macOS]') && !contains(github.event.inputs.message, '[Linux]') && !contains(github.event.inputs.message, '[Windows]'))))) }}
     runs-on: windows-2019
     steps:
       - name: Set env vars
@@ -263,7 +272,7 @@ jobs:
           echo "NPM_CACHE=$USERPROFILE\.npm" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$USERPROFILE\.cache\electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$USERPROFILE\.cache\electron-builder" >> $GITHUB_ENV
-          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch') }}" >> $GITHUB_ENV
+          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
           echo "SKIP_NOTARIZATION=${{ !contains(github.repository_owner, 'getferdi') }}" >> $GITHUB_ENV
         shell: bash
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled' or this is a forced rebuild on the nightly branch
