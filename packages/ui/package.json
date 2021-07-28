@@ -23,15 +23,15 @@
   "author": "Stefan Malzner <stefan@adlk.io>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@mdi/react": "^1.1.0",
+    "@mdi/react": "1.5.0",
     "@meetfranz/theme": "file:../theme",
     "react-loader": "2.4.7"
   },
   "peerDependencies": {
-    "classnames": "^2.2.6",
-    "react": "^16.7.0",
-    "react-dom": "16.7.0",
-    "react-jss": "^8.6.1"
+    "classnames": "2.3.1",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-jss": "8.6.1"
   },
   "gitHead": "254da30f801169fac376bda1439b46cabbb491ad"
 }

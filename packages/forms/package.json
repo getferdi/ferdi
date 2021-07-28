@@ -23,18 +23,18 @@
   "author": "Amine Mouafik <amine@mouafik.fr>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@mdi/js": "^3.3.92",
-    "@mdi/react": "^1.1.0",
+    "@mdi/js": "3.3.92",
+    "@mdi/react": "1.5.0",
     "@meetfranz/theme": "file:../theme",
-    "csstype": "^3.0.8",
-    "react-html-attributes": "^1.4.3",
+    "csstype": "3.0.8",
+    "react-html-attributes": "1.4.3",
     "react-loader": "2.4.7"
   },
   "peerDependencies": {
-    "classnames": "^2.2.6",
-    "react": "^16.7.0",
-    "react-dom": "16.7.0",
-    "react-jss": "^8.6.1"
+    "classnames": "2.3.1",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-jss": "8.6.1"
   },
   "gitHead": "00db2bddccb8bb8ad7d29b8d032876c798b8bbf3"
 }

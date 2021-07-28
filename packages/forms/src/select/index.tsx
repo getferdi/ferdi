@@ -169,9 +169,7 @@ class SelectComponent extends Component<IProps> {
   }
 
   componentDidUpdate(prevProps: IProps, prevState: IState) {
-    const {
-      open,
-    } = this.state;
+    const { open } = this.state;
 
     if (this.searchInputRef && this.searchInputRef.current) {
       if (open) {
@@ -182,9 +180,7 @@ class SelectComponent extends Component<IProps> {
 
   componentDidMount() {
     if (this.inputRef && this.inputRef.current) {
-      const {
-        data,
-      } = this.props;
+      const { data } = this.props;
 
       if (data) {
         Object.keys(data).map(key => this.inputRef.current!.dataset[key] = data[key]);
@@ -195,9 +191,7 @@ class SelectComponent extends Component<IProps> {
   }
 
   componentWillMount() {
-    const {
-      value,
-    } = this.props;
+    const { value } = this.props;
 
     if (this.componentRef && this.componentRef.current) {
       this.componentRef.current.removeEventListener('keydown', this.keyListener);
