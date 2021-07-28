@@ -1,7 +1,7 @@
 import Icon from '@mdi/react';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
-import * as CSS from 'csstype';
+import { Property } from 'csstype';
 import React, { Component } from 'react';
 import injectStyle, { withTheme } from 'react-jss';
 import Loader from 'react-loader';
@@ -34,13 +34,13 @@ const styles = (theme: Theme) => ({
     borderRadius: theme.borderRadiusSmall,
     border: 'none',
     display: 'inline-flex',
-    position: 'relative' as CSS.Property.Position,
+    position: 'relative' as Property.Position,
     transition: 'background .5s, opacity 0.3s',
-    textAlign: 'center' as CSS.Property.TextAlign,
+    textAlign: 'center' as Property.TextAlign,
     outline: 'none',
     alignItems: 'center',
     padding: 0,
-    width: (props: IProps) => (props.stretch ? '100%' : 'auto') as CSS.Property.Width<string>,
+    width: (props: IProps) => (props.stretch ? '100%' : 'auto') as Property.Width<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
     // height: theme.buttonHeight,
@@ -113,7 +113,7 @@ const styles = (theme: Theme) => ({
     opacity: theme.inputDisabledOpacity,
   },
   loader: {
-    position: 'relative' as CSS.Property.Position,
+    position: 'relative' as Property.Position,
     width: 20,
     height: 18,
     zIndex: 9999,
@@ -125,7 +125,7 @@ const styles = (theme: Theme) => ({
     transition: 'all 0.3s',
     marginLeft: (props: IProps): number => (!props.busy ? 10 : 20),
     marginRight: (props: IProps): number => (!props.busy ? -10 : -20),
-    position: (props: IProps): CSS.Property.Position => props.stretch ? 'absolute' : 'inherit',
+    position: (props: IProps): Property.Position => props.stretch ? 'absolute' : 'inherit',
   },
   icon: {
     margin: [1, 10, 0, -5],

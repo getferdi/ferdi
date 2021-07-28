@@ -1,5 +1,5 @@
 import { Theme } from '@meetfranz/theme';
-import * as CSS from 'csstype';
+import { Property } from 'csstype';
 
 export default (theme: Theme) => ({
   label: {
@@ -42,7 +42,7 @@ export default (theme: Theme) => ({
     background: theme.inputBackground,
     border: theme.inputBorder,
     borderRadius: theme.borderRadiusSmall,
-    boxSizing: 'border-box' as CSS.Property.BoxSizing,
+    boxSizing: 'border-box' as Property.BoxSizing,
     display: 'flex',
     order: 1,
     width: '100%',

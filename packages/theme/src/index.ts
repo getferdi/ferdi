@@ -1,13 +1,13 @@
 import makeDarkThemeConfig from './themes/dark';
 import makeDefaultThemeConfig from './themes/default';
-import * as legacyStyles from './themes/legacy';
+import { themeBrandPrimary } from './themes/legacy';
 
 export enum ThemeType {
   default = 'default',
   dark = 'dark',
 }
 
-export const DEFAULT_ACCENT_COLOR = legacyStyles.themeBrandPrimary;
+export const DEFAULT_ACCENT_COLOR = themeBrandPrimary;
 
 export function theme(themeId: ThemeType,
                       brandColor: string = DEFAULT_ACCENT_COLOR) {

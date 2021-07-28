@@ -1,4 +1,4 @@
-import * as CSS from 'csstype';
+import { Property } from 'csstype';
 import { Classes } from 'jss';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
@@ -35,7 +35,7 @@ const styles = {
   },
   menu: {
     width: 300,
-    position: 'fixed' as CSS.Property.Position,
+    position: 'fixed' as Property.Position,
     listStyleType: 'none',
     fontSize: 14,
     overflow: 'scroll',
@@ -66,7 +66,7 @@ const styles = {
     borderBottom: '1px solid #CFCFCF',
   },
   sectionLink: {
-    fontWeight: 'bold' as CSS.Property.FontWeight,
+    fontWeight: 'bold' as Property.FontWeight,
     color: '#000',
     textDecoration: 'none',
   },
