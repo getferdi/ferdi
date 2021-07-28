@@ -1,5 +1,3 @@
-import { mdiEye, mdiEyeOff } from '@mdi/js';
-import Icon from '@mdi/react';
 import classnames from 'classnames';
 import React, { Component, createRef } from 'react';
 import injectSheet from 'react-jss';

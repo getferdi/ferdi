@@ -7,7 +7,6 @@ import injectStyle from 'react-jss';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 
-import { NONAME } from 'dns';
 import { Error } from '../error';
 import { Label } from '../label';
 import { Wrapper } from '../wrapper';
