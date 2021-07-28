@@ -5,6 +5,7 @@
     "packages/ui",
     "packages/typings"
   ],
+  "npmClient": "npm",
   "version": "independent",
   "ignoreChanges": [
     "**/*.md",
