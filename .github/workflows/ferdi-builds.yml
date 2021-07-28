@@ -41,23 +41,35 @@ jobs:
     steps:
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled'
         uses: actions/checkout@v2
-        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch')) }}
+        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]')) }}
         with:
           ref: nightly
           submodules: recursive
           fetch-depth: 0    # Note: Needed to be able to pull the 'develop' branch as well for merging
       - id: should_run
         name: Check whether there are any commits since this run was last triggered and push them and/or set the output
-        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch')) }}
+        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]')) }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
 
+          CHANGES_COUNT=$(git diff --shortstat origin/develop | wc -l)
+          MANUAL_REBUILD="${{ github.event_name == 'workflow_dispatch' }}"
+          VERSION_BUMP="${{ contains(github.event.inputs.message, '[version bump]') }}"
+          if [ $CHANGES_COUNT -gt 0 ] || [[ $MANUAL_REBUILD == "true" && $VERSION_BUMP == "true" ]]; then
+            # Do the version bump in the 'develop' branch ONLY if there were other changes coming from the 'develop' branch
+            git checkout develop
+            TAG_NAME=$(npm version -m "%s [skip ci]" prerelease --preid=nightly)
+            git push origin develop --no-verify
+            git tag $TAG_NAME
+            git push origin --tags --no-verify
+
+            git checkout nightly
+          fi
+
           echo "Merge with fast-forward from 'origin/develop'"
           git merge --ff-only origin/develop --no-verify
 
-          CHANGES_COUNT=$(git diff --shortstat origin/nightly | wc -l)
-          MANUAL_REBUILD="${{ github.event_name == 'workflow_dispatch' }}"
           echo "Number of changes: $CHANGES_COUNT"
           if [ $CHANGES_COUNT -eq 0 ] && [ $MANUAL_REBUILD != "true" ]; then
             echo "No changes found - terminating the build"
@@ -70,7 +82,7 @@ jobs:
   build_mac:
     name: 'macos ${{ github.event.inputs.message }}'
     needs: check_updates
-    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, 'macOS') || (!contains(github.event.inputs.message, 'macOS') && !contains(github.event.inputs.message, 'Linux') && !contains(github.event.inputs.message, 'Windows'))))) }}
+    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[macOS]') || (!contains(github.event.inputs.message, '[macOS]') && !contains(github.event.inputs.message, '[Linux]') && !contains(github.event.inputs.message, '[Windows]'))))) }}
     runs-on: macos-10.15
     steps:
       - name: Set env vars
@@ -78,7 +90,7 @@ jobs:
           echo "NPM_CACHE=$HOME/.npm" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$HOME/.cache/electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
-          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch') }}" >> $GITHUB_ENV
+          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
           echo "SKIP_NOTARIZATION=${{ !contains(github.repository_owner, 'getferdi') }}" >> $GITHUB_ENV
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled' or this is a forced rebuild on the nightly branch
         uses: actions/checkout@v2
@@ -126,10 +138,11 @@ jobs:
         run: |
           sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
           sudo xcode-select -s "/Applications/Xcode_12.4.app"
-      - name: Uninstall locally and reinstall node-gyp globally
+      - name: Uninstall locally and reinstall global npm modules
         run: |
           npm uninstall node-gyp
-          npm i -g node-gyp@8.1.0
+          npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
+          npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
       - name: Fix corrupted node cache
         run: npm cache clean --force
       - name: Install node dependencies recursively
@@ -167,7 +180,7 @@ jobs:
   build_linux:
     name: 'ubuntu ${{ github.event.inputs.message }}'
     needs: check_updates
-    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, 'Linux') || (!contains(github.event.inputs.message, 'macOS') && !contains(github.event.inputs.message, 'Linux') && !contains(github.event.inputs.message, 'Windows'))))) }}
+    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[Linux]') || (!contains(github.event.inputs.message, '[macOS]') && !contains(github.event.inputs.message, '[Linux]') && !contains(github.event.inputs.message, '[Windows]'))))) }}
     runs-on: ubuntu-20.04
     steps:
       - name: Set env vars
@@ -175,7 +188,7 @@ jobs:
           echo "NPM_CACHE=$HOME/.npm" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$HOME/.cache/electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
-          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch') }}" >> $GITHUB_ENV
+          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
           echo "SKIP_NOTARIZATION=${{ !contains(github.repository_owner, 'getferdi') }}" >> $GITHUB_ENV
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled' or this is a forced rebuild on the nightly branch
         uses: actions/checkout@v2
@@ -219,10 +232,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.4.2
-      - name: Uninstall locally and reinstall node-gyp globally
+      - name: Uninstall locally and reinstall global npm modules
         run: |
           npm uninstall node-gyp
-          npm i -g node-gyp@8.1.0
+          npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
+          npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
       - name: Fix corrupted node cache
         run: npm cache clean --force
       - name: Install node dependencies recursively
@@ -254,7 +268,7 @@ jobs:
   build_windows:
     name: 'windows ${{ github.event.inputs.message }}'
     needs: check_updates
-    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, 'Windows') || (!contains(github.event.inputs.message, 'macOS') && !contains(github.event.inputs.message, 'Linux') && !contains(github.event.inputs.message, 'Windows'))))) }}
+    if: ${{ (needs.check_updates.outputs.should_run != 'false') && (github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && (contains(github.event.inputs.message, '[Windows]') || (!contains(github.event.inputs.message, '[macOS]') && !contains(github.event.inputs.message, '[Linux]') && !contains(github.event.inputs.message, '[Windows]'))))) }}
     runs-on: windows-2019
     steps:
       - name: Set env vars
@@ -263,7 +277,7 @@ jobs:
           echo "NPM_CACHE=$USERPROFILE\.npm" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$USERPROFILE\.cache\electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$USERPROFILE\.cache\electron-builder" >> $GITHUB_ENV
-          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, 'nightly branch') }}" >> $GITHUB_ENV
+          echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
           echo "SKIP_NOTARIZATION=${{ !contains(github.repository_owner, 'getferdi') }}" >> $GITHUB_ENV
         shell: bash
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled' or this is a forced rebuild on the nightly branch
@@ -307,11 +321,17 @@ jobs:
       - name: Use Node.js 16.4.2
         uses: actions/setup-node@v2
         with:
+<<<<<<< HEAD
           node-version: 16.4.2
       - name: Uninstall locally and reinstall node-gyp globally
+=======
+          node-version: 14.17.3
+      - name: Uninstall locally and reinstall global npm modules
+>>>>>>> d671afec794992d052f6f6b7ea73a571e67db7c1
         run: |
           npm uninstall node-gyp
-          npm i -g node-gyp@8.1.0
+          npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
+          npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
         shell: bash
       - name: Fix corrupted node cache
         run: npm cache clean --force

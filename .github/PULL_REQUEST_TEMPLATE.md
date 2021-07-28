@@ -28,7 +28,7 @@
 #### Checklist
 <!-- Remove items that do not apply. For completed items, change [ ] to [x]. -->
 - [ ] My pull request is properly named
-- [ ] The changes respect the code style of the project (`$ npm run lint && npm run reformat-files && npm run manage-translations && npm run apply-branding`)
+- [ ] The changes respect the code style of the project (`npm run prepare-code`)
 - [ ] `npm test` passes
 - [ ] I tested/previewed my changes locally
 

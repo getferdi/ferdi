@@ -1,6 +1,6 @@
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
-import * as CSS from 'csstype';
+import { Property } from 'csstype';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
@@ -22,7 +22,7 @@ const styles = (theme: Theme) => ({
     background: theme.toggleBackground,
     borderRadius: theme.borderRadius,
     height: theme.toggleHeight,
-    position: 'relative' as CSS.Property.Position,
+    position: 'relative' as Property.Position,
     width: theme.toggleWidth,
   },
   button: {
@@ -33,7 +33,7 @@ const styles = (theme: Theme) => ({
     height: theme.toggleHeight - 2,
     left: 1,
     top: 1,
-    position: 'absolute' as CSS.Property.Position,
+    position: 'absolute' as Property.Position,
     transition: 'all .5s',
   },
   buttonActive: {
