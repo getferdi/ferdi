@@ -1,4 +1,8 @@
-import { mdiArrowRightDropCircleOutline, mdiCloseCircle, mdiMagnify } from '@mdi/js';
+import {
+  mdiArrowRightDropCircleOutline,
+  mdiCloseCircle,
+  mdiMagnify,
+} from '@mdi/js';
 import Icon from '@mdi/react';
 import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
@@ -7,7 +11,6 @@ import injectStyle from 'react-jss';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 
-import { NONAME } from 'dns';
 import { Error } from '../error';
 import { Label } from '../label';
 import { Wrapper } from '../wrapper';
@@ -59,7 +62,7 @@ const styles = (theme: Theme) => ({
   label: {
     '& > div': {
       marginTop: 5,
-    }
+    },
   },
   popup: {
     opacity: 0,
@@ -170,9 +173,7 @@ class SelectComponent extends Component<IProps> {
   }
 
   componentDidUpdate(prevProps: IProps, prevState: IState) {
-    const {
-      open,
-    } = this.state;
+    const { open } = this.state;
 
     if (this.searchInputRef && this.searchInputRef.current) {
       if (open) {
@@ -183,12 +184,12 @@ class SelectComponent extends Component<IProps> {
 
   componentDidMount() {
     if (this.inputRef && this.inputRef.current) {
-      const {
-        data,
-      } = this.props;
+      const { data } = this.props;
 
       if (data) {
-        Object.keys(data).map(key => this.inputRef.current!.dataset[key] = data[key]);
+        Object.keys(data).map(
+          key => (this.inputRef.current!.dataset[key] = data[key]),
+        );
       }
     }
 
@@ -196,12 +197,13 @@ class SelectComponent extends Component<IProps> {
   }
 
   componentWillMount() {
-    const {
-      value,
-    } = this.props;
+    const { value } = this.props;
 
     if (this.componentRef && this.componentRef.current) {
-      this.componentRef.current.removeEventListener('keydown', this.keyListener);
+      this.componentRef.current.removeEventListener(
+        'keydown',
+        this.keyListener,
+      );
     }
 
     if (value) {
@@ -222,8 +224,13 @@ class SelectComponent extends Component<IProps> {
 
     let filteredOptions = {};
     if (needle) {
-      Object.keys(options).map((key) => {
-        if (key.toLocaleLowerCase().startsWith(needle.toLocaleLowerCase()) || options[key].toLocaleLowerCase().startsWith(needle.toLocaleLowerCase())) {
+      Object.keys(options).map(key => {
+        if (
+          key.toLocaleLowerCase().startsWith(needle.toLocaleLowerCase()) ||
+          options[key]
+            .toLocaleLowerCase()
+            .startsWith(needle.toLocaleLowerCase())
+        ) {
           Object.assign(filteredOptions, {
             [`${key}`]: options[key],
           });
@@ -254,11 +261,7 @@ class SelectComponent extends Component<IProps> {
   }
 
   arrowKeysHandler(e: KeyboardEvent) {
-    const {
-      selected,
-      open,
-      options,
-    } = this.state;
+    const { selected, open, options } = this.state;
 
     if (!open) return;
 
@@ -271,7 +274,10 @@ class SelectComponent extends Component<IProps> {
         this.setState((state: IState) => ({
           selected: state.selected - 1,
         }));
-      } else if (e.keyCode === 40 && selected < Object.keys(options!).length - 1) {
+      } else if (
+        e.keyCode === 40 &&
+        selected < Object.keys(options!).length - 1
+      ) {
         this.setState((state: IState) => ({
           selected: state.selected + 1,
         }));
@@ -279,7 +285,12 @@ class SelectComponent extends Component<IProps> {
         this.select(Object.keys(options!)[selected]);
       }
 
-      if (this.activeOptionRef && this.activeOptionRef.current && this.scrollContainerRef && this.scrollContainerRef.current) {
+      if (
+        this.activeOptionRef &&
+        this.activeOptionRef.current &&
+        this.scrollContainerRef &&
+        this.scrollContainerRef.current
+      ) {
         const containerTopOffset = this.scrollContainerRef.current.offsetTop;
         const optionTopOffset = this.activeOptionRef.current.offsetTop;
 
@@ -289,10 +300,15 @@ class SelectComponent extends Component<IProps> {
       }
     }
 
-    switch (e.keyCode){
-      case 37: case 39: case 38:  case 40: // Arrow keys
-      case 32:  break; // Space
-      default: break; // do not block other keys
+    switch (e.keyCode) {
+      case 37:
+      case 39:
+      case 38:
+      case 40: // Arrow keys
+      case 32:
+        break; // Space
+      default:
+        break; // do not block other keys
     }
   }
 
@@ -314,13 +330,7 @@ class SelectComponent extends Component<IProps> {
       required,
     } = this.props;
 
-    const {
-      open,
-      needle,
-      value,
-      selected,
-      options,
-    } = this.state;
+    const { open, needle, value, selected, options } = this.state;
 
     let selection = '';
     if (!value && defaultValue && options![defaultValue]) {
@@ -332,10 +342,7 @@ class SelectComponent extends Component<IProps> {
     }
 
     return (
-      <Wrapper
-        className={className}
-        identifier="franz-select"
-      >
+      <Wrapper className={className} identifier="franz-select">
         <Label
           title={label}
           showLabel={showLabel}
@@ -352,14 +359,19 @@ class SelectComponent extends Component<IProps> {
           >
             <button
               type="button"
-               className={classnames({
-                 [`${inputClassName}`]: inputClassName,
-                 [`${classes.select}`]: true,
-                 [`${classes.hasError}`]: error,
-               })}
-              onClick= {!disabled ? () => this.setState((state: IState) => ({
-                open: !state.open,
-              })) : () => {}}
+              className={classnames({
+                [`${inputClassName}`]: inputClassName,
+                [`${classes.select}`]: true,
+                [`${classes.hasError}`]: error,
+              })}
+              onClick={
+                !disabled
+                  ? () =>
+                      this.setState((state: IState) => ({
+                        open: !state.open,
+                      }))
+                  : () => {}
+              }
             >
               {selection}
               <Icon
@@ -373,10 +385,7 @@ class SelectComponent extends Component<IProps> {
             </button>
             {showSearch && open && (
               <div className={classes.searchContainer}>
-                <Icon
-                  path={mdiMagnify}
-                  size={0.8}
-                />
+                <Icon path={mdiMagnify} size={0.8} />
                 <input
                   type="text"
                   value={needle}
@@ -391,10 +400,7 @@ class SelectComponent extends Component<IProps> {
                     className={classes.clearNeedle}
                     onClick={() => this.setFilter()}
                   >
-                    <Icon
-                      path={mdiCloseCircle}
-                      size={0.7}
-                    />
+                    <Icon path={mdiCloseCircle} size={0.7} />
                   </button>
                 )}
               </div>
@@ -406,7 +412,7 @@ class SelectComponent extends Component<IProps> {
               })}
               ref={this.scrollContainerRef}
             >
-              {Object.keys(options!).map(((key, i) => (
+              {Object.keys(options!).map((key, i) => (
                 <div
                   key={key}
                   onClick={() => this.select(key)}
@@ -420,7 +426,7 @@ class SelectComponent extends Component<IProps> {
                 >
                   {options![key]}
                 </div>
-              )))}
+              ))}
             </div>
           </div>
           <input
@@ -434,9 +440,7 @@ class SelectComponent extends Component<IProps> {
             ref={this.inputRef}
           />
         </Label>
-        {error && (
-          <Error message={error} />
-        )}
+        {error && <Error message={error} />}
       </Wrapper>
     );
   }

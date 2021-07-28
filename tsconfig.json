@@ -14,10 +14,6 @@
     "experimentalDecorators": true,
     "composite": true,
     "esModuleInterop": true,
-    "typeRoots": ["packages/typings/types", "node_modules/@types"],
-    "paths": {
-      "@types/*": ["packages/typings/types/*.d.ts"],
-      "*": ["packages/typings/types/*.d.ts"]
-    }
+    "typeRoots": ["node_modules/@types"]
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/ui",
-  "version": "1.1.0",
+  "version": "0.2.4",
   "description": "React UI components for Franz",
   "main": "lib/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "author": "Stefan Malzner <stefan@adlk.io>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@mdi/react": "^1.1.0",
+    "@mdi/react": "^1.5.0",
     "@meetfranz/theme": "file:../theme",
     "react-loader": "2.4.7"
   },

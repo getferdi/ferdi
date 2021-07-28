@@ -24,7 +24,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@mdi/js": "^3.3.92",
-    "@mdi/react": "^1.1.0",
+    "@mdi/react": "^1.5.0",
     "@meetfranz/theme": "file:../theme",
     "csstype": "^3.0.8",
     "react-html-attributes": "^1.4.3",

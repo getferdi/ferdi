@@ -21,7 +21,11 @@ interface IProps extends IFormField, IWithStyle {
   disabled?: boolean;
   id?: string;
   type?: 'button' | 'reset' | 'submit' | undefined;
-       onClick: (event: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLAnchorElement>) => void;
+  onClick: (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLAnchorElement>,
+  ) => void;
   buttonType?: ButtonType;
   stretch?: boolean;
   loaded?: boolean;
@@ -46,7 +50,8 @@ const styles = (theme: Theme) => ({
     outline: 'none',
     alignItems: 'center',
     padding: 0,
-    width: (props: IProps) => (props.stretch ? '100%' : 'auto') as Property.Width<string>,
+    width: (props: IProps) =>
+      (props.stretch ? '100%' : 'auto') as Property.Width<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
     // height: theme.buttonHeight,
@@ -131,7 +136,8 @@ const styles = (theme: Theme) => ({
     transition: 'all 0.3s',
     marginLeft: (props: IProps): number => (!props.busy ? 10 : 20),
     marginRight: (props: IProps): number => (!props.busy ? -10 : -20),
-    position: (props: IProps): Property.Position => props.stretch ? 'absolute' : 'inherit',
+    position: (props: IProps): Property.Position =>
+      props.stretch ? 'absolute' : 'inherit',
   },
   icon: {
     margin: [1, 10, 0, -5],
