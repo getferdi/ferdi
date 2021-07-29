@@ -6,7 +6,7 @@ import injectSheet from 'react-jss';
 
 import Workspace from '../models/Workspace';
 
-const styles = theme => ({
+const styles = (theme) => ({
   row: {
     height: theme.workspaces.settings.listItems.height,
     borderBottom: `1px solid ${theme.workspaces.settings.listItems.borderColor}`,

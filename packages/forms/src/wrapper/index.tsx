@@ -12,18 +12,13 @@ interface IProps extends IWithStyle {
 
 const styles = {
   container: {
-    marginBottom: (props: IProps) => props.noMargin ? 0 : 20,
+    marginBottom: (props: IProps) => (props.noMargin ? 0 : 20),
   },
 };
 
 class WrapperComponent extends Component<IProps> {
   render() {
-    const {
-      children,
-      classes,
-      className,
-      identifier,
-    } = this.props;
+    const { children, classes, className, identifier } = this.props;
 
     return (
       <div

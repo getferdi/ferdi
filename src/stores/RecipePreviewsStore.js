@@ -31,7 +31,7 @@ export default class RecipePreviewsStore extends Store {
   }
 
   @computed get dev() {
-    return this.stores.recipes.all.filter(r => r.local);
+    return this.stores.recipes.all.filter((r) => r.local);
   }
 
   // Actions

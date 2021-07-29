@@ -96,7 +96,7 @@ export default @observer class ServicesDashboard extends Component {
           {(services.length !== 0 || searchNeedle) && !isLoading && (
             <SearchInput
               placeholder={intl.formatMessage(messages.searchService)}
-              onChange={needle => filterServices({ needle })}
+              onChange={(needle) => filterServices({ needle })}
               onReset={() => resetFilter()}
               autoFocus
             />
@@ -163,7 +163,7 @@ export default @observer class ServicesDashboard extends Component {
           ) : (
             <table className="service-table">
               <tbody>
-                {services.map(service => (
+                {services.map((service) => (
                   <ServiceItem
                     key={service.id}
                     service={service}

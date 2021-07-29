@@ -46,10 +46,7 @@ class AccountScreen extends Component {
   }
 
   render() {
-    const {
-      user,
-      settings,
-    } = this.props.stores;
+    const { user, settings } = this.props.stores;
     const { user: userActions } = this.props.actions;
 
     const isLoadingUserInfo = user.getUserInfoRequest.isExecuting;

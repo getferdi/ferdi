@@ -84,7 +84,7 @@ export default @observer class EditUserForm extends Component {
           </span>
         </div>
         <div className="settings__body">
-          <form onSubmit={e => this.submit(e)} id="form">
+          <form onSubmit={(e) => this.submit(e)} id="form">
             {status.length > 0 && status.includes('data-updated') && (
               <Infobox
                 type="success"

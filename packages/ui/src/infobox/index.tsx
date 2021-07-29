@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
-import { Icon } from '../';
+import { Icon } from '..';
 import { IWithStyle } from '../typings/generic';
 
 interface IProps extends IWithStyle {
@@ -27,7 +27,7 @@ interface IState {
 
 const buttonStyles = (theme: Theme) => {
   const styles = {};
-  Object.keys(theme.styleTypes).map((style) => {
+  Object.keys(theme.styleTypes).map(style => {
     Object.assign(styles, {
       [style]: {
         background: theme.styleTypes[style].accent,
@@ -73,18 +73,21 @@ const styles = (theme: Theme) => ({
     marginRight: 10,
   },
   close: {
-    color: (props: IProps) => theme.styleTypes[props.type ? props.type : 'primary'].contrast,
+    color: (props: IProps) =>
+      theme.styleTypes[props.type ? props.type : 'primary'].contrast,
     marginRight: -5,
     border: 0,
     background: 'none',
   },
   cta: {
-    borderColor: (props: IProps) => theme.styleTypes[props.type ? props.type : 'primary'].contrast,
+    borderColor: (props: IProps) =>
+      theme.styleTypes[props.type ? props.type : 'primary'].contrast,
     borderRadius: theme.borderRadiusSmall,
     borderStyle: 'solid',
     borderWidth: 1,
     background: 'none',
-    color: (props: IProps) => theme.styleTypes[props.type ? props.type : 'primary'].contrast,
+    color: (props: IProps) =>
+      theme.styleTypes[props.type ? props.type : 'primary'].contrast,
     marginLeft: 15,
     padding: [4, 10],
     fontSize: theme.uiFontSize,
@@ -113,9 +116,7 @@ class InfoboxComponent extends Component<IProps, IState> {
   };
 
   dismiss() {
-    const {
-      onDismiss,
-    } = this.props;
+    const { onDismiss } = this.props;
 
     this.setState({
       isDismissing: true,
@@ -129,7 +130,7 @@ class InfoboxComponent extends Component<IProps, IState> {
       this.setState({
         dismissed: true,
       });
-    },         3000);
+    }, 3000);
   }
 
   componentWillUnmount(): void {
@@ -144,26 +145,24 @@ class InfoboxComponent extends Component<IProps, IState> {
       icon,
       type,
       ctaLabel,
-      ctaLoading,
       ctaOnClick,
       dismissable,
       className,
     } = this.props;
 
-    const {
-      isDismissing,
-      dismissed,
-    } = this.state;
+    const { isDismissing, dismissed } = this.state;
 
     if (dismissed) {
       return null;
     }
 
     return (
-      <div className={classnames({
-        [classes.wrapper]: true,
-        [`${className}`]: className,
-      })}>
+      <div
+        className={classnames({
+          [classes.wrapper]: true,
+          [`${className}`]: className,
+        })}
+      >
         <div
           className={classnames({
             [classes.infobox]: true,
@@ -172,18 +171,10 @@ class InfoboxComponent extends Component<IProps, IState> {
           })}
           data-type="franz-infobox"
         >
-          {icon && (
-            <Icon icon={icon} className={classes.icon} />
-          )}
-          <div className={classes.content}>
-            {children}
-          </div>
+          {icon && <Icon icon={icon} className={classes.icon} />}
+          <div className={classes.content}>{children}</div>
           {ctaLabel && (
-            <button
-              className={classes.cta}
-              onClick={ctaOnClick}
-              type="button"
-            >
+            <button className={classes.cta} onClick={ctaOnClick} type="button">
               {ctaLabel}
             </button>
           )}

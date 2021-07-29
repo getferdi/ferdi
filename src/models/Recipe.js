@@ -89,7 +89,7 @@ export default class Recipe {
   get author() {
     try {
       const addresses = emailParser.parse(this.rawAuthor);
-      return addresses.map(a => ({ email: a.address, name: a.phrase }));
+      return addresses.map((a) => ({ email: a.address, name: a.phrase }));
     } catch (err) {
       console.warn(`Not a valid author for ${this.name}`);
     }

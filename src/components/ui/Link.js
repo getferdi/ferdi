@@ -48,7 +48,7 @@ export default @inject('stores') @observer class Link extends Component {
         href={router.history.createHref(to)}
         className={linkClasses}
         style={style}
-        onClick={e => this.onClick(e)}
+        onClick={(e) => this.onClick(e)}
       >
         {children}
       </a>

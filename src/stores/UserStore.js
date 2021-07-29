@@ -205,7 +205,7 @@ export default class UserStore extends Store {
   }
 
   @action async _invite({ invites }) {
-    const data = invites.filter(invite => invite.email !== '');
+    const data = invites.filter((invite) => invite.email !== '');
 
     const response = await this.inviteRequest.execute(data)._promise;
 
@@ -250,7 +250,7 @@ export default class UserStore extends Store {
     this.isImportLegacyServicesExecuting = true;
 
     // Reduces recipe duplicates
-    const recipes = services.filter((obj, pos, arr) => arr.map(mapObj => mapObj.recipe.id).indexOf(obj.recipe.id) === pos).map(s => s.recipe.id);
+    const recipes = services.filter((obj, pos, arr) => arr.map((mapObj) => mapObj.recipe.id).indexOf(obj.recipe.id) === pos).map((s) => s.recipe.id);
 
     // Install recipes
     for (const recipe of recipes) { // eslint-disable-line no-unused-vars

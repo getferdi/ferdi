@@ -7,14 +7,19 @@ import { TitleBar } from 'electron-react-titlebar';
 import Link from '../ui/Link';
 import InfoBar from '../ui/InfoBar';
 
-import { oneOrManyChildElements, globalError as globalErrorPropType } from '../../prop-types';
+import {
+  oneOrManyChildElements,
+  globalError as globalErrorPropType,
+} from '../../prop-types';
 import globalMessages from '../../i18n/globalMessages';
 
 import { isWindows } from '../../environment';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
 import { GITHUB_FERDI_URL } from '../../config';
 
-export default @observer class AuthLayout extends Component {
+export default
+@observer
+class AuthLayout extends Component {
   static propTypes = {
     children: oneOrManyChildElements.isRequired,
     error: globalErrorPropType.isRequired,
@@ -30,7 +35,7 @@ export default @observer class AuthLayout extends Component {
 
   state = {
     shouldShowAppUpdateInfoBar: true,
-  }
+  };
 
   static defaultProps = {
     nextAppReleaseVersion: null,
@@ -57,12 +62,15 @@ export default @observer class AuthLayout extends Component {
 
     return (
       <>
-        {isWindows && !isFullScreen && <TitleBar menu={window.ferdi.menu.template} icon="assets/images/logo.svg" />}
+        {isWindows && !isFullScreen && (
+          <TitleBar
+            menu={window.ferdi.menu.template}
+            icon="assets/images/logo.svg"
+          />
+        )}
         <div className="auth">
           {!isOnline && (
-            <InfoBar
-              type="warning"
-            >
+            <InfoBar type="warning">
               <span className="mdi mdi-flash" />
               {intl.formatMessage(globalMessages.notConnectedToTheInternet)}
             </InfoBar>
@@ -95,7 +103,11 @@ export default @observer class AuthLayout extends Component {
             })}
           </div>
           {/* </div> */}
-          <Link to={`${GITHUB_FERDI_URL}/ferdi`} className="auth__adlk" target="_blank">
+          <Link
+            to={`${GITHUB_FERDI_URL}/ferdi`}
+            className="auth__adlk"
+            target="_blank"
+          >
             <img src="./assets/images/adlk.svg" alt="" />
           </Link>
         </div>

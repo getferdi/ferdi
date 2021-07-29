@@ -102,7 +102,7 @@ export default @observer class Locked extends Component {
 
     return (
       <div className="auth__container">
-        <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
+        <form className="franz-form auth__form" onSubmit={(e) => this.submit(e)}>
           <img
             src="./assets/images/logo.svg"
             className="auth__logo"

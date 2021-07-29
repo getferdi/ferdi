@@ -141,7 +141,7 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
           status={user.actionStatus}
           form={form}
           isSaving={user.updateUserInfoRequest.isExecuting}
-          onSubmit={d => this.onSubmit(d)}
+          onSubmit={(d) => this.onSubmit(d)}
         />
       </ErrorBoundary>
     );

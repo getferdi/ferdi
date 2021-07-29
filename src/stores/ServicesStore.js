@@ -216,7 +216,7 @@ export default class ServicesStore extends Store {
   }
 
   @computed get enabled() {
-    return this.all.filter(service => service.isEnabled);
+    return this.all.filter((service) => service.isEnabled);
   }
 
   @computed get allDisplayed() {
@@ -229,7 +229,7 @@ export default class ServicesStore extends Store {
     const { showDisabledServices } = this.stores.settings.all.app;
     const { keepAllWorkspacesLoaded } = this.stores.workspaces.settings;
     const services = this.allServicesRequest.execute().result || [];
-    const filteredServices = showDisabledServices ? services : services.filter(service => service.isEnabled);
+    const filteredServices = showDisabledServices ? services : services.filter((service) => service.isEnabled);
 
     let displayedServices;
     if (keepAllWorkspacesLoaded) {
@@ -244,8 +244,8 @@ export default class ServicesStore extends Store {
         // Check if workspace needs to be kept loaded
         if (workspace.services.includes(KEEP_WS_LOADED_USID)) {
           // Get services for workspace
-          const serviceIDs = workspace.services.filter(i => i !== KEEP_WS_LOADED_USID);
-          const wsServices = filteredServices.filter(service => serviceIDs.includes(service.id));
+          const serviceIDs = workspace.services.filter((i) => i !== KEEP_WS_LOADED_USID);
+          const wsServices = filteredServices.filter((service) => serviceIDs.includes(service.id));
 
           displayedServices = [
             ...displayedServices,
@@ -262,11 +262,11 @@ export default class ServicesStore extends Store {
   }
 
   @computed get filtered() {
-    return this.all.filter(service => service.name.toLowerCase().includes(this.filterNeedle.toLowerCase()));
+    return this.all.filter((service) => service.name.toLowerCase().includes(this.filterNeedle.toLowerCase()));
   }
 
   @computed get active() {
-    return this.all.find(service => service.isActive);
+    return this.all.find((service) => service.isActive);
   }
 
   @computed get activeSettings() {
@@ -284,7 +284,7 @@ export default class ServicesStore extends Store {
   }
 
   @computed get isTodosServiceAdded() {
-    return this.allDisplayed.find(service => service.isTodosService && service.isEnabled) || false;
+    return this.allDisplayed.find((service) => service.isTodosService && service.isEnabled) || false;
   }
 
   @computed get isTodosServiceActive() {
@@ -292,7 +292,7 @@ export default class ServicesStore extends Store {
   }
 
   one(id) {
-    return this.all.find(service => service.id === id);
+    return this.all.find((service) => service.id === id);
   }
 
   async _showAddServiceInterface({ recipeId }) {
@@ -400,7 +400,7 @@ export default class ServicesStore extends Store {
         newData.iconUrl = data.customIconUrl;
       }
 
-      Object.assign(result.find(c => c.id === serviceId), newData);
+      Object.assign(result.find((c) => c.id === serviceId), newData);
     });
 
     await request._promise;
@@ -434,7 +434,7 @@ export default class ServicesStore extends Store {
     }
 
     this.allServicesRequest.patch((result) => {
-      remove(result, c => c.id === serviceId);
+      remove(result, (c) => c.id === serviceId);
     });
 
     await request._promise;
@@ -493,7 +493,7 @@ export default class ServicesStore extends Store {
     }
 
     // Update list of last used services
-    this.lastUsedServices = this.lastUsedServices.filter(id => id !== serviceId);
+    this.lastUsedServices = this.lastUsedServices.filter((id) => id !== serviceId);
     this.lastUsedServices.unshift(serviceId);
 
     this._focusActiveService();
@@ -505,7 +505,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _setActiveNext() {
-    const nextIndex = this._wrapIndex(this.allDisplayed.findIndex(service => service.isActive), 1, this.allDisplayed.length);
+    const nextIndex = this._wrapIndex(this.allDisplayed.findIndex((service) => service.isActive), 1, this.allDisplayed.length);
 
     // TODO: simplify this;
     this.all.forEach((s, index) => {
@@ -515,7 +515,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _setActivePrev() {
-    const prevIndex = this._wrapIndex(this.allDisplayed.findIndex(service => service.isActive), -1, this.allDisplayed.length);
+    const prevIndex = this._wrapIndex(this.allDisplayed.findIndex((service) => service.isActive), -1, this.allDisplayed.length);
 
     // TODO: simplify this;
     this.all.forEach((s, index) => {
@@ -689,7 +689,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _sendIPCMessageToAllServices({ channel, args }) {
-    this.all.forEach(s => this.actions.service.sendIPCMessage({
+    this.all.forEach((s) => this.actions.service.sendIPCMessage({
       serviceId: s.id,
       channel,
       args,
@@ -740,7 +740,7 @@ export default class ServicesStore extends Store {
   }
 
   @action _reloadAll() {
-    this.enabled.forEach(s => this._reload({
+    this.enabled.forEach((s) => this._reload({
       serviceId: s.id,
     }));
   }
@@ -859,7 +859,7 @@ export default class ServicesStore extends Store {
     };
 
     if (!serviceId) {
-      this.allDisplayed.forEach(service => resetTimer(service));
+      this.allDisplayed.forEach((service) => resetTimer(service));
     } else {
       const service = this.one(serviceId);
       if (service) {
@@ -893,7 +893,7 @@ export default class ServicesStore extends Store {
   _mapActiveServiceToServiceModelReaction() {
     const { activeService } = this.stores.settings.all.service;
     if (this.allDisplayed.length) {
-      this.allDisplayed.map(service => Object.assign(service, {
+      this.allDisplayed.map((service) => Object.assign(service, {
         isActive: activeService ? activeService === service.id : this.allDisplayed[0].id === service.id,
       }));
     }
@@ -904,13 +904,13 @@ export default class ServicesStore extends Store {
     const { showMessageBadgesEvenWhenMuted } = this.stores.ui;
 
     const unreadDirectMessageCount = this.allDisplayed
-      .filter(s => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
-      .map(s => s.unreadDirectMessageCount)
+      .filter((s) => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
+      .map((s) => s.unreadDirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
     const unreadIndirectMessageCount = this.allDisplayed
-      .filter(s => (showMessageBadgeWhenMuted && showMessageBadgesEvenWhenMuted) && (s.isBadgeEnabled && s.isIndirectMessageBadgeEnabled))
-      .map(s => s.unreadIndirectMessageCount)
+      .filter((s) => (showMessageBadgeWhenMuted && showMessageBadgesEvenWhenMuted) && (s.isBadgeEnabled && s.isIndirectMessageBadgeEnabled))
+      .map((s) => s.unreadIndirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
     // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
@@ -975,7 +975,7 @@ export default class ServicesStore extends Store {
       return;
     }
 
-    if (this.allDisplayed.findIndex(service => service.isActive) === -1 && this.allDisplayed.length !== 0) {
+    if (this.allDisplayed.findIndex((service) => service.isActive) === -1 && this.allDisplayed.length !== 0) {
       debug('No active service found, setting active service to index 0');
 
       this._setActive({ serviceId: this.allDisplayed[0].id });

@@ -92,7 +92,7 @@ export default class CachedRequest extends Request {
   }
 
   removeCacheForCallWith(...args) {
-    remove(this._apiCalls, c => isEqual(c.args, args));
+    remove(this._apiCalls, (c) => isEqual(c.args, args));
   }
 
   _addApiCall(args) {
@@ -102,6 +102,6 @@ export default class CachedRequest extends Request {
   }
 
   _findApiCall(args) {
-    return this._apiCalls.find(c => isEqual(c.args, args));
+    return this._apiCalls.find((c) => isEqual(c.args, args));
   }
 }

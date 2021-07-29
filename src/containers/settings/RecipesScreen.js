@@ -82,7 +82,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
     return recipes
     // Filter out duplicate recipes
       .filter((recipe, index, self) => {
-        const ids = self.map(rec => rec.id);
+        const ids = self.map((rec) => rec.id);
         return ids.indexOf(recipe.id) === index;
 
         // Sort alphabetically
@@ -95,7 +95,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
 
   // Create an array of RecipePreviews from an array of recipe objects
   createPreviews(recipes) {
-    return recipes.map(recipe => new RecipePreview(recipe));
+    return recipes.map((recipe) => new RecipePreview(recipe));
   }
 
   resetSearch() {
@@ -134,11 +134,11 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
       // All search recipes from local recipes
       ...this.createPreviews(
         this.customRecipes
-          .filter(service => service.name.toLowerCase().includes(this.state.needle.toLowerCase())),
+          .filter((service) => service.name.toLowerCase().includes(this.state.needle.toLowerCase())),
       ),
     ]) : recipeFilter;
 
-    const customWebsiteRecipe = recipePreviews.all.find(service => service.id === CUSTOM_WEBSITE_RECIPE_ID);
+    const customWebsiteRecipe = recipePreviews.all.find((service) => service.id === CUSTOM_WEBSITE_RECIPE_ID);
 
     const isLoading = recipePreviews.featuredRecipePreviewsRequest.isExecuting
       || recipePreviews.allRecipePreviewsRequest.isExecuting
@@ -156,7 +156,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
           addedServiceCount={services.all.length}
           hasLoadedRecipes={recipePreviews.featuredRecipePreviewsRequest.wasExecuted}
           showAddServiceInterface={serviceActions.showAddServiceInterface}
-          searchRecipes={e => this.searchRecipes(e)}
+          searchRecipes={(e) => this.searchRecipes(e)}
           resetSearch={() => this.resetSearch()}
           searchNeedle={this.state.needle}
           serviceStatus={services.actionStatus}

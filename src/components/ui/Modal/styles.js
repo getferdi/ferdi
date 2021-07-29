@@ -1,4 +1,4 @@
-export default theme => ({
+export default (theme) => ({
   component: {
     zIndex: 500,
     position: 'absolute',

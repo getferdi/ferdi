@@ -26,7 +26,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     background: theme.colorBackground,
     borderRadius: theme.borderRadius,

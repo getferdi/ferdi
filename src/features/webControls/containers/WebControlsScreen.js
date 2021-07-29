@@ -114,7 +114,7 @@ class WebControlsScreen extends Component {
         goBack={() => this.goBack()}
         canGoForward={this.canGoForward}
         goForward={() => this.goForward()}
-        navigate={url => this.navigate(url)}
+        navigate={(url) => this.navigate(url)}
         url={this.url}
       />
     );

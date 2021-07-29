@@ -175,11 +175,11 @@ class WorkspacesDashboard extends Component {
                     <table className={classes.table}>
                       {/* ===== Workspaces list ===== */}
                       <tbody>
-                        {workspaces.map(workspace => (
+                        {workspaces.map((workspace) => (
                           <WorkspaceItem
                             key={workspace.id}
                             workspace={workspace}
-                            onItemClick={w => onWorkspaceClick(w)}
+                            onItemClick={(w) => onWorkspaceClick(w)}
                           />
                         ))}
                       </tbody>

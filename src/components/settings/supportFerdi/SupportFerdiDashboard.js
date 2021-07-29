@@ -94,10 +94,10 @@ class SupportFerdiDashboard extends Component {
           <h1>{intl.formatMessage(messages.title)}</h1>
           <div>
             <p className="settings__support-badges">
-              <a href="https://github.com/getferdi/ferdi" target="_blank"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/getferdi/ferdi?style=social" /></a>
-              <a href="https://twitter.com/getferdi/" target="_blank"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/getferdi?label=Follow&style=social" /></a>
-              <a href="https://opencollective.com/getferdi#section-contributors" target="_blank"><img alt="Open Collective backers" src="https://img.shields.io/opencollective/backers/getferdi?logo=open-collective" /></a>
-              <a href="https://opencollective.com/getferdi#section-contributors" target="_blank"><img alt="Open Collective sponsors" src="https://img.shields.io/opencollective/sponsors/getferdi?logo=open-collective" /></a>
+              <a href="https://github.com/getferdi/ferdi" target="_blank" rel="noreferrer"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/getferdi/ferdi?style=social" /></a>
+              <a href="https://twitter.com/getferdi/" target="_blank" rel="noreferrer"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/getferdi?label=Follow&style=social" /></a>
+              <a href="https://opencollective.com/getferdi#section-contributors" target="_blank" rel="noreferrer"><img alt="Open Collective backers" src="https://img.shields.io/opencollective/backers/getferdi?logo=open-collective" /></a>
+              <a href="https://opencollective.com/getferdi#section-contributors" target="_blank" rel="noreferrer"><img alt="Open Collective sponsors" src="https://img.shields.io/opencollective/sponsors/getferdi?logo=open-collective" /></a>
             </p>
             <FormattedHTMLMessage {...messages.aboutIntro} />
             <br />
@@ -109,7 +109,7 @@ class SupportFerdiDashboard extends Component {
             </p>
             <p>
               {intl.formatMessage(messages.textListContributors)}
-              <a href="https://github.com/getferdi/ferdi#contributors-" target="_blank" className="link">
+              <a href="https://github.com/getferdi/ferdi#contributors-" target="_blank" className="link" rel="noreferrer">
                 {' '}
                 {intl.formatMessage(messages.textListContributorsHere)}
                 <i className="mdi mdi-open-in-new" />
@@ -122,7 +122,7 @@ class SupportFerdiDashboard extends Component {
             </p>
             <p>
               {intl.formatMessage(messages.textSupportWelcome)}
-              <a href="https://help.getferdi.com/general/support" target="_blank" className="link">
+              <a href="https://help.getferdi.com/general/support" target="_blank" className="link" rel="noreferrer">
                 {' '}
                 {intl.formatMessage(messages.textSupportWelcomeHere)}
                 <i className="mdi mdi-open-in-new" />
@@ -130,7 +130,7 @@ class SupportFerdiDashboard extends Component {
             </p>
             <p>
               {intl.formatMessage(messages.textExpenses)}
-              <a href="https://opencollective.com/getferdi#section-budget" target="_blank" className="link">
+              <a href="https://opencollective.com/getferdi#section-budget" target="_blank" className="link" rel="noreferrer">
                 {' '}
                 {intl.formatMessage(messages.textOpenCollective)}
                 <i className="mdi mdi-open-in-new" />
@@ -138,14 +138,14 @@ class SupportFerdiDashboard extends Component {
             </p>
             <p>
               {intl.formatMessage(messages.textDonation)}
-              <a href="https://opencollective.com/getferdi#section-contribute" target="_blank" className="link">
+              <a href="https://opencollective.com/getferdi#section-contribute" target="_blank" className="link" rel="noreferrer">
                 {' '}
                 {intl.formatMessage(messages.textOpenCollective)}
                 <i className="mdi mdi-open-in-new" />
               </a>
               {' '}
               {intl.formatMessage(messages.textDonationAnd)}
-              <a href="https://github.com/sponsors/getferdi" target="_blank" className="link">
+              <a href="https://github.com/sponsors/getferdi" target="_blank" className="link" rel="noreferrer">
                 {' '}
                 {intl.formatMessage(messages.textGitHubSponsors)}
                 <i className="mdi mdi-open-in-new" />

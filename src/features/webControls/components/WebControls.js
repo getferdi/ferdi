@@ -32,7 +32,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     background: theme.colorBackground,
     position: 'relative',
@@ -197,7 +197,7 @@ class WebControls extends Component {
         <input
           value={editUrl ? inputUrl : url}
           className={classes.input}
-          onChange={event => this.setState({
+          onChange={(event) => this.setState({
             inputUrl: event.target.value,
           })}
           onFocus={(event) => {

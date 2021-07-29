@@ -37,13 +37,7 @@ const styles = (theme: Theme) => ({
 
 class HeadlineComponent extends Component<IProps> {
   render() {
-    const {
-      classes,
-      level,
-      className,
-      children,
-      id,
-    } = this.props;
+    const { classes, level, className, children, id } = this.props;
 
     return React.createElement(
       `h${level}`,
@@ -63,7 +57,12 @@ class HeadlineComponent extends Component<IProps> {
 
 const Headline = injectStyle(styles)(HeadlineComponent);
 
-const createH = (level: number) => (props: Omit<IProps, 'classes' | 'theme'>) => <Headline level={level} {...props}>{props.children}</Headline>;
+const createH = (level: number) => (props: Omit<IProps, 'classes' | 'theme'>) =>
+  (
+    <Headline level={level} {...props}>
+      {props.children}
+    </Headline>
+  );
 
 export const H1 = createH(1);
 export const H2 = createH(2);

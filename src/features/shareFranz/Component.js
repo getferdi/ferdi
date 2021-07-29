@@ -44,7 +44,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   modal: {
     width: '80%',
     maxWidth: 600,

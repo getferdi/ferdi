@@ -24,10 +24,10 @@ class TodosScreen extends Component {
           isVisible={todosStore.isTodosPanelVisible}
           togglePanel={todoActions.toggleTodosPanel}
           handleClientMessage={todoActions.handleClientMessage}
-          setTodosWebview={webview => todoActions.setTodosWebview({ webview })}
+          setTodosWebview={(webview) => todoActions.setTodosWebview({ webview })}
           width={todosStore.width}
           minWidth={TODOS_MIN_WIDTH}
-          resize={width => todoActions.resize({ width })}
+          resize={(width) => todoActions.resize({ width })}
           userAgent={todosStore.userAgent}
           todoUrl={todosStore.todoUrl}
           isTodoUrlValid={todosStore.isTodoUrlValid}

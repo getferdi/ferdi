@@ -14,7 +14,10 @@ interface IData {
   [index: string]: string;
 }
 
-interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement>, IFormField, IWithStyle {
+interface IProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    IFormField,
+    IWithStyle {
   focus?: boolean;
   data: IData;
   textareaClassName?: string;
@@ -37,14 +40,14 @@ class TextareaComponent extends Component<IProps> {
     const { data } = this.props;
 
     if (this.textareaRef && this.textareaRef.current && data) {
-      Object.keys(data).map(key => this.textareaRef.current!.dataset[key] = data[key]);
+      Object.keys(data).map(
+        key => (this.textareaRef.current!.dataset[key] = data[key]),
+      );
     }
   }
 
   onChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    const {
-      onChange,
-    } = this.props;
+    const { onChange } = this.props;
 
     if (onChange) {
       onChange(e);
@@ -57,7 +60,6 @@ class TextareaComponent extends Component<IProps> {
       className,
       disabled,
       error,
-      focus,
       id,
       textareaClassName,
       label,
@@ -94,9 +96,9 @@ class TextareaComponent extends Component<IProps> {
               [`${classes.wrapper}`]: true,
               [`${classes.disabled}`]: disabled,
               [`${classes.hasError}`]: error,
-            })}>
+            })}
+          >
             <textarea
-              autoFocus={focus}
               id={id}
               name={name}
               placeholder={placeholder}
@@ -115,9 +117,7 @@ class TextareaComponent extends Component<IProps> {
             </textarea>
           </div>
         </Label>
-        {error && (
-          <Error message={error} />
-        )}
+        {error && <Error message={error} />}
       </Wrapper>
     );
   }

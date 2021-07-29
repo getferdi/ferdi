@@ -84,7 +84,7 @@ export default @inject('actions') @observer class Login extends Component {
           </Link>
         </div>
         <div className="welcome__featured-services">
-          {recipes.map(recipe => (
+          {recipes.map((recipe) => (
             <div
               key={recipe.id}
               className="welcome__featured-service"

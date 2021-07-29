@@ -34,7 +34,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '500px !important',
     textAlign: 'center',
@@ -161,7 +161,7 @@ class SetupAssistant extends Component {
     const sanitizedWorkspace = slackWorkspace.trim().replace(/^https?:\/\//, '');
 
     if (sanitizedWorkspace) {
-      const index = services.findIndex(s => s.id === SLACK_ID);
+      const index = services.findIndex((s) => s.id === SLACK_ID);
 
       if (index === -1) {
         const newServices = services;
@@ -215,11 +215,11 @@ class SetupAssistant extends Component {
               <button
                 className={classnames({
                   [classes.serviceContainer]: true,
-                  [classes.selected]: this.state.services.findIndex(s => s.id === id) !== -1,
+                  [classes.selected]: this.state.services.findIndex((s) => s.id === id) !== -1,
                 })}
                 key={id}
                 onClick={() => {
-                  const index = this.state.services.findIndex(s => s.id === id);
+                  const index = this.state.services.findIndex((s) => s.id === id);
                   if (index === -1) {
                     if (id === SLACK_ID) {
                       this.setState({ isSlackModalOpen: true });
@@ -283,7 +283,7 @@ class SetupAssistant extends Component {
               <Input
                 suffix=".slack.com"
                 placeholder="workspace-url"
-                onChange={e => this.setState({ slackWorkspace: e.target.value })}
+                onChange={(e) => this.setState({ slackWorkspace: e.target.value })}
                 value={slackWorkspace}
               />
               <div className={classes.modalActionContainer}>

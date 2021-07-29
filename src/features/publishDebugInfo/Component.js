@@ -46,7 +46,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     minWidth: '70vw',
   },
@@ -186,10 +186,10 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
             <>
               <p className={classes.info}>{intl.formatMessage(messages.info)}</p>
 
-              <a href={`${DEBUG_API}/privacy.html`} target="_blank" className={classes.link}>
+              <a href={`${DEBUG_API}/privacy.html`} target="_blank" className={classes.link} rel="noreferrer">
                 {intl.formatMessage(messages.privacy)}
               </a>
-              <a href={`${DEBUG_API}/terms.html`} target="_blank" className={classes.link}>
+              <a href={`${DEBUG_API}/terms.html`} target="_blank" className={classes.link} rel="noreferrer">
                 {intl.formatMessage(messages.terms)}
               </a>
 

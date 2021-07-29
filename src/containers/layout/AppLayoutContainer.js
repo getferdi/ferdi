@@ -92,8 +92,8 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     const workspacesDrawer = (
       <WorkspaceDrawer
-        getServicesForWorkspace={workspace => (
-          workspace ? workspaceStore.getWorkspaceServices(workspace).map(s => s.name) : services.all.map(s => s.name)
+        getServicesForWorkspace={(workspace) => (
+          workspace ? workspaceStore.getWorkspaceServices(workspace).map((s) => s.name) : services.all.map((s) => s.name)
         )}
       />
     );

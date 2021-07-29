@@ -1,4 +1,3 @@
-import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle, { withTheme } from 'react-jss';
@@ -11,7 +10,7 @@ interface IProps extends IWithStyle {
   color?: string;
 }
 
-const styles = (theme: Theme) => ({
+const styles = () => ({
   container: {
     position: 'relative',
     height: 60,
@@ -20,12 +19,7 @@ const styles = (theme: Theme) => ({
 
 class LoaderComponent extends Component<IProps> {
   render() {
-    const {
-      classes,
-      className,
-      color,
-      theme,
-    } = this.props;
+    const { classes, className, color, theme } = this.props;
 
     return (
       <div

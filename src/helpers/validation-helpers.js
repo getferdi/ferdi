@@ -61,7 +61,7 @@ export function minLength(length) {
 
 export function oneRequired(targets) {
   return ({ field, form }) => {
-    const invalidFields = targets.filter(target => form.$(target).value === '');
+    const invalidFields = targets.filter((target) => form.$(target).value === '');
     return [targets.length !== invalidFields.length, window.ferdi.intl.formatMessage(messages.required, { field: field.label })];
   };
 }

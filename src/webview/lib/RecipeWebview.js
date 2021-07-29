@@ -75,7 +75,7 @@ class RecipeWebview {
       debug('Script not found', file);
       return null;
     })).then(async (scripts) => {
-      const scriptsFound = scripts.filter(script => script !== null);
+      const scriptsFound = scripts.filter((script) => script !== null);
       if (scriptsFound.length > 0) {
         debug('Inject scripts to main world', scriptsFound);
         ipcRenderer.sendToHost('inject-js-unsafe', ...scriptsFound);

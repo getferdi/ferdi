@@ -102,7 +102,7 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
   render() {
     return (
       <SetupAssistant
-        onSubmit={config => this.setupServices(config)}
+        onSubmit={(config) => this.setupServices(config)}
         services={this.services}
         embed={false}
         isSettingUpServices={this.state.isSettingUpServices}

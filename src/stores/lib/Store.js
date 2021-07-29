@@ -28,18 +28,18 @@ export default class Store {
   }
 
   registerReactions(reactions) {
-    reactions.forEach(reaction => this._reactions.push(new Reaction(reaction)));
+    reactions.forEach((reaction) => this._reactions.push(new Reaction(reaction)));
   }
 
   setup() {}
 
   initialize() {
     this.setup();
-    this._reactions.forEach(reaction => reaction.start());
+    this._reactions.forEach((reaction) => reaction.start());
   }
 
   teardown() {
-    this._reactions.forEach(reaction => reaction.stop());
+    this._reactions.forEach((reaction) => reaction.stop());
   }
 
   resetStatus() {

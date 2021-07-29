@@ -37,7 +37,7 @@ export default @injectSheet(styles) @withTheme class AppLoader extends Component
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         step: prevState.step === textList.length - 1 ? 0 : prevState.step + 1,
       }));
     }, 2500);

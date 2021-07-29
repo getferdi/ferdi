@@ -19,7 +19,7 @@ export class CommunityRecipesStore extends FeatureStore {
     if (!this.stores) return [];
 
     return this.stores.recipePreviews.dev.map((r) => {
-      r.isDevRecipe = !!r.author.find(a => a.email === this.stores.user.data.email);
+      r.isDevRecipe = !!r.author.find((a) => a.email === this.stores.user.data.email);
 
       return r;
     });

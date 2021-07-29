@@ -9,7 +9,7 @@ const [defaultLocale] = webContents.session.getSpellCheckerLanguages();
 debug('Spellchecker default locale is', defaultLocale);
 
 export function getSpellcheckerLocaleByFuzzyIdentifier(identifier) {
-  const locales = Object.keys(SPELLCHECKER_LOCALES).filter(key => key.toLocaleLowerCase() === identifier.toLowerCase() || key.split('-')[0] === identifier.toLowerCase());
+  const locales = Object.keys(SPELLCHECKER_LOCALES).filter((key) => key.toLocaleLowerCase() === identifier.toLowerCase() || key.split('-')[0] === identifier.toLowerCase());
 
   if (locales.length >= 1) {
     return locales[0];

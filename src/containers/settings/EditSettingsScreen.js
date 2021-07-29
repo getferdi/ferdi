@@ -652,7 +652,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           isUpdateAvailable={updateStatus === updateStatusTypes.AVAILABLE}
           noUpdateAvailable={updateStatus === updateStatusTypes.NOT_AVAILABLE}
           updateIsReadyToInstall={updateStatus === updateStatusTypes.DOWNLOADED}
-          onSubmit={d => this.onSubmit(d)}
+          onSubmit={(d) => this.onSubmit(d)}
           getCacheSize={() => app.cacheSize}
           isClearingAllCache={isClearingAllCache}
           onClearAllCache={clearAllCache}

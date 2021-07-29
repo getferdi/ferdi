@@ -4,7 +4,7 @@ import { Icon } from '@meetfranz/ui';
 import classnames from 'classnames';
 import { mdiCheckCircle } from '@mdi/js';
 
-const styles = theme => ({
+const styles = (theme) => ({
   featureItem: {
     borderBottom: [1, 'solid', theme.defaultContentBorder],
     padding: [8, 0],

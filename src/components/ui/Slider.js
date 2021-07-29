@@ -53,7 +53,7 @@ export default @observer class Slider extends Component {
               value={field.value}
               min="1"
               max="100"
-              onChange={e => (!disabled ? this.onChange(e) : null)}
+              onChange={(e) => (!disabled ? this.onChange(e) : null)}
             />
           </div>
 

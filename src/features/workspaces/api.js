@@ -14,7 +14,7 @@ export const workspaceApi = {
     debug('getUserWorkspaces RESULT', result);
     if (!result.ok) throw result;
     const workspaces = await result.json();
-    return workspaces.map(data => new Workspace(data));
+    return workspaces.map((data) => new Workspace(data));
   },
 
   createWorkspace: async (name) => {

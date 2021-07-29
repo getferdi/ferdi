@@ -82,7 +82,7 @@ export default @observer class Select extends Component {
           </label>
         )}
         <select
-          onChange={multiple ? e => this.multipleChange(e) : field.onChange}
+          onChange={multiple ? (e) => this.multipleChange(e) : field.onChange}
           id={field.id}
           defaultValue={selected}
           className="franz-form__select"
@@ -90,7 +90,7 @@ export default @observer class Select extends Component {
           multiple={multiple}
           ref={this.element}
         >
-          {field.options.map(type => (
+          {field.options.map((type) => (
             <option
               key={type.value}
               value={type.value}

@@ -1,4 +1,4 @@
-export default theme => ({
+export default (theme) => ({
   component: {
     background: theme.colorWebviewLoaderBackground,
     padding: 20,

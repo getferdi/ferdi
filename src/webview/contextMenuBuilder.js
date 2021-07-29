@@ -61,7 +61,7 @@ module.exports = class ContextMenuBuilder {
    * @param  {function} processMenu If passed, this method will be passed the menu to change
    *                                it prior to display. Signature: (menu, info) => menu
    */
-  constructor(webContents, debugMode = false, processMenu = m => m) {
+  constructor(webContents, debugMode = false, processMenu = (m) => m) {
     this.debugMode = debugMode;
     this.processMenu = processMenu;
     this.menu = null;
@@ -320,7 +320,7 @@ module.exports = class ContextMenuBuilder {
       label: this.stringTable.copyImage(),
       click: () => {
         const result = this.convertImageToBase64(menuInfo.srcURL,
-          dataURL => clipboard.writeImage(nativeImage.createFromDataURL(dataURL)));
+          (dataURL) => clipboard.writeImage(nativeImage.createFromDataURL(dataURL)));
 
         this._sendNotificationOnClipboardEvent(menuInfo.clipboardNotifications, () => `Image copied from URL: ${menuInfo.srcURL}`);
         return result;

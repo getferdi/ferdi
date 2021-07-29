@@ -266,8 +266,8 @@ export default @observer class EditSettingsForm extends Component {
         </div>
         <div className="settings__body">
           <form
-            onSubmit={e => this.submit(e)}
-            onChange={e => this.submit(e)}
+            onSubmit={(e) => this.submit(e)}
+            onChange={(e) => this.submit(e)}
             id="form"
           >
             {/* Titles */}
@@ -367,7 +367,7 @@ export default @observer class EditSettingsForm extends Component {
                           <div>
                             <Input
                               placeholder="Todo Server"
-                              onChange={e => this.submit(e)}
+                              onChange={(e) => this.submit(e)}
                               field={form.$('customTodoServer')}
                             />
                             <p
@@ -401,7 +401,7 @@ export default @observer class EditSettingsForm extends Component {
                       >
                         <Input
                           placeholder="17:00"
-                          onChange={e => this.submit(e)}
+                          onChange={(e) => this.submit(e)}
                           field={form.$('scheduledDNDStart')}
                           type="time"
                         />
@@ -413,7 +413,7 @@ export default @observer class EditSettingsForm extends Component {
                       >
                         <Input
                           placeholder="09:00"
-                          onChange={e => this.submit(e)}
+                          onChange={(e) => this.submit(e)}
                           field={form.$('scheduledDNDEnd')}
                           type="time"
                         />
@@ -480,7 +480,7 @@ export default @observer class EditSettingsForm extends Component {
 
                 <Input
                   placeholder="Accent Color"
-                  onChange={e => this.submit(e)}
+                  onChange={(e) => this.submit(e)}
                   field={form.$('accentColor')}
                 />
                 <p>
@@ -515,7 +515,7 @@ export default @observer class EditSettingsForm extends Component {
 
                     <Input
                       placeholder={intl.formatMessage(messages.lockedPassword)}
-                      onChange={e => this.submit(e)}
+                      onChange={(e) => this.submit(e)}
                       field={form.$('lockedPassword')}
                       type="password"
                       scorePassword
@@ -527,7 +527,7 @@ export default @observer class EditSettingsForm extends Component {
 
                     <Input
                       placeholder="Lock after inactivity"
-                      onChange={e => this.submit(e)}
+                      onChange={(e) => this.submit(e)}
                       field={form.$('inactivityLock')}
                       autoFocus
                     />
@@ -570,6 +570,7 @@ export default @observer class EditSettingsForm extends Component {
                   href={FRANZ_TRANSLATION}
                   target="_blank"
                   className="link"
+                  rel="noreferrer"
                 >
                   {intl.formatMessage(messages.translationHelp)}
                   {' '}
@@ -588,7 +589,7 @@ export default @observer class EditSettingsForm extends Component {
 
                 <Input
                   placeholder="User Agent"
-                  onChange={e => this.submit(e)}
+                  onChange={(e) => this.submit(e)}
                   field={form.$('userAgentPref')}
                 />
                 <p className="settings__help">{intl.formatMessage(globalMessages.userAgentHelp)}</p>
@@ -674,12 +675,12 @@ export default @observer class EditSettingsForm extends Component {
 
                   Ferdi is based on
                   {' '}
-                  <a href={`${GITHUB_FRANZ_URL}/franz`} target="_blank">Franz</a>
+                  <a href={`${GITHUB_FRANZ_URL}/franz`} target="_blank" rel="noreferrer">Franz</a>
 
                   , a project published
                   under the
                   {' '}
-                  <a href={`${GITHUB_FRANZ_URL}/franz/blob/master/LICENSE`} target="_blank">Apache-2.0 License</a>
+                  <a href={`${GITHUB_FRANZ_URL}/franz/blob/master/LICENSE`} target="_blank" rel="noreferrer">Apache-2.0 License</a>
                 </span>
                 <br />
                 <span className="mdi mdi-information" />

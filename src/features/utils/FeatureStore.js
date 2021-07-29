@@ -16,11 +16,11 @@ export class FeatureStore {
   }
 
   _startActions(actions = this._actions) {
-    actions.forEach(a => a.start());
+    actions.forEach((a) => a.start());
   }
 
   _stopActions(actions = this._actions) {
-    actions.forEach(a => a.stop());
+    actions.forEach((a) => a.stop());
   }
 
   // REACTIONS
@@ -31,10 +31,10 @@ export class FeatureStore {
   }
 
   _startReactions(reactions = this._reactions) {
-    reactions.forEach(r => r.start());
+    reactions.forEach((r) => r.start());
   }
 
   _stopReactions(reactions = this._reactions) {
-    reactions.forEach(r => r.stop());
+    reactions.forEach((r) => r.stop());
   }
 }

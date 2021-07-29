@@ -23,16 +23,11 @@ import {
   loadRecipeConfig,
 } from '../../helpers/recipe-helpers';
 
-import {
-  removeServicePartitionDirectory,
-} from '../../helpers/service-helpers.js';
+import { removeServicePartitionDirectory } from '../../helpers/service-helpers';
 
 const debug = require('debug')('Ferdi:ServerApi');
 
-module.paths.unshift(
-  getDevRecipeDirectory(),
-  getRecipeDirectory(),
-);
+module.paths.unshift(getDevRecipeDirectory(), getRecipeDirectory());
 
 const { default: fetch } = remoteRequire('electron-fetch');
 
@@ -43,12 +38,16 @@ export default class ServerApi {
 
   // User
   async login(email, passwordHash) {
-    const request = await sendAuthRequest(`${apiBase()}/auth/login`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Basic ${window.btoa(`${email}:${passwordHash}`)}`,
+    const request = await sendAuthRequest(
+      `${apiBase()}/auth/login`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Basic ${window.btoa(`${email}:${passwordHash}`)}`,
+        },
       },
-    }, false);
+      false,
+    );
     if (!request.ok) {
       throw request;
     }
@@ -59,10 +58,14 @@ export default class ServerApi {
   }
 
   async signup(data) {
-    const request = await sendAuthRequest(`${apiBase()}/auth/signup`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    }, false);
+    const request = await sendAuthRequest(
+      `${apiBase()}/auth/signup`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+      },
+      false,
+    );
     if (!request.ok) {
       throw request;
     }
@@ -86,12 +89,16 @@ export default class ServerApi {
   }
 
   async retrievePassword(email) {
-    const request = await sendAuthRequest(`${apiBase()}/auth/password`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-      }),
-    }, false);
+    const request = await sendAuthRequest(
+      `${apiBase()}/auth/password`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+        }),
+      },
+      false,
+    );
     if (!request.ok) {
       throw request;
     }
@@ -128,7 +135,9 @@ export default class ServerApi {
     }
     const updatedData = await request.json();
 
-    const user = Object.assign(updatedData, { data: new UserModel(updatedData.data) });
+    const user = Object.assign(updatedData, {
+      data: new UserModel(updatedData.data),
+    });
     debug('ServerApi::updateUserInfo resolves', user);
     return user;
   }
@@ -159,7 +168,7 @@ export default class ServerApi {
     const data = await request.json();
 
     let services = await this._mapServiceModels(data);
-    services = services.filter(service => service !== null);
+    services = services.filter((service) => service !== null);
     debug('ServerApi::getServices resolves', services);
     return services;
   }
@@ -175,12 +184,17 @@ export default class ServerApi {
     const serviceData = await request.json();
 
     if (data.iconFile) {
-      const iconData = await this.uploadServiceIcon(serviceData.data.id, data.iconFile);
+      const iconData = await this.uploadServiceIcon(
+        serviceData.data.id,
+        data.iconFile,
+      );
 
       serviceData.data = iconData;
     }
 
-    const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
+    const service = Object.assign(serviceData, {
+      data: await this._prepareServiceModel(serviceData.data),
+    });
 
     debug('ServerApi::createService resolves', service);
     return service;
@@ -204,7 +218,9 @@ export default class ServerApi {
 
     const serviceData = await request.json();
 
-    const service = Object.assign(serviceData, { data: await this._prepareServiceModel(serviceData.data) });
+    const service = Object.assign(serviceData, {
+      data: await this._prepareServiceModel(serviceData.data),
+    });
 
     debug('ServerApi::updateService resolves', service);
     return service;
@@ -221,7 +237,10 @@ export default class ServerApi {
 
     delete requestData.headers['Content-Type'];
 
-    const request = await window.fetch(`${apiBase()}/service/${serviceId}`, requestData);
+    const request = await window.fetch(
+      `${apiBase()}/service/${serviceId}`,
+      requestData,
+    );
 
     if (!request.ok) {
       throw request;
@@ -292,18 +311,21 @@ export default class ServerApi {
   // Recipes
   async getInstalledRecipes() {
     const recipesDirectory = getRecipeDirectory();
-    const paths = fs.readdirSync(recipesDirectory)
-      .filter(file => (
-        fs.statSync(path.join(recipesDirectory, file)).isDirectory()
-        && file !== 'temp'
-        && file !== 'dev'
-      ));
+    const paths = fs
+      .readdirSync(recipesDirectory)
+      .filter(
+        (file) => fs.statSync(path.join(recipesDirectory, file)).isDirectory()
+          && file !== 'temp'
+          && file !== 'dev',
+      );
 
-    this.recipes = paths.map((id) => {
-      // eslint-disable-next-line
-      const Recipe = require(id)(RecipeModel);
-      return new Recipe(loadRecipeConfig(id));
-    }).filter(recipe => recipe.id);
+    this.recipes = paths
+      .map((id) => {
+        // eslint-disable-next-line
+        const Recipe = require(id)(RecipeModel);
+        return new Recipe(loadRecipeConfig(id));
+      })
+      .filter((recipe) => recipe.id);
 
     this.recipes = this.recipes.concat(this._getDevRecipes());
 
@@ -373,7 +395,9 @@ export default class ServerApi {
         console.log('[ServerApi::getRecipePackage] Using internal recipe file');
         archivePath = internalRecipeFile;
       } else {
-        console.log('[ServerApi::getRecipePackage] Downloading recipe from server');
+        console.log(
+          '[ServerApi::getRecipePackage] Downloading recipe from server',
+        );
         archivePath = tempArchivePath;
 
         const packageUrl = `${apiBase()}/recipes/download/${recipeId}`;
@@ -393,12 +417,14 @@ export default class ServerApi {
         preservePaths: true,
         unlink: true,
         preserveOwner: false,
-        onwarn: x => console.log('warn', recipeId, x),
+        onwarn: (x) => console.log('warn', recipeId, x),
       });
 
       await sleep(10);
 
-      const { id } = fs.readJsonSync(path.join(recipeTempDirectory, 'package.json'));
+      const { id } = fs.readJsonSync(
+        path.join(recipeTempDirectory, 'package.json'),
+      );
       const recipeDirectory = path.join(recipesDirectory, id);
       fs.copySync(recipeTempDirectory, recipeDirectory);
       fs.remove(recipeTempDirectory);
@@ -414,7 +440,9 @@ export default class ServerApi {
 
   // News
   async getLatestNews() {
-    const url = `${apiBase(true)}/news?platform=${osPlatform}&arch=${osArch}&version=${app.getVersion()}`;
+    const url = `${apiBase(
+      true,
+    )}/news?platform=${osPlatform}&arch=${osArch}&version=${app.getVersion()}`;
     const request = await sendAuthRequest(url);
     if (!request.ok) throw request;
     const data = await request.json();
@@ -435,9 +463,13 @@ export default class ServerApi {
       throw new Error('Server not loaded');
     }
 
-    const request = await sendAuthRequest(`${apiBase(false)}/health`, {
-      method: 'GET',
-    }, false);
+    const request = await sendAuthRequest(
+      `${apiBase(false)}/health`,
+      {
+        method: 'GET',
+      },
+      false,
+    );
     if (!request.ok) {
       throw request;
     }
@@ -445,23 +477,31 @@ export default class ServerApi {
   }
 
   async getLegacyServices() {
-    const file = path.join(app.getPath('userData'), 'settings', 'services.json');
+    const file = path.join(
+      app.getPath('userData'),
+      'settings',
+      'services.json',
+    );
 
     try {
       const config = fs.readJsonSync(file);
 
       if (Object.prototype.hasOwnProperty.call(config, 'services')) {
-        const services = await Promise.all(config.services.map(async (s) => {
-          const service = s;
-          const request = await sendAuthRequest(`${apiBase()}/recipes/${s.service}`);
+        const services = await Promise.all(
+          config.services.map(async (s) => {
+            const service = s;
+            const request = await sendAuthRequest(
+              `${apiBase()}/recipes/${s.service}`,
+            );
 
-          if (request.status === 200) {
-            const data = await request.json();
-            service.recipe = new RecipePreviewModel(data);
-          }
+            if (request.status === 200) {
+              const data = await request.json();
+              service.recipe = new RecipePreviewModel(data);
+            }
 
-          return service;
-        }));
+            return service;
+          }),
+        );
 
         debug('ServerApi::getLegacyServices resolves', services);
         return services;
@@ -475,17 +515,19 @@ export default class ServerApi {
 
   // Helper
   async _mapServiceModels(services) {
-    const recipes = services.map(s => s.recipeId);
+    const recipes = services.map((s) => s.recipeId);
     await this._bulkRecipeCheck(recipes);
     /* eslint-disable no-return-await */
-    return Promise.all(services.map(async service => await this._prepareServiceModel(service)));
+    return Promise.all(
+      services.map(async (service) => await this._prepareServiceModel(service)),
+    );
     /* eslint-enable no-return-await */
   }
 
   async _prepareServiceModel(service) {
     let recipe;
     try {
-      recipe = this.recipes.find(r => r.id === service.recipeId);
+      recipe = this.recipes.find((r) => r.id === service.recipeId);
 
       if (!recipe) {
         console.warn(`Recipe ${service.recipeId} not loaded`);
@@ -501,21 +543,25 @@ export default class ServerApi {
 
   async _bulkRecipeCheck(unfilteredRecipes) {
     // Filter recipe duplicates as we don't need to download 3 Slack recipes
-    const recipes = unfilteredRecipes.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
+    const recipes = unfilteredRecipes.filter(
+      (elem, pos, arr) => arr.indexOf(elem) === pos,
+    );
 
-    return Promise.all(recipes
-      .map(async (recipeId) => {
-        let recipe = this.recipes.find(r => r.id === recipeId);
+    return Promise.all(
+      recipes.map(async (recipeId) => {
+        let recipe = this.recipes.find((r) => r.id === recipeId);
 
         if (!recipe) {
-          console.warn(`Recipe '${recipeId}' not installed, trying to fetch from server`);
+          console.warn(
+            `Recipe '${recipeId}' not installed, trying to fetch from server`,
+          );
 
           await this.getRecipePackage(recipeId);
 
           debug('Rerun ServerAPI::getInstalledRecipes');
           await this.getInstalledRecipes();
 
-          recipe = this.recipes.find(r => r.id === recipeId);
+          recipe = this.recipes.find((r) => r.id === recipeId);
 
           if (!recipe) {
             console.warn(`Could not load recipe ${recipeId}`);
@@ -524,69 +570,83 @@ export default class ServerApi {
         }
 
         return recipe;
-      })).catch(err => console.error('Can\'t load recipe', err));
+      }),
+    ).catch((err) => console.error("Can't load recipe", err));
   }
 
   _mapRecipePreviewModel(recipes) {
-    return recipes.map((recipe) => {
-      try {
-        return new RecipePreviewModel(recipe);
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
-    }).filter(recipe => recipe !== null);
+    return recipes
+      .map((recipe) => {
+        try {
+          return new RecipePreviewModel(recipe);
+        } catch (e) {
+          console.error(e);
+          return null;
+        }
+      })
+      .filter((recipe) => recipe !== null);
   }
 
   _mapNewsModels(news) {
-    return news.map((newsItem) => {
-      try {
-        return new NewsModel(newsItem);
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
-    }).filter(newsItem => newsItem !== null);
+    return news
+      .map((newsItem) => {
+        try {
+          return new NewsModel(newsItem);
+        } catch (e) {
+          console.error(e);
+          return null;
+        }
+      })
+      .filter((newsItem) => newsItem !== null);
   }
 
   _mapOrderModels(orders) {
-    return orders.map((orderItem) => {
-      try {
-        return new OrderModel(orderItem);
-      } catch (e) {
-        console.error(e);
-        return null;
-      }
-    }).filter(orderItem => orderItem !== null);
+    return orders
+      .map((orderItem) => {
+        try {
+          return new OrderModel(orderItem);
+        } catch (e) {
+          console.error(e);
+          return null;
+        }
+      })
+      .filter((orderItem) => orderItem !== null);
   }
 
   _getDevRecipes() {
     const recipesDirectory = getDevRecipeDirectory();
     try {
-      const paths = fs.readdirSync(recipesDirectory)
-        .filter(file => fs.statSync(path.join(recipesDirectory, file)).isDirectory() && file !== 'temp');
+      const paths = fs
+        .readdirSync(recipesDirectory)
+        .filter(
+          (file) => fs.statSync(path.join(recipesDirectory, file)).isDirectory()
+            && file !== 'temp',
+        );
 
-      const recipes = paths.map((id) => {
-        let Recipe;
-        try {
-          // eslint-disable-next-line
-          Recipe = require(id)(RecipeModel);
-          return new Recipe(loadRecipeConfig(id));
-        } catch (err) {
-          console.error(err);
-        }
+      const recipes = paths
+        .map((id) => {
+          let Recipe;
+          try {
+            // eslint-disable-next-line
+            Recipe = require(id)(RecipeModel);
+            return new Recipe(loadRecipeConfig(id));
+          } catch (err) {
+            console.error(err);
+          }
 
-        return false;
-      }).filter(recipe => recipe.id).map((data) => {
-        const recipe = data;
+          return false;
+        })
+        .filter((recipe) => recipe.id)
+        .map((data) => {
+          const recipe = data;
 
-        recipe.icons = {
-          svg: `${recipe.path}/icon.svg`,
-        };
-        recipe.local = true;
+          recipe.icons = {
+            svg: `${recipe.path}/icon.svg`,
+          };
+          recipe.local = true;
 
-        return data;
-      });
+          return data;
+        });
 
       return recipes;
     } catch (err) {

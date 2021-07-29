@@ -26,6 +26,6 @@ export default class Reaction {
   }
 }
 
-export const createReactions = reactions => (
-  reactions.map(r => new Reaction(r))
+export const createReactions = (reactions) => (
+  reactions.map((r) => new Reaction(r))
 );

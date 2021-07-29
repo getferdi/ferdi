@@ -8,14 +8,24 @@ import Loader from 'react-loader';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 
-type ButtonType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'inverted';
+type ButtonType =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'danger'
+  | 'warning'
+  | 'inverted';
 
 interface IProps extends IFormField, IWithStyle {
   className?: string;
   disabled?: boolean;
   id?: string;
   type?: 'button' | 'reset' | 'submit' | undefined;
-  onClick: (event: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLAnchorElement>) => void;
+  onClick: (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLAnchorElement>,
+  ) => void;
   buttonType?: ButtonType;
   stretch?: boolean;
   loaded?: boolean;
@@ -23,10 +33,6 @@ interface IProps extends IFormField, IWithStyle {
   icon?: string;
   href?: string;
   target?: string;
-}
-
-interface IState {
-  busy: boolean;
 }
 
 const styles = (theme: Theme) => ({
@@ -40,7 +46,8 @@ const styles = (theme: Theme) => ({
     outline: 'none',
     alignItems: 'center',
     padding: 0,
-    width: (props: IProps) => (props.stretch ? '100%' : 'auto') as Property.Width<string>,
+    width: (props: IProps) =>
+      (props.stretch ? '100%' : 'auto') as Property.Width<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
     // height: theme.buttonHeight,
@@ -125,7 +132,8 @@ const styles = (theme: Theme) => ({
     transition: 'all 0.3s',
     marginLeft: (props: IProps): number => (!props.busy ? 10 : 20),
     marginRight: (props: IProps): number => (!props.busy ? -10 : -20),
-    position: (props: IProps): Property.Position => props.stretch ? 'absolute' : 'inherit',
+    position: (props: IProps): Property.Position =>
+      props.stretch ? 'absolute' : 'inherit',
   },
   icon: {
     margin: [1, 10, 0, -5],
@@ -175,7 +183,6 @@ class ButtonComponent extends Component<IProps> {
       buttonType,
       loaded,
       icon,
-      busy: busyProp,
       href,
       target,
     } = this.props;
@@ -185,7 +192,9 @@ class ButtonComponent extends Component<IProps> {
     let showLoader = false;
     if (loaded) {
       showLoader = !loaded;
-      console.warn('Ferdi Button prop `loaded` will be deprecated in the future. Please use `busy` instead');
+      console.warn(
+        'Ferdi Button prop `loaded` will be deprecated in the future. Please use `busy` instead',
+      );
     }
     if (busy) {
       showLoader = busy;

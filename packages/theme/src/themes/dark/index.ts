@@ -18,7 +18,9 @@ export default (brandPrimary: string) => {
   const inputColor = legacyStyles.darkThemeGrayLightest;
   const inputBackground = legacyStyles.themeGrayDark;
   const inputBorder = `1px solid ${legacyStyles.darkThemeGrayLight}`;
-  const inputPrefixColor = color(legacyStyles.darkThemeGrayLighter).lighten(0.3).hex();
+  const inputPrefixColor = color(legacyStyles.darkThemeGrayLighter)
+    .lighten(0.3)
+    .hex();
   const buttonSecondaryTextColor = legacyStyles.darkThemeTextColor;
   const selectColor = inputColor;
   const drawerBg = color(colorBackground).lighten(0.3).hex();
@@ -47,7 +49,10 @@ export default (brandPrimary: string) => {
 
     // Loader
     colorFullscreenLoaderSpinner: '#FFF',
-    colorWebviewLoaderBackground: color(legacyStyles.darkThemeGrayDarkest).alpha(0.5).rgb().string(),
+    colorWebviewLoaderBackground: color(legacyStyles.darkThemeGrayDarkest)
+      .alpha(0.5)
+      .rgb()
+      .string(),
 
     // Input
     labelColor: legacyStyles.darkThemeTextColor,
@@ -58,8 +63,12 @@ export default (brandPrimary: string) => {
     inputPrefixBackground: legacyStyles.darkThemeGray,
     inputDisabledOpacity: 0.5,
     inputScorePasswordBackground: legacyStyles.darkThemeGrayDark,
-    inputModifierColor: color(legacyStyles.darkThemeGrayLighter).lighten(0.3).hex(),
-    inputPlaceholderColor: color(legacyStyles.darkThemeGrayLighter).darken(0.1).hex(),
+    inputModifierColor: color(legacyStyles.darkThemeGrayLighter)
+      .lighten(0.3)
+      .hex(),
+    inputPlaceholderColor: color(legacyStyles.darkThemeGrayLighter)
+      .darken(0.1)
+      .hex(),
 
     // Toggle
     toggleBackground: legacyStyles.darkThemeGray,
@@ -91,13 +100,20 @@ export default (brandPrimary: string) => {
     selectToggleColor: inputPrefixColor,
     selectPopupBackground: legacyStyles.darkThemeGrayLight,
     selectOptionColor: '#FFF',
-    selectOptionBorder: `1px solid ${color(legacyStyles.darkThemeGrayLight).darken(0.2).hex()}`,
-    selectOptionItemHover: color(legacyStyles.darkThemeGrayLight).darken(0.2).hex(),
+    selectOptionBorder: `1px solid ${color(legacyStyles.darkThemeGrayLight)
+      .darken(0.2)
+      .hex()}`,
+    selectOptionItemHover: color(legacyStyles.darkThemeGrayLight)
+      .darken(0.2)
+      .hex(),
     selectOptionItemHoverColor: selectColor,
     selectSearchColor: inputBackground,
 
     // Modal
-    colorModalOverlayBackground: color(legacyStyles.darkThemeBlack).alpha(0.9).rgb().string(),
+    colorModalOverlayBackground: color(legacyStyles.darkThemeBlack)
+      .alpha(0.9)
+      .rgb()
+      .string(),
     colorModalBackground: legacyStyles.darkThemeGrayDark,
 
     // Services

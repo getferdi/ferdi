@@ -4,7 +4,7 @@ import uuidV1 from 'uuid/v1';
 const debug = require('debug')('Ferdi:Notifications');
 
 export class NotificationsHandler {
-  onNotify = data => data;
+  onNotify = (data) => data;
 
   displayNotification(title, options) {
     return new Promise((resolve) => {

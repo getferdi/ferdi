@@ -100,7 +100,7 @@ export default @observer class ChangeServer extends Component {
     const { intl } = this.context;
     return (
       <div className="auth__container">
-        <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
+        <form className="franz-form auth__form" onSubmit={(e) => this.submit(e)}>
           <h1>{intl.formatMessage(messages.headline)}</h1>
           {form.$('server').value === this.franzServer
           && (
@@ -113,7 +113,7 @@ export default @observer class ChangeServer extends Component {
           && (
             <Input
               placeholder="Custom Server"
-              onChange={e => this.submit(e)}
+              onChange={(e) => this.submit(e)}
               field={form.$('customServer')}
             />
           )}

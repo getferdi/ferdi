@@ -24,12 +24,7 @@ class IconComponent extends Component<IProps> {
   };
 
   render() {
-    const {
-      classes,
-      icon,
-      size,
-      className,
-    } = this.props;
+    const { classes, icon, size, className } = this.props;
 
     if (!icon) {
       console.warn('No Icon specified');

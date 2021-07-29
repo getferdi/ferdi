@@ -17,7 +17,10 @@ interface IData {
   [index: string]: string;
 }
 
-interface IProps extends React.InputHTMLAttributes<HTMLInputElement>, IFormField, IWithStyle {
+interface IProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    IFormField,
+    IWithStyle {
   focus?: boolean;
   prefix?: string;
   suffix?: string;
@@ -62,23 +65,24 @@ class InputComponent extends Component<IProps, IState> {
       }
 
       if (data) {
-        Object.keys(data).map(key => this.inputRef.current!.dataset[key] = data[key]);
+        Object.keys(data).map(
+          key => (this.inputRef.current!.dataset[key] = data[key]),
+        );
       }
     }
   }
 
   onChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const {
-      scorePassword,
-      onChange,
-    } = this.props;
+    const { scorePassword, onChange } = this.props;
 
     if (onChange) {
       onChange(e);
     }
 
     if (this.inputRef && this.inputRef.current && scorePassword) {
-      this.setState({ passwordScore: scorePasswordFunc(this.inputRef.current.value) });
+      this.setState({
+        passwordScore: scorePasswordFunc(this.inputRef.current.value),
+      });
     }
   }
 
@@ -117,10 +121,7 @@ class InputComponent extends Component<IProps, IState> {
       noMargin,
     } = this.props;
 
-    const {
-      showPassword,
-      passwordScore,
-    } = this.state;
+    const { showPassword, passwordScore } = this.state;
 
     const inputType = type === 'password' && showPassword ? 'text' : type;
 
@@ -144,12 +145,9 @@ class InputComponent extends Component<IProps, IState> {
               [`${classes.wrapper}`]: true,
               [`${classes.disabled}`]: disabled,
               [`${classes.hasError}`]: error,
-            })}>
-            {prefix && (
-              <span className={classes.prefix}>
-                {prefix}
-              </span>
-            )}
+            })}
+          >
+            {prefix && <span className={classes.prefix}>{prefix}</span>}
             <input
               id={id}
               type={inputType}
@@ -168,30 +166,29 @@ class InputComponent extends Component<IProps, IState> {
               max={max}
               step={step}
             />
-            {suffix && (
-              <span className={classes.suffix}>
-                {suffix}
-              </span>
-            )}
+            {suffix && <span className={classes.suffix}>{suffix}</span>}
             {showPasswordToggle && (
               <button
                 type="button"
                 className={classes.formModifier}
-                onClick={() => this.setState(prevState => ({ showPassword: !prevState.showPassword }))}
+                onClick={() =>
+                  this.setState(prevState => ({
+                    showPassword: !prevState.showPassword,
+                  }))
+                }
                 tabIndex={-1}
               >
-                <Icon
-                  path={!showPassword ? mdiEye : mdiEyeOff}
-                  size={1}
-                />
+                <Icon path={!showPassword ? mdiEye : mdiEyeOff} size={1} />
               </button>
             )}
           </div>
           {scorePassword && (
-            <div className={classnames({
-              [`${classes.passwordScore}`]: true,
-              [`${classes.hasError}`]: error,
-            })}>
+            <div
+              className={classnames({
+                [`${classes.passwordScore}`]: true,
+                [`${classes.hasError}`]: error,
+              })}
+            >
               <meter
                 value={passwordScore < 5 ? 5 : passwordScore}
                 low={30}
@@ -202,9 +199,7 @@ class InputComponent extends Component<IProps, IState> {
             </div>
           )}
         </Label>
-        {error && (
-          <Error message={error} />
-        )}
+        {error && <Error message={error} />}
       </Wrapper>
     );
   }

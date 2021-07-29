@@ -167,7 +167,7 @@ export default @injectSheet(styles) @inject('actions') @observer class Services 
             </div>
           </Appear>
         )}
-        {services.filter(service => !service.isTodosService).map(service => (
+        {services.filter((service) => !service.isTodosService).map((service) => (
           <ServiceView
             key={service.id}
             service={service}

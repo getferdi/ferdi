@@ -54,7 +54,7 @@ export default @observer class Radio extends Component {
           </label>
         )}
         <div className="franz-form__radio-wrapper">
-          {field.options.map(type => (
+          {field.options.map((type) => (
             <label
               key={type.value}
               htmlFor={`${field.id}-${type.value}`}

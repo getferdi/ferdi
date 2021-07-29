@@ -33,7 +33,7 @@ export default @observer class TabBar extends Component {
     reorder({ oldIndex, newIndex });
   };
 
-  shouldPreventSorting = event => event.target.tagName !== 'LI';
+  shouldPreventSorting = (event) => event.target.tagName !== 'LI';
 
   toggleService = ({ serviceId, isEnabled }) => {
     const { updateService } = this.props;
@@ -95,10 +95,10 @@ export default @observer class TabBar extends Component {
           toggleNotifications={toggleNotifications}
           toggleAudio={toggleAudio}
           deleteService={deleteService}
-          disableService={args => this.disableService(args)}
-          enableService={args => this.enableService(args)}
-          hibernateService={args => this.hibernateService(args)}
-          wakeUpService={args => this.wakeUpService(args)}
+          disableService={(args) => this.disableService(args)}
+          enableService={(args) => this.enableService(args)}
+          hibernateService={(args) => this.hibernateService(args)}
+          wakeUpService={(args) => this.wakeUpService(args)}
           openSettings={openSettings}
           distance={20}
           axis="y"

@@ -38,7 +38,7 @@ export default class NewsStore extends Store {
 
     this.latestNewsRequest.invalidate().patch((result) => {
       // TODO: check if we can use mobx.array remove
-      remove(result, n => n.id === newsId);
+      remove(result, (n) => n.id === newsId);
     });
   }
 

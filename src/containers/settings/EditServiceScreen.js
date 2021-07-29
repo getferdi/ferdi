@@ -394,9 +394,9 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
           status={services.actionStatus}
           isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
           isDeleting={services.deleteServiceRequest.isExecuting}
-          onSubmit={d => this.onSubmit(d)}
+          onSubmit={(d) => this.onSubmit(d)}
           onDelete={() => this.deleteService()}
-          openRecipeFile={file => this.openRecipeFile(file)}
+          openRecipeFile={(file) => this.openRecipeFile(file)}
           isProxyFeatureEnabled={proxyFeature.isEnabled}
         />
       </ErrorBoundary>

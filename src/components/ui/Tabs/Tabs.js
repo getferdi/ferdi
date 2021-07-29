@@ -28,7 +28,7 @@ class Tab extends Component {
 
   render() {
     const { children: childElements } = this.props;
-    const children = childElements.filter(c => !!c);
+    const children = childElements.filter((c) => !!c);
 
     if (children.length === 1) {
       return <div>{children}</div>;

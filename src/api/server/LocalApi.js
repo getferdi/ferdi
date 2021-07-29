@@ -2,7 +2,7 @@ import { ipcRenderer } from 'electron';
 import { session } from '@electron/remote';
 import du from 'du';
 
-import { getServicePartitionsDirectory } from '../../helpers/service-helpers.js';
+import { getServicePartitionsDirectory } from '../../helpers/service-helpers';
 
 const debug = require('debug')('Ferdi:LocalApi');
 
@@ -41,11 +41,23 @@ export default class LocalApi {
   }
 
   async clearCache(serviceId = null) {
-    const s = serviceId ? session.fromPartition(`persist:service-${serviceId}`) : session.defaultSession;
+    const s = serviceId
+      ? session.fromPartition(`persist:service-${serviceId}`)
+      : session.defaultSession;
 
-    debug('LocalApi::clearCache resolves', (serviceId || 'clearAppCache'));
+    debug('LocalApi::clearCache resolves', serviceId || 'clearAppCache');
     await s.clearStorageData({
-      storages: ['appcache', 'cookies', 'filesystem', 'indexdb', 'localstorage', 'shadercache', 'websql', 'serviceworkers', 'cachestorage'],
+      storages: [
+        'appcache',
+        'cookies',
+        'filesystem',
+        'indexdb',
+        'localstorage',
+        'shadercache',
+        'websql',
+        'serviceworkers',
+        'cachestorage',
+      ],
       quotas: ['temporary', 'persistent', 'syncable'],
     });
     return s.clearCache();

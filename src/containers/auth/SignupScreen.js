@@ -24,7 +24,7 @@ export default @inject('stores', 'actions') @observer class SignupScreen extends
 
     return (
       <Signup
-        onSubmit={values => this.onSignup(values)}
+        onSubmit={(values) => this.onSignup(values)}
         isSubmitting={stores.user.signupRequest.isExecuting}
         loginRoute={stores.user.loginRoute}
         changeServerRoute={stores.user.changeServerRoute}

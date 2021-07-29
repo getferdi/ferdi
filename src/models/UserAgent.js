@@ -95,10 +95,10 @@ export default class UserAgent {
   _addWebviewEvents(webview) {
     debug('Adding event handlers');
 
-    this._willNavigateListener = event => this._handleNavigate(event.url, true);
+    this._willNavigateListener = (event) => this._handleNavigate(event.url, true);
     webview.addEventListener('will-navigate', this._willNavigateListener);
 
-    this._didNavigateListener = event => this._handleNavigate(event.url);
+    this._didNavigateListener = (event) => this._handleNavigate(event.url);
     webview.addEventListener('did-navigate', this._didNavigateListener);
   }
 

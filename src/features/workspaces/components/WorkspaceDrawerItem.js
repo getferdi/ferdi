@@ -18,7 +18,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   item: {
     height: '67px',
     padding: `15px ${theme.workspaces.drawer.padding}px`,

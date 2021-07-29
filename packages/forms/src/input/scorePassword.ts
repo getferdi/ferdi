@@ -11,7 +11,7 @@ interface IVariations {
 }
 
 export function scorePasswordFunc(password: string): number {
-  let score: number = 0;
+  let score = 0;
   if (!password) {
     return score;
   }
@@ -32,8 +32,8 @@ export function scorePasswordFunc(password: string): number {
   };
 
   let variationCount = 0;
-  Object.keys(variations).forEach((key) => {
-    variationCount += (variations[key] === true) ? 1 : 0;
+  Object.keys(variations).forEach(key => {
+    variationCount += variations[key] === true ? 1 : 0;
   });
 
   score += (variationCount - 1) * 10;

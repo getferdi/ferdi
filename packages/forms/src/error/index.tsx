@@ -11,18 +11,9 @@ interface IProps {
 
 class ErrorComponent extends Component<IProps> {
   render() {
-    const {
-      classes,
-      message,
-    } = this.props;
+    const { classes, message } = this.props;
 
-    return (
-      <p
-        className={classes.message}
-      >
-        {message}
-      </p>
-    );
+    return <p className={classes.message}>{message}</p>;
   }
 }
 

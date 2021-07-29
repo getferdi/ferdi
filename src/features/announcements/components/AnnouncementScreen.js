@@ -25,7 +25,7 @@ const messages = defineMessages({
 
 const smallScreen = '1000px';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     background: theme.colorBackground,
     position: 'relative',

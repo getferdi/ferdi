@@ -138,7 +138,7 @@ export default @inject('actions') @observer class Signup extends Component {
     return (
       <div className="auth__scroll-container">
         <div className="auth__container auth__container--signup">
-          <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
+          <form className="franz-form auth__form" onSubmit={(e) => this.submit(e)}>
             <img
               src="./assets/images/logo.svg"
               className="auth__logo"

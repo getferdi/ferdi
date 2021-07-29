@@ -1,4 +1,4 @@
-export default theme => ({
+export default (theme) => ({
   component: {
     left: 0,
     position: 'absolute',

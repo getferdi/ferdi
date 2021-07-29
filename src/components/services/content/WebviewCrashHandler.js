@@ -47,7 +47,7 @@ export default @observer class WebviewCrashHandler extends Component {
     const { reload } = this.props;
 
     this.countdownInterval = setInterval(() => {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         countdown: prevState.countdown - this.countdownIntervalTimeout,
       }));
 

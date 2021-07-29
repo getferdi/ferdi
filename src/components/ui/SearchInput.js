@@ -96,7 +96,7 @@ export default @observer class SearchInput extends Component {
             type="text"
             placeholder={placeholder}
             value={value}
-            onChange={e => this.onChange(e)}
+            onChange={(e) => this.onChange(e)}
             ref={(ref) => { this.input = ref; }}
           />
         </label>

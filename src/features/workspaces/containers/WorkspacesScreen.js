@@ -30,8 +30,8 @@ class WorkspacesScreen extends Component {
           createWorkspaceRequest={createWorkspaceRequest}
           deleteWorkspaceRequest={deleteWorkspaceRequest}
           updateWorkspaceRequest={updateWorkspaceRequest}
-          onCreateWorkspaceSubmit={data => actions.workspaces.create(data)}
-          onWorkspaceClick={w => actions.workspaces.edit({ workspace: w })}
+          onCreateWorkspaceSubmit={(data) => actions.workspaces.create(data)}
+          onWorkspaceClick={(w) => actions.workspaces.edit({ workspace: w })}
         />
       </ErrorBoundary>
     );

@@ -8,7 +8,7 @@ import { Toggle } from '@meetfranz/forms';
 import Service from '../../../models/Service';
 import ServiceIcon from '../../../components/ui/ServiceIcon';
 
-const styles = theme => ({
+const styles = (theme) => ({
   listItem: {
     height: theme.workspaces.settings.listItems.height,
     borderBottom: `1px solid ${theme.workspaces.settings.listItems.borderColor}`,

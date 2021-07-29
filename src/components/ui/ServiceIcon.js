@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import ServiceModel from '../../models/Service';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     height: 'auto',
   },

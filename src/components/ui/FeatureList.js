@@ -92,7 +92,7 @@ export class FeatureList extends Component {
 
     return (
       <ul className={className}>
-        {features.map(feature => <FeatureItem name={intl.formatMessage(feature)} className={featureClassName} />)}
+        {features.map((feature) => <FeatureItem name={intl.formatMessage(feature)} className={featureClassName} />)}
       </ul>
     );
   }

@@ -54,11 +54,11 @@ export default class RecipesStore extends Store {
   }
 
   @computed get recipeIdForServices() {
-    return this.stores.services.all.map(s => s.recipe.id);
+    return this.stores.services.all.map((s) => s.recipe.id);
   }
 
   one(id) {
-    return this.all.find(recipe => recipe.id === id);
+    return this.all.find((recipe) => recipe.id === id);
   }
 
   isInstalled(id) {
@@ -78,7 +78,7 @@ export default class RecipesStore extends Store {
     const recipes = {};
 
     // Hackfix, reference this.all to fetch services
-    debug(`Check Recipe updates for ${this.all.map(recipe => recipe.id)}`);
+    debug(`Check Recipe updates for ${this.all.map((recipe) => recipe.id)}`);
 
     recipeIds.forEach((r) => {
       const recipe = this.one(r);
@@ -98,7 +98,7 @@ export default class RecipesStore extends Store {
       const version = recipes[recipe];
 
       // Find recipe in local recipe repository
-      const localRecipe = allJson.find(r => r.id === recipe);
+      const localRecipe = allJson.find((r) => r.id === recipe);
 
       if (localRecipe && semver.lt(version, localRecipe.version)) {
         localUpdates.push(recipe);

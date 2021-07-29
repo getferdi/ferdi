@@ -14,5 +14,5 @@ export function removeServicePartitionDirectory(id = '', addServicePrefix = fals
 
 export async function getServiceIdsFromPartitions() {
   const files = await fs.readdir(getServicePartitionsDirectory());
-  return files.filter(n => n !== '__chrome_extension');
+  return files.filter((n) => n !== '__chrome_extension');
 }

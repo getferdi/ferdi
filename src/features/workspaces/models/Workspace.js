@@ -22,13 +22,13 @@ export default class Workspace {
     this.name = data.name;
     this.order = data.order;
 
-    let services = data.services;
+    let { services } = data;
     if (data.saving && data.keepLoaded) {
       // Keep workspaces loaded
       services.push(KEEP_WS_LOADED_USID);
     } else if (data.saving && data.services.includes(KEEP_WS_LOADED_USID)) {
       // Don't keep loaded
-      services = services.filter(e => e !== KEEP_WS_LOADED_USID);
+      services = services.filter((e) => e !== KEEP_WS_LOADED_USID);
     }
     this.services.replace(services);
 

@@ -34,7 +34,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   drawer: {
     background: theme.workspaces.drawer.background,
     width: `${theme.workspaces.drawer.width}px`,

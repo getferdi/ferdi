@@ -28,7 +28,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   modal: {
     width: '80%',
     maxWidth: 600,
@@ -139,7 +139,7 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
     if (this.state.search && compact(invoke(this.state.search, 'match', /^[a-z0-9]/i)).length > 0) {
       // Apply simple search algorythm to list of all services
       services = this.props.stores.services.allDisplayed;
-      services = services.filter(service => service.name.toLowerCase().search(this.state.search.toLowerCase()) !== -1);
+      services = services.filter((service) => service.name.toLowerCase().search(this.state.search.toLowerCase()) !== -1);
     } else {
       // Add the currently active service first
       const currentService = this.props.stores.services.active;

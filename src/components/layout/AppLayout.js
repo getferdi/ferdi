@@ -44,7 +44,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = theme => ({
+const styles = (theme) => ({
   appContent: {
     // width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
     width: '100%',
@@ -124,7 +124,7 @@ class AppLayout extends Component {
             {sidebar}
             <div className="app__service">
               <WorkspaceSwitchingIndicator />
-              {news.length > 0 && news.map(item => (
+              {news.length > 0 && news.map((item) => (
                 <InfoBar
                   key={item.id}
                   position="top"

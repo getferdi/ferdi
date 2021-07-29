@@ -13,7 +13,7 @@ interface IProps extends IWithStyle {
 
 const badgeStyles = (theme: Theme) => {
   const styles = {};
-  Object.keys(theme.styleTypes).map((style) => {
+  Object.keys(theme.styleTypes).map(style => {
     Object.assign(styles, {
       [style]: {
         background: theme.styleTypes[style].accent,
@@ -51,12 +51,7 @@ class BadgeComponent extends Component<IProps> {
   };
 
   render() {
-    const {
-      classes,
-      children,
-      type,
-      className,
-    } = this.props;
+    const { classes, children, type, className } = this.props;
 
     return (
       <div

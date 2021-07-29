@@ -107,7 +107,7 @@ export default class Request {
   }
 
   _triggerHooks() {
-    Request._hooks.forEach(hook => hook(this));
+    Request._hooks.forEach((hook) => hook(this));
   }
 
   reset = () => {

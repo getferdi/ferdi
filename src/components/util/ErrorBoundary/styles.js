@@ -1,4 +1,4 @@
-export default theme => ({
+export default (theme) => ({
   component: {
     display: 'flex',
     width: '100%',

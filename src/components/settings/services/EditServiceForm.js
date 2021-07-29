@@ -266,7 +266,7 @@ export default @observer class EditServiceForm extends Component {
           </span>
         </div>
         <div className="settings__body">
-          <form onSubmit={e => this.submit(e)} id="form">
+          <form onSubmit={(e) => this.submit(e)} id="form">
             <div className="service-name">
               <Input field={form.$('name')} focus />
             </div>
