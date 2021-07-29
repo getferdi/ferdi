@@ -45,7 +45,7 @@ jobs:
         with:
           ref: nightly
           submodules: recursive
-          fetch-depth: 0    # Note: Needed to be able to pull the 'develop' branch as well for merging
+          fetch-depth: 0 # Note: Needed to be able to pull the 'develop' branch as well for merging
       - id: should_run
         name: Check whether there are any commits since this run was last triggered and push them and/or set the output
         if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]')) }}
@@ -61,7 +61,7 @@ jobs:
             git checkout develop
             TAG_NAME=$(npm version -m "%s [skip ci]" prerelease --preid=nightly)
             git push origin develop --no-verify
-            git tag $TAG_NAME
+            git tag -f $TAG_NAME
             git push origin --tags --no-verify
 
             git checkout nightly
@@ -321,13 +321,8 @@ jobs:
       - name: Use Node.js 16.4.2
         uses: actions/setup-node@v2
         with:
-<<<<<<< HEAD
           node-version: 16.4.2
-      - name: Uninstall locally and reinstall node-gyp globally
-=======
-          node-version: 14.17.3
       - name: Uninstall locally and reinstall global npm modules
->>>>>>> d671afec794992d052f6f6b7ea73a571e67db7c1
         run: |
           npm uninstall node-gyp
           npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
