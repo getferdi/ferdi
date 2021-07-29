@@ -3,71 +3,124 @@
   "parser": "@babel/eslint-parser",
   "extends": "eslint-config-airbnb",
   "plugins": ["jest"],
-  "rules": {
-    "arrow-parens": 0,
-    "consistent-return": 0,
-    "no-param-reassign": 0,
-    "import/extensions": 0,
-    "import/no-extraneous-dependencies": 0,
-    "import/no-unresolved": [
-      2,
-      {
-        "ignore": ["electron"]
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "env": { "browser": true, "es6": true, "node": true },
+      "extends": ["airbnb-typescript"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaFeatures": { "jsx": true },
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+      },
+      "plugins": ["@typescript-eslint"],
+      "rules": {
+        // eslint
+        "arrow-parens": 0,
+        "array-callback-return": 1,
+        "class-methods-use-this": 0,
+        "consistent-return": 0,
+        "implicit-arrow-linebreak": 0,
+        "linebreak-style": 0,
+        "max-len": 0,
+        "no-confusing-arrow": 0,
+        "no-console": 0,
+        "no-param-reassign": 0,
+        "no-return-assign": 1,
+        "no-underscore-dangle": 0,
+        "no-use-before-define": 0,
+        "prefer-destructuring": 1,
+        "object-curly-newline": 0,
+        "operator-linebreak": 0,
+        // @typescript-eslint
+        "@typescript-eslint/indent": 0,
+        "@typescript-eslint/no-shadow": 0,
+        "@typescript-eslint/no-unused-expressions": 0,
+        // eslint-plugin-import
+        "import/extensions": 0,
+        "import/no-cycle": 1,
+        "import/no-extraneous-dependencies": 0,
+        "import/no-unresolved": 0,
+        "import/prefer-default-export": 0,
+        // eslint-plugin-react
+        "react/destructuring-assignment": 0,
+        "react/button-has-type": 0,
+        "react/forbid-prop-types": 0,
+        "react/jsx-curly-newline": 0,
+        "react/jsx-no-bind": 0,
+        "react/jsx-no-target-blank": 0,
+        "react/jsx-props-no-spreading": 0,
+        "react/no-deprecated": 1,
+        "react/no-array-index-key": 0,
+        "react/prefer-stateless-function": 0,
+        "react/sort-comp": 0,
+        "react/state-in-constructor": 0,
+        "react/static-property-placement": 0,
+        //  eslint-plugin-jsx-a11y
+        "jsx-a11y/click-events-have-key-events": 1,
+        "jsx-a11y/mouse-events-have-key-events": 1,
+        "jsx-a11y/label-has-for": [
+          2,
+          {
+            "components": ["Label"],
+            "required": {
+              "every": ["id"]
+            },
+            "allowChildren": false
+          }
+        ],
+        "jsx-a11y/no-static-element-interactions": 0,
+        "jsx-a11y/no-noninteractive-element-interactions": 1
       }
-    ],
-    "import/prefer-default-export": 0,
-    "linebreak-style": 0,
-    "react/static-property-placement": 0,
-    "react/state-in-constructor": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/prefer-stateless-function": 0,
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [".js", ".jsx"]
-      }
-    ],
-    "react/forbid-prop-types": 0,
-    "react/destructuring-assignment": 0,
-    "prefer-destructuring": 1,
-    "no-underscore-dangle": 0,
-    "max-len": 0,
-    "class-methods-use-this": 0,
-    "no-console": 0,
-    "react/jsx-no-bind": 0,
-    "react/sort-comp": 0,
-    "jsx-a11y/no-static-element-interactions": 0,
-    "react/jsx-no-target-blank": 0,
-    "no-restricted-syntax": [0, "ForInStatement"],
-    "jsx-a11y/no-noninteractive-element-interactions": 1,
-    "jsx-a11y/label-has-for": [
-      2,
-      {
-        "components": ["Label"],
-        "required": {
-          "every": ["id"]
-        },
-        "allowChildren": false
-      }
-    ],
-    "jsx-a11y/click-events-have-key-events": 1
+    }
+  ],
+  "settings": {
+    "react": {
+      "pragma": "React", // Pragma to use, default to "React"
+      "version": "detect" // React version. "detect" automatically picks the version you have installed.
+    }
   },
   "globals": {
     "window": true,
     "document": true,
-    "ENV": true,
     "FormData": true,
     "localStorage": true,
     "navigator": true,
-    "Worker": true,
-    "atob": true,
-    "btoa": true,
-    "ga": true,
-    "mocha": true,
-    "Element": true,
-    "electron": true
+    "Element": true
   },
   "env": {
     "jest/globals": true
+  },
+  "rules": {
+    // eslint
+    "prefer-destructuring": 1,
+    "class-methods-use-this": 1,
+    "consistent-return": 1,
+    "max-len": 0,
+    "no-param-reassign": 1,
+    "no-restricted-syntax": 0,
+    "no-underscore-dangle": 0,
+    "operator-linebreak": 0,
+    // eslint-plugin-import
+    "import/extensions": 1,
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": 1,
+    "import/no-unresolved": 1,
+    // eslint-plugin-react
+    "react/forbid-prop-types": 1,
+    "react/destructuring-assignment": 0,
+    "react/jsx-filename-extension": 1,
+    "react/jsx-no-bind": 1,
+    "react/jsx-props-no-spreading": 0,
+    "react/prefer-stateless-function": 1,
+    "react/static-property-placement": 0,
+    "react/state-in-constructor": 1,
+    "react/sort-comp": 0,
+    //  eslint-plugin-jsx-a11y
+    "jsx-a11y/click-events-have-key-events": 1,
+    "jsx-a11y/no-static-element-interactions": 1,
+    "jsx-a11y/no-noninteractive-element-interactions": 1
   }
 }

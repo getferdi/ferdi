@@ -12,6 +12,9 @@
     "experimentalDecorators": true,
     "composite": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "removeComments": true,
     "typeRoots": ["packages/typings/types", "node_modules/@types"],
     "paths": {
       "@types/*": ["packages/typings/types/*.d.ts"],
