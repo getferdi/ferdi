@@ -26,7 +26,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "npm run lint:fix && npm run lint:packages",
-    "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --quiet --fix",
+    "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet --fix",
     "lint:packages": "lerna run lint --parallel --stream",
     "manage-translations": "node ./src/i18n/manage-translations.js",
     "prebuild": "preval-build-info-cli && gulp build",
