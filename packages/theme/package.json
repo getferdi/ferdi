@@ -1,6 +1,6 @@
 {
   "name": "@meetfranz/theme",
-  "version": "1.0.14",
+  "version": "0.1.0",
   "description": "Theme configuration for Ferdi",
   "author": "Stefan Malzner <stefan@adlk.io>",
   "homepage": "https://github.com/meetfranz/franz",
@@ -17,13 +17,13 @@
     "dev": "tsc -w",
     "prepare": "tsc",
     "preprepare": "npm run test",
-    "test": "npx mocha"
+    "test": "ts-mocha 'test/**/*.test.ts'"
   },
   "bugs": {
     "url": "https://github.com/meetfranz/franz/issues"
   },
   "dependencies": {
-    "color": "3.1.2"
+    "color": "4.0.0"
   },
   "gitHead": "9f2ab40b7602bc3df26ebb093b484b9917768f69"
 }

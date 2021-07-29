@@ -1,8 +1,8 @@
-import color from 'color';
+const color = require('color');
 import { cloneDeep } from 'lodash';
 
 import * as legacyStyles from '../legacy';
-import IStyleTypes from '../IStyleTypes';
+import type { IStyleTypes } from '../IStyleTypes';
 
 export default (brandPrimary: string) => {
   const brandSuccess = '#5cb85c';
@@ -82,7 +82,10 @@ export default (brandPrimary: string) => {
 
     colorText,
 
-    defaultContentBorder: color(legacyStyles.themeGrayLighter).darken(0.1).rgb().string(),
+    defaultContentBorder: color(legacyStyles.themeGrayLighter)
+      .darken(0.1)
+      .rgb()
+      .string(),
 
     // Subscription Container Component
     colorSubscriptionContainerBackground: 'none',
@@ -94,7 +97,10 @@ export default (brandPrimary: string) => {
     // Loader
     colorAppLoaderSpinner: '#FFF',
     colorFullscreenLoaderSpinner: legacyStyles.themeGrayDark,
-    colorWebviewLoaderBackground: color(legacyStyles.themeGrayLighter).alpha(0.8).rgb().string(),
+    colorWebviewLoaderBackground: color(legacyStyles.themeGrayLighter)
+      .alpha(0.8)
+      .rgb()
+      .string(),
 
     // Input
     labelColor: legacyStyles.themeGrayLight,
@@ -103,7 +109,9 @@ export default (brandPrimary: string) => {
     inputBackground,
     inputBorder,
     inputModifierColor: legacyStyles.themeGrayLight,
-    inputPlaceholderColor: color(legacyStyles.themeGrayLight).lighten(0.3).hex(),
+    inputPlaceholderColor: color(legacyStyles.themeGrayLight)
+      .lighten(0.3)
+      .hex(),
     inputPrefixColor,
     inputPrefixBackground: legacyStyles.themeGrayLighter,
     inputDisabledOpacity,

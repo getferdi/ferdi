@@ -3,12 +3,14 @@
   "compilerOptions": {
     "baseUrl": "..",
     "outDir": "lib",
-    "rootDir": "src",
+    "rootDir": "src"
   },
-  "references": [{
-    "path": "../packages/theme"
-  },
-  {
-    "path": "../packages/forms"
-  }]
+  "references": [
+    {
+      "path": "../packages/theme"
+    },
+    {
+      "path": "../packages/forms"
+    }
+  ]
 }

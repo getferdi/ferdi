@@ -9,11 +9,13 @@ export enum ThemeType {
 
 export const DEFAULT_ACCENT_COLOR = themeBrandPrimary;
 
-export function theme(themeId: ThemeType,
-                      brandColor: string = DEFAULT_ACCENT_COLOR) {
-  return themeId === ThemeType.dark ?
-    makeDarkThemeConfig(brandColor) :
-    makeDefaultThemeConfig(brandColor);
+export function theme(
+  themeId: ThemeType,
+  brandColor: string = DEFAULT_ACCENT_COLOR,
+) {
+  return themeId === ThemeType.dark
+    ? makeDarkThemeConfig(brandColor)
+    : makeDefaultThemeConfig(brandColor);
 }
 
 const defaultThemeConfigWithDefaultAccentColor =

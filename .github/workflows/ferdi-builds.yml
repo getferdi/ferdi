@@ -45,7 +45,7 @@ jobs:
         with:
           ref: nightly
           submodules: recursive
-          fetch-depth: 0    # Note: Needed to be able to pull the 'develop' branch as well for merging
+          fetch-depth: 0 # Note: Needed to be able to pull the 'develop' branch as well for merging
       - id: should_run
         name: Check whether there are any commits since this run was last triggered and push them and/or set the output
         if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]')) }}
@@ -130,10 +130,10 @@ jobs:
         with:
           key: ${{ runner.os }}-${{ env.cache-name }}
           path: ${{ env.ELECTRON_BUILDER_CACHE }}
-      - name: Use Node.js 14.17.3
+      - name: Use Node.js 16.4.2
         uses: actions/setup-node@v2
         with:
-          node-version: 14.17.3
+          node-version: 16.4.2
       - name: Upgrade Xcode version on the macOS 10.15 default runners provided by GH Actions
         run: |
           sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
@@ -228,10 +228,10 @@ jobs:
         with:
           key: ${{ runner.os }}-${{ env.cache-name }}
           path: ${{ env.ELECTRON_BUILDER_CACHE }}
-      - name: Use Node.js 14.17.3
+      - name: Use Node.js 16.4.2
         uses: actions/setup-node@v2
         with:
-          node-version: 14.17.3
+          node-version: 16.4.2
       - name: Uninstall locally and reinstall global npm modules
         run: |
           npm uninstall node-gyp
@@ -318,10 +318,10 @@ jobs:
         with:
           key: ${{ runner.os }}-${{ env.cache-name }}
           path: ${{ env.ELECTRON_BUILDER_CACHE }}
-      - name: Use Node.js 14.17.3
+      - name: Use Node.js 16.4.2
         uses: actions/setup-node@v2
         with:
-          node-version: 14.17.3
+          node-version: 16.4.2
       - name: Uninstall locally and reinstall global npm modules
         run: |
           npm uninstall node-gyp
