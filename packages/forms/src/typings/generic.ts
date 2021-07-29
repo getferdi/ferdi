@@ -1,4 +1,4 @@
-import { Theme } from '@meetfranz/theme';
+import { Theme } from '../../../theme';
 import { Classes } from 'jss';
 
 export interface IFormField {

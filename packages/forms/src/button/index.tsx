@@ -1,5 +1,5 @@
 import Icon from '@mdi/react';
-import { Theme } from '@meetfranz/theme';
+import { Theme } from '../../../theme';
 import classnames from 'classnames';
 import { Property } from 'csstype';
 import React, { Component } from 'react';

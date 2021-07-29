@@ -1,4 +1,4 @@
-import { Theme } from '@meetfranz/theme';
+import { Theme } from '../../../theme';
 import { Property } from 'csstype';
 
 const prefixStyles = (theme: Theme) => ({

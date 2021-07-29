@@ -1,4 +1,4 @@
-import { Theme } from '@meetfranz/theme';
+import { Theme } from '../../../theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
