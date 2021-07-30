@@ -1,9 +1,9 @@
-$mdi-font-path: '../node_modules/mdi/fonts';
+$mdi-font-path: '../node_modules/@mdi/font/fonts';
 @if $env == development {
-  $mdi-font-path: '../../node_modules/mdi/fonts';
+  $mdi-font-path: '../../node_modules/@mdi/font/fonts';
 }
 
-@import './node_modules/mdi/scss/materialdesignicons.scss';
+@import './node_modules/@mdi/font/scss/materialdesignicons.scss';
 @import './node_modules/electron-react-titlebar/assets/style';
 
 // modules

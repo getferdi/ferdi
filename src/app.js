@@ -4,11 +4,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import { syncHistoryWithStore, RouterStore } from 'mobx-react-router';
-import {
-  hashHistory,
-} from 'react-router';
+import { hashHistory } from 'react-router';
 
-import '@babel/polyfill';
 import smoothScroll from 'smoothscroll-polyfill';
 
 import ServerApi from './api/server/ServerApi';
@@ -59,7 +56,7 @@ window.addEventListener('load', () => {
 });
 
 // Prevent drag and drop into window from redirecting
-window.addEventListener('dragover', (event) => event.preventDefault());
-window.addEventListener('drop', (event) => event.preventDefault());
-window.addEventListener('dragover', (event) => event.stopPropagation());
-window.addEventListener('drop', (event) => event.stopPropagation());
+window.addEventListener('dragover', event => event.preventDefault());
+window.addEventListener('drop', event => event.preventDefault());
+window.addEventListener('dragover', event => event.stopPropagation());
+window.addEventListener('drop', event => event.stopPropagation());
