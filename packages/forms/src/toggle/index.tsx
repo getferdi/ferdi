@@ -1,10 +1,10 @@
-import { Theme } from '../../../theme';
 import classnames from 'classnames';
 import { Property } from 'csstype';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
 import { IFormField, IWithStyle, Omit } from '../typings/generic';
+import { Theme } from '../../../theme';
 
 import { Error } from '../error';
 import { Label } from '../label';

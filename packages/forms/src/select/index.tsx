@@ -1,11 +1,11 @@
 import { mdiArrowRightDropCircleOutline, mdiCloseCircle, mdiMagnify } from '@mdi/js';
 import Icon from '@mdi/react';
-import { Theme } from '../../../theme';
 import classnames from 'classnames';
 import React, { Component, createRef } from 'react';
 import injectStyle from 'react-jss';
 
 import { IFormField, IWithStyle } from '../typings/generic';
+import { Theme } from '../../../theme';
 
 import { Error } from '../error';
 import { Label } from '../label';

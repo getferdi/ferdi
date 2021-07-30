@@ -1,8 +1,8 @@
-import { Theme } from '../../../theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
+import { Theme } from '../../../theme';
 import { IWithStyle, Omit } from '../typings/generic';
 
 interface IProps extends IWithStyle {

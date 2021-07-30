@@ -1,5 +1,4 @@
 import Icon from '@mdi/react';
-import { Theme } from '../../../theme';
 import classnames from 'classnames';
 import { Property } from 'csstype';
 import React, { Component } from 'react';
@@ -7,6 +6,7 @@ import injectStyle, { withTheme } from 'react-jss';
 import Loader from 'react-loader';
 
 import { IFormField, IWithStyle } from '../typings/generic';
+import { Theme } from '../../../theme';
 
 type ButtonType = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'inverted';
 

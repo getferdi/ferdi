@@ -1,9 +1,9 @@
 import { mdiClose } from '@mdi/js';
-import { Theme } from '../../../theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
+import { Theme } from '../../../theme';
 import { Icon } from '../';
 import { IWithStyle } from '../typings/generic';
 

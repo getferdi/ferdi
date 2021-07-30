@@ -1,10 +1,10 @@
 import { mdiStar } from '@mdi/js';
-import { Theme } from '../../../theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
 import { Badge, Icon } from '../';
+import { Theme } from '../../../theme';
 import { IWithStyle } from '../typings/generic';
 
 interface IProps extends IWithStyle {

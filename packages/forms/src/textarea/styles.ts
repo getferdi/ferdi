@@ -1,5 +1,6 @@
-import { Theme } from '../../../theme';
 import { Property } from 'csstype';
+
+import { Theme } from '../../../theme';
 
 export default (theme: Theme) => ({
   label: {
