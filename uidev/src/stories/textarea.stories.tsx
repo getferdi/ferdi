@@ -11,7 +11,7 @@ const defaultProps = () => {
     id: `test-${id}`,
     name: `test-${id}`,
     rows: 5,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log('changed event', e),
   };
 };
 

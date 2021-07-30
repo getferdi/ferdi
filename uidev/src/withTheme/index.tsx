@@ -37,14 +37,12 @@ const Container = injectSheet(styles)(({ name, classes, story }: { name: string,
   </article>
 ));
 
-export const WithTheme = ({ children }: {children: React.ReactChild}) => {
-  return (
-      <>
-        {themes.map((theme, key) => (
-          <ThemeProvider key={key} theme={theme.variables}>
-            <Container story={children} name={theme.name} />
-          </ThemeProvider>
+export const WithTheme = ({ children }: { children: React.ReactChild }) => (
+  <>
+    {themes.map((theme, key) => (
+      <ThemeProvider key={key} theme={theme.variables}>
+        <Container story={children} name={theme.name} />
+      </ThemeProvider>
         ))}
-      </>
+  </>
   );
-};

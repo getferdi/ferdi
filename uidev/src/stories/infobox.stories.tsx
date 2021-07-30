@@ -14,14 +14,11 @@ interface IStoreArgs {
   className?: string;
 }
 
-const createStore = (args?: IStoreArgs) => {
-  return observable(Object.assign({
-    type: 'primary',
+const createStore = (args?: IStoreArgs) => observable({ type: 'primary',
     ctaOnClick: () => {
       alert('on click handler');
     },
-  },                              args));
-};
+...args });
 
 const WithStoreInfobox = observer(({ store, children }: { store: any, children: string | React.ReactNode }) => (
   <>
@@ -130,7 +127,8 @@ storiesOf('Infobox')
   .add('With className', () => (
     <WithStoreInfobox store={createStore({
       className: 'franz-is-awesome',
-    })}>
+    })}
+    >
       Welcome to the world of tomorrow
     </WithStoreInfobox>
   ));

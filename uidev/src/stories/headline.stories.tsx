@@ -1,7 +1,4 @@
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
 import React from 'react';
-import uuid from 'uuid/v4';
 
 import { H1, H2, H3, H4 } from '@meetfranz/ui';
 import { storiesOf } from '../stores/stories';

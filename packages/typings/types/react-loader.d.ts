@@ -36,7 +36,7 @@ interface LoaderProps extends LoaderOptions {
   className?: string;
 }
 
-declare class ReactLoader extends Component<LoaderProps>  {
+declare class ReactLoader extends Component<LoaderProps> {
 }
 
 declare namespace ReactLoader {

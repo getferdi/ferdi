@@ -282,7 +282,7 @@ const defaultProps = () => {
     },
     actionText: 'Select country',
     // defaultValue: 'AT',
-    onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log('changed event', e),
   };
 };
 

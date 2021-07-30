@@ -10,7 +10,7 @@ const defaultProps = () => {
     label: 'Label',
     id: `test-${id}`,
     name: `test-${id}`,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log('changed event', e),
   };
 };
 
@@ -21,7 +21,7 @@ const defaultPasswordProps = () => {
     id: `test-${id}`,
     name: `test-${id}`,
     type: 'password',
-    onChange: (e: React.ChangeEvent<HTMLInputElement>)  => console.log('changed event', e),
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log('changed event', e),
   };
 };
 

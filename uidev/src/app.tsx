@@ -5,6 +5,7 @@ import DevTools from 'mobx-react-devtools';
 import React from 'react';
 import injectSheet from 'react-jss';
 
+import { theme, ThemeType } from '@meetfranz/theme';
 import { WithTheme } from './withTheme';
 
 import './stories/badge.stories';
@@ -20,7 +21,6 @@ import './stories/toggle.stories';
 
 import { store } from './stores';
 
-import { theme, ThemeType } from '@meetfranz/theme';
 const defaultTheme = theme(ThemeType.default);
 
 const styles = {

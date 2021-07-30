@@ -1,5 +1,3 @@
-import { store } from './index';
-
 export type StorySectionName = string;
 export type StoryName = string;
 export type StoryComponent = () => JSX.Element;

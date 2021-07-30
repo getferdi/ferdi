@@ -5,8 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "dev": "tsc -w",
-    "prepare": "tsc",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet --fix"
+    "prepare": "tsc"
   },
   "publishConfig": {
     "access": "public"

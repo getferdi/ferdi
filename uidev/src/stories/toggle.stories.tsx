@@ -16,17 +16,14 @@ interface IStoreArgs {
   error?: string;
 }
 
-const createStore = (args?: IStoreArgs) => {
-  return observable(Object.assign({
-    id: `element-${uuid()}`,
+const createStore = (args?: IStoreArgs) => observable({ id: `element-${uuid()}`,
     name: 'toggle',
     label: 'Label',
     value: true,
     checked: false,
     disabled: false,
     error: '',
-  },                              args));
-};
+...args });
 
 const WithStoreToggle = observer(({ store }: { store: any }) => (
   <>
@@ -50,21 +47,25 @@ storiesOf('Toggle')
   .add('Checked', () => (
     <WithStoreToggle store={createStore({
       checked: true,
-    })} />
+    })}
+    />
   ))
   .add('Disabled', () => (
     <WithStoreToggle store={createStore({
       checked: true,
       disabled: true,
-    })} />
+    })}
+    />
   ))
   .add('Long label', () => (
     <WithStoreToggle store={createStore({
       label: 'Hello world, this is an insanely long label for this toggle. We need to make sure that it will be displayed correctly.',
-    })} />
+    })}
+    />
   ))
   .add('With error', () => (
     <WithStoreToggle store={createStore({
       error: 'Something went wrong',
-    })} />
+    })}
+    />
   ));
