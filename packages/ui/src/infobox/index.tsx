@@ -1,10 +1,10 @@
 import { mdiClose } from '@mdi/js';
-import { Theme } from '@meetfranz/theme';
 import classnames from 'classnames';
 import React, { Component } from 'react';
 import injectStyle from 'react-jss';
 
 import { Icon } from '..';
+import { Theme } from '../../../theme';
 import { IWithStyle } from '../typings/generic';
 
 interface IProps extends IWithStyle {
