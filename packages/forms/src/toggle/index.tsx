@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import { Property } from 'csstype';
-import React, { Component } from 'react';
-import injectStyle from 'react-jss';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 import { Theme } from '../../../theme';
@@ -17,7 +17,7 @@ interface IProps
   className?: string;
 }
 
-const styles = (theme: Theme) => ({
+const useStyles = createUseStyles((theme: Theme) => ({
   toggle: {
     background: theme.toggleBackground,
     borderRadius: theme.borderRadius,
@@ -55,65 +55,53 @@ const styles = (theme: Theme) => ({
       marginLeft: 15,
     },
   },
-});
+}));
 
-class ToggleComponent extends Component<IProps> {
-  public static defaultProps = {
-    onChange: () => {},
-    showLabel: true,
-    disabled: false,
-    error: '',
-  };
+export const Toggle = ({
+  className,
+  disabled = false,
+  error = '',
+  id,
+  label,
+  showLabel = true,
+  checked,
+  value,
+  onChange = () => {},
+}: IProps) => {
+  const classes = useStyles();
 
-  render() {
-    const {
-      classes,
-      className,
-      disabled,
-      error,
-      id,
-      label,
-      showLabel,
-      checked,
-      value,
-      onChange,
-    } = this.props;
-
-    return (
-      <Wrapper className={className} identifier="franz-toggle">
-        <Label
-          title={label}
-          showLabel={showLabel}
-          htmlFor={id}
-          className={classes.toggleLabel}
+  return (
+    <Wrapper className={className} identifier="franz-toggle">
+      <Label
+        title={label}
+        showLabel={showLabel}
+        htmlFor={id}
+        className={classes.toggleLabel}
+      >
+        <div
+          className={classnames({
+            [`${classes.toggle}`]: true,
+            [`${classes.disabled}`]: disabled,
+          })}
         >
           <div
             className={classnames({
-              [`${classes.toggle}`]: true,
-              [`${classes.disabled}`]: disabled,
+              [`${classes.button}`]: true,
+              [`${classes.buttonActive}`]: checked,
             })}
-          >
-            <div
-              className={classnames({
-                [`${classes.button}`]: true,
-                [`${classes.buttonActive}`]: checked,
-              })}
-            />
-            <input
-              className={classes.input}
-              id={id}
-              type="checkbox"
-              checked={checked}
-              value={value}
-              onChange={onChange}
-              disabled={disabled}
-            />
-          </div>
-        </Label>
-        {error && <Error message={error} />}
-      </Wrapper>
-    );
-  }
-}
-
-export const Toggle = injectStyle(styles)(ToggleComponent);
+          />
+          <input
+            className={classes.input}
+            id={id}
+            type="checkbox"
+            checked={checked}
+            value={value}
+            onChange={onChange}
+            disabled={disabled}
+          />
+        </div>
+      </Label>
+      {error && <Error message={error} />}
+    </Wrapper>
+  );
+};

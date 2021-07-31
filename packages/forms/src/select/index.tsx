@@ -5,8 +5,8 @@ import {
 } from '@mdi/js';
 import Icon from '@mdi/react';
 import classnames from 'classnames';
-import React, { Component, createRef } from 'react';
-import injectStyle from 'react-jss';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 import { Theme } from '../../../theme';
@@ -38,15 +38,7 @@ interface IProps extends IFormField, IWithStyle {
   data: IData;
 }
 
-interface IState {
-  open: boolean;
-  value: string;
-  needle: string;
-  selected: number;
-  options: IOptions;
-}
-
-const styles = (theme: Theme) => ({
+const useStyles = createUseStyles((theme: Theme) => ({
   select: {
     background: theme.selectBackground,
     border: theme.selectBorder,
@@ -138,316 +130,268 @@ const styles = (theme: Theme) => ({
   disabled: {
     opacity: theme.selectDisabledOpacity,
   },
-});
+}));
 
-class SelectComponent extends Component<IProps> {
-  public static defaultProps = {
-    onChange: () => {},
-    showLabel: true,
-    disabled: false,
-    error: '',
-  };
+export const Select = ({
+  onChange = () => {},
+  showLabel = true,
+  disabled = false,
+  error = '',
+  data,
+  value,
+  actionText,
+  className,
+  defaultValue,
+  id,
+  inputClassName,
+  name,
+  label,
+  showSearch,
+  required,
+}: IProps) => {
+  const [open, setOpen] = useState<boolean>(false);
+  // const [value, setValue] = useState<string>('');
+  const [needle, setNeedle] = useState<string>('');
+  const [selected, setSelected] = useState<number>(0);
+  const [options, setOptions] = useState<IOptions>({});
 
-  state = {
-    open: false,
-    value: '',
-    needle: '',
-    selected: 0,
-    options: null,
-  };
+  const componentRef = useRef<HTMLDivElement>(null);
 
-  private componentRef = createRef<HTMLDivElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  private inputRef = createRef<HTMLInputElement>();
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
-  private searchInputRef = createRef<HTMLInputElement>();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  private scrollContainerRef = createRef<HTMLDivElement>();
+  const activeOptionRef = useRef<HTMLDivElement>(null);
 
-  private activeOptionRef = createRef<HTMLDivElement>();
+  const keyListener: any = null;
 
-  private keyListener: any;
+  const setFilter = useCallback(
+    (needle = '') => {
+      let filteredOptions = {};
+      if (needle) {
+        Object.keys(options).map(key => {
+          if (
+            key.toLocaleLowerCase().startsWith(needle.toLocaleLowerCase()) ||
+            options[key]
+              .toLocaleLowerCase()
+              .startsWith(needle.toLocaleLowerCase())
+          ) {
+            Object.assign(filteredOptions, {
+              [`${key}`]: options[key],
+            });
+          }
+        });
+      } else {
+        filteredOptions = options;
+      }
 
-  componentWillReceiveProps(nextProps: IProps) {
-    if (nextProps.value && nextProps.value !== this.props.value) {
-      this.setState({
-        value: nextProps.value,
-      });
+      setNeedle(needle);
+      setOptions(filteredOptions);
+      setSelected(0);
+    },
+    [options],
+  );
+
+  const select = (key: string) => {
+    // setValue(key);
+    setOpen(false);
+
+    setFilter();
+
+    if (onChange) {
+      onChange(key as any);
     }
-  }
+  };
 
-  componentDidUpdate() {
-    const { open } = this.state;
+  const arrowKeysHandler = useCallback(
+    (e: KeyboardEvent) => {
+      if (!open) return;
 
-    if (this.searchInputRef && this.searchInputRef.current) {
+      if (e.keyCode === 38 || e.keyCode === 40) {
+        e.preventDefault();
+      }
+
+      if (componentRef && componentRef.current) {
+        if (e.keyCode === 38 && selected > 0) {
+          setSelected(selected - 1);
+        } else if (
+          e.keyCode === 40 &&
+          selected < Object.keys(options!).length - 1
+        ) {
+          setSelected(selected + 1);
+        } else if (e.keyCode === 13) {
+          select(Object.keys(options!)[selected]);
+        }
+
+        if (
+          activeOptionRef &&
+          activeOptionRef.current &&
+          scrollContainerRef &&
+          scrollContainerRef.current
+        ) {
+          const containerTopOffset = scrollContainerRef.current.offsetTop;
+          const optionTopOffset = activeOptionRef.current.offsetTop;
+
+          const topOffset = optionTopOffset - containerTopOffset;
+
+          scrollContainerRef.current.scrollTop = topOffset - 35;
+        }
+      }
+
+      switch (e.keyCode) {
+        case 37:
+        case 39:
+        case 38:
+        case 40: // Arrow keys
+        case 32:
+          break; // Space
+        default:
+          break; // do not block other keys
+      }
+    },
+    [open, options, select, selected],
+  );
+
+  useEffect(() => {
+    if (searchInputRef && searchInputRef.current) {
       if (open) {
-        this.searchInputRef.current.focus();
+        searchInputRef.current.focus();
       }
     }
-  }
+  }, [open]);
 
-  componentDidMount() {
-    if (this.inputRef && this.inputRef.current) {
-      const { data } = this.props;
+  useEffect(() => {
+    if (componentRef && componentRef.current) {
+      componentRef.current.removeEventListener('keydown', keyListener);
+    }
 
+    // if (value) {
+    //   setValue(value);
+    // }
+
+    setFilter();
+  }, [keyListener, setFilter]);
+
+  useEffect(() => {
+    if (inputRef && inputRef.current) {
       if (data) {
         Object.keys(data).map(
-          key => (this.inputRef.current!.dataset[key] = data[key]),
+          key => (inputRef.current!.dataset[key] = data[key]),
         );
       }
     }
 
-    window.addEventListener('keydown', this.arrowKeysHandler.bind(this), false);
+    return () => {
+      window.removeEventListener('keydown', arrowKeysHandler);
+    };
+  }, [arrowKeysHandler, data]);
+
+  const classes = useStyles();
+
+  let selection = '';
+  if (!value && defaultValue && options![defaultValue]) {
+    selection = options![defaultValue];
+  } else if (value && options![value]) {
+    selection = options![value];
+  } else {
+    selection = actionText;
   }
 
-  componentWillMount() {
-    const { value } = this.props;
-
-    if (this.componentRef && this.componentRef.current) {
-      this.componentRef.current.removeEventListener(
-        'keydown',
-        this.keyListener,
-      );
-    }
-
-    if (value) {
-      this.setState({
-        value,
-      });
-    }
-
-    this.setFilter();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.arrowKeysHandler.bind(this));
-  }
-
-  setFilter(needle = '') {
-    const { options } = this.props;
-
-    let filteredOptions = {};
-    if (needle) {
-      Object.keys(options).map(key => {
-        if (
-          key.toLocaleLowerCase().startsWith(needle.toLocaleLowerCase()) ||
-          options[key]
-            .toLocaleLowerCase()
-            .startsWith(needle.toLocaleLowerCase())
-        ) {
-          Object.assign(filteredOptions, {
-            [`${key}`]: options[key],
-          });
-        }
-      });
-    } else {
-      filteredOptions = options;
-    }
-
-    this.setState({
-      needle,
-      options: filteredOptions,
-      selected: 0,
-    });
-  }
-
-  select(key: string) {
-    this.setState(() => ({
-      value: key,
-      open: false,
-    }));
-
-    this.setFilter();
-
-    if (this.props.onChange) {
-      this.props.onChange(key as any);
-    }
-  }
-
-  arrowKeysHandler(e: KeyboardEvent) {
-    const { selected, open, options } = this.state;
-
-    if (!open) return;
-
-    if (e.keyCode === 38 || e.keyCode === 40) {
-      e.preventDefault();
-    }
-
-    if (this.componentRef && this.componentRef.current) {
-      if (e.keyCode === 38 && selected > 0) {
-        this.setState((state: IState) => ({
-          selected: state.selected - 1,
-        }));
-      } else if (
-        e.keyCode === 40 &&
-        selected < Object.keys(options!).length - 1
-      ) {
-        this.setState((state: IState) => ({
-          selected: state.selected + 1,
-        }));
-      } else if (e.keyCode === 13) {
-        this.select(Object.keys(options!)[selected]);
-      }
-
-      if (
-        this.activeOptionRef &&
-        this.activeOptionRef.current &&
-        this.scrollContainerRef &&
-        this.scrollContainerRef.current
-      ) {
-        const containerTopOffset = this.scrollContainerRef.current.offsetTop;
-        const optionTopOffset = this.activeOptionRef.current.offsetTop;
-
-        const topOffset = optionTopOffset - containerTopOffset;
-
-        this.scrollContainerRef.current.scrollTop = topOffset - 35;
-      }
-    }
-
-    switch (e.keyCode) {
-      case 37:
-      case 39:
-      case 38:
-      case 40: // Arrow keys
-      case 32:
-        break; // Space
-      default:
-        break; // do not block other keys
-    }
-  }
-
-  render() {
-    const {
-      actionText,
-      classes,
-      className,
-      defaultValue,
-      disabled,
-      error,
-      id,
-      inputClassName,
-      name,
-      label,
-      showLabel,
-      showSearch,
-      onChange,
-      required,
-    } = this.props;
-
-    const { open, needle, value, selected, options } = this.state;
-
-    let selection = '';
-    if (!value && defaultValue && options![defaultValue]) {
-      selection = options![defaultValue];
-    } else if (value && options![value]) {
-      selection = options![value];
-    } else {
-      selection = actionText;
-    }
-
-    return (
-      <Wrapper className={className} identifier="franz-select">
-        <Label
-          title={label}
-          showLabel={showLabel}
-          htmlFor={id}
-          className={classes.label}
-          isRequired={required}
+  return (
+    <Wrapper className={className} identifier="franz-select">
+      <Label
+        title={label}
+        showLabel={showLabel}
+        htmlFor={id}
+        className={classes.label}
+        isRequired={required}
+      >
+        <div
+          className={classnames({
+            [`${classes.hasError}`]: error,
+            [`${classes.disabled}`]: disabled,
+          })}
+          ref={componentRef}
         >
+          <button
+            type="button"
+            className={classnames({
+              [`${inputClassName}`]: inputClassName,
+              [`${classes.select}`]: true,
+              [`${classes.hasError}`]: error,
+            })}
+            onClick={!disabled ? () => setOpen(!open) : () => {}}
+          >
+            {selection}
+            <Icon
+              path={mdiArrowRightDropCircleOutline}
+              size={0.8}
+              className={classnames({
+                [`${classes.toggle}`]: true,
+                [`${classes.toggleOpened}`]: open,
+              })}
+            />
+          </button>
+          {showSearch && open && (
+            <div className={classes.searchContainer}>
+              <Icon path={mdiMagnify} size={0.8} />
+              <input
+                type="text"
+                value={needle}
+                onChange={e => setFilter(e.currentTarget.value)}
+                placeholder="Search"
+                className={classes.search}
+                ref={searchInputRef}
+              />
+              {needle && (
+                <button
+                  type="button"
+                  className={classes.clearNeedle}
+                  onClick={() => setFilter()}
+                >
+                  <Icon path={mdiCloseCircle} size={0.7} />
+                </button>
+              )}
+            </div>
+          )}
           <div
             className={classnames({
-              [`${classes.hasError}`]: error,
-              [`${classes.disabled}`]: disabled,
+              [`${classes.popup}`]: true,
+              [`${classes.open}`]: open,
             })}
-            ref={this.componentRef}
+            ref={scrollContainerRef}
           >
-            <button
-              type="button"
-              className={classnames({
-                [`${inputClassName}`]: inputClassName,
-                [`${classes.select}`]: true,
-                [`${classes.hasError}`]: error,
-              })}
-              onClick={
-                !disabled
-                  ? () =>
-                      this.setState((state: IState) => ({
-                        open: !state.open,
-                      }))
-                  : () => {}
-              }
-            >
-              {selection}
-              <Icon
-                path={mdiArrowRightDropCircleOutline}
-                size={0.8}
+            {Object.keys(options!).map((key, i) => (
+              <div
+                key={key}
+                onClick={() => select(key)}
                 className={classnames({
-                  [`${classes.toggle}`]: true,
-                  [`${classes.toggleOpened}`]: open,
+                  [`${classes.option}`]: true,
+                  [`${classes.selected}`]: options![key] === selection,
+                  [`${classes.focused}`]: selected === i,
                 })}
-              />
-            </button>
-            {showSearch && open && (
-              <div className={classes.searchContainer}>
-                <Icon path={mdiMagnify} size={0.8} />
-                <input
-                  type="text"
-                  value={needle}
-                  onChange={e => this.setFilter(e.currentTarget.value)}
-                  placeholder="Search"
-                  className={classes.search}
-                  ref={this.searchInputRef}
-                />
-                {needle && (
-                  <button
-                    type="button"
-                    className={classes.clearNeedle}
-                    onClick={() => this.setFilter()}
-                  >
-                    <Icon path={mdiCloseCircle} size={0.7} />
-                  </button>
-                )}
+                onMouseOver={() => setSelected(i)}
+                ref={selected === i ? activeOptionRef : null}
+              >
+                {options![key]}
               </div>
-            )}
-            <div
-              className={classnames({
-                [`${classes.popup}`]: true,
-                [`${classes.open}`]: open,
-              })}
-              ref={this.scrollContainerRef}
-            >
-              {Object.keys(options!).map((key, i) => (
-                <div
-                  key={key}
-                  onClick={() => this.select(key)}
-                  className={classnames({
-                    [`${classes.option}`]: true,
-                    [`${classes.selected}`]: options![key] === selection,
-                    [`${classes.focused}`]: selected === i,
-                  })}
-                  onMouseOver={() => this.setState({ selected: i })}
-                  ref={selected === i ? this.activeOptionRef : null}
-                >
-                  {options![key]}
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
-          <input
-            className={classes.input}
-            id={id}
-            name={name}
-            type="hidden"
-            defaultValue={value}
-            onChange={onChange}
-            disabled={disabled}
-            ref={this.inputRef}
-          />
-        </Label>
-        {error && <Error message={error} />}
-      </Wrapper>
-    );
-  }
-}
-
-export const Select = injectStyle(styles)(SelectComponent);
+        </div>
+        <input
+          // className={classes.input}
+          id={id}
+          name={name}
+          type="hidden"
+          defaultValue={value}
+          onChange={onChange}
+          disabled={disabled}
+          ref={inputRef}
+        />
+      </Label>
+      {error && <Error message={error} />}
+    </Wrapper>
+  );
+};

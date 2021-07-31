@@ -1,6 +1,6 @@
 import classnames from 'classnames';
-import React, { Component, createRef } from 'react';
-import injectSheet from 'react-jss';
+import React, { useEffect, useRef } from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { IFormField, IWithStyle } from '../typings/generic';
 
@@ -23,104 +23,89 @@ interface IProps
   textareaClassName?: string;
 }
 
-class TextareaComponent extends Component<IProps> {
-  static defaultProps = {
-    focus: false,
-    onChange: () => {},
-    onBlur: () => {},
-    onFocus: () => {},
-    showLabel: true,
-    disabled: false,
-    rows: 5,
-  };
+const useStyles = createUseStyles(styles);
 
-  private textareaRef = createRef<HTMLTextAreaElement>();
+export const Textarea = ({
+  className,
+  disabled = false,
+  error,
+  id,
+  textareaClassName,
+  label,
+  showLabel = true,
+  value,
+  name,
+  placeholder,
+  spellCheck,
+  onBlur = () => {},
+  onFocus = () => {},
+  minLength,
+  maxLength,
+  required,
+  rows = 5,
+  noMargin,
+  data,
+  onChange,
+}: IProps) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  componentDidMount() {
-    const { data } = this.props;
-
-    if (this.textareaRef && this.textareaRef.current && data) {
+  useEffect(() => {
+    if (textareaRef && textareaRef.current && data) {
       Object.keys(data).map(
-        key => (this.textareaRef.current!.dataset[key] = data[key]),
+        key => (textareaRef.current!.dataset[key] = data[key]),
       );
     }
-  }
+  }, [data]);
 
-  onChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    const { onChange } = this.props;
-
+  const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange) {
       onChange(e);
     }
-  }
+  };
 
-  render() {
-    const {
-      classes,
-      className,
-      disabled,
-      error,
-      id,
-      textareaClassName,
-      label,
-      showLabel,
-      value,
-      name,
-      placeholder,
-      spellCheck,
-      onBlur,
-      onFocus,
-      minLength,
-      maxLength,
-      required,
-      rows,
-      noMargin,
-    } = this.props;
+  const classes = useStyles();
 
-    return (
-      <Wrapper
-        className={className}
-        identifier="franz-textarea"
-        noMargin={noMargin}
+  return (
+    <Wrapper
+      className={className}
+      identifier="franz-textarea"
+      noMargin={noMargin}
+    >
+      <Label
+        title={label}
+        showLabel={showLabel}
+        htmlFor={id}
+        className={classes.label}
+        isRequired={required}
       >
-        <Label
-          title={label}
-          showLabel={showLabel}
-          htmlFor={id}
-          className={classes.label}
-          isRequired={required}
+        <div
+          className={classnames({
+            [`${textareaClassName}`]: textareaClassName,
+            [`${classes.wrapper}`]: true,
+            [`${classes.disabled}`]: disabled,
+            [`${classes.hasError}`]: error,
+          })}
         >
-          <div
-            className={classnames({
-              [`${textareaClassName}`]: textareaClassName,
-              [`${classes.wrapper}`]: true,
-              [`${classes.disabled}`]: disabled,
-              [`${classes.hasError}`]: error,
-            })}
+          <textarea
+            id={id}
+            name={name}
+            placeholder={placeholder}
+            spellCheck={spellCheck}
+            className={classes.textarea}
+            ref={textareaRef}
+            onChange={handleOnChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            disabled={disabled}
+            minLength={minLength}
+            maxLength={maxLength}
+            rows={rows}
           >
-            <textarea
-              id={id}
-              name={name}
-              placeholder={placeholder}
-              spellCheck={spellCheck}
-              className={classes.textarea}
-              ref={this.textareaRef}
-              onChange={this.onChange.bind(this)}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              disabled={disabled}
-              minLength={minLength}
-              maxLength={maxLength}
-              rows={rows}
-            >
-              {value}
-            </textarea>
-          </div>
-        </Label>
-        {error && <Error message={error} />}
-      </Wrapper>
-    );
-  }
-}
-
-export const Textarea = injectSheet(styles)(TextareaComponent);
+            {value}
+          </textarea>
+        </div>
+      </Label>
+      {error && <Error message={error} />}
+    </Wrapper>
+  );
+};

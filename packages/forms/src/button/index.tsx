@@ -1,8 +1,8 @@
 import Icon from '@mdi/react';
 import classnames from 'classnames';
 import { Property } from 'csstype';
-import React, { Component } from 'react';
-import injectStyle, { withTheme } from 'react-jss';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 import Loader from 'react-loader';
 
 import { IFormField, IWithStyle } from '../typings/generic';
@@ -35,7 +35,7 @@ interface IProps extends IFormField, IWithStyle {
   target?: string;
 }
 
-const styles = (theme: Theme) => ({
+const useStyles = createUseStyles((theme: Theme) => ({
   button: {
     borderRadius: theme.borderRadiusSmall,
     border: 'none',
@@ -138,129 +138,96 @@ const styles = (theme: Theme) => ({
   icon: {
     margin: [1, 10, 0, -5],
   },
-});
+}));
 
-class ButtonComponent extends Component<IProps> {
-  public static defaultProps = {
-    type: 'button',
-    disabled: false,
-    onClick: () => null,
-    buttonType: 'primary' as ButtonType,
-    stretch: false,
-    busy: false,
-  };
+export const Button = (props: IProps) => {
+  const {
+    className,
+    theme,
+    disabled,
+    id,
+    label,
+    type = 'button',
+    onClick = () => null,
+    buttonType = 'primary' as ButtonType,
+    loaded,
+    icon,
+    href,
+    target,
+    busy = false,
+  } = props;
 
-  state = {
-    busy: false,
-  };
+  const classes = useStyles();
 
-  componentWillMount() {
-    this.setState({ busy: this.props.busy });
-  }
-
-  componentWillReceiveProps(nextProps: IProps) {
-    if (nextProps.busy !== this.props.busy) {
-      if (this.props.busy) {
-        setTimeout(() => {
-          this.setState({ busy: nextProps.busy });
-        }, 300);
-      } else {
-        this.setState({ busy: nextProps.busy });
-      }
-    }
-  }
-
-  render() {
-    const {
-      classes,
-      className,
-      theme,
-      disabled,
-      id,
-      label,
-      type,
-      onClick,
-      buttonType,
-      loaded,
-      icon,
-      href,
-      target,
-    } = this.props;
-
-    const { busy } = this.state;
-
-    let showLoader = false;
-    if (loaded) {
-      showLoader = !loaded;
-      console.warn(
-        'Ferdi Button prop `loaded` will be deprecated in the future. Please use `busy` instead',
-      );
-    }
-    if (busy) {
-      showLoader = busy;
-    }
-
-    const content = (
-      <>
-        <div className={classes.loaderContainer}>
-          {showLoader && (
-            <Loader
-              loaded={false}
-              width={4}
-              scale={0.45}
-              color={theme.buttonLoaderColor[buttonType!]}
-              parentClassName={classes.loader}
-            />
-          )}
-        </div>
-        <div className={classes.label}>
-          {icon && <Icon path={icon} size={0.8} className={classes.icon} />}
-          {label}
-        </div>
-      </>
+  let showLoader = false;
+  if (loaded) {
+    showLoader = !loaded;
+    console.warn(
+      'Ferdi Button prop `loaded` will be deprecated in the future. Please use `busy` instead',
     );
-
-    let wrapperComponent: JSX.Element;
-
-    if (!href) {
-      wrapperComponent = (
-        <button
-          id={id}
-          type={type}
-          onClick={onClick}
-          className={classnames({
-            [`${classes.button}`]: true,
-            [`${classes[buttonType as ButtonType]}`]: true,
-            [`${classes.disabled}`]: disabled,
-            [`${className}`]: className,
-          })}
-          disabled={disabled}
-          data-type="franz-button"
-        >
-          {content}
-        </button>
-      );
-    } else {
-      wrapperComponent = (
-        <a
-          href={href}
-          target={target}
-          onClick={onClick}
-          className={classnames({
-            [`${classes.button}`]: true,
-            [`${classes[buttonType as ButtonType]}`]: true,
-            [`${className}`]: className,
-          })}
-          rel={target === '_blank' ? 'noopener' : ''}
-          data-type="franz-button"
-        >
-          {content}
-        </a>
-      );
-    }
-
-    return wrapperComponent;
   }
-}
+  if (busy) {
+    showLoader = busy;
+  }
 
-export const Button = injectStyle(styles)(withTheme(ButtonComponent));
+  const content = (
+    <>
+      <div className={classes.loaderContainer}>
+        {showLoader && (
+          <Loader
+            loaded={false}
+            width={4}
+            scale={0.45}
+            color={theme.buttonLoaderColor[buttonType!]}
+            parentClassName={classes.loader}
+          />
+        )}
+      </div>
+      <div className={classes.label}>
+        {icon && <Icon path={icon} size={0.8} className={classes.icon} />}
+        {label}
+      </div>
+    </>
+  );
+
+  let wrapperComponent: JSX.Element;
+
+  if (!href) {
+    wrapperComponent = (
+      <button
+        id={id}
+        type={type}
+        onClick={onClick}
+        className={classnames({
+          [`${classes.button}`]: true,
+          [`${classes[buttonType as ButtonType]}`]: true,
+          [`${classes.disabled}`]: disabled,
+          [`${className}`]: className,
+        })}
+        disabled={disabled}
+        data-type="franz-button"
+      >
+        {content}
+      </button>
+    );
+  } else {
+    wrapperComponent = (
+      <a
+        href={href}
+        target={target}
+        onClick={onClick}
+        className={classnames({
+          [`${classes.button}`]: true,
+          [`${classes[buttonType as ButtonType]}`]: true,
+          [`${className}`]: className,
+        })}
+        rel={target === '_blank' ? 'noopener' : ''}
+        data-type="franz-button"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return wrapperComponent;
+};

@@ -1,20 +1,18 @@
-import { Classes } from 'jss';
-import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 
 import styles from './styles';
 
 interface IProps {
-  classes: Classes;
   message: string;
 }
 
-class ErrorComponent extends Component<IProps> {
-  render() {
-    const { classes, message } = this.props;
+const useStyles = createUseStyles(styles);
 
-    return <p className={classes.message}>{message}</p>;
-  }
-}
+export const Error = (props: IProps) => {
+  const { message } = props;
 
-export const Error = injectSheet(styles)(ErrorComponent);
+  const classes = useStyles();
+
+  return <p className={classes.message}>{message}</p>;
+};
