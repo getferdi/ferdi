@@ -2,8 +2,7 @@
   "packages": [
     "packages/theme",
     "packages/forms",
-    "packages/ui",
-    "packages/typings"
+    "packages/ui"
   ],
   "npmClient": "npm",
   "version": "independent",
