@@ -176,7 +176,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
           />
           <div className="recipes__navigation">
             <Link
-              to="/settings/recipes/all"
+              to="/settings/recipes"
               className="badge"
               activeClassName={`${!searchNeedle ? 'badge--primary' : ''}`}
               onClick={() => resetSearch()}

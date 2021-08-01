@@ -346,7 +346,7 @@ export default class ServicesStore extends Store {
     this.actionStatus = response.status || [];
 
     if (redirect) {
-      this.stores.router.push('/settings/recipes/all');
+      this.stores.router.push('/settings/recipes');
     }
   }
 

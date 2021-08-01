@@ -196,7 +196,7 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
             </button>
             <button
               type="button"
-              onClick={() => openSettings({ path: 'recipes/all' })}
+              onClick={() => openSettings({ path: 'recipes' })}
               className="sidebar__button sidebar__button--new-service"
               data-tip={`${intl.formatMessage(messages.addNewService)} (${ctrlKey}+N)`}
             >

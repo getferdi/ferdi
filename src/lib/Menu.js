@@ -1112,7 +1112,7 @@ export default class FranzMenu {
       label: intl.formatMessage(menuItems.addNewService),
       accelerator: `${cmdKey}+N`,
       click: () => {
-        this.actions.ui.openSettings({ path: 'recipes/all' });
+        this.actions.ui.openSettings({ path: 'recipes' });
       },
     }, {
       type: 'separator',

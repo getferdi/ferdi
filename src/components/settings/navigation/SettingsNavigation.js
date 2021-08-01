@@ -104,7 +104,7 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
     return (
       <div className="settings-navigation">
         <Link
-          to="/settings/recipes/all"
+          to="/settings/recipes"
           className="settings-navigation__link"
           activeClassName="is-active"
         >

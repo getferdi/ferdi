@@ -140,7 +140,7 @@ export default class RecipesStore extends Store {
       const recipeId = match.id;
 
       if (!this.stores.recipes.isInstalled(recipeId)) {
-        router.push('/settings/recipes/all');
+        router.push('/settings/recipes');
         debug(`Recipe ${recipeId} is not installed, trying to install it`);
 
         const recipe = await this.installRecipeRequest.execute(recipeId)._promise;
@@ -148,7 +148,7 @@ export default class RecipesStore extends Store {
           await this.allRecipesRequest.invalidate({ immediately: true })._promise;
           router.push(`/settings/services/add/${recipeId}`);
         } else {
-          router.push('/settings/recipes/all');
+          router.push('/settings/recipes');
         }
       }
     }

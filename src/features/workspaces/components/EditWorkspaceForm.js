@@ -188,7 +188,7 @@ class EditWorkspaceForm extends Component {
                   </span>
                   {intl.formatMessage(messages.noServicesAdded)}
                 </p>
-                <Link to="/settings/recipes/all" className="button">
+                <Link to="/settings/recipes" className="button">
                   {intl.formatMessage(messages.discoverServices)}
                 </Link>
               </div>

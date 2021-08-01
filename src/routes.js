@@ -54,8 +54,8 @@ export default @inject('stores', 'actions') @observer class Routes extends Compo
         <Route path="/" component={AppLayoutContainer}>
           <Route path={ANNOUNCEMENTS_ROUTES.TARGET} component={AnnouncementScreen} />
           <Route path="/settings" component={SettingsWindow}>
-            <IndexRedirect to="/settings/recipes/all" />
-            {/* <Route path="/settings/recipes" component={RecipesScreen} /> */}
+            <IndexRedirect to="/settings/recipes" />
+            <Route path="/settings/recipes" component={RecipesScreen} />
             <Route path="/settings/recipes/:filter" component={RecipesScreen} />
             <Route path="/settings/services" component={ServicesScreen} />
             <Route path="/settings/services/:action/:id" component={EditServiceScreen} />

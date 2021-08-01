@@ -243,7 +243,7 @@ export default @observer class EditServiceForm extends Component {
         <div className="settings__header">
           <span className="settings__header-item">
             {action === 'add' ? (
-              <Link to="/settings/recipes/all">
+              <Link to="/settings/recipes">
                 {intl.formatMessage(messages.availableServices)}
               </Link>
             ) : (
