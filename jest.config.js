@@ -3,6 +3,5 @@ module.exports = {
   testPathIgnorePatterns: [
     'node_modules/',
     'recipes/',
-    'src/internal-server',
-  ]
+  ],
 };

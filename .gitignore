@@ -13,3 +13,23 @@ lerna-debug.log
 uidev/lib
 *.tsbuildinfo
 server*.log
+
+# These entries have been merged from the git submodule repo 'internal-server'
+
+# Adonis directory for storing tmp files
+/src/internal-server/tmp
+
+# Environment variables, never commit this file
+/src/internal-server/.env
+
+# The development sqlite file
+/src/internal-server/database/development.sqlite
+/src/internal-server/database/adonis.sqlite
+
+# Uploaded recipes
+/src/internal-server/recipes/
+
+/src/internal-server/public/terms.html
+/src/internal-server/public/privacy.html
+
+/src/internal-server/user_data/

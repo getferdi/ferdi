@@ -25,3 +25,11 @@ recipes/archives
 tmp-out/
 uidev/lib
 docs/
+src/internal-server/database/tmp/
+src/internal-server/database/development.sqlite
+src/internal-server/database/adonis.sqlite
+src/internal-server/recipes/
+src/internal-server/public/terms.html
+src/internal-server/public/privacy.html
+src/internal-server/user_data/
+**/.env

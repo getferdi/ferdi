@@ -113,7 +113,7 @@ cd ferdi
 git submodule update --init --recursive
 ```
 
-It is important you execute the last command to get the required submodules (recipes, src/internal-server).
+It is important you execute the last command to get the required submodules (recipes).
 
 ### Local caching of dependencies
 

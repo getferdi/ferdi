@@ -3,8 +3,3 @@
 	url = https://github.com/getferdi/recipes.git
 	ignore = all
 	branch = master
-[submodule "src/internal-server"]
-	path = src/internal-server
-	url = https://github.com/getferdi/internal-server.git
-	ignore = all
-	branch = master
