@@ -37,7 +37,7 @@ export default @observer class ServiceError extends Component {
       <div className="settings__main">
         <div className="settings__header">
           <span className="settings__header-item">
-            <Link to="/settings/recipes">
+            <Link to="/settings/recipes/all">
               {intl.formatMessage(messages.availableServices)}
             </Link>
           </span>

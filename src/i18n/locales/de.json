@@ -301,7 +301,6 @@
   "settings.recipes.customService.openFolder": "Ordner öffnen",
   "settings.recipes.headline": "Verfügbare Dienste",
   "settings.recipes.missingService": "Fehlt ein Dienst?",
-  "settings.recipes.mostPopular": "Am beliebtesten",
   "settings.recipes.nothingFound": "Leider hat kein Dienst zu deinem Suchbegriff gepasst - aber du kannst ihn wahrscheinlich trotzdem über die Option \"Eigene Website\" hinzufügen. Bitte beachte, dass die Website möglicherweise weitere Dienste anzeigt, die seit deiner aktuellen Version zu Ferdi hinzugefügt wurden. Um diese neuen Dienste zu erhalten, erwäge bitte ein Upgrade auf eine neuere Version von Ferdi.",
   "settings.recipes.servicesSuccessfulAddedInfo": "Dienst erfolgreich hinzugefügt",
   "settings.searchService": "Dienst suchen",

@@ -24,10 +24,6 @@ const messages = defineMessages({
     id: 'settings.searchService',
     defaultMessage: '!!!Search service',
   },
-  mostPopularRecipes: {
-    id: 'settings.recipes.mostPopular',
-    defaultMessage: '!!!Most popular',
-  },
   allRecipes: {
     id: 'settings.recipes.all',
     defaultMessage: '!!!All services',
@@ -179,14 +175,6 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
             throttle
           />
           <div className="recipes__navigation">
-            <Link
-              to="/settings/recipes"
-              className="badge"
-              activeClassName={`${!searchNeedle ? 'badge--primary' : ''}`}
-              onClick={() => resetSearch()}
-            >
-              {intl.formatMessage(messages.mostPopularRecipes)}
-            </Link>
             <Link
               to="/settings/recipes/all"
               className="badge"

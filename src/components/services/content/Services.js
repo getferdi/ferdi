@@ -148,7 +148,7 @@ export default @injectSheet(styles) @inject('actions') @observer class Services 
                 timeout={300}
                 transitionName="slideUp"
               >
-                <Link to={isLoggedIn ? '/settings/recipes' : '/auth/welcome'} className="button">
+                <Link to={isLoggedIn ? '/settings/recipes/all' : '/auth/welcome'} className="button">
                   { isLoggedIn ? intl.formatMessage(messages.getStarted) : 'Login' }
                 </Link>
                 {!isLoggedIn && (
