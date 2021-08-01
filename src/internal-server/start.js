@@ -1,4 +1,3 @@
-
 /*
 |--------------------------------------------------------------------------
 | Http server
@@ -38,6 +37,7 @@ module.exports = async (userPath, port) => {
 
     // Change permissions to ensure to file is not read-only
     if (os.platform() === 'win32') {
+      // eslint-disable-next-line no-bitwise
       fs.chmodSync(dbPath, fs.statSync(dbPath).mode | 146);
     }
   }

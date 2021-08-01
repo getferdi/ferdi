@@ -1,4 +1,3 @@
-
 const BaseExceptionHandler = use('BaseExceptionHandler');
 
 /**

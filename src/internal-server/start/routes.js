@@ -1,4 +1,3 @@
-
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -11,6 +10,7 @@ const Route = use('Route');
 
 // Run latest database migration
 const migrate = require('./migrate');
+
 migrate();
 
 const OnlyAllowFerdi = async ({ request, response }, next) => {

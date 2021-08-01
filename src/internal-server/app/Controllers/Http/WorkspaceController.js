@@ -94,6 +94,7 @@ class WorkspaceController {
   }
 
   async delete({
+    // eslint-disable-next-line no-unused-vars
     request,
     response,
     params,
@@ -135,11 +136,10 @@ class WorkspaceController {
         id: workspace.workspaceId,
         name: workspace.name,
         order: workspace.order,
-        services: typeof workspace.services === "string" ? JSON.parse(workspace.services) : workspace.services,
+        services: typeof workspace.services === 'string' ? JSON.parse(workspace.services) : workspace.services,
         userId: 1,
       }));
     }
-
 
     return response.send(workspacesArray);
   }

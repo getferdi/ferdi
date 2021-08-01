@@ -11,4 +11,4 @@ fileInput.addEventListener('change', () => {
     submitBtn.disabled = false;
   };
   reader.readAsText(fileInput.files[0]);
-})
+});

@@ -1,4 +1,3 @@
-
 /**
  * Controller for routes with static responses
  */
@@ -15,7 +14,7 @@ class StaticController {
       isSettingsWSEnabled: false,
       isMagicBarEnabled: true,
       isTodosEnabled: true,
-      subscribeURL: "https://getferdi.com",
+      subscribeURL: 'https://getferdi.com',
       hasInlineCheckout: true,
     });
   }

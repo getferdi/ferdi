@@ -2,6 +2,4 @@ build/
 out/
 packages/*/lib
 packages/**/*.test.*
-# TODO: Need to remove this ignore and fix the lint errors
-src/internal-server
 recipes/

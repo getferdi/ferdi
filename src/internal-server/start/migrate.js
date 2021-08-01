@@ -4,9 +4,9 @@
 const Database = use('Database');
 const User = use('App/Models/User');
 
-const migrateLog = text => {
-  // console.log('\x1b[36m%s\x1b[0m', 'Ferdi Migration:', '\x1b[0m', text);
-}
+const migrateLog = (text) => {
+  console.log('\x1b[36m%s\x1b[0m', 'Ferdi Migration:', '\x1b[0m', text);
+};
 
 module.exports = async () => {
   migrateLog('🧙‍  Running database migration wizard');
@@ -27,7 +27,7 @@ module.exports = async () => {
 
   if (!settings || !settings.db_version || settings.db_version !== process.env.FERDI_VERSION) {
     const srcVersion = settings && settings.db_version ? settings.db_version : '5.4.0-beta.2';
-    migrateLog('🔮  Migrating table from ' + srcVersion + ' to ' + process.env.FERDI_VERSION);
+    migrateLog(`🔮  Migrating table from ${srcVersion} to ${process.env.FERDI_VERSION}`);
 
     // Migrate database to current Ferdi version
     // Currently no migrations
@@ -41,4 +41,4 @@ module.exports = async () => {
   } else {
     migrateLog('🔧  Nothing to migrate, already on the newest version');
   }
-}
+};

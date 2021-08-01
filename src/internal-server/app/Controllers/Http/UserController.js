@@ -268,9 +268,9 @@ class UserController {
     return response.send('Your account has been imported. You can now use your Franz account in Ferdi.');
   }
 
-
   // Account import/export
   async export({
+    // eslint-disable-next-line no-unused-vars
     auth,
     response,
   }) {
@@ -278,8 +278,8 @@ class UserController {
     const workspaces = (await Workspace.all()).toJSON();
 
     const exportData = {
-      username: "Ferdi",
-      mail: "internal@getferdi.com",
+      username: 'Ferdi',
+      mail: 'internal@getferdi.com',
       services,
       workspaces,
     };
@@ -294,7 +294,7 @@ class UserController {
     request,
     response,
   }) {
-    let validation = await validateAll(request.all(), {
+    const validation = await validateAll(request.all(), {
       file: 'required',
     });
     if (validation.fails()) {
@@ -304,12 +304,12 @@ class UserController {
     let file;
     try {
       file = JSON.parse(request.input('file'));
-    } catch(e) {
-      return response.send("Could not import: Invalid file, could not read file");
+    } catch (e) {
+      return response.send('Could not import: Invalid file, could not read file');
     }
 
-    if(!file || !file.services || !file.workspaces) {
-      return response.send("Could not import: Invalid file (2)");
+    if (!file || !file.services || !file.workspaces) {
+      return response.send('Could not import: Invalid file (2)');
     }
 
     const serviceIdTranslation = {};
