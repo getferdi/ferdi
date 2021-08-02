@@ -897,7 +897,10 @@
       "profile": "https://markushatvan.com",
       "contributions": [
         "code",
-        "ideas"
+        "ideas",
+        "design",
+        "review",
+        "infra"
       ]
     },
     {
