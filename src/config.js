@@ -134,6 +134,7 @@ export const DEFAULT_FEATURES_CONFIG = {
   isServiceProxyEnabled: false,
   isAnnouncementsEnabled: true,
   isWorkspaceEnabled: false,
+  isTodosEnabled: true,
 };
 
 export const DEFAULT_WINDOW_OPTIONS = {
@@ -169,8 +170,6 @@ export const ALLOWED_PROTOCOLS = [
 ];
 
 export const DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED = false;
-
-export const DEFAULT_SERVICE_LIMIT = 3;
 
 export const DEFAULT_TODOS_WIDTH = 300;
 export const TODOS_MIN_WIDTH = 200;

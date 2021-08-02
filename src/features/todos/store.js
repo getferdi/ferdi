@@ -122,12 +122,6 @@ export default class TodoStore extends FeatureStore {
     this._registerReactions(this._allReactions);
 
     this.isFeatureActive = true;
-
-    if (this.settings.isFeatureEnabledByUser === undefined) {
-      this._updateSettings({
-        isFeatureEnabledByUser: DEFAULT_IS_FEATURE_ENABLED_BY_USER,
-      });
-    }
   }
 
   @action stop() {
@@ -264,6 +258,12 @@ export default class TodoStore extends FeatureStore {
 
   _firstLaunchReaction = () => {
     const { stats } = this.stores.settings.all;
+
+    if (this.settings.isFeatureEnabledByUser === undefined) {
+      this._updateSettings({
+        isFeatureEnabledByUser: DEFAULT_IS_FEATURE_ENABLED_BY_USER,
+      });
+    }
 
     // Hide todos layer on first app start but show on second
     if (stats.appStarts <= 1) {
