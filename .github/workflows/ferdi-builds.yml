@@ -45,7 +45,7 @@ jobs:
         with:
           ref: nightly
           submodules: recursive
-          fetch-depth: 0    # Note: Needed to be able to pull the 'develop' branch as well for merging
+          fetch-depth: 0 # Note: Needed to be able to pull the 'develop' branch as well for merging
       - id: should_run
         name: Check whether there are any commits since this run was last triggered and push them and/or set the output
         if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]')) }}
@@ -59,7 +59,7 @@ jobs:
           if [ $CHANGES_COUNT -gt 0 ] || [[ $MANUAL_REBUILD == "true" && $VERSION_BUMP == "true" ]]; then
             # Do the version bump in the 'develop' branch ONLY if there were other changes coming from the 'develop' branch
             git checkout develop
-            TAG_NAME=$(npm version -m "%s [skip ci]" prerelease --preid=nightly)
+            TAG_NAME=$(pnpm version -m "%s [skip ci]" prerelease --preid=nightly)
             git push origin develop --no-verify
             git tag -f $TAG_NAME
             git push origin --tags --no-verify
@@ -87,7 +87,7 @@ jobs:
     steps:
       - name: Set env vars
         run: |
-          echo "NPM_CACHE=$HOME/.npm" >> $GITHUB_ENV
+          echo "PNPM_CACHE=$HOME/.pnpm-store" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$HOME/.cache/electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
           echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
@@ -111,8 +111,8 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ${{ env.NPM_CACHE }}
-          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ env.PNPM_CACHE }}
+          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
@@ -138,27 +138,30 @@ jobs:
         run: |
           sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
           sudo xcode-select -s "/Applications/Xcode_12.4.app"
-      - name: Uninstall locally and reinstall global npm modules
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.11.5
+          run_install: true
+      - name: Uninstall locally and reinstall global pnpm modules
         run: |
-          npm uninstall node-gyp
-          npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
-          npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
-      - name: Fix corrupted node cache
-        run: npm cache clean --force
+          pnpm uninstall node-gyp
+          pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
+          pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
-        run: npx lerna bootstrap
+        run: pnpx lerna bootstrap
       - name: Package recipes
-        run: npm i && npm run package
+        run: pnpm i && pnpm run package
         working-directory: ./recipes
       - name: Run linter and tests
-        run: npm run lint && npm run test
+        run: pnpm run lint && pnpm run test
       - name: Build Ferdi without publish for any branch not 'nightly' and not 'release'
         if: ${{ env.GIT_BRANCH_NAME != 'nightly' && env.GIT_BRANCH_NAME != 'release' }}
-        run: npm run build -- --publish never
+        run: pnpm run build -- --publish never
         shell: bash
       - name: Build Ferdi with publish for 'nightly' branch
         if: ${{ env.GIT_BRANCH_NAME == 'nightly' }}
-        run: npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies
+        run: pnpm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.FERDI_PUBLISH_TOKEN }}
@@ -168,7 +171,7 @@ jobs:
           CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
       - name: Build Ferdi with publish for 'release' branch
         if: ${{ env.GIT_BRANCH_NAME == 'release' }}
-        run: npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi
+        run: pnpm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.FERDI_PUBLISH_TOKEN }}
@@ -185,7 +188,7 @@ jobs:
     steps:
       - name: Set env vars
         run: |
-          echo "NPM_CACHE=$HOME/.npm" >> $GITHUB_ENV
+          echo "PNPM_CACHE=$HOME/.pnpm-store" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$HOME/.cache/electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
           echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
@@ -209,8 +212,8 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ${{ env.NPM_CACHE }}
-          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ env.PNPM_CACHE }}
+          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
@@ -232,34 +235,37 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.3
-      - name: Uninstall locally and reinstall global npm modules
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.11.5
+          run_install: true
+      - name: Uninstall locally and reinstall global pnpm modules
         run: |
-          npm uninstall node-gyp
-          npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
-          npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
-      - name: Fix corrupted node cache
-        run: npm cache clean --force
+          pnpm uninstall node-gyp
+          pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
+          pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
-        run: npx lerna bootstrap
+        run: pnpx lerna bootstrap
       - name: Package recipes
-        run: npm i && npm run package
+        run: pnpm i && pnpm run package
         working-directory: ./recipes
       - name: Run linter and tests
-        run: npm run lint && npm run test
+        run: pnpm run lint && pnpm run test
       - name: Build Ferdi without publish for any branch not 'nightly' and not 'release'
         if: ${{ env.GIT_BRANCH_NAME != 'nightly' && env.GIT_BRANCH_NAME != 'release' }}
-        run: npm run build -- --publish never
+        run: pnpm run build -- --publish never
         shell: bash
       - name: Build Ferdi with publish for 'nightly' branch
         if: ${{ env.GIT_BRANCH_NAME == 'nightly' }}
-        run: npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies
+        run: pnpm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.FERDI_PUBLISH_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
       - name: Build Ferdi with publish for 'release' branch
         if: ${{ env.GIT_BRANCH_NAME == 'release' }}
-        run: npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi
+        run: pnpm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.FERDI_PUBLISH_TOKEN }}
@@ -274,7 +280,7 @@ jobs:
       - name: Set env vars
         run: |
           echo "HOME=$USERPROFILE" >> $GITHUB_ENV
-          echo "NPM_CACHE=$USERPROFILE\.npm" >> $GITHUB_ENV
+          echo "PNPM_CACHE=$USERPROFILE\.pnpm-store" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$USERPROFILE\.cache\electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$USERPROFILE\.cache\electron-builder" >> $GITHUB_ENV
           echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
@@ -299,8 +305,8 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ${{ env.NPM_CACHE }}
-          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ env.PNPM_CACHE }}
+          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
@@ -322,32 +328,34 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.3
-      - name: Uninstall locally and reinstall global npm modules
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.11.5
+          run_install: true
+      - name: Uninstall locally and reinstall global pnpm modules
         run: |
-          npm uninstall node-gyp
-          npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
-          npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
-        shell: bash
-      - name: Fix corrupted node cache
-        run: npm cache clean --force
+          pnpm uninstall node-gyp
+          pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
+          pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
         shell: bash
       - name: Install node dependencies recursively
-        run: npx lerna bootstrap
+        run: pnpx lerna bootstrap
         shell: bash
       - name: Package recipes
-        run: npm i && npm run package
+        run: pnpm i && pnpm run package
         working-directory: ./recipes
         shell: bash
       - name: Run linter and tests
-        run: npm run lint && npm run test
+        run: pnpm run lint && pnpm run test
         shell: bash
       - name: Build Ferdi without publish for any branch not 'nightly' and not 'release'
         if: ${{ env.GIT_BRANCH_NAME != 'nightly' && env.GIT_BRANCH_NAME != 'release' }}
-        run: npm run build -- --publish never
+        run: pnpm run build -- --publish never
         shell: bash
       - name: Build Ferdi with publish for 'nightly' branch
         if: ${{ env.GIT_BRANCH_NAME == 'nightly' }}
-        run: npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies
+        run: pnpm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.FERDI_PUBLISH_TOKEN }}
@@ -355,7 +363,7 @@ jobs:
           WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
       - name: Build Ferdi with publish for 'release' branch
         if: ${{ env.GIT_BRANCH_NAME == 'release' }}
-        run: npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi
+        run: pnpm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.FERDI_PUBLISH_TOKEN }}

@@ -1,6 +1,6 @@
 code:
-  cmd: npm run dev
+  cmd: pnpm run dev
 
 app:
-  cmd: npm start
+  cmd: pnpm start
   waitOn: http://localhost:8080

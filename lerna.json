@@ -4,11 +4,11 @@
     "packages/forms",
     "packages/ui"
   ],
-  "npmClient": "npm",
+  "npmClient": "pnpm",
   "version": "independent",
   "ignoreChanges": [
     "**/*.md",
     "**/.eslintrc.{js,json,yaml,yml}",
-    "**/package-lock.json"
+    "**/pnpm-lock.yaml"
   ]
 }
