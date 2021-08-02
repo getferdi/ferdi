@@ -13,8 +13,8 @@
     }
   },
   {
-    "id": "menu.edit.undo",
-    "defaultMessage": "!!!Undo",
+    "id": "menu.view",
+    "defaultMessage": "!!!View",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 23,
@@ -26,106 +26,15 @@
     }
   },
   {
-    "id": "menu.edit.redo",
-    "defaultMessage": "!!!Redo",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 27,
-      "column": 8
-    },
-    "end": {
-      "line": 30,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.edit.cut",
-    "defaultMessage": "!!!Cut",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 31,
-      "column": 7
-    },
-    "end": {
-      "line": 34,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.edit.copy",
-    "defaultMessage": "!!!Copy",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 35,
-      "column": 8
-    },
-    "end": {
-      "line": 38,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.edit.paste",
-    "defaultMessage": "!!!Paste",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 39,
-      "column": 9
-    },
-    "end": {
-      "line": 42,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.edit.pasteAndMatchStyle",
-    "defaultMessage": "!!!Paste And Match Style",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 43,
-      "column": 22
-    },
-    "end": {
-      "line": 46,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.edit.delete",
-    "defaultMessage": "!!!Delete",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 47,
-      "column": 10
-    },
-    "end": {
-      "line": 50,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.edit.selectAll",
-    "defaultMessage": "!!!Select All",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 51,
-      "column": 13
-    },
-    "end": {
-      "line": 54,
-      "column": 3
-    }
-  },
-  {
     "id": "menu.edit.findInPage",
     "defaultMessage": "!!!Find in Page",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 55,
+      "line": 27,
       "column": 14
     },
     "end": {
-      "line": 58,
+      "line": 30,
       "column": 3
     }
   },
@@ -134,11 +43,11 @@
     "defaultMessage": "!!!Speech",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 59,
+      "line": 31,
       "column": 10
     },
     "end": {
-      "line": 62,
+      "line": 34,
       "column": 3
     }
   },
@@ -147,11 +56,11 @@
     "defaultMessage": "!!!Start Speaking",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 63,
+      "line": 35,
       "column": 17
     },
     "end": {
-      "line": 66,
+      "line": 38,
       "column": 3
     }
   },
@@ -160,11 +69,11 @@
     "defaultMessage": "!!!Stop Speaking",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 67,
+      "line": 39,
       "column": 16
     },
     "end": {
-      "line": 70,
+      "line": 42,
       "column": 3
     }
   },
@@ -173,11 +82,11 @@
     "defaultMessage": "!!!Start Dictation",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 71,
+      "line": 43,
       "column": 18
     },
     "end": {
-      "line": 74,
+      "line": 46,
       "column": 3
     }
   },
@@ -186,11 +95,11 @@
     "defaultMessage": "!!!Emoji & Symbols",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 75,
+      "line": 47,
       "column": 16
     },
     "end": {
-      "line": 78,
+      "line": 50,
       "column": 3
     }
   },
@@ -199,11 +108,11 @@
     "defaultMessage": "!!!Open Quick Switch",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 79,
+      "line": 51,
       "column": 19
     },
     "end": {
-      "line": 82,
+      "line": 54,
       "column": 3
     }
   },
@@ -212,11 +121,11 @@
     "defaultMessage": "!!!Back",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 83,
+      "line": 55,
       "column": 8
     },
     "end": {
-      "line": 86,
+      "line": 58,
       "column": 3
     }
   },
@@ -225,8 +134,99 @@
     "defaultMessage": "!!!Forward",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 87,
+      "line": 59,
       "column": 11
+    },
+    "end": {
+      "line": 62,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.view.toggleDarkMode",
+    "defaultMessage": "!!!Toggle Dark Mode",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 63,
+      "column": 18
+    },
+    "end": {
+      "line": 66,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.view.toggleDevTools",
+    "defaultMessage": "!!!Toggle Developer Tools",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 67,
+      "column": 18
+    },
+    "end": {
+      "line": 70,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.view.toggleTodosDevTools",
+    "defaultMessage": "!!!Toggle Todos Developer Tools",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 71,
+      "column": 23
+    },
+    "end": {
+      "line": 74,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.view.toggleServiceDevTools",
+    "defaultMessage": "!!!Toggle Service Developer Tools",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 75,
+      "column": 25
+    },
+    "end": {
+      "line": 78,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.view.reloadService",
+    "defaultMessage": "!!!Reload Service",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 79,
+      "column": 17
+    },
+    "end": {
+      "line": 82,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.view.reloadFerdi",
+    "defaultMessage": "!!!Reload Ferdi",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 83,
+      "column": 15
+    },
+    "end": {
+      "line": 86,
+      "column": 3
+    }
+  },
+  {
+    "id": "menu.view.lockFerdi",
+    "defaultMessage": "!!!Lock Ferdi",
+    "file": "src/lib/Menu.js",
+    "start": {
+      "line": 87,
+      "column": 13
     },
     "end": {
       "line": 90,
@@ -234,12 +234,12 @@
     }
   },
   {
-    "id": "menu.view.resetZoom",
-    "defaultMessage": "!!!Actual Size",
+    "id": "menu.view.reloadTodos",
+    "defaultMessage": "!!!Reload ToDos",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 91,
-      "column": 13
+      "column": 15
     },
     "end": {
       "line": 94,
@@ -247,12 +247,12 @@
     }
   },
   {
-    "id": "menu.view.zoomIn",
-    "defaultMessage": "!!!Zoom In",
+    "id": "menu.help.learnMore",
+    "defaultMessage": "!!!Learn More",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 95,
-      "column": 10
+      "column": 13
     },
     "end": {
       "line": 98,
@@ -260,12 +260,12 @@
     }
   },
   {
-    "id": "menu.view.zoomOut",
-    "defaultMessage": "!!!Zoom Out",
+    "id": "menu.help.changelog",
+    "defaultMessage": "!!!Changelog",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 99,
-      "column": 11
+      "column": 13
     },
     "end": {
       "line": 102,
@@ -273,12 +273,12 @@
     }
   },
   {
-    "id": "menu.view.enterFullScreen",
-    "defaultMessage": "!!!Enter Full Screen",
+    "id": "menu.help.support",
+    "defaultMessage": "!!!Support",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 103,
-      "column": 19
+      "column": 11
     },
     "end": {
       "line": 106,
@@ -286,12 +286,12 @@
     }
   },
   {
-    "id": "menu.view.exitFullScreen",
-    "defaultMessage": "!!!Exit Full Screen",
+    "id": "menu.help.debugInfo",
+    "defaultMessage": "!!!Copy Debug Information",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 107,
-      "column": 18
+      "column": 13
     },
     "end": {
       "line": 110,
@@ -299,8 +299,8 @@
     }
   },
   {
-    "id": "menu.view.toggleFullScreen",
-    "defaultMessage": "!!!Toggle Full Screen",
+    "id": "menu.help.publishDebugInfo",
+    "defaultMessage": "!!!Publish Debug Information",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 111,
@@ -312,12 +312,12 @@
     }
   },
   {
-    "id": "menu.view.toggleDarkMode",
-    "defaultMessage": "!!!Toggle Dark Mode",
+    "id": "menu.help.debugInfoCopiedHeadline",
+    "defaultMessage": "!!!Ferdi Debug Information",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 115,
-      "column": 18
+      "column": 27
     },
     "end": {
       "line": 118,
@@ -325,12 +325,12 @@
     }
   },
   {
-    "id": "menu.view.toggleDevTools",
-    "defaultMessage": "!!!Toggle Developer Tools",
+    "id": "menu.help.debugInfoCopiedBody",
+    "defaultMessage": "!!!Your Debug Information has been copied to your clipboard.",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 119,
-      "column": 18
+      "column": 23
     },
     "end": {
       "line": 122,
@@ -338,12 +338,12 @@
     }
   },
   {
-    "id": "menu.view.toggleTodosDevTools",
-    "defaultMessage": "!!!Toggle Todos Developer Tools",
+    "id": "locked.touchId",
+    "defaultMessage": "!!!Unlock with Touch ID",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 123,
-      "column": 23
+      "column": 11
     },
     "end": {
       "line": 126,
@@ -351,12 +351,12 @@
     }
   },
   {
-    "id": "menu.view.toggleServiceDevTools",
-    "defaultMessage": "!!!Toggle Service Developer Tools",
+    "id": "locked.touchIdPrompt",
+    "defaultMessage": "!!!unlock via Touch ID",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 127,
-      "column": 25
+      "column": 17
     },
     "end": {
       "line": 130,
@@ -364,12 +364,12 @@
     }
   },
   {
-    "id": "menu.view.reloadService",
-    "defaultMessage": "!!!Reload Service",
+    "id": "menu.help.tos",
+    "defaultMessage": "!!!Terms of Service",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 131,
-      "column": 17
+      "column": 7
     },
     "end": {
       "line": 134,
@@ -377,12 +377,12 @@
     }
   },
   {
-    "id": "menu.view.reloadFranz",
-    "defaultMessage": "!!!Reload Ferdi",
+    "id": "menu.help.privacy",
+    "defaultMessage": "!!!Privacy Statement",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 135,
-      "column": 15
+      "column": 11
     },
     "end": {
       "line": 138,
@@ -390,12 +390,12 @@
     }
   },
   {
-    "id": "menu.view.lockFerdi",
-    "defaultMessage": "!!!Lock Ferdi",
+    "id": "menu.file",
+    "defaultMessage": "!!!File",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 139,
-      "column": 13
+      "column": 8
     },
     "end": {
       "line": 142,
@@ -403,12 +403,12 @@
     }
   },
   {
-    "id": "menu.view.reloadTodos",
-    "defaultMessage": "!!!Reload ToDos",
+    "id": "menu.services",
+    "defaultMessage": "!!!Services",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 143,
-      "column": 15
+      "column": 12
     },
     "end": {
       "line": 146,
@@ -416,12 +416,12 @@
     }
   },
   {
-    "id": "menu.window.minimize",
-    "defaultMessage": "!!!Minimize",
+    "id": "menu.app.announcement",
+    "defaultMessage": "!!!What's new?",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 147,
-      "column": 12
+      "column": 16
     },
     "end": {
       "line": 150,
@@ -429,12 +429,12 @@
     }
   },
   {
-    "id": "menu.window.close",
-    "defaultMessage": "!!!Close",
+    "id": "menu.app.settings",
+    "defaultMessage": "!!!Settings",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 151,
-      "column": 9
+      "column": 12
     },
     "end": {
       "line": 154,
@@ -442,12 +442,12 @@
     }
   },
   {
-    "id": "menu.help.learnMore",
-    "defaultMessage": "!!!Learn More",
+    "id": "menu.app.checkForUpdates",
+    "defaultMessage": "!!!Check for updates",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 155,
-      "column": 13
+      "column": 19
     },
     "end": {
       "line": 158,
@@ -455,12 +455,12 @@
     }
   },
   {
-    "id": "menu.help.changelog",
-    "defaultMessage": "!!!Changelog",
+    "id": "menu.app.autohideMenuBar",
+    "defaultMessage": "!!!Auto-hide menu bar",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 159,
-      "column": 13
+      "column": 19
     },
     "end": {
       "line": 162,
@@ -468,12 +468,12 @@
     }
   },
   {
-    "id": "menu.help.support",
-    "defaultMessage": "!!!Support",
+    "id": "menu.services.addNewService",
+    "defaultMessage": "!!!Add New Service...",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 163,
-      "column": 11
+      "column": 17
     },
     "end": {
       "line": 166,
@@ -481,12 +481,12 @@
     }
   },
   {
-    "id": "menu.help.debugInfo",
-    "defaultMessage": "!!!Copy Debug Information",
+    "id": "menu.workspaces.addNewWorkspace",
+    "defaultMessage": "!!!Add New Workspace...",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 167,
-      "column": 13
+      "column": 19
     },
     "end": {
       "line": 170,
@@ -494,12 +494,12 @@
     }
   },
   {
-    "id": "menu.help.publishDebugInfo",
-    "defaultMessage": "!!!Publish Debug Information",
+    "id": "menu.workspaces.openWorkspaceDrawer",
+    "defaultMessage": "!!!Open workspace drawer",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 171,
-      "column": 20
+      "column": 23
     },
     "end": {
       "line": 174,
@@ -507,12 +507,12 @@
     }
   },
   {
-    "id": "menu.help.debugInfoCopiedHeadline",
-    "defaultMessage": "!!!Ferdi Debug Information",
+    "id": "menu.workspaces.closeWorkspaceDrawer",
+    "defaultMessage": "!!!Close workspace drawer",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 175,
-      "column": 27
+      "column": 24
     },
     "end": {
       "line": 178,
@@ -520,8 +520,8 @@
     }
   },
   {
-    "id": "menu.help.debugInfoCopiedBody",
-    "defaultMessage": "!!!Your Debug Information has been copied to your clipboard.",
+    "id": "menu.services.setNextServiceActive",
+    "defaultMessage": "!!!Activate next service...",
     "file": "src/lib/Menu.js",
     "start": {
       "line": 179,
@@ -533,314 +533,15 @@
     }
   },
   {
-    "id": "locked.touchId",
-    "defaultMessage": "!!!Unlock with Touch ID",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 183,
-      "column": 11
-    },
-    "end": {
-      "line": 186,
-      "column": 3
-    }
-  },
-  {
-    "id": "locked.touchIdPrompt",
-    "defaultMessage": "!!!unlock via Touch ID",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 187,
-      "column": 17
-    },
-    "end": {
-      "line": 190,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.help.tos",
-    "defaultMessage": "!!!Terms of Service",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 191,
-      "column": 7
-    },
-    "end": {
-      "line": 194,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.help.privacy",
-    "defaultMessage": "!!!Privacy Statement",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 195,
-      "column": 11
-    },
-    "end": {
-      "line": 198,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.file",
-    "defaultMessage": "!!!File",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 199,
-      "column": 8
-    },
-    "end": {
-      "line": 202,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.view",
-    "defaultMessage": "!!!View",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 203,
-      "column": 8
-    },
-    "end": {
-      "line": 206,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.services",
-    "defaultMessage": "!!!Services",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 207,
-      "column": 12
-    },
-    "end": {
-      "line": 210,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.window",
-    "defaultMessage": "!!!Window",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 211,
-      "column": 10
-    },
-    "end": {
-      "line": 214,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.help",
-    "defaultMessage": "!!!Help",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 215,
-      "column": 8
-    },
-    "end": {
-      "line": 218,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.about",
-    "defaultMessage": "!!!About Ferdi",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 219,
-      "column": 9
-    },
-    "end": {
-      "line": 222,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.announcement",
-    "defaultMessage": "!!!What's new?",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 223,
-      "column": 16
-    },
-    "end": {
-      "line": 226,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.settings",
-    "defaultMessage": "!!!Settings",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 227,
-      "column": 12
-    },
-    "end": {
-      "line": 230,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.checkForUpdates",
-    "defaultMessage": "!!!Check for updates",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 231,
-      "column": 19
-    },
-    "end": {
-      "line": 234,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.hide",
-    "defaultMessage": "!!!Hide",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 235,
-      "column": 8
-    },
-    "end": {
-      "line": 238,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.hideOthers",
-    "defaultMessage": "!!!Hide Others",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 239,
-      "column": 14
-    },
-    "end": {
-      "line": 242,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.unhide",
-    "defaultMessage": "!!!Unhide",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 243,
-      "column": 10
-    },
-    "end": {
-      "line": 246,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.autohideMenuBar",
-    "defaultMessage": "!!!Auto-hide menu bar",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 247,
-      "column": 19
-    },
-    "end": {
-      "line": 250,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.app.quit",
-    "defaultMessage": "!!!Quit",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 251,
-      "column": 8
-    },
-    "end": {
-      "line": 254,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.services.addNewService",
-    "defaultMessage": "!!!Add New Service...",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 255,
-      "column": 17
-    },
-    "end": {
-      "line": 258,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.workspaces.addNewWorkspace",
-    "defaultMessage": "!!!Add New Workspace...",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 259,
-      "column": 19
-    },
-    "end": {
-      "line": 262,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.workspaces.openWorkspaceDrawer",
-    "defaultMessage": "!!!Open workspace drawer",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 263,
-      "column": 23
-    },
-    "end": {
-      "line": 266,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.workspaces.closeWorkspaceDrawer",
-    "defaultMessage": "!!!Close workspace drawer",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 267,
-      "column": 24
-    },
-    "end": {
-      "line": 270,
-      "column": 3
-    }
-  },
-  {
-    "id": "menu.services.setNextServiceActive",
-    "defaultMessage": "!!!Activate next service...",
-    "file": "src/lib/Menu.js",
-    "start": {
-      "line": 271,
-      "column": 23
-    },
-    "end": {
-      "line": 274,
-      "column": 3
-    }
-  },
-  {
     "id": "menu.services.activatePreviousService",
     "defaultMessage": "!!!Activate previous service...",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 275,
+      "line": 183,
       "column": 27
     },
     "end": {
-      "line": 278,
+      "line": 186,
       "column": 3
     }
   },
@@ -849,11 +550,11 @@
     "defaultMessage": "!!!Disable notifications & audio",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 279,
+      "line": 187,
       "column": 11
     },
     "end": {
-      "line": 282,
+      "line": 190,
       "column": 3
     }
   },
@@ -862,11 +563,11 @@
     "defaultMessage": "!!!Enable notifications & audio",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 283,
+      "line": 191,
       "column": 13
     },
     "end": {
-      "line": 286,
+      "line": 194,
       "column": 3
     }
   },
@@ -875,11 +576,11 @@
     "defaultMessage": "!!!Workspaces",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 287,
+      "line": 195,
       "column": 14
     },
     "end": {
-      "line": 290,
+      "line": 198,
       "column": 3
     }
   },
@@ -888,11 +589,11 @@
     "defaultMessage": "!!!Default",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 291,
+      "line": 199,
       "column": 20
     },
     "end": {
-      "line": 294,
+      "line": 202,
       "column": 3
     }
   },
@@ -901,11 +602,11 @@
     "defaultMessage": "!!!Todos",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 295,
+      "line": 203,
       "column": 9
     },
     "end": {
-      "line": 298,
+      "line": 206,
       "column": 3
     }
   },
@@ -914,11 +615,11 @@
     "defaultMessage": "!!!Open Todos drawer",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 299,
+      "line": 207,
       "column": 19
     },
     "end": {
-      "line": 302,
+      "line": 210,
       "column": 3
     }
   },
@@ -927,11 +628,11 @@
     "defaultMessage": "!!!Close Todos drawer",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 303,
+      "line": 211,
       "column": 20
     },
     "end": {
-      "line": 306,
+      "line": 214,
       "column": 3
     }
   },
@@ -940,11 +641,11 @@
     "defaultMessage": "!!!Enable Todos",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 307,
+      "line": 215,
       "column": 15
     },
     "end": {
-      "line": 310,
+      "line": 218,
       "column": 3
     }
   },
@@ -953,11 +654,11 @@
     "defaultMessage": "!!!Home",
     "file": "src/lib/Menu.js",
     "start": {
-      "line": 311,
+      "line": 219,
       "column": 17
     },
     "end": {
-      "line": 314,
+      "line": 222,
       "column": 3
     }
   }

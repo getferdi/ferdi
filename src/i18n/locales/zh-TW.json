@@ -84,7 +84,7 @@
   "menu.view": "檢視",
   "menu.view.enterFullScreen": "進入全螢幕模式",
   "menu.view.exitFullScreen": "離開全螢幕模式",
-  "menu.view.reloadFranz": "重新載入 Ferdi",
+  "menu.view.reloadFerdi": "重新載入 Ferdi",
   "menu.view.reloadService": "重新載入服務",
   "menu.view.resetZoom": "實際大小",
   "menu.view.toggleDevTools": "切換開發者工具",

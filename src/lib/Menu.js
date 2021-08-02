@@ -6,7 +6,7 @@ import { autorun, observable } from 'mobx';
 import { defineMessages } from 'react-intl';
 import { CUSTOM_WEBSITE_RECIPE_ID, GITHUB_FERDI_URL, LIVE_API_FERDI_WEBSITE } from '../config';
 import {
-  cmdKey, ctrlKey, isLinux, isMac, aboutAppDetails, termsBase,
+  cmdKey, isLinux, isMac, aboutAppDetails, termsBase,
 } from '../environment';
 import { announcementsStore } from '../features/announcements';
 import { announcementActions } from '../features/announcements/actions';
@@ -20,37 +20,9 @@ const menuItems = defineMessages({
     id: 'menu.edit',
     defaultMessage: '!!!Edit',
   },
-  undo: {
-    id: 'menu.edit.undo',
-    defaultMessage: '!!!Undo',
-  },
-  redo: {
-    id: 'menu.edit.redo',
-    defaultMessage: '!!!Redo',
-  },
-  cut: {
-    id: 'menu.edit.cut',
-    defaultMessage: '!!!Cut',
-  },
-  copy: {
-    id: 'menu.edit.copy',
-    defaultMessage: '!!!Copy',
-  },
-  paste: {
-    id: 'menu.edit.paste',
-    defaultMessage: '!!!Paste',
-  },
-  pasteAndMatchStyle: {
-    id: 'menu.edit.pasteAndMatchStyle',
-    defaultMessage: '!!!Paste And Match Style',
-  },
-  delete: {
-    id: 'menu.edit.delete',
-    defaultMessage: '!!!Delete',
-  },
-  selectAll: {
-    id: 'menu.edit.selectAll',
-    defaultMessage: '!!!Select All',
+  view: {
+    id: 'menu.view',
+    defaultMessage: '!!!View',
   },
   findInPage: {
     id: 'menu.edit.findInPage',
@@ -88,30 +60,6 @@ const menuItems = defineMessages({
     id: 'menu.view.forward',
     defaultMessage: '!!!Forward',
   },
-  resetZoom: {
-    id: 'menu.view.resetZoom',
-    defaultMessage: '!!!Actual Size',
-  },
-  zoomIn: {
-    id: 'menu.view.zoomIn',
-    defaultMessage: '!!!Zoom In',
-  },
-  zoomOut: {
-    id: 'menu.view.zoomOut',
-    defaultMessage: '!!!Zoom Out',
-  },
-  enterFullScreen: {
-    id: 'menu.view.enterFullScreen',
-    defaultMessage: '!!!Enter Full Screen',
-  },
-  exitFullScreen: {
-    id: 'menu.view.exitFullScreen',
-    defaultMessage: '!!!Exit Full Screen',
-  },
-  toggleFullScreen: {
-    id: 'menu.view.toggleFullScreen',
-    defaultMessage: '!!!Toggle Full Screen',
-  },
   toggleDarkMode: {
     id: 'menu.view.toggleDarkMode',
     defaultMessage: '!!!Toggle Dark Mode',
@@ -132,8 +80,8 @@ const menuItems = defineMessages({
     id: 'menu.view.reloadService',
     defaultMessage: '!!!Reload Service',
   },
-  reloadFranz: {
-    id: 'menu.view.reloadFranz',
+  reloadFerdi: {
+    id: 'menu.view.reloadFerdi',
     defaultMessage: '!!!Reload Ferdi',
   },
   lockFerdi: {
@@ -143,14 +91,6 @@ const menuItems = defineMessages({
   reloadTodos: {
     id: 'menu.view.reloadTodos',
     defaultMessage: '!!!Reload ToDos',
-  },
-  minimize: {
-    id: 'menu.window.minimize',
-    defaultMessage: '!!!Minimize',
-  },
-  close: {
-    id: 'menu.window.close',
-    defaultMessage: '!!!Close',
   },
   learnMore: {
     id: 'menu.help.learnMore',
@@ -200,25 +140,9 @@ const menuItems = defineMessages({
     id: 'menu.file',
     defaultMessage: '!!!File',
   },
-  view: {
-    id: 'menu.view',
-    defaultMessage: '!!!View',
-  },
   services: {
     id: 'menu.services',
     defaultMessage: '!!!Services',
-  },
-  window: {
-    id: 'menu.window',
-    defaultMessage: '!!!Window',
-  },
-  help: {
-    id: 'menu.help',
-    defaultMessage: '!!!Help',
-  },
-  about: {
-    id: 'menu.app.about',
-    defaultMessage: '!!!About Ferdi',
   },
   announcement: {
     id: 'menu.app.announcement',
@@ -232,25 +156,9 @@ const menuItems = defineMessages({
     id: 'menu.app.checkForUpdates',
     defaultMessage: '!!!Check for updates',
   },
-  hide: {
-    id: 'menu.app.hide',
-    defaultMessage: '!!!Hide',
-  },
-  hideOthers: {
-    id: 'menu.app.hideOthers',
-    defaultMessage: '!!!Hide Others',
-  },
-  unhide: {
-    id: 'menu.app.unhide',
-    defaultMessage: '!!!Unhide',
-  },
   autohideMenuBar: {
     id: 'menu.app.autohideMenuBar',
     defaultMessage: '!!!Auto-hide menu bar',
-  },
-  quit: {
-    id: 'menu.app.quit',
-    defaultMessage: '!!!Quit',
   },
   addNewService: {
     id: 'menu.services.addNewService',
@@ -318,296 +226,38 @@ function getActiveWebview() {
   return window.ferdi.stores.services.active.webview;
 }
 
-const _templateFactory = (intl, locked) => [
-  {
-    label: intl.formatMessage(menuItems.edit),
-    submenu: [
-      {
-        label: intl.formatMessage(menuItems.undo),
-        role: 'undo',
-      },
-      {
-        label: intl.formatMessage(menuItems.redo),
-        role: 'redo',
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.cut),
-        accelerator: 'Cmd+X',
-        selector: 'cut:',
-      },
-      {
-        label: intl.formatMessage(menuItems.copy),
-        accelerator: 'Cmd+C',
-        selector: 'copy:',
-      },
-      {
-        label: intl.formatMessage(menuItems.paste),
-        accelerator: 'Cmd+V',
-        selector: 'paste:',
-      },
-      {
-        label: intl.formatMessage(menuItems.pasteAndMatchStyle),
-        accelerator: 'Cmd+Shift+V',
-        selector: 'pasteAndMatchStyle:',
-        click() {
-          getActiveWebview().pasteAndMatchStyle();
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.delete),
-        role: 'delete',
-      },
-      {
-        label: intl.formatMessage(menuItems.selectAll),
-        accelerator: 'Cmd+A',
-        selector: 'selectAll:',
-      },
-    ],
-  },
-  {
-    label: intl.formatMessage(menuItems.view),
-    visible: !locked,
-    submenu: [
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.openQuickSwitch),
-        accelerator: 'CmdOrCtrl+S',
-        click() {
-          window.ferdi.features.quickSwitch.state.isModalVisible = true;
-        },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.findInPage),
-        accelerator: 'CmdOrCtrl+F',
-        click() {
-          // Check if there is a service active
-          if (!window.ferdi.stores.services.active) return;
-
-          // Focus webview so find in page popup gets focused
-          window.ferdi.stores.services.active.webview.focus();
-
-          const currentService = window.ferdi.stores.services.active.id;
-          window.ferdi.actions.service.sendIPCMessage({
-            serviceId: currentService,
-            channel: 'find-in-page',
-            args: {},
-          });
-        },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.back),
-        accelerator: 'CmdOrCtrl+Left',
-        click() {
-          const activeService = getActiveWebview();
-          activeService.goBack();
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.forward),
-        accelerator: 'CmdOrCtrl+Right',
-        click() {
-          const activeService = getActiveWebview();
-          activeService.goForward();
-        },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.resetZoom),
-        accelerator: 'Cmd+0',
-        click() {
-          getActiveWebview().setZoomLevel(0);
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.zoomIn),
-        accelerator: 'Cmd+plus',
-        click() {
-          const activeService = getActiveWebview();
-          const level = activeService.getZoomLevel();
-
-          // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
-          if (level < 9) activeService.setZoomLevel(level + 1);
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.zoomOut),
-        accelerator: 'Cmd+-',
-        click() {
-          const activeService = getActiveWebview();
-          const level = activeService.getZoomLevel();
-
-          // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
-          if (level > -9) activeService.setZoomLevel(level - 1);
-        },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
-          ? intl.formatMessage(menuItems.exitFullScreen)
-          : intl.formatMessage(menuItems.enterFullScreen),
-        role: 'togglefullscreen',
-      },
-      {
-        label: intl.formatMessage(menuItems.toggleDarkMode),
-        type: 'checkbox',
-        accelerator: `${cmdKey}+Shift+D`,
-        checked: window.ferdi.stores.settings.app.darkMode,
-        click: () => {
-          window.ferdi.actions.settings.update({
-            type: 'app',
-            data: {
-              darkMode: !window.ferdi.stores.settings.app.darkMode,
-            },
-          });
-        },
-      },
-    ],
-  },
-  {
-    label: intl.formatMessage(menuItems.services),
-    visible: !locked,
-    submenu: [],
-  },
-  {
-    label: intl.formatMessage(menuItems.workspaces),
-    submenu: [],
-    visible: !locked && workspaceStore.isFeatureEnabled,
-  },
-  {
-    label: intl.formatMessage(menuItems.todos),
-    submenu: [],
-    visible: !locked && todosStore.isFeatureEnabled,
-  },
-  {
-    label: intl.formatMessage(menuItems.window),
-    role: 'window',
-    submenu: [
-      {
-        label: intl.formatMessage(menuItems.minimize),
-        role: 'minimize',
-      },
-      {
-        label: intl.formatMessage(menuItems.close),
-        role: 'close',
-      },
-    ],
-  },
-  {
-    label: intl.formatMessage(menuItems.help),
-    role: 'help',
-    submenu: [
-      {
-        label: intl.formatMessage(menuItems.learnMore),
-        click() { shell.openExternal(LIVE_API_FERDI_WEBSITE); },
-      },
-      {
-        label: intl.formatMessage(menuItems.announcement),
-        click: () => {
-          announcementActions.show();
-        },
-        visible: !locked && window.ferdi.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.support),
-        click() { shell.openExternal(`${LIVE_API_FERDI_WEBSITE}/contact`); },
-      },
-      {
-        type: 'separator',
-      },
-      {
-        label: intl.formatMessage(menuItems.tos),
-        click() { shell.openExternal(`${termsBase()}/terms`); },
-      },
-      {
-        label: intl.formatMessage(menuItems.privacy),
-        click() { shell.openExternal(`${termsBase()}/privacy`); },
-      },
-    ],
-  },
-];
-
 const _titleBarTemplateFactory = (intl, locked) => [
   {
     label: intl.formatMessage(menuItems.edit),
     accelerator: 'Alt+E',
     submenu: [
       {
-        label: intl.formatMessage(menuItems.undo),
-        accelerator: `${ctrlKey}+Z`,
-        click() {
-          getActiveWebview().undo();
-        },
+        role: 'undo',
       },
       {
-        label: intl.formatMessage(menuItems.redo),
-        accelerator: `${ctrlKey}+Y`,
-        click() {
-          getActiveWebview().redo();
-        },
+        role: 'redo',
       },
       {
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.cut),
-        accelerator: `${ctrlKey}+X`,
-        click() {
-          getActiveWebview().cut();
-        },
+        role: 'cut',
       },
       {
-        label: intl.formatMessage(menuItems.copy),
-        accelerator: `${ctrlKey}+C`,
-        click() {
-          getActiveWebview().copy();
-        },
+        role: 'copy',
       },
       {
-        label: intl.formatMessage(menuItems.paste),
-        accelerator: `${ctrlKey}+V`,
         role: 'paste',
-        click() {
-          getActiveWebview().paste();
-        },
       },
       {
-        label: intl.formatMessage(menuItems.pasteAndMatchStyle),
-        accelerator: `${ctrlKey}+Shift+V`,
         role: 'pasteAndMatchStyle',
-        click() {
-          getActiveWebview().pasteAndMatchStyle();
-        },
+        accelerator: `${cmdKey}+Shift+V`, // Override the accelerator since this adds new key combo in macos
       },
       {
-        label: intl.formatMessage(menuItems.delete),
-        click() {
-          getActiveWebview().delete();
-        },
+        role: 'delete',
       },
       {
-        label: intl.formatMessage(menuItems.selectAll),
-        accelerator: `${ctrlKey}+A`,
-        click() {
-          getActiveWebview().selectAll();
-        },
+        role: 'selectall',
       },
     ],
   },
@@ -621,7 +271,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.openQuickSwitch),
-        accelerator: 'CmdOrCtrl+S',
+        accelerator: `${cmdKey}+S`,
         click() {
           window.ferdi.features.quickSwitch.state.isModalVisible = true;
         },
@@ -631,7 +281,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.findInPage),
-        accelerator: 'CmdOrCtrl+F',
+        accelerator: `${cmdKey}+F`,
         click() {
           // Check if there is a service active
           if (!window.ferdi.stores.services.active) return;
@@ -652,33 +302,29 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.back),
-        accelerator: 'CmdOrCtrl+Left',
+        accelerator: `${cmdKey}+Left`,
         click() {
-          const activeService = getActiveWebview();
-          activeService.goBack();
+          getActiveWebview().goBack();
         },
       },
       {
         label: intl.formatMessage(menuItems.forward),
-        accelerator: 'CmdOrCtrl+Right',
+        accelerator: `${cmdKey}+Right`,
         click() {
-          const activeService = getActiveWebview();
-          activeService.goForward();
+          getActiveWebview().goForward();
         },
       },
       {
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.resetZoom),
-        accelerator: `${ctrlKey}+0`,
+        role: 'resetZoom',
         click() {
           getActiveWebview().setZoomLevel(0);
         },
       },
       {
-        label: intl.formatMessage(menuItems.zoomIn),
-        accelerator: `${ctrlKey}+=`,
+        role: 'zoomIn',
         click() {
           const activeService = getActiveWebview();
           const level = activeService.getZoomLevel();
@@ -688,8 +334,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
         },
       },
       {
-        label: intl.formatMessage(menuItems.zoomOut),
-        accelerator: `${ctrlKey}+-`,
+        role: 'zoomOut',
         click() {
           const activeService = getActiveWebview();
           const level = activeService.getZoomLevel();
@@ -702,13 +347,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
         type: 'separator',
       },
       {
-        label: app.mainWindow.isFullScreen() // label doesn't work, gets overridden by Electron
-          ? intl.formatMessage(menuItems.exitFullScreen)
-          : intl.formatMessage(menuItems.enterFullScreen),
-        accelerator: 'F11',
-        click(menuItem, browserWindow) {
-          browserWindow.setFullScreen(!browserWindow.isFullScreen());
-        },
+        role: 'toggleFullScreen',
       },
       {
         label: intl.formatMessage(menuItems.toggleDarkMode),
@@ -720,19 +359,6 @@ const _titleBarTemplateFactory = (intl, locked) => [
             type: 'app',
             data: {
               darkMode: !window.ferdi.stores.settings.app.darkMode,
-            },
-          });
-        },
-      },
-      {
-        label: intl.formatMessage(menuItems.autohideMenuBar),
-        type: 'checkbox',
-        checked: window.ferdi.stores.settings.app.autohideMenuBar,
-        click: () => {
-          window.ferdi.actions.settings.update({
-            type: 'app',
-            data: {
-              autohideMenuBar: !window.ferdi.stores.settings.app.autohideMenuBar,
             },
           });
         },
@@ -757,27 +383,18 @@ const _titleBarTemplateFactory = (intl, locked) => [
     visible: !locked && todosStore.isFeatureEnabled,
   },
   {
-    label: intl.formatMessage(menuItems.window),
+    role: 'window',
     submenu: [
       {
-        label: intl.formatMessage(menuItems.minimize),
-        accelerator: 'Ctrl+M',
-        click(menuItem, browserWindow) {
-          browserWindow.minimize();
-        },
+        role: 'minimize',
       },
       {
-        label: intl.formatMessage(menuItems.close),
-        accelerator: 'Ctrl+W',
-        click(menuItem, browserWindow) {
-          browserWindow.close();
-        },
+        role: 'close',
       },
     ],
   },
   {
-    label: '?',
-    accelerator: 'Alt+?',
+    role: 'help',
     submenu: [
       {
         label: intl.formatMessage(menuItems.learnMore),
@@ -786,6 +403,16 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.changelog),
         click() { shell.openExternal(`${GITHUB_FERDI_URL}/ferdi/blob/master/CHANGELOG.md`); },
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(menuItems.announcement),
+        click: () => {
+          announcementActions.show();
+        },
+        enabled: !locked && window.ferdi.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
       },
       {
         type: 'separator',
@@ -840,10 +467,24 @@ export default class FranzMenu {
     }
 
     const { intl } = window.ferdi;
-    const tpl = isMac
-      ? _templateFactory(intl, this.stores.settings.app.locked)
-      : _titleBarTemplateFactory(intl, this.stores.settings.app.locked);
+    const tpl = _titleBarTemplateFactory(intl, this.stores.settings.app.locked);
     const { actions } = this;
+
+    if (!isMac) {
+      tpl[1].submenu.push({
+        label: intl.formatMessage(menuItems.autohideMenuBar),
+        type: 'checkbox',
+        checked: window.ferdi.stores.settings.app.autohideMenuBar,
+        click: () => {
+          window.ferdi.actions.settings.update({
+            type: 'app',
+            data: {
+              autohideMenuBar: !window.ferdi.stores.settings.app.autohideMenuBar,
+            },
+          });
+        },
+      });
+    }
 
     if (!this.stores.settings.app.locked) {
       tpl[1].submenu.push({
@@ -891,7 +532,7 @@ export default class FranzMenu {
           }
         },
       }, {
-        label: intl.formatMessage(menuItems.reloadFranz),
+        label: intl.formatMessage(menuItems.reloadFerdi),
         accelerator: `${cmdKey}+Shift+R`,
         click: () => {
           window.location.reload();
@@ -906,7 +547,7 @@ export default class FranzMenu {
         type: 'separator',
       }, {
         label: intl.formatMessage(menuItems.lockFerdi),
-        accelerator: 'CmdOrCtrl+Shift+L',
+        accelerator: `${cmdKey}+Shift+L`,
         enabled: this.stores.user.isLoggedIn && this.stores.settings.app.lockingFeatureEnabled,
         click() {
           actions.settings.update({
@@ -934,7 +575,7 @@ export default class FranzMenu {
 
       tpl[0].submenu.unshift({
         label: intl.formatMessage(menuItems.touchId),
-        accelerator: 'CmdOrCtrl+Shift+L',
+        accelerator: `${cmdKey}+Shift+L`,
         visible: touchIdEnabled,
         click() {
           systemPreferences.promptTouchID(intl.formatMessage(menuItems.touchIdPrompt)).then(() => {
@@ -957,7 +598,6 @@ export default class FranzMenu {
       accelerator: 'Alt+F',
       submenu: [
         {
-          label: intl.formatMessage(menuItems.about),
           role: 'about',
         },
         {
@@ -965,7 +605,7 @@ export default class FranzMenu {
         },
         {
           label: intl.formatMessage(menuItems.settings),
-          accelerator: 'CmdOrCtrl+,',
+          accelerator: `${cmdKey}+,`,
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
           },
@@ -992,22 +632,18 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.hide),
           role: 'hide',
         },
         {
-          label: intl.formatMessage(menuItems.hideOthers),
-          role: 'hideothers',
+          role: 'hideOthers',
         },
         {
-          label: intl.formatMessage(menuItems.unhide),
           role: 'unhide',
         },
         {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.quit),
           role: 'quit',
           click() {
             app.quit();
@@ -1017,7 +653,7 @@ export default class FranzMenu {
     });
 
     const about = {
-      label: intl.formatMessage(menuItems.about),
+      role: 'about',
       click: () => {
         dialog.showMessageBox({
           type: 'info',
@@ -1067,7 +703,6 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.quit),
           role: 'quit',
           accelerator: 'Ctrl+Q',
           click() {

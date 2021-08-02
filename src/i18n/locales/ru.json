@@ -131,7 +131,7 @@
   "menu.view.forward": "Переслать",
   "menu.view.lockFerdi": "Заблокировать Ferdi",
   "menu.view.openQuickSwitch": "Открыть быстрый переключатель",
-  "menu.view.reloadFranz": "Перезагрузить Ferdi",
+  "menu.view.reloadFerdi": "Перезагрузить Ferdi",
   "menu.view.reloadService": "Перезапустить сервис",
   "menu.view.reloadTodos": "Reload ToDos",
   "menu.view.resetZoom": "Фактический размер",
