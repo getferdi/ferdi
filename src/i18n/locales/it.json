@@ -301,7 +301,6 @@
   "settings.recipes.customService.openFolder": "Apri cartella",
   "settings.recipes.headline": "Servizi disponibili",
   "settings.recipes.missingService": "Manca un servizio?",
-  "settings.recipes.mostPopular": "Più popolari",
   "settings.recipes.nothingFound": "Ci scusiamo, ma nessun servizio corrisponde ai tuoi termini di ricerca - tuttavia è probabile che tu possa aggiungerlo in ogni caso utilizzando l'opzione \"Sito Web Personalizzato\". Ti informiamo che il sito web ufficiale potrebbe mostrare un numero maggiore di servizi rispetto alla versione attualmente in uso. Per ottenere tali servizi, è consigliato l'aggiornamento a una versione più recente di Ferdi.",
   "settings.recipes.servicesSuccessfulAddedInfo": "Servizio aggiunto con successo",
   "settings.searchService": "Cerca servizio",

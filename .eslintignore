@@ -2,5 +2,4 @@ build/
 out/
 packages/*/lib
 packages/**/*.test.*
-src/internal-server
 recipes/

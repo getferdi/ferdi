@@ -583,6 +583,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.paste),
         accelerator: `${ctrlKey}+V`,
+        role: 'paste',
         click() {
           getActiveWebview().paste();
         },
@@ -590,6 +591,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: `${ctrlKey}+Shift+V`,
+        role: 'pasteAndMatchStyle',
         click() {
           getActiveWebview().pasteAndMatchStyle();
         },

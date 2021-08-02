@@ -50,7 +50,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
 
   componentDidMount() {
     this.autorunDisposer = autorun(() => {
-      const { filter } = this.props.params;
+      const { filter } = { filter: 'all', ...this.props.params };
       const { currentFilter } = this.state;
 
       if (filter === 'all' && currentFilter !== 'all') {

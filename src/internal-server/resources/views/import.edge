@@ -1,0 +1,18 @@
+@layout('layouts.main')
+
+@section('content')
+<h1>Import a Franz account</h1>
+<p>Please login using your Franz account. We will import your services and workspaces.</p>
+<form action="import" method="post">
+  <label for="email">E-Mail address</label><br />
+  <input type="email" name="email" placeholder="joe@example.com" required><br />
+
+  <label for="password">Password</label><br />
+  <input type="password" name="password" placeholder="********" required><br />
+
+  <label for="server">API Server to import from</label><br />
+  <input type="text" name="server" value="https://api.franzinfra.com" required><br />
+
+  <button type="submit" id="submitbutton">Import Franz account</button>
+</form>
+@endsection

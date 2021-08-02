@@ -352,10 +352,11 @@ export default @observer class EditSettingsForm extends Component {
                 <Hr />
 
                 {isWorkspaceEnabled && (
-                  <Toggle field={form.$('keepAllWorkspacesLoaded')} />
+                  <>
+                    <Toggle field={form.$('keepAllWorkspacesLoaded')} />
+                    <Hr />
+                  </>
                 )}
-
-                <Hr />
 
                 {isTodosEnabled && !hasAddedTodosAsService && (
                   <>

@@ -88,7 +88,8 @@
     "FormData": true,
     "localStorage": true,
     "navigator": true,
-    "Element": true
+    "Element": true,
+    "use": true
   },
   "env": {
     "jest/globals": true

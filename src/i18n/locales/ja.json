@@ -301,7 +301,6 @@
   "settings.recipes.customService.openFolder": "フォルダーを開く",
   "settings.recipes.headline": "利用可能なサービス",
   "settings.recipes.missingService": "使いたいサービスが一覧にありませんか?",
-  "settings.recipes.mostPopular": "最も人気",
   "settings.recipes.nothingFound": "残念ながら、検索語に一致するサービスはありませんでした。しかし、「カスタムウェブサイト」のオプションを使用して追加することができます。新しいバージョンのFerdiではウェブサイトで紹介されているような、より多くのサービスが追加されていることがあります。それらの新しいサービスを追加するには、Ferdiのアップデートをご検討ください。",
   "settings.recipes.servicesSuccessfulAddedInfo": "サービスが追加されました",
   "settings.searchService": "サービスを検索",

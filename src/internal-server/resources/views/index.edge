@@ -1,0 +1,19 @@
+@layout('layouts.main')
+
+@section('content')
+<style>
+  ol,
+  p {
+    margin: 0.5rem 0;
+  }
+
+</style>
+<h1>Internal Ferdi Server</h1>
+<p>You are accessing the local server instance of your Ferdi application. This server is used to enable Ferdi's "Use without an Account" feature.</p>
+<p>
+  To use Ferdi without an account, log out of your current account (if you are already logged in) and choose "Use Ferdi without an Account".
+</p>
+<p>
+  Alternatively, you can <a href="/import">import your account from a remote server</a> or <a href="/transfer">import your data from a ".ferdi-data" file</a> or <a href="/transfer">export your data to a ".ferdi-data" file</a>.
+</p>
+@endsection

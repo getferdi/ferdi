@@ -1,7 +1,4 @@
 <p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-97-default.svg?logo=github' alt='Contributors'/></a>
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
     <a href="https://getferdi.com">
       <img src="./build-helpers/images/icon.png" alt="" width="250"/>
     </a>
@@ -17,7 +14,7 @@
 <p align="center">
 <img alt="GitHub Releases" src="https://img.shields.io/github/downloads/getferdi/ferdi/latest/total?label=Downloads&logo=iCloud&logoColor=%23FFFFFF">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-90-default.svg?logo=github' alt='Contributors'/></a>
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-97-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="#backers-via-opencollective"><img alt="Open Collective backers" src="https://img.shields.io/opencollective/backers/getferdi?logo=open-collective"></a>
 <a href="#sponsors-via-opencollective"><img alt="Open Collective sponsors" src="https://img.shields.io/opencollective/sponsors/getferdi?logo=open-collective"></a>
@@ -363,13 +360,13 @@ Thanks goes to these awesome people:
     <td align="center"><a href='http://code-addict.pl' title='Michał Kostewicz: code'><img src='https://avatars.githubusercontent.com/u/6313392?v=4' alt='k0staa' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://www.linkedin.com/in/yogainformatika/' title='Yoga Setiawan: code, platform'><img src='https://avatars.githubusercontent.com/u/1139881?v=4' alt='arioki1' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://github.com/MosheGross' title='Moshe Gross: code'><img src='https://avatars.githubusercontent.com/u/77084755?v=4' alt='MosheGross' style='border-radius:42px;width:42px;height:42px;'/></a></td>
-    <td align="center"><a href='https://github.com/stnkl' title='Stephan Rumswinkel: code'><img src='https://avatars.githubusercontent.com/u/17520641?v=4' alt='stnkl' style='border-radius:42px;width:42px;height:42px;'/></a></td>
+    <td align="center"><a href='https://github.com/stnkl' title='Stephan Rumswinkel: code, bug'><img src='https://avatars.githubusercontent.com/u/17520641?v=4' alt='stnkl' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://github.com/vraravam' title='Vijay Raghavan Aravamudhan: maintenance, doc, code, mentoring, review, infra, ideas, bug, content, userTesting, projectManagement'><img src='https://avatars.githubusercontent.com/u/69629?v=4' alt='vraravam' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://dustin.meecolabs.eu/' title='Dustin: design'><img src='https://avatars.githubusercontent.com/u/124467?v=4' alt='alopix' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://github.com/jakobsudau' title='Jakob Felix Julius Sudau: design'><img src='https://avatars.githubusercontent.com/u/721715?v=4' alt='jakobsudau' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://prasans.info' title='Prasanna: code'><img src='https://avatars.githubusercontent.com/u/380340?v=4' alt='prasann' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://github.com/markandan' title='Markandan R: code'><img src='https://avatars.githubusercontent.com/u/7975763?v=4' alt='markandan' style='border-radius:42px;width:42px;height:42px;'/></a></td>
-    <td align="center"><a href='https://markushatvan.com' title='Markus Hatvan: code'><img src='https://avatars.githubusercontent.com/u/16797721?v=4' alt='mhatvan' style='border-radius:42px;width:42px;height:42px;'/></a></td>
+    <td align="center"><a href='https://markushatvan.com' title='Markus Hatvan: code, ideas, design, review, infra'><img src='https://avatars.githubusercontent.com/u/16797721?v=4' alt='mhatvan' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://sergiu.dev/' title='Sergiu Ghitea: code'><img src='https://avatars.githubusercontent.com/u/28300158?v=4' alt='sergiughf' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://github.com/ArviTheMan' title='ArviTheMan: doc'><img src='https://avatars.githubusercontent.com/u/73516201?v=4' alt='ArviTheMan' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://bandism.net/' title='Ikko Ashimine: code'><img src='https://avatars.githubusercontent.com/u/22633385?v=4' alt='eltociear' style='border-radius:42px;width:42px;height:42px;'/></a></td>

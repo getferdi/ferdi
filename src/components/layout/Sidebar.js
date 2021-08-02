@@ -164,7 +164,7 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
                   this.updateToolTip();
                 }}
                 disabled={isTodosServiceActive}
-                className={`sidebar__button sidebar__button--todos  ${todosStore.isTodosPanelVisible ? 'is-active' : ''}`}
+                className={`sidebar__button sidebar__button--todos ${todosStore.isTodosPanelVisible ? 'is-active' : ''}`}
                 data-tip={`${intl.formatMessage(todosToggleMessage)} (${ctrlKey}+T)`}
               >
                 <i className="mdi mdi-check-all" />
@@ -218,7 +218,8 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
           className="sidebar__button sidebar__button--settings"
           data-tip={`${intl.formatMessage(messages.settings)} (${ctrlKey}+${settingsShortcutKey})`}
         >
-          <i className="mdi mdi-settings" />
+          {/* TODO: Because of https://github.com/Templarian/MaterialDesign-Webfont/issues/81 bug in @mdi/font in 5.9.55, added `mdi-memory` as a fallback */}
+          <i className="mdi mdi-settings mdi-memory" />
           { (this.props.stores.app.updateStatus === this.props.stores.app.updateStatusTypes.AVAILABLE
             || this.props.stores.app.updateStatus === this.props.stores.app.updateStatusTypes.DOWNLOADED) && (
             <span className="update-available">
