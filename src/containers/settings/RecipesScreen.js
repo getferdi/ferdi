@@ -55,8 +55,6 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
 
       if (filter === 'all' && currentFilter !== 'all') {
         this.setState({ currentFilter: 'all' });
-      } else if (filter === 'featured' && currentFilter !== 'featured') {
-        this.setState({ currentFilter: 'featured' });
       } else if (filter === 'dev' && currentFilter !== 'dev') {
         this.setState({ currentFilter: 'dev' });
       }
@@ -114,7 +112,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
       service: serviceActions,
     } = this.props.actions;
 
-    const { filter } = this.props.params;
+    const { filter } = { filter: 'all', ...this.props.params };
     let recipeFilter;
 
     if (filter === 'all') {
@@ -124,8 +122,6 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
       ]);
     } else if (filter === 'dev') {
       recipeFilter = communityRecipesStore.communityRecipes;
-    } else {
-      recipeFilter = recipePreviews.featured;
     }
 
     const allRecipes = this.state.needle ? this.prepareRecipes([
@@ -140,8 +136,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
 
     const customWebsiteRecipe = recipePreviews.all.find((service) => service.id === CUSTOM_WEBSITE_RECIPE_ID);
 
-    const isLoading = recipePreviews.featuredRecipePreviewsRequest.isExecuting
-      || recipePreviews.allRecipePreviewsRequest.isExecuting
+    const isLoading = recipePreviews.allRecipePreviewsRequest.isExecuting
       || recipes.installRecipeRequest.isExecuting
       || recipePreviews.searchRecipePreviewsRequest.isExecuting;
 
@@ -154,7 +149,6 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
           customWebsiteRecipe={customWebsiteRecipe}
           isLoading={isLoading}
           addedServiceCount={services.all.length}
-          hasLoadedRecipes={recipePreviews.featuredRecipePreviewsRequest.wasExecuted}
           showAddServiceInterface={serviceActions.showAddServiceInterface}
           searchRecipes={(e) => this.searchRecipes(e)}
           resetSearch={() => this.resetSearch()}

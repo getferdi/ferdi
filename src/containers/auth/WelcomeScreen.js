@@ -15,7 +15,7 @@ export default @inject('stores', 'actions') @observer class LoginScreen extends 
         loginRoute={user.loginRoute}
         signupRoute={user.signupRoute}
         changeServerRoute={user.changeServerRoute}
-        recipes={recipePreviews.featured}
+        recipes={recipePreviews.all}
       />
     );
   }

@@ -357,12 +357,11 @@ export default class ServerApi {
   }
 
   async getFeaturedRecipePreviews() {
+    // TODO: If we are hitting the internal-server, we need to return an empty list, else we can hit the remote server and get the data
     const request = await sendAuthRequest(`${apiBase()}/recipes/popular`);
     if (!request.ok) throw request;
 
     const data = await request.json();
-    // data = this._addLocalRecipesToPreviews(data);
-
     const recipePreviews = this._mapRecipePreviewModel(data);
     debug('ServerApi::getFeaturedRecipes resolves', recipePreviews);
     return recipePreviews;
