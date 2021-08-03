@@ -131,7 +131,7 @@
     "semver": "7.3.5",
     "smoothscroll-polyfill": "0.4.4",
     "sqlite3": "5.0.0",
-    "tar": "4.4.13",
+    "tar": "4.4.15",
     "targz": "1.0.1",
     "terser": "4.4.0",
     "useragent-generator": "1.1.1-amkt-22079-finish.0",
