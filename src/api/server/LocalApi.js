@@ -9,7 +9,7 @@ const debug = require('debug')('Ferdi:LocalApi');
 export default class LocalApi {
   // Settings
   getAppSettings(type) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       ipcRenderer.once('appSettings', (event, resp) => {
         debug('LocalApi::getAppSettings resolves', resp.type, resp.data);
         resolve(resp);
@@ -49,10 +49,8 @@ export default class LocalApi {
     await s.clearStorageData({
       storages: [
         'appcache',
-        'cookies',
         'filesystem',
         'indexdb',
-        'localstorage',
         'shadercache',
         'websql',
         'serviceworkers',
