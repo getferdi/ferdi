@@ -5,6 +5,10 @@ const Env = use('Env');
 const uuid = require('uuid/v4');
 const path = require('path');
 const fs = require('fs-extra');
+const { LOCAL_HOSTNAME } = require('../../../../config');
+
+const hostname = LOCAL_HOSTNAME;
+const port = Env.get('PORT');
 
 class ServiceController {
   // Create a new service for user
@@ -84,7 +88,7 @@ class ServiceController {
         workspaces: [],
         ...JSON.parse(service.settings),
         iconUrl: settings.iconId
-          ? `http://127.0.0.1:${Env.get('PORT')}/v1/icon/${settings.iconId}`
+          ? `http://${hostname}:${port}/v1/icon/${settings.iconId}`
           : null,
         id: service.serviceId,
         name: service.name,
@@ -152,7 +156,7 @@ class ServiceController {
           id,
           name: service.name,
           ...newSettings,
-          iconUrl: `http://127.0.0.1:${Env.get('PORT')}/v1/icon/${
+          iconUrl: `http://${hostname}:${port}/v1/icon/${
             newSettings.iconId
           }`,
           userId: 1,
@@ -258,7 +262,7 @@ class ServiceController {
         workspaces: [],
         ...JSON.parse(service.settings),
         iconUrl: settings.iconId
-          ? `http://127.0.0.1:${Env.get('PORT')}/v1/icon/${settings.iconId}`
+          ? `http://${hostname}:${port}/v1/icon/${settings.iconId}`
           : null,
         id: service.serviceId,
         name: service.name,

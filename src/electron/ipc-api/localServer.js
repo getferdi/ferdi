@@ -1,5 +1,6 @@
 import { ipcMain, app } from 'electron';
 import net from 'net';
+import { LOCAL_HOSTNAME } from '../../config';
 import startServer from '../../internal-server/start';
 
 const DEFAULT_PORT = 45569;
@@ -11,7 +12,7 @@ const portInUse = function (port) {
       socket.pipe(socket);
     });
 
-    server.listen(port, '127.0.0.1');
+    server.listen(port, LOCAL_HOSTNAME);
     server.on('error', () => {
       resolve(true);
     });
