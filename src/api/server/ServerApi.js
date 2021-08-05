@@ -167,10 +167,10 @@ export default class ServerApi {
     }
     const data = await request.json();
 
-    let services = await this._mapServiceModels(data);
-    services = services.filter((service) => service !== null);
-    debug('ServerApi::getServices resolves', services);
-    return services;
+    const services = await this._mapServiceModels(data);
+    const filteredServices = services.filter(service => !!service);
+    debug('ServerApi::getServices resolves', filteredServices);
+    return filteredServices;
   }
 
   async createService(recipeId, data) {
@@ -314,18 +314,19 @@ export default class ServerApi {
     const paths = fs
       .readdirSync(recipesDirectory)
       .filter(
-        (file) => fs.statSync(path.join(recipesDirectory, file)).isDirectory()
-          && file !== 'temp'
-          && file !== 'dev',
+        file =>
+          fs.statSync(path.join(recipesDirectory, file)).isDirectory() &&
+          file !== 'temp' &&
+          file !== 'dev',
       );
 
     this.recipes = paths
-      .map((id) => {
+      .map(id => {
         // eslint-disable-next-line
         const Recipe = require(id)(RecipeModel);
         return new Recipe(loadRecipeConfig(id));
       })
-      .filter((recipe) => recipe.id);
+      .filter(recipe => recipe.id);
 
     this.recipes = this.recipes.concat(this._getDevRecipes());
 
@@ -390,13 +391,11 @@ export default class ServerApi {
 
       let archivePath;
 
-      if (await fs.exists(internalRecipeFile)) {
-        console.log('[ServerApi::getRecipePackage] Using internal recipe file');
+      if (fs.existsSync(internalRecipeFile)) {
+        debug('[ServerApi::getRecipePackage] Using internal recipe file');
         archivePath = internalRecipeFile;
       } else {
-        console.log(
-          '[ServerApi::getRecipePackage] Downloading recipe from server',
-        );
+        debug('[ServerApi::getRecipePackage] Downloading recipe from server');
         archivePath = tempArchivePath;
 
         const packageUrl = `${apiBase()}/recipes/download/${recipeId}`;
@@ -406,7 +405,7 @@ export default class ServerApi {
         const buffer = await res.buffer();
         fs.writeFileSync(archivePath, buffer);
       }
-      console.log(archivePath);
+      debug(archivePath);
 
       await sleep(10);
 
@@ -416,7 +415,7 @@ export default class ServerApi {
         preservePaths: true,
         unlink: true,
         preserveOwner: false,
-        onwarn: (x) => console.log('warn', recipeId, x),
+        onwarn: x => debug('warn', recipeId, x),
       });
 
       await sleep(10);
@@ -487,7 +486,7 @@ export default class ServerApi {
 
       if (Object.prototype.hasOwnProperty.call(config, 'services')) {
         const services = await Promise.all(
-          config.services.map(async (s) => {
+          config.services.map(async s => {
             const service = s;
             const request = await sendAuthRequest(
               `${apiBase()}/recipes/${s.service}`,
@@ -514,11 +513,11 @@ export default class ServerApi {
 
   // Helper
   async _mapServiceModels(services) {
-    const recipes = services.map((s) => s.recipeId);
+    const recipes = services.map(s => s.recipeId);
     await this._bulkRecipeCheck(recipes);
     /* eslint-disable no-return-await */
     return Promise.all(
-      services.map(async (service) => await this._prepareServiceModel(service)),
+      services.map(async service => await this._prepareServiceModel(service)),
     );
     /* eslint-enable no-return-await */
   }
@@ -526,7 +525,7 @@ export default class ServerApi {
   async _prepareServiceModel(service) {
     let recipe;
     try {
-      recipe = this.recipes.find((r) => r.id === service.recipeId);
+      recipe = this.recipes.find(r => r.id === service.recipeId);
 
       if (!recipe) {
         console.warn(`Recipe ${service.recipeId} not loaded`);
@@ -547,8 +546,8 @@ export default class ServerApi {
     );
 
     return Promise.all(
-      recipes.map(async (recipeId) => {
-        let recipe = this.recipes.find((r) => r.id === recipeId);
+      recipes.map(async recipeId => {
+        let recipe = this.recipes.find(r => r.id === recipeId);
 
         if (!recipe) {
           console.warn(
@@ -560,7 +559,7 @@ export default class ServerApi {
           debug('Rerun ServerAPI::getInstalledRecipes');
           await this.getInstalledRecipes();
 
-          recipe = this.recipes.find((r) => r.id === recipeId);
+          recipe = this.recipes.find(r => r.id === recipeId);
 
           if (!recipe) {
             console.warn(`Could not load recipe ${recipeId}`);
@@ -570,12 +569,12 @@ export default class ServerApi {
 
         return recipe;
       }),
-    ).catch((err) => console.error("Can't load recipe", err));
+    ).catch(err => console.error("Can't load recipe", err));
   }
 
   _mapRecipePreviewModel(recipes) {
     return recipes
-      .map((recipe) => {
+      .map(recipe => {
         try {
           return new RecipePreviewModel(recipe);
         } catch (e) {
@@ -583,12 +582,12 @@ export default class ServerApi {
           return null;
         }
       })
-      .filter((recipe) => recipe !== null);
+      .filter(recipe => recipe !== null);
   }
 
   _mapNewsModels(news) {
     return news
-      .map((newsItem) => {
+      .map(newsItem => {
         try {
           return new NewsModel(newsItem);
         } catch (e) {
@@ -596,12 +595,12 @@ export default class ServerApi {
           return null;
         }
       })
-      .filter((newsItem) => newsItem !== null);
+      .filter(newsItem => newsItem !== null);
   }
 
   _mapOrderModels(orders) {
     return orders
-      .map((orderItem) => {
+      .map(orderItem => {
         try {
           return new OrderModel(orderItem);
         } catch (e) {
@@ -609,7 +608,7 @@ export default class ServerApi {
           return null;
         }
       })
-      .filter((orderItem) => orderItem !== null);
+      .filter(orderItem => orderItem !== null);
   }
 
   _getDevRecipes() {
@@ -618,12 +617,13 @@ export default class ServerApi {
       const paths = fs
         .readdirSync(recipesDirectory)
         .filter(
-          (file) => fs.statSync(path.join(recipesDirectory, file)).isDirectory()
-            && file !== 'temp',
+          file =>
+            fs.statSync(path.join(recipesDirectory, file)).isDirectory() &&
+            file !== 'temp',
         );
 
       const recipes = paths
-        .map((id) => {
+        .map(id => {
           let Recipe;
           try {
             // eslint-disable-next-line
@@ -635,8 +635,8 @@ export default class ServerApi {
 
           return false;
         })
-        .filter((recipe) => recipe.id)
-        .map((data) => {
+        .filter(recipe => recipe.id)
+        .map(data => {
           const recipe = data;
 
           recipe.icons = {

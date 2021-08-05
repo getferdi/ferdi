@@ -1,12 +1,6 @@
 /* eslint-disable import/first */
 
-import {
-  app,
-  BrowserWindow,
-  shell,
-  ipcMain,
-  session,
-} from 'electron';
+import { app, BrowserWindow, shell, ipcMain, session } from 'electron';
 
 import fs from 'fs-extra';
 import path from 'path';
@@ -34,7 +28,7 @@ import DBus from './lib/DBus';
 import Settings from './electron/Settings';
 import handleDeepLink from './electron/deepLinking';
 import { isPositionValid } from './electron/windowUtils';
-import { appId } from './package.json'; // eslint-disable-line import/no-unresolved
+import { appId } from '../package.json';
 import './electron/exception';
 
 import { asarPath } from './helpers/asar-helpers';
@@ -90,7 +84,9 @@ if (settings.get('sentry')) {
 const liftSingleInstanceLock = settings.get('liftSingleInstanceLock') || false;
 
 // Force single window
-const gotTheLock = liftSingleInstanceLock ? true : app.requestSingleInstanceLock();
+const gotTheLock = liftSingleInstanceLock
+  ? true
+  : app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit();
 } else {
@@ -106,7 +102,7 @@ if (!gotTheLock) {
       mainWindow.focus();
 
       if (isWindows) {
-        onDidLoad((window) => {
+        onDidLoad(window => {
           // Keep only command line / deep linked arguments
           const url = argv.slice(1);
           if (url) {
@@ -117,8 +113,14 @@ if (!gotTheLock) {
             // Needs to be delayed to not interfere with mainWindow.restore();
             setTimeout(() => {
               debug('Resetting windows via Task');
-              window.setPosition(DEFAULT_WINDOW_OPTIONS.x + 100, DEFAULT_WINDOW_OPTIONS.y + 100);
-              window.setSize(DEFAULT_WINDOW_OPTIONS.width, DEFAULT_WINDOW_OPTIONS.height);
+              window.setPosition(
+                DEFAULT_WINDOW_OPTIONS.x + 100,
+                DEFAULT_WINDOW_OPTIONS.y + 100,
+              );
+              window.setSize(
+                DEFAULT_WINDOW_OPTIONS.width,
+                DEFAULT_WINDOW_OPTIONS.height,
+              );
             }, 1);
           } else if (argv.includes('--quit')) {
             // Needs to be delayed to not interfere with mainWindow.restore();
@@ -135,7 +137,10 @@ if (!gotTheLock) {
 
 // Fix Unity indicator issue
 // https://github.com/electron/electron/issues/9046
-if (isLinux && ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1) {
+if (
+  isLinux &&
+  ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1
+) {
   process.env.XDG_CURRENT_DESKTOP = 'Unity';
 }
 
@@ -169,7 +174,9 @@ const createWindow = () => {
   }
 
   // Create the browser window.
-  const backgroundColor = settings.get('darkMode') ? '#1E1E1E' : settings.get('accentColor');
+  const backgroundColor = settings.get('darkMode')
+    ? '#1E1E1E'
+    : settings.get('accentColor');
 
   mainWindow = new BrowserWindow({
     x: posX,
@@ -193,7 +200,7 @@ const createWindow = () => {
 
   app.on('web-contents-created', (e, contents) => {
     if (contents.getType() === 'webview') {
-      contents.on('new-window', (event) => {
+      contents.on('new-window', event => {
         event.preventDefault();
       });
     }
@@ -242,7 +249,7 @@ const createWindow = () => {
 
   // Windows deep linking handling on app launch
   if (isWindows) {
-    onDidLoad((window) => {
+    onDidLoad(window => {
       const url = process.argv.slice(1);
       if (url) {
         handleDeepLink(window, url.toString());
@@ -251,12 +258,16 @@ const createWindow = () => {
   }
 
   // Emitted when the window is closed.
-  mainWindow.on('close', (e) => {
+  mainWindow.on('close', e => {
     debug('Window: close window');
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    if (!willQuitApp && (settings.get('runInBackground') === undefined || settings.get('runInBackground'))) {
+    if (
+      !willQuitApp &&
+      (settings.get('runInBackground') === undefined ||
+        settings.get('runInBackground'))
+    ) {
       e.preventDefault();
       if (isWindows) {
         debug('Window: minimize');
@@ -315,7 +326,7 @@ const createWindow = () => {
 
   if (isMac) {
     // eslint-disable-next-line global-require
-    const { default: askFormacOSPermissions } = require('./electron/macOSPermissions');
+    const { askFormacOSPermissions } = require('./electron/macOSPermissions');
     setTimeout(() => askFormacOSPermissions(mainWindow), ms('30s'));
   }
 
@@ -351,15 +362,24 @@ const createWindow = () => {
 const argv = require('minimist')(process.argv.slice(1));
 
 if (argv['auth-server-whitelist']) {
-  app.commandLine.appendSwitch('auth-server-whitelist', argv['auth-server-whitelist']);
+  app.commandLine.appendSwitch(
+    'auth-server-whitelist',
+    argv['auth-server-whitelist'],
+  );
 }
 if (argv['auth-negotiate-delegate-whitelist']) {
-  app.commandLine.appendSwitch('auth-negotiate-delegate-whitelist', argv['auth-negotiate-delegate-whitelist']);
+  app.commandLine.appendSwitch(
+    'auth-negotiate-delegate-whitelist',
+    argv['auth-negotiate-delegate-whitelist'],
+  );
 }
 
 // Disable Chromium's poor MPRIS implementation
 // and apply workaround for https://github.com/electron/electron/pull/26432
-app.commandLine.appendSwitch('disable-features', 'HardwareMediaKeyHandling,MediaSessionService,CrossOriginOpenerPolicy');
+app.commandLine.appendSwitch(
+  'disable-features',
+  'HardwareMediaKeyHandling,MediaSessionService,CrossOriginOpenerPolicy',
+);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -376,19 +396,29 @@ app.on('ready', () => {
   }
 
   if (isWindows) {
-    app.setUserTasks([{
-      program: process.execPath,
-      arguments: `${isDevMode ? `${__dirname} ` : ''}--reset-window`,
-      iconPath: asarPath(path.join(isDevMode ? `${__dirname}../src/` : __dirname, 'assets/images/taskbar/win32/display.ico')),
-      iconIndex: 0,
-      title: 'Move Ferdi to Current Display',
-      description: 'Restore the position and size of Ferdi',
-    }, {
-      program: process.execPath,
-      arguments: `${isDevMode ? `${__dirname} ` : ''}--quit`,
-      iconIndex: 0,
-      title: 'Quit Ferdi',
-    }]);
+    app.setUserTasks([
+      {
+        program: process.execPath,
+        arguments: `${isDevMode ? `${__dirname} ` : ''}--reset-window`,
+        iconPath: asarPath(
+          path.join(
+            isDevMode ? `${__dirname}../src/` : __dirname,
+            'assets/images/taskbar/win32/display.ico',
+          ),
+        ),
+        iconIndex: 0,
+        title: 'Move Ferdi to Current Display',
+        description: 'Restore the position and size of Ferdi',
+      },
+      {
+        program: process.execPath,
+        arguments: `${isDevMode ? `${__dirname} ` : ''}--quit`,
+        iconIndex: 0,
+        iconPath: null,
+        title: 'Quit Ferdi',
+        description: null,
+      },
+    ]);
   }
 
   createWindow();
@@ -420,27 +450,35 @@ ipcMain.on('feature-basic-auth-credentials', (e, { user, password }) => {
 
 ipcMain.on('open-browser-window', (e, { url, serviceId }) => {
   const serviceSession = session.fromPartition(`persist:service-${serviceId}`);
-  const child = new BrowserWindow({ parent: mainWindow, webPreferences: { session: serviceSession } });
+  const child = new BrowserWindow({
+    parent: mainWindow,
+    webPreferences: { session: serviceSession },
+  });
   child.show();
   child.loadURL(url);
   debug('Received open-browser-window', url);
 });
 
-ipcMain.on('modifyRequestHeaders', (e, { modifiedRequestHeaders, serviceId }) => {
-  debug('Received modifyRequestHeaders', modifiedRequestHeaders, serviceId);
-  modifiedRequestHeaders.forEach((headerFilterSet) => {
-    const { headers, requestFilters } = headerFilterSet;
-    session.fromPartition(`persist:service-${serviceId}`).webRequest.onBeforeSendHeaders(requestFilters, (details, callback) => {
-      for (const key in headers) {
-        if (Object.prototype.hasOwnProperty.call(headers, key)) {
-          const value = headers[key];
-          details.requestHeaders[key] = value;
-        }
-      }
-      callback({ requestHeaders: details.requestHeaders });
+ipcMain.on(
+  'modifyRequestHeaders',
+  (e, { modifiedRequestHeaders, serviceId }) => {
+    debug('Received modifyRequestHeaders', modifiedRequestHeaders, serviceId);
+    modifiedRequestHeaders.forEach(headerFilterSet => {
+      const { headers, requestFilters } = headerFilterSet;
+      session
+        .fromPartition(`persist:service-${serviceId}`)
+        .webRequest.onBeforeSendHeaders(requestFilters, (details, callback) => {
+          for (const key in headers) {
+            if (Object.prototype.hasOwnProperty.call(headers, key)) {
+              const value = headers[key];
+              details.requestHeaders[key] = value;
+            }
+          }
+          callback({ requestHeaders: details.requestHeaders });
+        });
     });
-  });
-});
+  },
+);
 
 ipcMain.on('feature-basic-auth-cancel', () => {
   debug('Cancel basic auth');
@@ -453,7 +491,7 @@ ipcMain.on('feature-basic-auth-cancel', () => {
 
 ipcMain.on('find-in-page', (e, text, options) => {
   const { sender: webContents } = e;
-  if (webContents !== mainWindow.webContents && typeof (text) === 'string') {
+  if (webContents !== mainWindow.webContents && typeof text === 'string') {
     const sanitizedOptions = {};
     for (const option of ['forward', 'findNext', 'matchCase']) {
       if (option in options) {
@@ -471,7 +509,11 @@ ipcMain.on('find-in-page', (e, text, options) => {
 ipcMain.on('stop-find-in-page', (e, action) => {
   const { sender: webContents } = e;
   if (webContents !== mainWindow.webContents) {
-    const validActions = ['clearSelection', 'keepSelection', 'activateSelection'];
+    const validActions = [
+      'clearSelection',
+      'keepSelection',
+      'activateSelection',
+    ];
     if (validActions.includes(action)) {
       webContents.stopFindInPage(action);
     }
@@ -483,12 +525,14 @@ ipcMain.on('stop-find-in-page', (e, action) => {
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (settings.get('runInBackground') === undefined
-    || settings.get('runInBackground')) {
+  if (
+    settings.get('runInBackground') === undefined ||
+    settings.get('runInBackground')
+  ) {
     debug('Window: all windows closed, quit app');
     app.quit();
   } else {
-    debug('Window: don\'t quit app');
+    debug("Window: don't quit app");
   }
 });
 
@@ -517,7 +561,7 @@ app.on('will-finish-launching', () => {
   app.on('open-url', (event, url) => {
     event.preventDefault();
 
-    onDidLoad((window) => {
+    onDidLoad(window => {
       debug('open-url event', url);
       handleDeepLink(window, url);
     });

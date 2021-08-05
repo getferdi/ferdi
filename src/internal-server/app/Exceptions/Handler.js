@@ -13,10 +13,9 @@ class ExceptionHandler extends BaseExceptionHandler {
    * @method handle
    *
    * @param  {Object} error
-   * @param  {Object} options.request
-   * @param  {Object} options.response
+   * @param  {object} options.response
    *
-   * @return {void}
+   * @return {Promise<void>}
    */
   async handle(error, { response }) {
     if (error.name === 'ValidationException') {
@@ -31,10 +30,7 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @method report
    *
-   * @param  {Object} error
-   * @param  {Object} options.request
-   *
-   * @return {void}
+   * @return {Promise<boolean>}
    */
   async report() {
     return true;

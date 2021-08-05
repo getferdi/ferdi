@@ -14,22 +14,22 @@
 |     Also you can preload files by calling `preLoad('path/to/file')` method.
 |     Make sure to pass a relative path from the project root.
 */
-process.env.FERDI_VERSION = '5.4.0-beta.5';
 
-const path = require('path');
+const fold = require('@adonisjs/fold');
+const { Ignitor } = require('@adonisjs/ignitor');
 const fs = require('fs-extra');
 const os = require('os');
+const path = require('path');
+const packageJSON = require('../../package.json');
 
+process.env.FERDI_VERSION = packageJSON.version;
 process.env.ENV_PATH = path.join(__dirname, 'env.ini');
-
-const { Ignitor } = require('@adonisjs/ignitor');
-const fold = require('@adonisjs/fold');
 
 module.exports = async (userPath, port) => {
   const dbPath = path.join(userPath, 'server.sqlite');
   const dbTemplatePath = path.join(__dirname, 'database', 'template.sqlite');
 
-  if (!await fs.exists(dbPath)) {
+  if (!fs.existsSync(dbPath)) {
     // Manually copy file
     // We can't use copyFile here as it will cause the file to be readonly on Windows
     const dbTemplate = await fs.readFile(dbTemplatePath);
@@ -46,8 +46,5 @@ module.exports = async (userPath, port) => {
   process.env.USER_PATH = userPath;
   process.env.PORT = port;
 
-  new Ignitor(fold)
-    .appRoot(__dirname)
-    .fireHttpServer()
-    .catch(console.error); // eslint-disable-line no-console
+  new Ignitor(fold).appRoot(__dirname).fireHttpServer().catch(console.error); // eslint-disable-line no-console
 };
