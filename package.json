@@ -206,6 +206,7 @@
     "sass": "1.36.0",
     "simple-git": "2.41.2",
     "ts-loader": "5.4.5",
+    "tslib": "2.3.0",
     "typescript": "3.9.10",
     "webpack": "4.46.0",
     "webpack-cli": "3.3.12",
