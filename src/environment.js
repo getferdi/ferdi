@@ -50,10 +50,18 @@ if (isDevMode) {
   app.setPath('userData', path.join(app.getPath('appData'), `${app.name}Dev`));
 }
 
-export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config');
+export function userDataPath(...segments) {
+  return path.join(app.getPath('userData'), ...([segments].flat()));
+}
+
+export function userDataRecipesPath(...segments) {
+  return userDataPath('recipes', ...([segments].flat()));
+}
 
 // Replacing app.asar is not beautiful but unfortunately necessary
-export const RECIPES_PATH = asarPath(path.join(__dirname, 'recipes'));
+export function asarRecipesPath(...segments) {
+  return path.join(asarPath(path.join(__dirname, 'recipes')), ...([segments].flat()));
+}
 
 export const useLiveAPI = process.env.USE_LIVE_API;
 const useLocalAPI = process.env.USE_LOCAL_API;

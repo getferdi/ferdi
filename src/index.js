@@ -19,6 +19,8 @@ import {
   isWindows,
   isLinux,
   aboutAppDetails,
+  userDataRecipesPath,
+  userDataPath,
 } from './environment';
 
 import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
@@ -63,8 +65,8 @@ function onDidLoad(fn) {
 }
 
 // Ensure that the recipe directory exists
-fs.emptyDirSync(path.join(app.getPath('userData'), 'recipes', 'temp'));
-fs.ensureFileSync(path.join(app.getPath('userData'), 'window-state.json'));
+fs.emptyDirSync(userDataRecipesPath('temp'));
+fs.ensureFileSync(userDataPath('window-state.json'));
 
 // Set App ID for Windows
 if (isWindows) {

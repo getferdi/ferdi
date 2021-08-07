@@ -18,9 +18,9 @@
 const fold = require('@adonisjs/fold');
 const { Ignitor } = require('@adonisjs/ignitor');
 const fs = require('fs-extra');
-const os = require('os');
 const path = require('path');
 const { LOCAL_HOSTNAME } = require('../config');
+const { isWindows } = require('../environment');
 
 process.env.ENV_PATH = path.join(__dirname, 'env.ini');
 
@@ -35,7 +35,7 @@ module.exports = async (userPath, port) => {
     await fs.writeFile(dbPath, dbTemplate);
 
     // Change permissions to ensure to file is not read-only
-    if (os.platform() === 'win32') {
+    if (isWindows) {
       // eslint-disable-next-line no-bitwise
       fs.chmodSync(dbPath, fs.statSync(dbPath).mode | 146);
     }

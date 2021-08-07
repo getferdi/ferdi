@@ -1,12 +1,12 @@
 import path from 'path';
-import { app } from '@electron/remote';
+import { userDataRecipesPath } from '../environment';
 
 export function getRecipeDirectory(id = '') {
-  return path.join(app.getPath('userData'), 'recipes', id);
+  return userDataRecipesPath(id);
 }
 
 export function getDevRecipeDirectory(id = '') {
-  return path.join(app.getPath('userData'), 'recipes', 'dev', id);
+  return userDataRecipesPath('dev', id);
 }
 
 export function loadRecipeConfig(recipeId) {

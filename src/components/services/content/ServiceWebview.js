@@ -59,7 +59,7 @@ class ServiceWebview extends Component {
       isSpellcheckerEnabled,
     } = this.props;
 
-    const preloadScript = path.join(__dirname, '../../../', 'webview', 'recipe.js');
+    const preloadScript = path.join(__dirname, '..', '..', '..', 'webview', 'recipe.js');
 
     return (
       <ElectronWebView

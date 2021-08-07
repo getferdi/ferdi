@@ -1,27 +1,22 @@
-import { app, systemPreferences, dialog } from 'electron';
-import fs from 'fs';
+import { systemPreferences, dialog } from 'electron';
+import { writeFileSync } from 'fs';
+import { pathExistsSync, mkdirSync } from 'fs-extra';
 import macosVersion from 'macos-version';
 import path from 'path';
 import { askForScreenCaptureAccess } from 'node-mac-permissions';
+import { userDataPath } from '../environment';
 
 const debug = require('debug')('Ferdi:macOSPermissions');
 
 const permissionExists = macosVersion.isGreaterThanOrEqualTo('10.15');
-const filePath = path.join(
-  app.getPath('userData'),
-  '.has-app-requested-screen-capture-permissions',
-);
+const filePath = userDataPath('.has-app-requested-screen-capture-permissions');
 
 function hasPromptedForPermission() {
   if (!permissionExists) {
     return false;
   }
 
-  if (filePath && fs.existsSync(filePath)) {
-    return true;
-  }
-
-  return false;
+  return filePath && pathExistsSync(filePath);
 }
 
 function hasScreenCapturePermission() {
@@ -35,11 +30,11 @@ function hasScreenCapturePermission() {
 
 function createStatusFile() {
   try {
-    fs.writeFileSync(filePath, '');
+    writeFileSync(filePath, '');
   } catch (error) {
     if (error.code === 'ENOENT') {
-      fs.mkdirSync(path.dirname(filePath));
-      fs.writeFileSync(filePath, '');
+      mkdirSync(path.dirname(filePath));
+      writeFileSync(filePath, '');
     }
 
     throw error;

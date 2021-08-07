@@ -1,11 +1,9 @@
 import { shell } from 'electron';
-import { app } from '@electron/remote';
 import fs from 'fs-extra';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import path from 'path';
 
 import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 import RecipeStore from '../../stores/RecipesStore';
@@ -15,7 +13,7 @@ import UserStore from '../../stores/UserStore';
 import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { CUSTOM_WEBSITE_RECIPE_ID, FRANZ_DEV_DOCS } from '../../config';
-import { RECIPES_PATH } from '../../environment';
+import { asarRecipesPath, userDataRecipesPath } from '../../environment';
 import { communityRecipesStore } from '../../features/communityRecipes';
 import RecipePreview from '../../models/RecipePreview';
 import AppStore from '../../stores/AppStore';
@@ -45,7 +43,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   constructor(props) {
     super(props);
 
-    this.customRecipes = fs.readJsonSync(path.join(RECIPES_PATH, 'all.json'));
+    this.customRecipes = fs.readJsonSync(asarRecipesPath('all.json'));
   }
 
   componentDidMount() {
@@ -140,7 +138,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
       || recipes.installRecipeRequest.isExecuting
       || recipePreviews.searchRecipePreviewsRequest.isExecuting;
 
-    const recipeDirectory = path.join(app.getPath('userData'), 'recipes', 'dev');
+    const recipeDirectory = userDataRecipesPath('dev');
 
     return (
       <ErrorBoundary>

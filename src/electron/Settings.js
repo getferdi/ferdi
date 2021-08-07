@@ -1,8 +1,6 @@
 import { observable, toJS } from 'mobx';
 import { pathExistsSync, outputJsonSync, readJsonSync } from 'fs-extra';
-import path from 'path';
-
-import { SETTINGS_PATH } from '../environment';
+import { userDataPath } from '../environment';
 
 const debug = require('debug')('Ferdi:Settings');
 
@@ -58,6 +56,6 @@ export default class Settings {
   }
 
   get settingsFile() {
-    return path.join(SETTINGS_PATH, `${this.type === 'app' ? 'settings' : this.type}.json`);
+    return userDataPath('config', `${this.type === 'app' ? 'settings' : this.type}.json`);
   }
 }

@@ -64,15 +64,6 @@ class TabBarSortableList extends Component {
             showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}
           />
         ))}
-        {/* <li>
-          <button
-            className="sidebar__add-service"
-            onClick={() => openSettings({ path: 'recipes' })}
-            data-tip={`${intl.formatMessage(messages.addNewService)} (${ctrlKey}+N)`}
-          >
-            <span className="mdi mdi-plus" />
-          </button>
-        </li> */}
       </ul>
     );
   }

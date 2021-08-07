@@ -1,13 +1,12 @@
-import path from 'path';
-import { app } from '@electron/remote';
 import fs from 'fs-extra';
+import { userDataPath } from '../environment';
 
-export function getServicePartitionsDirectory() {
-  return path.join(app.getPath('userData'), 'Partitions');
+export function getServicePartitionsDirectory(folders = []) {
+  return userDataPath('Partitions', folders);
 }
 
 export function removeServicePartitionDirectory(id = '', addServicePrefix = false) {
-  const servicePartition = path.join(getServicePartitionsDirectory(), `${addServicePrefix ? 'service-' : ''}${id}`);
+  const servicePartition = getServicePartitionsDirectory(`${addServicePrefix ? 'service-' : ''}${id}`);
 
   return fs.remove(servicePartition);
 }

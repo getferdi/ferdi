@@ -13,7 +13,7 @@ import OrderModel from '../../models/Order';
 import { sleep } from '../../helpers/async-helpers';
 
 import { SERVER_NOT_LOADED } from '../../config';
-import { osArch, osPlatform, RECIPES_PATH } from '../../environment';
+import { osArch, osPlatform, asarRecipesPath, userDataRecipesPath, userDataPath } from '../../environment';
 import apiBase from '../apiBase';
 import { prepareAuthRequest, sendAuthRequest } from '../utils/auth';
 
@@ -381,11 +381,11 @@ export default class ServerApi {
 
   async getRecipePackage(recipeId) {
     try {
-      const recipesDirectory = path.join(app.getPath('userData'), 'recipes');
+      const recipesDirectory = userDataRecipesPath();
       const recipeTempDirectory = path.join(recipesDirectory, 'temp', recipeId);
       const tempArchivePath = path.join(recipeTempDirectory, 'recipe.tar.gz');
 
-      const internalRecipeFile = path.join(RECIPES_PATH, `${recipeId}.tar.gz`);
+      const internalRecipeFile = asarRecipesPath(`${recipeId}.tar.gz`);
 
       fs.ensureDirSync(recipeTempDirectory);
 
@@ -475,11 +475,7 @@ export default class ServerApi {
   }
 
   async getLegacyServices() {
-    const file = path.join(
-      app.getPath('userData'),
-      'settings',
-      'services.json',
-    );
+    const file = userDataPath('settings', 'services.json');
 
     try {
       const config = fs.readJsonSync(file);
