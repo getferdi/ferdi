@@ -1,10 +1,9 @@
 import os from 'os';
 import macosVersion from 'macos-version';
+import { chrome } from 'useragent-generator';
 import {
   chromeVersion, isMac, isWindows, is64Bit, osArch, osRelease,
 } from '../environment';
-
-const uaGenerator = require('useragent-generator');
 
 function macOS() {
   const version = macosVersion();
@@ -38,5 +37,5 @@ export default function userAgent() {
     platformString = linux();
   }
 
-  return uaGenerator.chrome({ os: platformString, version: chromeVersion });
+  return chrome({ os: platformString, version: chromeVersion });
 }

@@ -3,8 +3,8 @@ import { action, reaction, computed, observable } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
 import { app } from '@electron/remote';
-import fs from 'fs-extra';
-import path from 'path';
+import { ensureFileSync, pathExistsSync, writeFileSync } from 'fs-extra';
+import { join } from 'path';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
@@ -524,9 +524,9 @@ export default class ServicesStore extends Store {
     const devDirectory = getDevRecipeDirectory(recipe);
     let directory;
 
-    if (await fs.pathExists(normalDirectory)) {
+    if (pathExistsSync(normalDirectory)) {
       directory = normalDirectory;
-    } else if (await fs.pathExists(devDirectory)) {
+    } else if (pathExistsSync(devDirectory)) {
       directory = devDirectory;
     } else {
       // Recipe cannot be found on drive
@@ -534,20 +534,19 @@ export default class ServicesStore extends Store {
     }
 
     // Create and open file
-    const filePath = path.join(directory, file);
+    const filePath = join(directory, file);
     if (file === 'user.js') {
-      if (!fs.existsSync(filePath)) {
-        await fs.writeFile(
+      if (!pathExistsSync(filePath)) {
+        writeFileSync(
           filePath,
           `module.exports = (config, Ferdi) => {
   // Write your scripts here
   console.log("Hello, World!", config);
-}
-`,
-        );
+};
+`);
       }
     } else {
-      await fs.ensureFile(filePath);
+      ensureFileSync(filePath);
     }
     shell.showItemInFolder(filePath);
   }

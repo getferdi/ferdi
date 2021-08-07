@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { observable, reaction } from 'mobx';
 import ElectronWebView from 'react-electron-web-view';
-import path from 'path';
+import { join } from 'path';
 
 import ServiceModel from '../../../models/Service';
 
@@ -59,7 +59,7 @@ class ServiceWebview extends Component {
       isSpellcheckerEnabled,
     } = this.props;
 
-    const preloadScript = path.join(__dirname, '..', '..', '..', 'webview', 'recipe.js');
+    const preloadScript = join(__dirname, '..', '..', '..', 'webview', 'recipe.js');
 
     return (
       <ElectronWebView

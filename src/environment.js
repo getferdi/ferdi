@@ -1,10 +1,11 @@
 import os from 'os';
-import path from 'path';
+import { join } from 'path';
 
 import { is, api as electronApi } from 'electron-util';
 
 import { DEFAULT_ACCENT_COLOR } from '@meetfranz/theme';
 
+import osName from 'os-name';
 import {
   LIVE_FERDI_API,
   DEV_FRANZ_API,
@@ -25,8 +26,6 @@ import {
 import { asarPath } from './helpers/asar-helpers';
 import * as buildInfo from './buildInfo.json'; // eslint-disable-line import/no-unresolved
 
-const osName = require('os-name');
-
 export const { app } = electronApi;
 export const ferdiVersion = app.getVersion();
 export const electronVersion = process.versions.electron;
@@ -36,22 +35,22 @@ export const nodeVersion = process.versions.node;
 // Set app directory before loading user modules
 if (process.env.FERDI_APPDATA_DIR != null) {
   app.setPath('appData', process.env.FERDI_APPDATA_DIR);
-  app.setPath('userData', path.join(app.getPath('appData')));
+  app.setPath('userData', join(app.getPath('appData')));
 } else if (process.env.PORTABLE_EXECUTABLE_DIR != null) {
   app.setPath('appData', process.env.PORTABLE_EXECUTABLE_DIR, `${app.name}AppData`);
-  app.setPath('userData', path.join(app.getPath('appData'), `${app.name}AppData`));
+  app.setPath('userData', join(app.getPath('appData'), `${app.name}AppData`));
 } else if (is.windows) {
   app.setPath('appData', process.env.APPDATA);
-  app.setPath('userData', path.join(app.getPath('appData'), app.name));
+  app.setPath('userData', join(app.getPath('appData'), app.name));
 }
 
 export const isDevMode = is.development;
 if (isDevMode) {
-  app.setPath('userData', path.join(app.getPath('appData'), `${app.name}Dev`));
+  app.setPath('userData', join(app.getPath('appData'), `${app.name}Dev`));
 }
 
 export function userDataPath(...segments) {
-  return path.join(app.getPath('userData'), ...([segments].flat()));
+  return join(app.getPath('userData'), ...([segments].flat()));
 }
 
 export function userDataRecipesPath(...segments) {
@@ -60,7 +59,7 @@ export function userDataRecipesPath(...segments) {
 
 // Replacing app.asar is not beautiful but unfortunately necessary
 export function asarRecipesPath(...segments) {
-  return path.join(asarPath(path.join(__dirname, 'recipes')), ...([segments].flat()));
+  return join(asarPath(join(__dirname, 'recipes')), ...([segments].flat()));
 }
 
 export const useLiveAPI = process.env.USE_LIVE_API;

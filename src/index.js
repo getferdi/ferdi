@@ -2,8 +2,8 @@
 
 import { app, BrowserWindow, shell, ipcMain, session } from 'electron';
 
-import fs from 'fs-extra';
-import path from 'path';
+import { emptyDirSync, ensureFileSync } from 'fs-extra';
+import { join } from 'path';
 import windowStateKeeper from 'electron-window-state';
 import { enforceMacOSAppLocation } from 'electron-util';
 import ms from 'ms';
@@ -65,8 +65,8 @@ function onDidLoad(fn) {
 }
 
 // Ensure that the recipe directory exists
-fs.emptyDirSync(userDataRecipesPath('temp'));
-fs.ensureFileSync(userDataPath('window-state.json'));
+emptyDirSync(userDataRecipesPath('temp'));
+ensureFileSync(userDataPath('window-state.json'));
 
 // Set App ID for Windows
 if (isWindows) {
@@ -195,7 +195,7 @@ const createWindow = () => {
       nodeIntegration: true,
       contextIsolation: false,
       webviewTag: true,
-      preload: path.join(__dirname, 'sentry.js'),
+      preload: join(__dirname, 'sentry.js'),
       enableRemoteModule: true,
     },
   });
@@ -403,7 +403,7 @@ app.on('ready', () => {
         program: process.execPath,
         arguments: `${isDevMode ? `${__dirname} ` : ''}--reset-window`,
         iconPath: asarPath(
-          path.join(
+          join(
             isDevMode ? `${__dirname}../src/` : __dirname,
             'assets/images/taskbar/win32/display.ico',
           ),

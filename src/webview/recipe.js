@@ -1,8 +1,8 @@
 /* eslint-disable import/first */
 import { contextBridge, ipcRenderer } from 'electron';
-import path from 'path';
+import { join } from 'path';
 import { autorun, computed, observable } from 'mobx';
-import fs from 'fs-extra';
+import { pathExistsSync, readFileSync } from 'fs-extra';
 import { debounce } from 'lodash';
 
 // For some services darkreader tries to use the chrome extension message API
@@ -189,7 +189,7 @@ class RecipeController {
 
   loadRecipeModule(event, config, recipe) {
     debug('loadRecipeModule');
-    const modulePath = path.join(recipe.path, 'webview.js');
+    const modulePath = join(recipe.path, 'webview.js');
     debug('module path', modulePath);
     // Delete module from cache
     delete require.cache[require.resolve(modulePath)];
@@ -214,15 +214,15 @@ class RecipeController {
     const styles = document.createElement('style');
     styles.innerHTML = screenShareCss;
 
-    const userCss = path.join(recipe.path, 'user.css');
-    if (fs.existsSync(userCss)) {
-      const data = await fs.readFile(userCss);
+    const userCss = join(recipe.path, 'user.css');
+    if (pathExistsSync(userCss)) {
+      const data = readFileSync(userCss);
       styles.innerHTML += data.toString();
     }
     document.querySelector('head').appendChild(styles);
 
-    const userJs = path.join(recipe.path, 'user.js');
-    if (fs.existsSync(userJs)) {
+    const userJs = join(recipe.path, 'user.js');
+    if (pathExistsSync(userJs)) {
       const loadUserJs = () => {
         // eslint-disable-next-line
         const userJsModule = require(userJs);
@@ -308,11 +308,11 @@ class RecipeController {
       debug('Enable dark mode');
 
       // Check if recipe has a darkmode.css
-      const darkModeStyle = path.join(
+      const darkModeStyle = join(
         this.settings.service.recipe.path,
         'darkmode.css',
       );
-      const darkModeExists = fs.pathExistsSync(darkModeStyle);
+      const darkModeExists = pathExistsSync(darkModeStyle);
 
       debug('darkmode.css exists? ', darkModeExists ? 'Yes' : 'No');
 

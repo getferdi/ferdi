@@ -1,5 +1,5 @@
 import { action, computed, observable } from 'mobx';
-import fs from 'fs-extra';
+import { readJSONSync } from 'fs-extra';
 import semver from 'semver';
 
 import Store from './lib/Store';
@@ -90,7 +90,7 @@ export default class RecipesStore extends Store {
 
     // Check for local updates
     const allJsonFile = asarRecipesPath('all.json');
-    const allJson = await fs.readJSON(allJsonFile);
+    const allJson = readJSONSync(allJsonFile);
     const localUpdates = [];
 
     Object.keys(recipes).forEach((recipe) => {

@@ -1,5 +1,5 @@
 import { app, ipcMain } from 'electron';
-import path from 'path';
+import { join } from 'path';
 import { autorun } from 'mobx';
 import { isMac, isWindows, isLinux } from '../../environment';
 
@@ -9,7 +9,7 @@ const FILE_EXTENSION = isWindows ? 'ico' : 'png';
 let isTrayIconEnabled;
 
 function getAsset(type, asset) {
-  return path.join(
+  return join(
     __dirname, '..', '..', 'assets', 'images', type, process.platform, `${asset}.${FILE_EXTENSION}`,
   );
 }

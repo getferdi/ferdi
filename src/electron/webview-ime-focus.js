@@ -1,5 +1,5 @@
-const { webContents } = require('@electron/remote');
-const { releaseDocumentFocus } = require('./webview-ime-focus-helpers');
+import { webContents } from '@electron/remote';
+import { releaseDocumentFocus } from './webview-ime-focus-helpers';
 
 function giveWebviewDocumentFocus(element) {
   releaseDocumentFocus();

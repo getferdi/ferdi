@@ -1,4 +1,4 @@
-import path from 'path';
+import { parse } from 'path';
 import { userDataRecipesPath } from '../environment';
 
 export function getRecipeDirectory(id = '') {
@@ -19,8 +19,7 @@ export function loadRecipeConfig(recipeId) {
     let config = require(configPath);
 
     const moduleConfigPath = require.resolve(configPath);
-    const paths = path.parse(moduleConfigPath);
-    config.path = paths.dir;
+    config.path = parse(moduleConfigPath).dir;
 
     return config;
   } catch (e) {

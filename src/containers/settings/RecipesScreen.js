@@ -1,5 +1,5 @@
 import { shell } from 'electron';
-import fs from 'fs-extra';
+import { ensureDirSync, readJsonSync } from 'fs-extra';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
@@ -43,7 +43,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   constructor(props) {
     super(props);
 
-    this.customRecipes = fs.readJsonSync(asarRecipesPath('all.json'));
+    this.customRecipes = readJsonSync(asarRecipesPath('all.json'));
   }
 
   componentDidMount() {
@@ -155,7 +155,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
           recipeFilter={filter}
           recipeDirectory={recipeDirectory}
           openRecipeDirectory={async () => {
-            await fs.ensureDir(recipeDirectory);
+            ensureDirSync(recipeDirectory);
             shell.openExternal(`file://${recipeDirectory}`);
           }}
           openDevDocs={() => {
