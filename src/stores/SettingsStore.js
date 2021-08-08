@@ -164,11 +164,24 @@ export default class SettingsStore extends Store {
     }
   }
 
+  _ensureMigrationAndMarkDone(migrationName, callback) {
+    if (!this.all.migration[migrationName]) {
+      callback();
+
+      const data = {};
+      data[migrationName] = true;
+      this.actions.settings.update({
+        type: 'migration',
+        data,
+      });
+    }
+  }
+
   // Helper
   async _migrate() {
     const legacySettings = localStorage.getItem('app') || {};
 
-    if (!this.all.migration['5.0.0-beta.17-settings']) {
+    this._ensureMigrationAndMarkDone('5.0.0-beta.17-settings', () => {
       this.actions.settings.update({
         type: 'app',
         data: {
@@ -193,19 +206,12 @@ export default class SettingsStore extends Store {
         },
       });
 
-      this.actions.settings.update({
-        type: 'migration',
-        data: {
-          '5.0.0-beta.17-settings': true,
-        },
-      });
-
       localStorage.removeItem('app');
 
       debug('Migrated settings to split stores');
-    }
+    });
 
-    if (!this.all.migration['5.0.0-beta.19-settings']) {
+    this._ensureMigrationAndMarkDone('5.0.0-beta.19-settings', () => {
       const spellcheckerLanguage = getLocale({
         locale: this.stores.settings.app.locale,
         locales: SPELLCHECKER_LOCALES,
@@ -219,16 +225,9 @@ export default class SettingsStore extends Store {
           spellcheckerLanguage,
         },
       });
+    });
 
-      this.actions.settings.update({
-        type: 'migration',
-        data: {
-          '5.0.0-beta.19-settings': true,
-        },
-      });
-    }
-
-    if (!this.all.migration['5.4.4-beta.2-settings']) {
+    this._ensureMigrationAndMarkDone('5.4.4-beta.2-settings', () => {
       const {
         showServiceNavigationBar,
       } = this.all.app;
@@ -239,53 +238,22 @@ export default class SettingsStore extends Store {
           navigationBarBehaviour: showServiceNavigationBar ? 'custom' : 'never',
         },
       });
+    });
 
-      this.actions.settings.update({
-        type: 'migration',
-        data: {
-          '5.4.4-beta.2-settings': true,
-        },
-      });
-    }
-
-    if (!this.all.migration['5.4.4-beta.4-settings']) {
+    this._ensureMigrationAndMarkDone('5.4.4-beta.4-settings', () => {
       this.actions.settings.update({
         type: 'app',
         data: {
           todoServer: 'isUsingCustomTodoService',
           customTodoServer: legacySettings.todoServer,
-        },
-      });
-
-      this.actions.settings.update({
-        type: 'migration',
-        data: {
-          '5.4.4-beta.4-settings': true,
-        },
-      });
-
-      debug('Migrated old todo setting to new custom todo setting');
-    }
-
-    if (!this.all.migration['5.4.4-beta.4-settings']) {
-      this.actions.settings.update({
-        type: 'app',
-        data: {
           automaticUpdates: !(legacySettings.noUpdates),
         },
       });
 
-      this.actions.settings.update({
-        type: 'migration',
-        data: {
-          '5.4.4-beta.4-settings': true,
-        },
-      });
+      debug('Migrated old todo setting to new custom todo setting');
+    });
 
-      debug('Migrated updates settings');
-    }
-
-    if (!this.all.migration['password-hashing']) {
+    this._ensureMigrationAndMarkDone('password-hashing', () => {
       if (this.stores.settings.app.lockedPassword !== '') {
         this.actions.settings.update({
           type: 'app',
@@ -295,46 +263,25 @@ export default class SettingsStore extends Store {
         });
       }
 
-      this.actions.settings.update({
-        type: 'migration',
-        data: {
-          'password-hashing': true,
-        },
-      });
-
       debug('Migrated updates settings');
-    }
+    });
 
-    if (!this.all.migration['5.6.0-beta.6-settings']) {
+    this._ensureMigrationAndMarkDone('5.6.0-beta.6-settings', () => {
       this.actions.settings.update({
         type: 'app',
         data: {
           searchEngine: SEARCH_ENGINE_DDG,
         },
       });
+    });
 
-      this.actions.settings.update({
-        type: 'migration',
-        data: {
-          '5.6.0-beta.6-settings': true,
-        },
-      });
-    }
-
-    if (!this.all.migration['user-agent-settings']) {
+    this._ensureMigrationAndMarkDone('user-agent-settings', () => {
       this.actions.settings.update({
         type: 'app',
         data: {
           userAgentPref: DEFAULT_APP_SETTINGS.userAgentPref,
         },
       });
-
-      this.actions.settings.update({
-        type: 'migration',
-        data: {
-          'user-agent-settings': true,
-        },
-      });
-    }
+    });
   }
 }
