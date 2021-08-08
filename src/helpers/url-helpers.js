@@ -1,5 +1,3 @@
-import { URL } from 'url';
-
 import { ALLOWED_PROTOCOLS } from '../config';
 
 const debug = require('debug')('Ferdi:Helpers:url');

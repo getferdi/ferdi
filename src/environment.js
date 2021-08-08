@@ -23,7 +23,7 @@ import {
 } from './config';
 
 import { asarPath } from './helpers/asar-helpers';
-import * as buildInfo from './buildInfo.json'; // eslint-disable-line import/no-unresolved
+// import * as buildInfo from './buildInfo.json'; // eslint-disable-line import/no-unresolved
 
 const osName = require('os-name');
 
@@ -38,8 +38,15 @@ if (process.env.FERDI_APPDATA_DIR != null) {
   app.setPath('appData', process.env.FERDI_APPDATA_DIR);
   app.setPath('userData', path.join(app.getPath('appData')));
 } else if (process.env.PORTABLE_EXECUTABLE_DIR != null) {
-  app.setPath('appData', process.env.PORTABLE_EXECUTABLE_DIR, `${app.name}AppData`);
-  app.setPath('userData', path.join(app.getPath('appData'), `${app.name}AppData`));
+  app.setPath(
+    'appData',
+    process.env.PORTABLE_EXECUTABLE_DIR,
+    `${app.name}AppData`,
+  );
+  app.setPath(
+    'userData',
+    path.join(app.getPath('appData'), `${app.name}AppData`),
+  );
 } else if (is.windows) {
   app.setPath('appData', process.env.APPDATA);
   app.setPath('userData', path.join(app.getPath('appData'), app.name));
@@ -158,8 +165,8 @@ export function aboutAppDetails() {
     `Node.js: ${nodeVersion}`,
     `Platform: ${osName()}`,
     `Arch: ${process.arch}`,
-    `Build date: ${new Date(Number(buildInfo.timestamp))}`,
-    `Git SHA: ${buildInfo.gitHashShort}`,
-    `Git branch: ${buildInfo.gitBranch}`,
+    // `Build date: ${new Date(Number(buildInfo.timestamp))}`,
+    // `Git SHA: ${buildInfo.gitHashShort}`,
+    // `Git branch: ${buildInfo.gitBranch}`,
   ].join('\n');
 }
