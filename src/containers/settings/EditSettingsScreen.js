@@ -26,6 +26,8 @@ import globalMessages from '../../i18n/globalMessages';
 import WorkspacesStore from '../../features/workspaces/store';
 import ServicesStore from '../../stores/ServicesStore';
 
+const debug = require('debug')('Ferdi:EditSettingsScreen');
+
 const messages = defineMessages({
   autoLaunchOnStart: {
     id: 'settings.app.form.autoLaunchOnStart',
@@ -241,6 +243,8 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
       openInBackground: settingsData.autoLaunchInBackground,
     });
 
+    debug(`Updating settings store with data: ${settingsData}`);
+
     settings.update({
       type: 'app',
       data: {
@@ -256,7 +260,6 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         navigationBarBehaviour: settingsData.navigationBarBehaviour,
         searchEngine: settingsData.searchEngine,
         sentry: settingsData.sentry,
-        hibernate: settingsData.hibernate,
         hibernateOnStartup: settingsData.hibernateOnStartup,
         hibernationStrategy: settingsData.hibernationStrategy,
         wakeUpStrategy: settingsData.wakeUpStrategy,
