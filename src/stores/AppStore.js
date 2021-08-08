@@ -12,7 +12,6 @@ import moment from 'moment';
 import AutoLaunch from 'auto-launch';
 import ms from 'ms';
 import { URL } from 'url';
-import path from 'path';
 import { readJsonSync } from 'fs-extra';
 
 import Store from './lib/Store';
@@ -24,6 +23,7 @@ import {
   ferdiVersion,
   electronVersion,
   osRelease,
+  userDataPath,
 } from '../environment';
 import locales from '../i18n/translations';
 import { onVisibilityChange } from '../helpers/visibility-helper';
@@ -307,9 +307,7 @@ export default class AppStore extends Store {
           id: workspace.id,
           services: workspace.services,
         })),
-        windowSettings: readJsonSync(
-          path.join(app.getPath('userData'), 'window-state.json'),
-        ),
+        windowSettings: readJsonSync(userDataPath('window-state.json')),
         settings,
         features: this.stores.features.features,
         user: this.stores.user.data.id,

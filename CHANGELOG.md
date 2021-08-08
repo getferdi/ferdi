@@ -1,3 +1,75 @@
+# [v5.6.1-nightly.16](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.14...v5.6.1-nightly.16) (2021-08-06)
+
+### Bug Fixes
+
+* Change all occurrences of hard-coded ip address '127.0.0.1' to 'localhost' (#1253) 💖 @vraravam
+* Partially reverted menu-item cleanup (having only 'role' does not work in windows) (#1746) 💖 @vraravam
+
+### Internal
+
+* General code improvements 💖 @mhatvan, @vraravam
+
+## [5.6.1-nightly.14](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.13...v5.6.1-nightly.14) (2021-08-04)
+
+### Bug Fixes
+
+- Clear cache button should not log out of services (#1734) 💖 @mhatvan
+
+### Internal
+
+- Incorporate commitizen as a git pre-commit hook 💖 @vraravam
+- git commit comment structure are now enforced using 'commitlint' 💖 @vraravam
+
+## [5.6.1-nightly.13](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.12...v5.6.1-nightly.13) (2021-08-04)
+
+- Changed the cron for the ferdi build to run at 12:15 am UTC. 💖 @vraravam
+- Removed straggling code related to 'popular services'. 💖 @vraravam
+- Upgraded 'electron' to '13.1.8'. 💖 @vraravam
+
+## [5.6.1-nightly.12](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.11...v5.6.1-nightly.12) (2021-08-03)
+
+- Removed 'Most Popular' services since it alludes to user-tracking (#1718) 💖 @vraravam
+- Fixed #1722 [skip ci] 💖 @vraravam
+- Prevent pasting twice (#1644) 💖 @stnkl, @vraravam
+- Fixed #1726: Revamp menu items with correct accelerators. (#1728) 💖 @vraravam
+
+## [5.6.1-nightly.11](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.10...v5.6.1-nightly.11) (2021-08-02)
+
+- Migrated babel config. 💖 @vraravam
+- Removed duplicated contributors badge. 💖 @vraravam
+- [Cleanup] Moved 'internal-server' into a sub-folder as opposed to a git submodule. 💖 @vraravam
+- Minor visual refactoring to hide double separator. [skip ci] 💖 @vraravam
+- Fixed #1717: Turned on ToDo feature. 💖 @vraravam
+
+
+## [5.6.1-nightly.10](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.9...v5.6.1-nightly.10) (2021-08-01)
+
+- Moved 'jss' to a runtime dependency from a dev dependency. 💖 @vraravam
+- Removed stale references to 'packages/typings' 💖 @vraravam
+
+## [5.6.1-nightly.9](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.8...v5.6.1-nightly.9) (2021-07-31)
+
+- Migrate from tslint to @typescript-eslint (#1706) 💖 @mhatvan, @vraravam
+- Cleanup and improve dependencies 💖 @mhatvan, @vraravam
+- Broken artefact!!! Do not Use!!!
+
+## [5.6.1-nightly.7](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.6...v5.6.1-nightly.7) (2021-07-29)
+
+- Force create tag while building/publishing even if it already exists by some rare chance. 💖 @vraravam
+
+## [5.6.1-nightly.6](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.5...v5.6.1-nightly.6) (2021-07-29)
+
+- updated classnames to 2.3.1 to use added type definitions 💖 @mhatvan, @vraravam
+- Backporting configs in prep for node upgrade to v16 💖 @mhatvan, @vraravam
+- Locked npm modules; Made the nested package module versions be consistent with the root package. 💖 @vraravam
+
+## [5.6.1-nightly.5](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.4...v5.6.1-nightly.5) (2021-07-28)
+
+- Updated CHANGELOG.md with old change logs 💖 @vraravam
+- Use node-gyp@8.1 for all CI builds (and brings windows at par with macos and linux) 💖 @vraravam
+- Corrected documentation for fresh system [skip ci] 💖 @vraravam
+- Npm module updates (#1694) 💖 @vraravam
+
 ## [5.6.1-nightly.4](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.2...v5.6.1-nightly.4) (2021-07-25)
 
 - Upgraded electron-builder to '22.11.10' (which supposedly fixes issues with packaging of node_modules) 💖 @vraravam

@@ -11,7 +11,7 @@ const path = require('path');
 
 console.log('Linking issues and PRs in README.md');
 
-const readmepath = path.join(__dirname, '../../', 'README.md');
+const readmepath = path.join(__dirname, '..', '..', 'README.md');
 
 // Read README.md
 let readme = fs.readFileSync(readmepath, 'utf-8');

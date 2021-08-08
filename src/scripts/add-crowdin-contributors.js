@@ -58,7 +58,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const allContributors = require('all-contributors-cli');
 
-const infoPath = path.join(__dirname, '../../.all-contributorsrc');
+const infoPath = path.join(__dirname, '..', '..', '.all-contributorsrc');
 
 (async () => {
   const info = await fs.readJSON(infoPath);

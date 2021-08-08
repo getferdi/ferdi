@@ -1,12 +1,12 @@
-import path from 'path';
-import { app } from '@electron/remote';
+import { parse } from 'path';
+import { userDataRecipesPath } from '../environment';
 
 export function getRecipeDirectory(id = '') {
-  return path.join(app.getPath('userData'), 'recipes', id);
+  return userDataRecipesPath(id);
 }
 
 export function getDevRecipeDirectory(id = '') {
-  return path.join(app.getPath('userData'), 'recipes', 'dev', id);
+  return userDataRecipesPath('dev', id);
 }
 
 export function loadRecipeConfig(recipeId) {
@@ -19,8 +19,7 @@ export function loadRecipeConfig(recipeId) {
     let config = require(configPath);
 
     const moduleConfigPath = require.resolve(configPath);
-    const paths = path.parse(moduleConfigPath);
-    config.path = paths.dir;
+    config.path = parse(moduleConfigPath).dir;
 
     return config;
   } catch (e) {

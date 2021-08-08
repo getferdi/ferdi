@@ -1,5 +1,7 @@
-import { ipcMain, app } from 'electron';
+import { ipcMain } from 'electron';
 import net from 'net';
+import { LOCAL_HOSTNAME } from '../../config';
+import { userDataPath } from '../../environment';
 import startServer from '../../internal-server/start';
 
 const DEFAULT_PORT = 45569;
@@ -11,7 +13,7 @@ const portInUse = function (port) {
       socket.pipe(socket);
     });
 
-    server.listen(port, '127.0.0.1');
+    server.listen(port, LOCAL_HOSTNAME);
     server.on('error', () => {
       resolve(true);
     });
@@ -36,7 +38,7 @@ export default (params) => {
         }
         console.log('Starting local server on port', port);
 
-        startServer(app.getPath('userData'), port);
+        startServer(userDataPath(), port);
 
         params.mainWindow.webContents.send('localServerPort', {
           port,

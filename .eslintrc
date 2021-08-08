@@ -89,7 +89,8 @@
     "localStorage": true,
     "navigator": true,
     "Element": true,
-    "use": true
+    "use": true,
+    "FileReader": true
   },
   "env": {
     "jest/globals": true
@@ -97,18 +98,23 @@
   "rules": {
     // eslint
     "arrow-parens": 0,
-    "class-methods-use-this": 1,
+    "class-methods-use-this": 0,
     "consistent-return": 1,
+    "implicit-arrow-linebreak": 0,
+    "function-paren-newline": 0,
     "max-len": 0,
+    "no-await-in-loop": 1,
+    "no-console": [1, { "allow": ["warn", "error"] }],
     "no-param-reassign": 1,
     "no-restricted-syntax": 0,
     "no-underscore-dangle": 0,
     "operator-linebreak": 0,
     "prefer-destructuring": 1,
+    "object-curly-newline": 0,
     // eslint-plugin-import
     "import/extensions": 1,
     "import/prefer-default-export": 0,
-    "import/no-extraneous-dependencies": 1,
+    "import/no-extraneous-dependencies": 0, // various false positives, re-enable at some point
     "import/no-unresolved": 1,
     // eslint-plugin-react
     "react/forbid-prop-types": 1,

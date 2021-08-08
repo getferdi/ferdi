@@ -1,3 +1,5 @@
+const { ferdiVersion } = require('../../environment');
+
 /**
  * Migrate server database to work with current Ferdi version
  */
@@ -25,16 +27,16 @@ module.exports = async () => {
     settings = typeof user.settings === 'string' ? JSON.parse(user.settings) : user.settings;
   }
 
-  if (!settings || !settings.db_version || settings.db_version !== process.env.FERDI_VERSION) {
+  if (!settings || !settings.db_version || settings.db_version !== ferdiVersion) {
     const srcVersion = settings && settings.db_version ? settings.db_version : '5.4.0-beta.2';
-    migrateLog(`🔮  Migrating table from ${srcVersion} to ${process.env.FERDI_VERSION}`);
+    migrateLog(`🔮  Migrating table from ${srcVersion} to ${ferdiVersion}`);
 
     // Migrate database to current Ferdi version
     // Currently no migrations
 
     // Update version number in database
     if (!settings) settings = {};
-    settings.db_version = process.env.FERDI_VERSION;
+    settings.db_version = ferdiVersion;
     const newUser = await User.find(1); // Fetch user again as we might have only just created it
     newUser.settings = JSON.stringify(settings);
     await newUser.save();

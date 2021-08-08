@@ -19,9 +19,9 @@
             "name": "Ferdi – Live API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
-            "protocol": "inspector",    
+            "protocol": "inspector",
             "env": {
-                "LIVE_API": "1",
+                "USE_LIVE_API": "1",
                 "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
@@ -33,7 +33,7 @@
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",
             "env": {
-                "LOCAL_API": "1",
+                "USE_LOCAL_API": "1",
                 "DEBUG": "*,-engine.io*,-socket.io*"
             }
         },
@@ -56,9 +56,9 @@
             "name": "(Win Sim) Ferdi – Live API",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "program": "${workspaceFolder}/build/index.js",
-            "protocol": "inspector",    
+            "protocol": "inspector",
             "env": {
-                "LIVE_API": "1",
+                "USE_LIVE_API": "1",
                 "OS_PLATFORM": "win32",
                 "DEBUG": "*,-engine.io*,-socket.io*"
             }
@@ -71,7 +71,7 @@
             "program": "${workspaceFolder}/build/index.js",
             "protocol": "inspector",
             "env": {
-                "LOCAL_API": "1",
+                "USE_LOCAL_API": "1",
                 "OS_PLATFORM": "win32",
                 "DEBUG": "*,-engine.io*,-socket.io*"
             }

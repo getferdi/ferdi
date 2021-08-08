@@ -18,10 +18,6 @@ RUN apt-get update -y \
 
 WORKDIR /usr/src/ferdi
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
-COPY lerna.json ./
-
 RUN npm i pnpm@6.11.5 -g
 
 RUN pnpm i -g node-gyp@8.1.0 \

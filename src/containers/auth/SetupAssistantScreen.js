@@ -4,14 +4,27 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
 import { RouterStore } from 'mobx-react-router';
-import { DEFAULT_TODO_RECIPE_ID, DEFAULT_TODO_SERVICE_NAME } from '../../config';
+import {
+  DEFAULT_TODO_RECIPE_ID,
+  DEFAULT_TODO_SERVICE_NAME,
+} from '../../config';
 import { sleep } from '../../helpers/async-helpers';
 import SetupAssistant from '../../components/auth/SetupAssistant';
 import ServicesStore from '../../stores/ServicesStore';
 import RecipesStore from '../../stores/RecipesStore';
 import UserStore from '../../stores/UserStore';
 
-export default @inject('stores', 'actions') @observer class SetupAssistantScreen extends Component {
+export default
+@inject('stores', 'actions')
+@observer
+class SetupAssistantScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSettingUpServices: false,
+    };
+  }
+
   // TODO: Why are these hardcoded here? Do they need to conform to specific services in the packaged recipes? If so, its more important to fix this
   services = {
     whatsapp: {
@@ -50,15 +63,12 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
       name: 'LinkedIn',
       hasTeamId: false,
     },
-  }
-
-  state = {
-    isSettingUpServices: false,
-  }
+  };
 
   async setupServices(serviceConfig) {
-    const { stores: { services } } = this.props;
-    console.log(serviceConfig);
+    const {
+      stores: { services },
+    } = this.props;
 
     this.setState({
       isSettingUpServices: true,
@@ -102,7 +112,7 @@ export default @inject('stores', 'actions') @observer class SetupAssistantScreen
   render() {
     return (
       <SetupAssistant
-        onSubmit={(config) => this.setupServices(config)}
+        onSubmit={config => this.setupServices(config)}
         services={this.services}
         embed={false}
         isSettingUpServices={this.state.isSettingUpServices}

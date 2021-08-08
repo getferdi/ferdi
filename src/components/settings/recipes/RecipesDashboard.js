@@ -103,7 +103,6 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
     recipes: MobxPropTypes.arrayOrObservableArray.isRequired,
     customWebsiteRecipe: PropTypes.instanceOf(RecipePreview).isRequired,
     isLoading: PropTypes.bool.isRequired,
-    hasLoadedRecipes: PropTypes.bool.isRequired,
     showAddServiceInterface: PropTypes.func.isRequired,
     searchRecipes: PropTypes.func.isRequired,
     resetSearch: PropTypes.func.isRequired,
@@ -130,7 +129,6 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
       recipes,
       customWebsiteRecipe,
       isLoading,
-      hasLoadedRecipes,
       showAddServiceInterface,
       searchRecipes,
       resetSearch,
@@ -235,7 +233,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                 <H3>{intl.formatMessage(messages.headlineCommunityRecipes)}</H3>
               )}
               <div className="recipes__list">
-                {hasLoadedRecipes && recipes.length === 0 && recipeFilter !== 'dev' && (
+                {recipes.length === 0 && recipeFilter !== 'dev' && (
                   <div className="align-middle settings__empty-state">
                     <span className="emoji">
                       <img src="./assets/images/emoji/dontknow.png" alt="" />

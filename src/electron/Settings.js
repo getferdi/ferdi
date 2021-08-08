@@ -1,8 +1,6 @@
 import { observable, toJS } from 'mobx';
 import { pathExistsSync, outputJsonSync, readJsonSync } from 'fs-extra';
-import path from 'path';
-
-import { SETTINGS_PATH } from '../environment';
+import { userDataPath } from '../environment';
 
 const debug = require('debug')('Ferdi:Settings');
 
@@ -47,17 +45,17 @@ export default class Settings {
 
   _hydrate() {
     this.store = this._merge(readJsonSync(this.settingsFile));
-    debug('Hydrate store', this.type, toJS(this.store));
+    debug('Hydrate store', this.type, this.allSerialized);
   }
 
   _writeFile() {
     outputJsonSync(this.settingsFile, this.store, {
       spaces: 2,
     });
-    debug('Write settings file', this.type, toJS(this.store));
+    debug('Write settings file', this.type, this.allSerialized);
   }
 
   get settingsFile() {
-    return path.join(SETTINGS_PATH, `${this.type === 'app' ? 'settings' : this.type}.json`);
+    return userDataPath('config', `${this.type === 'app' ? 'settings' : this.type}.json`);
   }
 }

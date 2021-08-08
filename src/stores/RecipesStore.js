@@ -1,13 +1,12 @@
 import { action, computed, observable } from 'mobx';
-import fs from 'fs-extra';
-import path from 'path';
+import { readJSONSync } from 'fs-extra';
 import semver from 'semver';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
 import Request from './lib/Request';
 import { matchRoute } from '../helpers/routing-helpers';
-import { RECIPES_PATH } from '../environment';
+import { asarRecipesPath } from '../environment';
 
 const debug = require('debug')('Ferdi:RecipeStore');
 
@@ -90,8 +89,8 @@ export default class RecipesStore extends Store {
     const remoteUpdates = await this.getRecipeUpdatesRequest.execute(recipes)._promise;
 
     // Check for local updates
-    const allJsonFile = path.join(RECIPES_PATH, 'all.json');
-    const allJson = await fs.readJSON(allJsonFile);
+    const allJsonFile = asarRecipesPath('all.json');
+    const allJson = readJSONSync(allJsonFile);
     const localUpdates = [];
 
     Object.keys(recipes).forEach((recipe) => {

@@ -15,8 +15,8 @@ const accentColors = [
   '#5e50ee',
 ];
 
-const cssFile = path.join(__dirname, '../../', 'build', 'styles', 'main.css');
-const outputFile = path.join(__dirname, '../', 'assets', 'themeInfo.json');
+const cssFile = path.join(__dirname, '..', '..', 'build', 'styles', 'main.css');
+const outputFile = path.join(__dirname, '..', 'assets', 'themeInfo.json');
 
 // Parse and extract the rules from a CSS stylesheet file
 async function getRulesFromCssFile(file) {

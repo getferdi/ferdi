@@ -1,10 +1,11 @@
 import os from 'os';
-import path from 'path';
+import { join } from 'path';
 
 import { is, api as electronApi } from 'electron-util';
 
 import { DEFAULT_ACCENT_COLOR } from '@meetfranz/theme';
 
+import osName from 'os-name';
 import {
   LIVE_FERDI_API,
   DEV_FRANZ_API,
@@ -17,7 +18,6 @@ import {
   DEV_WS_API,
   LOCAL_TODOS_FRONTEND_URL,
   PRODUCTION_TODOS_FRONTEND_URL,
-  LIVE_FRANZ_API,
   DEFAULT_TODO_SERVICE,
   SEARCH_ENGINE_DDG,
   iconSizeBias,
@@ -25,8 +25,6 @@ import {
 
 import { asarPath } from './helpers/asar-helpers';
 import * as buildInfo from './buildInfo.json'; // eslint-disable-line import/no-unresolved
-
-const osName = require('os-name');
 
 export const { app } = electronApi;
 export const ferdiVersion = app.getVersion();
@@ -37,26 +35,35 @@ export const nodeVersion = process.versions.node;
 // Set app directory before loading user modules
 if (process.env.FERDI_APPDATA_DIR != null) {
   app.setPath('appData', process.env.FERDI_APPDATA_DIR);
-  app.setPath('userData', path.join(app.getPath('appData')));
+  app.setPath('userData', join(app.getPath('appData')));
 } else if (process.env.PORTABLE_EXECUTABLE_DIR != null) {
   app.setPath('appData', process.env.PORTABLE_EXECUTABLE_DIR, `${app.name}AppData`);
-  app.setPath('userData', path.join(app.getPath('appData'), `${app.name}AppData`));
+  app.setPath('userData', join(app.getPath('appData'), `${app.name}AppData`));
 } else if (is.windows) {
   app.setPath('appData', process.env.APPDATA);
-  app.setPath('userData', path.join(app.getPath('appData'), app.name));
+  app.setPath('userData', join(app.getPath('appData'), app.name));
 }
 
 export const isDevMode = is.development;
 if (isDevMode) {
-  app.setPath('userData', path.join(app.getPath('appData'), `${app.name}Dev`));
+  app.setPath('userData', join(app.getPath('appData'), `${app.name}Dev`));
 }
 
-export const SETTINGS_PATH = path.join(app.getPath('userData'), 'config');
+export function userDataPath(...segments) {
+  return join(app.getPath('userData'), ...([segments].flat()));
+}
+
+export function userDataRecipesPath(...segments) {
+  return userDataPath('recipes', ...([segments].flat()));
+}
 
 // Replacing app.asar is not beautiful but unfortunately necessary
-export const RECIPES_PATH = asarPath(path.join(__dirname, 'recipes'));
+export function asarRecipesPath(...segments) {
+  return join(asarPath(join(__dirname, 'recipes')), ...([segments].flat()));
+}
 
-export const useLiveAPI = process.env.LIVE_API;
+export const useLiveAPI = process.env.USE_LIVE_API;
+const useLocalAPI = process.env.USE_LOCAL_API;
 
 export const isMac = is.macos;
 export const isWindows = is.windows;
@@ -75,12 +82,10 @@ let web;
 let todos;
 if (!isDevMode || (isDevMode && useLiveAPI)) {
   api = LIVE_FERDI_API;
-  // api = DEV_FRANZ_API;
   wsApi = LIVE_WS_API;
   web = LIVE_API_FERDI_WEBSITE;
-  // web = DEV_API_FRANZ_WEBSITE;
   todos = PRODUCTION_TODOS_FRONTEND_URL;
-} else if (isDevMode && process.env.LOCAL_API) {
+} else if (isDevMode && useLocalAPI) {
   api = LOCAL_API;
   wsApi = LOCAL_WS_API;
   web = LOCAL_API_WEBSITE;
@@ -151,10 +156,6 @@ export const DEFAULT_APP_SETTINGS = {
   useVerticalStyle: false,
   alwaysShowWorkspaces: false,
 };
-
-export function termsBase() {
-  return window.ferdi.stores.settings.all.app.server !== LIVE_FRANZ_API ? window.ferdi.stores.settings.all.app.server : DEV_API_FRANZ_WEBSITE;
-}
 
 export function aboutAppDetails() {
   return [

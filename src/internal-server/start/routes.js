@@ -54,7 +54,6 @@ Route.group(() => {
   Route.get('recipes', 'RecipeController.list');
   Route.get('recipes/download/:recipe', 'RecipeController.download');
   Route.get('recipes/search', 'RecipeController.search');
-  Route.get('recipes/popular', 'StaticController.popularRecipes');
   Route.get('recipes/update', 'StaticController.emptyArray');
 
   // Workspaces

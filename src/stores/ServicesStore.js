@@ -1,22 +1,20 @@
 import { shell } from 'electron';
-import {
-  action,
-  reaction,
-  computed,
-  observable,
-} from 'mobx';
+import { action, reaction, computed, observable } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
 import { app } from '@electron/remote';
-import fs from 'fs-extra';
-import path from 'path';
+import { ensureFileSync, pathExistsSync, writeFileSync } from 'fs-extra';
+import { join } from 'path';
 
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { isInTimeframe } from '../helpers/schedule-helpers';
-import { getRecipeDirectory, getDevRecipeDirectory } from '../helpers/recipe-helpers';
+import {
+  getRecipeDirectory,
+  getDevRecipeDirectory,
+} from '../helpers/recipe-helpers';
 import { workspaceStore } from '../features/workspaces';
 import { KEEP_WS_LOADED_USID } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
@@ -30,7 +28,10 @@ export default class ServicesStore extends Store {
 
   @observable updateServiceRequest = new Request(this.api.services, 'update');
 
-  @observable reorderServicesRequest = new Request(this.api.services, 'reorder');
+  @observable reorderServicesRequest = new Request(
+    this.api.services,
+    'reorder',
+  );
 
   @observable deleteServiceRequest = new Request(this.api.services, 'delete');
 
@@ -51,22 +52,36 @@ export default class ServicesStore extends Store {
     this.actions.service.blurActive.listen(this._blurActive.bind(this));
     this.actions.service.setActiveNext.listen(this._setActiveNext.bind(this));
     this.actions.service.setActivePrev.listen(this._setActivePrev.bind(this));
-    this.actions.service.showAddServiceInterface.listen(this._showAddServiceInterface.bind(this));
+    this.actions.service.showAddServiceInterface.listen(
+      this._showAddServiceInterface.bind(this),
+    );
     this.actions.service.createService.listen(this._createService.bind(this));
-    this.actions.service.createFromLegacyService.listen(this._createFromLegacyService.bind(this));
+    this.actions.service.createFromLegacyService.listen(
+      this._createFromLegacyService.bind(this),
+    );
     this.actions.service.updateService.listen(this._updateService.bind(this));
     this.actions.service.deleteService.listen(this._deleteService.bind(this));
     this.actions.service.openRecipeFile.listen(this._openRecipeFile.bind(this));
     this.actions.service.clearCache.listen(this._clearCache.bind(this));
-    this.actions.service.setWebviewReference.listen(this._setWebviewReference.bind(this));
+    this.actions.service.setWebviewReference.listen(
+      this._setWebviewReference.bind(this),
+    );
     this.actions.service.detachService.listen(this._detachService.bind(this));
     this.actions.service.focusService.listen(this._focusService.bind(this));
-    this.actions.service.focusActiveService.listen(this._focusActiveService.bind(this));
+    this.actions.service.focusActiveService.listen(
+      this._focusActiveService.bind(this),
+    );
     this.actions.service.toggleService.listen(this._toggleService.bind(this));
-    this.actions.service.handleIPCMessage.listen(this._handleIPCMessage.bind(this));
+    this.actions.service.handleIPCMessage.listen(
+      this._handleIPCMessage.bind(this),
+    );
     this.actions.service.sendIPCMessage.listen(this._sendIPCMessage.bind(this));
-    this.actions.service.sendIPCMessageToAllServices.listen(this._sendIPCMessageToAllServices.bind(this));
-    this.actions.service.setUnreadMessageCount.listen(this._setUnreadMessageCount.bind(this));
+    this.actions.service.sendIPCMessageToAllServices.listen(
+      this._sendIPCMessageToAllServices.bind(this),
+    );
+    this.actions.service.setUnreadMessageCount.listen(
+      this._setUnreadMessageCount.bind(this),
+    );
     this.actions.service.openWindow.listen(this._openWindow.bind(this));
     this.actions.service.filter.listen(this._filter.bind(this));
     this.actions.service.resetFilter.listen(this._resetFilter.bind(this));
@@ -74,16 +89,26 @@ export default class ServicesStore extends Store {
     this.actions.service.reload.listen(this._reload.bind(this));
     this.actions.service.reloadActive.listen(this._reloadActive.bind(this));
     this.actions.service.reloadAll.listen(this._reloadAll.bind(this));
-    this.actions.service.reloadUpdatedServices.listen(this._reloadUpdatedServices.bind(this));
+    this.actions.service.reloadUpdatedServices.listen(
+      this._reloadUpdatedServices.bind(this),
+    );
     this.actions.service.reorder.listen(this._reorder.bind(this));
-    this.actions.service.toggleNotifications.listen(this._toggleNotifications.bind(this));
+    this.actions.service.toggleNotifications.listen(
+      this._toggleNotifications.bind(this),
+    );
     this.actions.service.toggleAudio.listen(this._toggleAudio.bind(this));
     this.actions.service.openDevTools.listen(this._openDevTools.bind(this));
-    this.actions.service.openDevToolsForActiveService.listen(this._openDevToolsForActiveService.bind(this));
+    this.actions.service.openDevToolsForActiveService.listen(
+      this._openDevToolsForActiveService.bind(this),
+    );
     this.actions.service.hibernate.listen(this._hibernate.bind(this));
     this.actions.service.awake.listen(this._awake.bind(this));
-    this.actions.service.resetLastPollTimer.listen(this._resetLastPollTimer.bind(this));
-    this.actions.service.shareSettingsWithServiceProcess.listen(this._shareSettingsWithServiceProcess.bind(this));
+    this.actions.service.resetLastPollTimer.listen(
+      this._resetLastPollTimer.bind(this),
+    );
+    this.actions.service.shareSettingsWithServiceProcess.listen(
+      this._shareSettingsWithServiceProcess.bind(this),
+    );
 
     this.registerReactions([
       this._focusServiceReaction.bind(this),
@@ -164,27 +189,42 @@ export default class ServicesStore extends Store {
    * Run various maintenance tasks on services
    */
   _serviceMaintenance() {
-    this.all.forEach((service) => {
+    this.all.forEach(service => {
       // Defines which services should be hibernated or woken up
       if (!service.isActive) {
-        if (!service.lastHibernated && (Date.now() - service.lastUsed > ms(`${this.stores.settings.all.app.hibernationStrategy}s`))) {
+        if (
+          !service.lastHibernated &&
+          Date.now() - service.lastUsed >
+            ms(`${this.stores.settings.all.app.hibernationStrategy}s`)
+        ) {
           // If service is stale, hibernate it.
           this._hibernate({ serviceId: service.id });
         }
 
-        if (service.lastHibernated && Number(this.stores.settings.all.app.wakeUpStrategy) > 0) {
+        if (
+          service.lastHibernated &&
+          Number(this.stores.settings.all.app.wakeUpStrategy) > 0
+        ) {
           // If service is in hibernation and the wakeup time has elapsed, wake it.
-          if ((Date.now() - service.lastHibernated > ms(`${this.stores.settings.all.app.wakeUpStrategy}s`))) {
+          if (
+            Date.now() - service.lastHibernated >
+            ms(`${this.stores.settings.all.app.wakeUpStrategy}s`)
+          ) {
             this._awake({ serviceId: service.id });
           }
         }
       }
 
-      if (service.lastPoll && (service.lastPoll - service.lastPollAnswer > ms('1m'))) {
+      if (
+        service.lastPoll &&
+        service.lastPoll - service.lastPollAnswer > ms('1m')
+      ) {
         // If service did not reply for more than 1m try to reload.
         if (!service.isActive) {
           if (this.stores.app.isOnline && service.lostRecipeReloadAttempt < 3) {
-            debug(`Reloading service: ${service.name} (${service.id}). Attempt: ${service.lostRecipeReloadAttempt}`);
+            debug(
+              `Reloading service: ${service.name} (${service.id}). Attempt: ${service.lostRecipeReloadAttempt}`,
+            );
             // service.webview.reload();
             service.lostRecipeReloadAttempt += 1;
 
@@ -206,21 +246,29 @@ export default class ServicesStore extends Store {
     if (this.stores.user.isLoggedIn) {
       const services = this.allServicesRequest.execute().result;
       if (services) {
-        return observable(services.slice().slice().sort((a, b) => a.order - b.order).map((s, index) => {
-          s.index = index;
-          return s;
-        }));
+        return observable(
+          services
+            .slice()
+            .slice()
+            .sort((a, b) => a.order - b.order)
+            .map((s, index) => {
+              s.index = index;
+              return s;
+            }),
+        );
       }
     }
     return [];
   }
 
   @computed get enabled() {
-    return this.all.filter((service) => service.isEnabled);
+    return this.all.filter(service => service.isEnabled);
   }
 
   @computed get allDisplayed() {
-    const services = this.stores.settings.all.app.showDisabledServices ? this.all : this.enabled;
+    const services = this.stores.settings.all.app.showDisabledServices
+      ? this.all
+      : this.enabled;
     return workspaceStore.filterServicesByActiveWorkspace(services);
   }
 
@@ -229,7 +277,9 @@ export default class ServicesStore extends Store {
     const { showDisabledServices } = this.stores.settings.all.app;
     const { keepAllWorkspacesLoaded } = this.stores.workspaces.settings;
     const services = this.allServicesRequest.execute().result || [];
-    const filteredServices = showDisabledServices ? services : services.filter((service) => service.isEnabled);
+    const filteredServices = showDisabledServices
+      ? services
+      : services.filter(service => service.isEnabled);
 
     let displayedServices;
     if (keepAllWorkspacesLoaded) {
@@ -237,40 +287,49 @@ export default class ServicesStore extends Store {
       displayedServices = filteredServices;
     } else {
       // Keep all services in current workspace loaded
-      displayedServices = workspaceStore.filterServicesByActiveWorkspace(filteredServices);
+      displayedServices =
+        workspaceStore.filterServicesByActiveWorkspace(filteredServices);
 
       // Keep all services active in workspaces that should be kept loaded
       for (const workspace of this.stores.workspaces.workspaces) {
         // Check if workspace needs to be kept loaded
         if (workspace.services.includes(KEEP_WS_LOADED_USID)) {
           // Get services for workspace
-          const serviceIDs = workspace.services.filter((i) => i !== KEEP_WS_LOADED_USID);
-          const wsServices = filteredServices.filter((service) => serviceIDs.includes(service.id));
+          const serviceIDs = workspace.services.filter(
+            i => i !== KEEP_WS_LOADED_USID,
+          );
+          const wsServices = filteredServices.filter(service =>
+            serviceIDs.includes(service.id),
+          );
 
-          displayedServices = [
-            ...displayedServices,
-            ...wsServices,
-          ];
+          displayedServices = [...displayedServices, ...wsServices];
         }
       }
 
       // Make sure every service is in the list only once
-      displayedServices = displayedServices.filter((v, i, a) => a.indexOf(v) === i);
+      displayedServices = displayedServices.filter(
+        (v, i, a) => a.indexOf(v) === i,
+      );
     }
 
     return displayedServices;
   }
 
   @computed get filtered() {
-    return this.all.filter((service) => service.name.toLowerCase().includes(this.filterNeedle.toLowerCase()));
+    return this.all.filter(service =>
+      service.name.toLowerCase().includes(this.filterNeedle.toLowerCase()),
+    );
   }
 
   @computed get active() {
-    return this.all.find((service) => service.isActive);
+    return this.all.find(service => service.isActive);
   }
 
   @computed get activeSettings() {
-    const match = matchRoute('/settings/services/edit/:id', this.stores.router.location.pathname);
+    const match = matchRoute(
+      '/settings/services/edit/:id',
+      this.stores.router.location.pathname,
+    );
     if (match) {
       const activeService = this.one(match.id);
       if (activeService) {
@@ -284,7 +343,11 @@ export default class ServicesStore extends Store {
   }
 
   @computed get isTodosServiceAdded() {
-    return this.allDisplayed.find((service) => service.isTodosService && service.isEnabled) || false;
+    return (
+      this.allDisplayed.find(
+        service => service.isTodosService && service.isEnabled,
+      ) || false
+    );
   }
 
   @computed get isTodosServiceActive() {
@@ -292,7 +355,7 @@ export default class ServicesStore extends Store {
   }
 
   one(id) {
-    return this.all.find((service) => service.id === id);
+    return this.all.find(service => service.id === id);
   }
 
   async _showAddServiceInterface({ recipeId }) {
@@ -301,7 +364,10 @@ export default class ServicesStore extends Store {
 
   // Actions
   async _createService({
-    recipeId, serviceData, redirect = true, skipCleanup = false,
+    recipeId,
+    serviceData,
+    redirect = true,
+    skipCleanup = false,
   }) {
     if (!this.stores.recipes.isInstalled(recipeId)) {
       debug(`Recipe "${recipeId}" is not installed, installing recipe`);
@@ -311,17 +377,21 @@ export default class ServicesStore extends Store {
 
     // set default values for serviceData
     // eslint-disable-next-line prefer-object-spread
-    Object.assign({
-      isEnabled: true,
-      isHibernationEnabled: false,
-      isNotificationEnabled: true,
-      isBadgeEnabled: true,
-      isMuted: false,
-      customIcon: false,
-      isDarkModeEnabled: false,
-      spellcheckerLanguage: SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
-      userAgentPref: '',
-    }, serviceData);
+    Object.assign(
+      {
+        isEnabled: true,
+        isHibernationEnabled: false,
+        isNotificationEnabled: true,
+        isBadgeEnabled: true,
+        isMuted: false,
+        customIcon: false,
+        isDarkModeEnabled: false,
+        spellcheckerLanguage:
+          SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
+        userAgentPref: '',
+      },
+      serviceData,
+    );
 
     let data = serviceData;
 
@@ -329,9 +399,10 @@ export default class ServicesStore extends Store {
       data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
     }
 
-    const response = await this.createServiceRequest.execute(recipeId, data)._promise;
+    const response = await this.createServiceRequest.execute(recipeId, data)
+      ._promise;
 
-    this.allServicesRequest.patch((result) => {
+    this.allServicesRequest.patch(result => {
       if (!result) return;
       result.push(response.data);
     });
@@ -375,7 +446,10 @@ export default class ServicesStore extends Store {
 
   @action async _updateService({ serviceId, serviceData, redirect = true }) {
     const service = this.one(serviceId);
-    const data = this._cleanUpTeamIdAndCustomUrl(service.recipe.id, serviceData);
+    const data = this._cleanUpTeamIdAndCustomUrl(
+      service.recipe.id,
+      serviceData,
+    );
     const request = this.updateServiceRequest.execute(serviceId, data);
 
     const newData = serviceData;
@@ -386,7 +460,7 @@ export default class ServicesStore extends Store {
       newData.hasCustomUploadedIcon = true;
     }
 
-    this.allServicesRequest.patch((result) => {
+    this.allServicesRequest.patch(result => {
       if (!result) return;
 
       // patch custom icon deletion
@@ -400,7 +474,10 @@ export default class ServicesStore extends Store {
         newData.iconUrl = data.customIconUrl;
       }
 
-      Object.assign(result.find((c) => c.id === serviceId), newData);
+      Object.assign(
+        result.find(c => c.id === serviceId),
+        newData,
+      );
     });
 
     await request._promise;
@@ -433,8 +510,8 @@ export default class ServicesStore extends Store {
       this.stores.router.push(redirect);
     }
 
-    this.allServicesRequest.patch((result) => {
-      remove(result, (c) => c.id === serviceId);
+    this.allServicesRequest.patch(result => {
+      remove(result, c => c.id === serviceId);
     });
 
     await request._promise;
@@ -447,9 +524,9 @@ export default class ServicesStore extends Store {
     const devDirectory = getDevRecipeDirectory(recipe);
     let directory;
 
-    if (await fs.pathExists(normalDirectory)) {
+    if (pathExistsSync(normalDirectory)) {
       directory = normalDirectory;
-    } else if (await fs.pathExists(devDirectory)) {
+    } else if (pathExistsSync(devDirectory)) {
       directory = devDirectory;
     } else {
       // Recipe cannot be found on drive
@@ -457,17 +534,19 @@ export default class ServicesStore extends Store {
     }
 
     // Create and open file
-    const filePath = path.join(directory, file);
+    const filePath = join(directory, file);
     if (file === 'user.js') {
-      if (!await fs.exists(filePath)) {
-        await fs.writeFile(filePath, `module.exports = (config, Ferdi) => {
+      if (!pathExistsSync(filePath)) {
+        writeFileSync(
+          filePath,
+          `module.exports = (config, Ferdi) => {
   // Write your scripts here
   console.log("Hello, World!", config);
-}
+};
 `);
       }
     } else {
-      await fs.ensureFile(filePath);
+      ensureFileSync(filePath);
     }
     shell.showItemInFolder(filePath);
   }
@@ -478,22 +557,27 @@ export default class ServicesStore extends Store {
     await request._promise;
   }
 
-  @action _setActive({ serviceId, keepActiveRoute }) {
+  @action _setActive({ serviceId, keepActiveRoute = null }) {
     if (!keepActiveRoute) this.stores.router.push('/');
     const service = this.one(serviceId);
 
-    this.all.forEach((s) => {
+    this.all.forEach(s => {
       s.isActive = false;
     });
     service.isActive = true;
     this._awake({ serviceId: service.id });
 
-    if (this.isTodosServiceActive && !this.stores.todos.settings.isFeatureEnabledByUser) {
+    if (
+      this.isTodosServiceActive &&
+      !this.stores.todos.settings.isFeatureEnabledByUser
+    ) {
       this.actions.todos.toggleTodosFeatureVisibility();
     }
 
     // Update list of last used services
-    this.lastUsedServices = this.lastUsedServices.filter((id) => id !== serviceId);
+    this.lastUsedServices = this.lastUsedServices.filter(
+      id => id !== serviceId,
+    );
     this.lastUsedServices.unshift(serviceId);
 
     this._focusActiveService();
@@ -505,7 +589,11 @@ export default class ServicesStore extends Store {
   }
 
   @action _setActiveNext() {
-    const nextIndex = this._wrapIndex(this.allDisplayed.findIndex((service) => service.isActive), 1, this.allDisplayed.length);
+    const nextIndex = this._wrapIndex(
+      this.allDisplayed.findIndex(service => service.isActive),
+      1,
+      this.allDisplayed.length,
+    );
 
     // TODO: simplify this;
     this.all.forEach((s, index) => {
@@ -515,7 +603,11 @@ export default class ServicesStore extends Store {
   }
 
   @action _setActivePrev() {
-    const prevIndex = this._wrapIndex(this.allDisplayed.findIndex((service) => service.isActive), -1, this.allDisplayed.length);
+    const prevIndex = this._wrapIndex(
+      this.allDisplayed.findIndex(service => service.isActive),
+      -1,
+      this.allDisplayed.length,
+    );
 
     // TODO: simplify this;
     this.all.forEach((s, index) => {
@@ -606,17 +698,21 @@ export default class ServicesStore extends Store {
       const { options } = args[0];
 
       // Check if we are in scheduled Do-not-Disturb time
-      const {
-        scheduledDNDEnabled,
-        scheduledDNDStart,
-        scheduledDNDEnd,
-      } = this.stores.settings.all.app;
+      const { scheduledDNDEnabled, scheduledDNDStart, scheduledDNDEnd } =
+        this.stores.settings.all.app;
 
-      if (scheduledDNDEnabled && isInTimeframe(scheduledDNDStart, scheduledDNDEnd)) {
+      if (
+        scheduledDNDEnabled &&
+        isInTimeframe(scheduledDNDStart, scheduledDNDEnd)
+      ) {
         return;
       }
 
-      if (service.recipe.hasNotificationSound || service.isMuted || this.stores.settings.all.app.isAppMuted) {
+      if (
+        service.recipe.hasNotificationSound ||
+        service.isMuted ||
+        this.stores.settings.all.app.isAppMuted
+      ) {
         Object.assign(options, {
           silent: true,
         });
@@ -626,7 +722,8 @@ export default class ServicesStore extends Store {
         let title = `Notification from ${service.name}`;
         if (!this.stores.settings.all.app.privateNotifications) {
           options.body = typeof options.body === 'string' ? options.body : '';
-          title = typeof args[0].title === 'string' ? args[0].title : service.name;
+          title =
+            typeof args[0].title === 'string' ? args[0].title : service.name;
         } else {
           // Remove message data from notification in private mode
           options.body = '';
@@ -689,11 +786,13 @@ export default class ServicesStore extends Store {
   }
 
   @action _sendIPCMessageToAllServices({ channel, args }) {
-    this.all.forEach((s) => this.actions.service.sendIPCMessage({
-      serviceId: s.id,
-      channel,
-      args,
-    }));
+    this.all.forEach(s =>
+      this.actions.service.sendIPCMessage({
+        serviceId: s.id,
+        channel,
+        args,
+      }),
+    );
   }
 
   @action _openWindow({ event }) {
@@ -740,9 +839,11 @@ export default class ServicesStore extends Store {
   }
 
   @action _reloadAll() {
-    this.enabled.forEach((s) => this._reload({
-      serviceId: s.id,
-    }));
+    this.enabled.forEach(s =>
+      this._reload({
+        serviceId: s.id,
+      }),
+    );
   }
 
   @action _reloadUpdatedServices() {
@@ -761,10 +862,18 @@ export default class ServicesStore extends Store {
 
   @action _reorderService({ oldIndex, newIndex }) {
     const { showDisabledServices } = this.stores.settings.all.app;
-    const oldEnabledSortIndex = showDisabledServices ? oldIndex : this.all.indexOf(this.enabled[oldIndex]);
-    const newEnabledSortIndex = showDisabledServices ? newIndex : this.all.indexOf(this.enabled[newIndex]);
+    const oldEnabledSortIndex = showDisabledServices
+      ? oldIndex
+      : this.all.indexOf(this.enabled[oldIndex]);
+    const newEnabledSortIndex = showDisabledServices
+      ? newIndex
+      : this.all.indexOf(this.enabled[newIndex]);
 
-    this.all.splice(newEnabledSortIndex, 0, this.all.splice(oldEnabledSortIndex, 1)[0]);
+    this.all.splice(
+      newEnabledSortIndex,
+      0,
+      this.all.splice(oldEnabledSortIndex, 1)[0],
+    );
 
     const services = {};
     this.all.forEach((s, index) => {
@@ -772,8 +881,8 @@ export default class ServicesStore extends Store {
     });
 
     this.reorderServicesRequest.execute(services);
-    this.allServicesRequest.patch((data) => {
-      data.forEach((s) => {
+    this.allServicesRequest.patch(data => {
+      data.forEach(s => {
         const service = s;
 
         service.order = services[s.id];
@@ -851,15 +960,19 @@ export default class ServicesStore extends Store {
   }
 
   @action _resetLastPollTimer({ serviceId = null }) {
-    debug(`Reset last poll timer for ${serviceId ? `service: "${serviceId}"` : 'all services'}`);
+    debug(
+      `Reset last poll timer for ${
+        serviceId ? `service: "${serviceId}"` : 'all services'
+      }`,
+    );
 
-    const resetTimer = (service) => {
+    const resetTimer = service => {
       service.lastPollAnswer = Date.now();
       service.lastPoll = Date.now();
     };
 
     if (!serviceId) {
-      this.allDisplayed.forEach((service) => resetTimer(service));
+      this.allDisplayed.forEach(service => resetTimer(service));
     } else {
       const service = this.one(serviceId);
       if (service) {
@@ -893,9 +1006,13 @@ export default class ServicesStore extends Store {
   _mapActiveServiceToServiceModelReaction() {
     const { activeService } = this.stores.settings.all.service;
     if (this.allDisplayed.length) {
-      this.allDisplayed.map((service) => Object.assign(service, {
-        isActive: activeService ? activeService === service.id : this.allDisplayed[0].id === service.id,
-      }));
+      this.allDisplayed.map(service =>
+        Object.assign(service, {
+          isActive: activeService
+            ? activeService === service.id
+            : this.allDisplayed[0].id === service.id,
+        }),
+      );
     }
   }
 
@@ -904,13 +1021,24 @@ export default class ServicesStore extends Store {
     const { showMessageBadgesEvenWhenMuted } = this.stores.ui;
 
     const unreadDirectMessageCount = this.allDisplayed
-      .filter((s) => (showMessageBadgeWhenMuted || s.isNotificationEnabled) && showMessageBadgesEvenWhenMuted && s.isBadgeEnabled)
-      .map((s) => s.unreadDirectMessageCount)
+      .filter(
+        s =>
+          (showMessageBadgeWhenMuted || s.isNotificationEnabled) &&
+          showMessageBadgesEvenWhenMuted &&
+          s.isBadgeEnabled,
+      )
+      .map(s => s.unreadDirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
     const unreadIndirectMessageCount = this.allDisplayed
-      .filter((s) => (showMessageBadgeWhenMuted && showMessageBadgesEvenWhenMuted) && (s.isBadgeEnabled && s.isIndirectMessageBadgeEnabled))
-      .map((s) => s.unreadIndirectMessageCount)
+      .filter(
+        s =>
+          showMessageBadgeWhenMuted &&
+          showMessageBadgesEvenWhenMuted &&
+          s.isBadgeEnabled &&
+          s.isIndirectMessageBadgeEnabled,
+      )
+      .map(s => s.unreadIndirectMessageCount)
       .reduce((a, b) => a + b, 0);
 
     // We can't just block this earlier, otherwise the mobx reaction won't be aware of the vars to watch in some cases
@@ -936,7 +1064,7 @@ export default class ServicesStore extends Store {
     const { enabled } = this;
     const { isAppMuted } = this.stores.settings.app;
 
-    enabled.forEach((service) => {
+    enabled.forEach(service => {
       const { isAttached } = service;
       const isMuted = isAppMuted || service.isMuted;
 
@@ -963,7 +1091,12 @@ export default class ServicesStore extends Store {
 
     if (!recipe) return;
 
-    if (recipe.hasTeamId && recipe.hasCustomUrl && data.team && data.customUrl) {
+    if (
+      recipe.hasTeamId &&
+      recipe.hasCustomUrl &&
+      data.team &&
+      data.customUrl
+    ) {
       delete serviceData.team;
     }
 
@@ -971,11 +1104,17 @@ export default class ServicesStore extends Store {
   }
 
   _checkForActiveService() {
-    if (!this.stores.router.location || this.stores.router.location.pathname.includes('auth/signup')) {
+    if (
+      !this.stores.router.location ||
+      this.stores.router.location.pathname.includes('auth/signup')
+    ) {
       return;
     }
 
-    if (this.allDisplayed.findIndex((service) => service.isActive) === -1 && this.allDisplayed.length !== 0) {
+    if (
+      this.allDisplayed.findIndex(service => service.isActive) === -1 &&
+      this.allDisplayed.length !== 0
+    ) {
       debug('No active service found, setting active service to index 0');
 
       this._setActive({ serviceId: this.allDisplayed[0].id });
@@ -988,13 +1127,19 @@ export default class ServicesStore extends Store {
 
     if (service.webview) {
       // We need to completely clone the object, otherwise Electron won't be able to send the object via IPC
-      const shareWithWebview = JSON.parse(JSON.stringify(service.shareWithWebview));
+      const shareWithWebview = JSON.parse(
+        JSON.stringify(service.shareWithWebview),
+      );
 
       debug('Initialize recipe', service.recipe.id, service.name);
-      service.webview.send('initialize-recipe', {
-        ...shareWithWebview,
-        franzVersion: app.getVersion(),
-      }, service.recipe);
+      service.webview.send(
+        'initialize-recipe',
+        {
+          ...shareWithWebview,
+          franzVersion: app.getVersion(),
+        },
+        service.recipe,
+      );
     }
   }
 

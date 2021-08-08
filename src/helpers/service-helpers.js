@@ -1,18 +1,16 @@
-import path from 'path';
-import { app } from '@electron/remote';
-import fs from 'fs-extra';
+import { readdirSync, removeSync } from 'fs-extra';
+import { userDataPath } from '../environment';
 
-export function getServicePartitionsDirectory() {
-  return path.join(app.getPath('userData'), 'Partitions');
+export function getServicePartitionsDirectory(...segments) {
+  return userDataPath('Partitions', ...([segments].flat()));
 }
 
 export function removeServicePartitionDirectory(id = '', addServicePrefix = false) {
-  const servicePartition = path.join(getServicePartitionsDirectory(), `${addServicePrefix ? 'service-' : ''}${id}`);
-
-  return fs.remove(servicePartition);
+  const servicePartition = getServicePartitionsDirectory(`${addServicePrefix ? 'service-' : ''}${id}`);
+  return removeSync(servicePartition);
 }
 
 export async function getServiceIdsFromPartitions() {
-  const files = await fs.readdir(getServicePartitionsDirectory());
+  const files = readdirSync(getServicePartitionsDirectory());
   return files.filter((n) => n !== '__chrome_extension');
 }

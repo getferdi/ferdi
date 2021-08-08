@@ -2,7 +2,7 @@ import { autorun, computed, observable } from 'mobx';
 import { ipcRenderer } from 'electron';
 import { webContents } from '@electron/remote';
 import normalizeUrl from 'normalize-url';
-import path from 'path';
+import { join } from 'path';
 
 import { todosStore } from '../features/todos';
 import { isValidExternalURL } from '../helpers/url-helpers';
@@ -230,7 +230,7 @@ export default class Service {
       return this.iconUrl;
     }
 
-    return path.join(this.recipe.path, 'icon.svg');
+    return join(this.recipe.path, 'icon.svg');
   }
 
   @computed get hasCustomIcon() {

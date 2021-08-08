@@ -1,7 +1,7 @@
 import {
   app, Menu, nativeImage, nativeTheme, systemPreferences, Tray, ipcMain,
 } from 'electron';
-import path from 'path';
+import { join } from 'path';
 import macosVersion from 'macos-version';
 import { isMac, isWindows, isLinux } from '../environment';
 
@@ -174,7 +174,7 @@ export default class TrayIcon {
       platform = `${platform}-dark`;
     }
 
-    return nativeImage.createFromPath(path.join(
+    return nativeImage.createFromPath(join(
       __dirname, '..', 'assets', 'images', type, platform, `${asset}.${FILE_EXTENSION}`,
     ));
   }
