@@ -145,7 +145,6 @@ jobs:
           sudo xcode-select -s "/Applications/Xcode_12.4.app"
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
-          pnpm uninstall node-gyp
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
@@ -242,7 +241,6 @@ jobs:
           cache: "pnpm"
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
-          pnpm uninstall node-gyp
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
@@ -335,7 +333,6 @@ jobs:
           cache: "pnpm"
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
-          pnpm uninstall node-gyp
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
         shell: bash
