@@ -63,8 +63,6 @@ node -v
 v14.17.3
 pnpm -v
 6.11.5
-node-gyp -v
-v8.1.0
 ```
 
 #### Git

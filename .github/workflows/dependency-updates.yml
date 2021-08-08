@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Set env vars
         run: |
-          echo "PNPM_CACHE=$HOME/.pnpm-store" >> $GITHUB_ENV
+          echo "PNPM_CACHE=~/.pnpm-store" >> $GITHUB_ENV
       - name: Checkout code along with submodules
         uses: actions/checkout@v2
         with:
@@ -40,17 +40,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
-      - name: Use Node.js 14.17.3
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.17.3
       - name: Install pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
           version: 6.11.5
-          run_install: true
+      - name: Use Node.js 14.17.3
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.17.3
+          cache: "pnpm"
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
+          pnpm uninstall node-gyp
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
