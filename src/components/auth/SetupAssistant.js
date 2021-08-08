@@ -18,15 +18,16 @@ const SLACK_ID = 'slack';
 const messages = defineMessages({
   headline: {
     id: 'setupAssistant.headline',
-    defaultMessage: '!!!Let\'s get started',
+    defaultMessage: "!!!Let's get started",
   },
   subHeadline: {
     id: 'setupAssistant.subheadline',
-    defaultMessage: '!!!Choose from our most used services and get back on top of your messaging now.',
+    defaultMessage:
+      '!!!Choose from our most used services and get back on top of your messaging now.',
   },
   submitButtonLabel: {
     id: 'setupAssistant.submit.label',
-    defaultMessage: '!!!Let\'s go',
+    defaultMessage: "!!!Let's go",
   },
   inviteSuccessInfo: {
     id: 'invite.successInfo',
@@ -34,14 +35,19 @@ const messages = defineMessages({
   },
 });
 
-const styles = (theme) => ({
+let transition = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  transition = 'all 0.25s';
+}
+
+const styles = theme => ({
   root: {
     width: '500px !important',
     textAlign: 'center',
     padding: 20,
 
-    '& h1': {
-    },
+    '& h1': {},
   },
   servicesGrid: {
     display: 'flex',
@@ -60,7 +66,7 @@ const styles = (theme) => ({
     borderRadius: theme.borderRadius,
     marginBottom: 10,
     opacity: 0.5,
-    transition: 'all 0.25s',
+    transition,
     border: [3, 'solid', 'transparent'],
 
     '& h2': {
@@ -70,10 +76,8 @@ const styles = (theme) => ({
 
     '&:hover': {
       border: [3, 'solid', theme.brandPrimary],
-      '& $serviceIcon': {
-      },
+      '& $serviceIcon': {},
     },
-
   },
   selected: {
     border: [3, 'solid', theme.brandPrimary],
@@ -82,7 +86,7 @@ const styles = (theme) => ({
   },
   serviceIcon: {
     width: 50,
-    transition: 'all 0.25s',
+    transition,
   },
 
   slackModalContent: {
@@ -125,7 +129,8 @@ const styles = (theme) => ({
   },
 });
 
-@injectSheet(styles) @observer
+@injectSheet(styles)
+@observer
 class SetupAssistant extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -144,13 +149,17 @@ class SetupAssistant extends Component {
   };
 
   state = {
-    services: [{
-      id: 'whatsapp',
-    }, {
-      id: 'messenger',
-    }, {
-      id: 'gmail',
-    }],
+    services: [
+      {
+        id: 'whatsapp',
+      },
+      {
+        id: 'messenger',
+      },
+      {
+        id: 'gmail',
+      },
+    ],
     isSlackModalOpen: false,
     slackWorkspace: '',
   };
@@ -158,10 +167,12 @@ class SetupAssistant extends Component {
   slackWorkspaceHandler() {
     const { slackWorkspace = '', services } = this.state;
 
-    const sanitizedWorkspace = slackWorkspace.trim().replace(/^https?:\/\//, '');
+    const sanitizedWorkspace = slackWorkspace
+      .trim()
+      .replace(/^https?:\/\//, '');
 
     if (sanitizedWorkspace) {
-      const index = services.findIndex((s) => s.id === SLACK_ID);
+      const index = services.findIndex(s => s.id === SLACK_ID);
 
       if (index === -1) {
         const newServices = services;
@@ -179,9 +190,17 @@ class SetupAssistant extends Component {
   render() {
     const { intl } = this.context;
     const {
-      classes, isInviteSuccessful, onSubmit, services, isSettingUpServices,
+      classes,
+      isInviteSuccessful,
+      onSubmit,
+      services,
+      isSettingUpServices,
     } = this.props;
-    const { isSlackModalOpen, slackWorkspace, services: addedServices } = this.state;
+    const {
+      isSlackModalOpen,
+      slackWorkspace,
+      services: addedServices,
+    } = this.state;
 
     return (
       <div className={`auth__container ${classes.root}`}>
@@ -197,29 +216,22 @@ class SetupAssistant extends Component {
           </Appear>
         )}
 
-        <img
-          src="./assets/images/logo.svg"
-          className="auth__logo"
-          alt=""
-        />
-        <h1>
-          {intl.formatMessage(messages.headline)}
-        </h1>
-        <h2>
-          {intl.formatMessage(messages.subHeadline)}
-        </h2>
+        <img src="./assets/images/logo.svg" className="auth__logo" alt="" />
+        <h1>{intl.formatMessage(messages.headline)}</h1>
+        <h2>{intl.formatMessage(messages.subHeadline)}</h2>
         <div className={classnames('grid', classes.servicesGrid)}>
-          {Object.keys(services).map((id) => {
+          {Object.keys(services).map(id => {
             const service = services[id];
             return (
               <button
                 className={classnames({
                   [classes.serviceContainer]: true,
-                  [classes.selected]: this.state.services.findIndex((s) => s.id === id) !== -1,
+                  [classes.selected]:
+                    this.state.services.findIndex(s => s.id === id) !== -1,
                 })}
                 key={id}
                 onClick={() => {
-                  const index = this.state.services.findIndex((s) => s.id === id);
+                  const index = this.state.services.findIndex(s => s.id === id);
                   if (index === -1) {
                     if (id === SLACK_ID) {
                       this.setState({ isSlackModalOpen: true });
@@ -244,9 +256,7 @@ class SetupAssistant extends Component {
                   className={classes.serviceIcon}
                   alt=""
                 />
-                <h2>
-                  {service.name}
-                </h2>
+                <h2>{service.name}</h2>
                 {id === SLACK_ID && slackWorkspace && (
                   <Badge type="secondary" className={classes.slackBadge}>
                     {slackWorkspace}
@@ -275,22 +285,22 @@ class SetupAssistant extends Component {
           <div className={classes.slackModalContent}>
             <img src={`${CDN_URL}/recipes/dist/slack/src/icon.svg`} alt="" />
             <h1>Create your first Slack workspace</h1>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              this.slackWorkspaceHandler();
-            }}
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                this.slackWorkspaceHandler();
+              }}
             >
               <Input
                 suffix=".slack.com"
                 placeholder="workspace-url"
-                onChange={(e) => this.setState({ slackWorkspace: e.target.value })}
+                onChange={e =>
+                  this.setState({ slackWorkspace: e.target.value })
+                }
                 value={slackWorkspace}
               />
               <div className={classes.modalActionContainer}>
-                <Button
-                  type="submit"
-                  label="Save"
-                />
+                <Button type="submit" label="Save" />
                 <Button
                   type="link"
                   buttonType="secondary"
@@ -305,7 +315,7 @@ class SetupAssistant extends Component {
         <Button
           type="button"
           className="auth__button"
-            // disabled={!atLeastOneEmailAddress}
+          // disabled={!atLeastOneEmailAddress}
           label={intl.formatMessage(messages.submitButtonLabel)}
           onClick={() => onSubmit(this.state.services)}
           busy={isSettingUpServices}

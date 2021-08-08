@@ -773,7 +773,7 @@
         "defaultMessage": "!!!Choose from our most used services and get back on top of your messaging now.",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 27
         },
         "file": "src/components/auth/SetupAssistant.js",
         "id": "setupAssistant.subheadline",
@@ -786,26 +786,26 @@
         "defaultMessage": "!!!Let's go",
         "end": {
           "column": 3,
-          "line": 30
+          "line": 31
         },
         "file": "src/components/auth/SetupAssistant.js",
         "id": "setupAssistant.submit.label",
         "start": {
           "column": 21,
-          "line": 27
+          "line": 28
         }
       },
       {
         "defaultMessage": "!!!Invitations sent successfully",
         "end": {
           "column": 3,
-          "line": 34
+          "line": 35
         },
         "file": "src/components/auth/SetupAssistant.js",
         "id": "invite.successInfo",
         "start": {
           "column": 21,
-          "line": 31
+          "line": 32
         }
       }
     ],
@@ -1074,7 +1074,7 @@
         "defaultMessage": "!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.",
         "end": {
           "column": 3,
-          "line": 44
+          "line": 45
         },
         "file": "src/components/layout/AppLayout.js",
         "id": "infobar.authRequestFailed",
@@ -1354,39 +1354,39 @@
         "defaultMessage": "!!!Oh no! Ferdi lost the connection to {name}.",
         "end": {
           "column": 3,
-          "line": 18
+          "line": 16
         },
         "file": "src/components/services/content/ConnectionLostBanner.js",
         "id": "connectionLostBanner.message",
         "start": {
           "column": 8,
-          "line": 15
+          "line": 13
         }
       },
       {
         "defaultMessage": "!!!What happened?",
         "end": {
           "column": 3,
-          "line": 22
+          "line": 20
         },
         "file": "src/components/services/content/ConnectionLostBanner.js",
         "id": "connectionLostBanner.informationLink",
         "start": {
           "column": 19,
-          "line": 19
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Reload Service",
         "end": {
           "column": 3,
-          "line": 26
+          "line": 24
         },
         "file": "src/components/services/content/ConnectionLostBanner.js",
         "id": "connectionLostBanner.cta",
         "start": {
           "column": 7,
-          "line": 23
+          "line": 21
         }
       }
     ],
@@ -1839,7 +1839,7 @@
         "defaultMessage": "!!!Do you really want to delete the {serviceName} service?",
         "end": {
           "column": 3,
-          "line": 67
+          "line": 68
         },
         "file": "src/components/services/tabs/TabItem.js",
         "id": "tabs.item.confirmDeleteService",
@@ -5299,65 +5299,65 @@
         "defaultMessage": "!!!Home",
         "end": {
           "column": 3,
-          "line": 16
+          "line": 20
         },
         "file": "src/features/webControls/components/WebControls.js",
         "id": "webControls.goHome",
         "start": {
           "column": 10,
-          "line": 13
+          "line": 17
         }
       },
       {
         "defaultMessage": "!!!Open in Browser",
         "end": {
           "column": 3,
-          "line": 20
+          "line": 24
         },
         "file": "src/features/webControls/components/WebControls.js",
         "id": "webControls.openInBrowser",
         "start": {
           "column": 17,
-          "line": 17
+          "line": 21
         }
       },
       {
         "defaultMessage": "!!!Back",
         "end": {
           "column": 3,
-          "line": 24
+          "line": 28
         },
         "file": "src/features/webControls/components/WebControls.js",
         "id": "webControls.back",
         "start": {
           "column": 8,
-          "line": 21
+          "line": 25
         }
       },
       {
         "defaultMessage": "!!!Forward",
         "end": {
           "column": 3,
-          "line": 28
+          "line": 32
         },
         "file": "src/features/webControls/components/WebControls.js",
         "id": "webControls.forward",
         "start": {
           "column": 11,
-          "line": 25
+          "line": 29
         }
       },
       {
         "defaultMessage": "!!!Reload",
         "end": {
           "column": 3,
-          "line": 32
+          "line": 36
         },
         "file": "src/features/webControls/components/WebControls.js",
         "id": "webControls.reload",
         "start": {
           "column": 10,
-          "line": 29
+          "line": 33
         }
       }
     ],

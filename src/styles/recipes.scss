@@ -4,7 +4,9 @@
   background-color: $dark-theme-gray-dark;
   color: $dark-theme-text-color;
 
-  &:hover { background-color: $dark-theme-gray; }
+  &:hover {
+    background-color: $dark-theme-gray;
+  }
 }
 
 .recipes {
@@ -17,7 +19,7 @@
 
     &.recipes__list--disabled {
       filter: grayscale(100%);
-      opacity: .3;
+      opacity: 0.3;
       pointer-events: none;
     }
   }
@@ -26,16 +28,20 @@
     height: auto;
     margin-bottom: 35px;
 
-    .badge { margin-right: 10px; }
+    .badge {
+      margin-right: 10px;
+    }
 
     &.recipes__navigation--disabled {
       filter: grayscale(100%);
-      opacity: .3;
+      opacity: 0.3;
       pointer-events: none;
     }
   }
 
-  &__service-request { float: right; }
+  &__service-request {
+    float: right;
+  }
 }
 
 .recipe-teaser {
@@ -45,24 +51,32 @@
   margin: 0 20px 20px 0;
   overflow: hidden;
   position: relative;
-  transition: background $theme-transition-time;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background $theme-transition-time;
+  }
   width: calc(25% - 20px);
 
-  &:hover { background-color: $theme-gray-lighter; }
+  &:hover {
+    background-color: $theme-gray-lighter;
+  }
 
   .recipe-teaser__icon {
     margin-bottom: 10px;
     width: 50px;
   }
 
-  .recipe-teaser__label { display: block; }
+  .recipe-teaser__label {
+    display: block;
+  }
 
-  h2 { z-index: 10; }
+  h2 {
+    z-index: 10;
+  }
 
   &__dev-badge {
     background: $theme-brand-warning;
-    box-shadow: 0 0 4px rgba(black, .2);
-    color: #FFF;
+    box-shadow: 0 0 4px rgba(black, 0.2);
+    color: #fff;
     font-size: 10px;
     position: absolute;
     right: -13px;

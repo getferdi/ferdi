@@ -1,60 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Ferdi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="./styles/main.css" />
-  <script type="text/javascript" src="./app.js"></script>
-</head>
-<body>
-  <div class="window-draggable"></div>
-  <div class="dev-warning">DEV MODE</div>
-  <div id="root"></div>
-  <div id="portalContainer"></div>
-  <script>
-    document.querySelector('body').classList.add(process.env.OS_PLATFORM ? process.env.OS_PLATFORM : process.platform);
+  <head>
+    <title>Ferdi</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./styles/animations.css"
+      media="(prefers-reduced-motion: no-preference)"
+    />
+    <script type="text/javascript" src="./app.js"></script>
+  </head>
+  <body>
+    <div class="window-draggable"></div>
+    <div class="dev-warning">DEV MODE</div>
+    <div id="root"></div>
+    <div id="portalContainer"></div>
+    <script>
+      document
+        .querySelector('body')
+        .classList.add(
+          process.env.OS_PLATFORM ? process.env.OS_PLATFORM : process.platform,
+        );
 
-    require('./sentry')
-    const { isDevMode } = require('./environment');
-    if (isDevMode) {
-      const debugging = require('debug');
-      debugging.enable(process.env.DEBUG);
+      require('./sentry');
+      const { isDevMode } = require('./environment');
+      if (isDevMode) {
+        const debugging = require('debug');
+        debugging.enable(process.env.DEBUG);
 
-      const debug = debugging('Index');
+        const debug = debugging('Index');
 
-      document.querySelector('body').classList.add('isDevMode');
+        document.querySelector('body').classList.add('isDevMode');
 
-      (function() {
-        const lrHost = 'http://localhost:35729';
-        const s = document.createElement('script');
-        s.async = true;
-        s.setAttribute('src', lrHost + '/livereload.js');
-        document.body.appendChild(s);
+        (function () {
+          const lrHost = 'http://localhost:35729';
+          const s = document.createElement('script');
+          s.async = true;
+          s.setAttribute('src', lrHost + '/livereload.js');
+          document.body.appendChild(s);
 
-        s.onload = () => {
-          debug('livereload loaded');
-          const originalReloadBehaviour = window._onLiveReloadFileChanged;
+          s.onload = () => {
+            debug('livereload loaded');
+            const originalReloadBehaviour = window._onLiveReloadFileChanged;
 
-          window._onLiveReloadFileChanged = (file) => {
-            const isTodoPreloadPath = file.path.includes('/build/features/todos/preload.js');
-            if (!file.path.includes('/build/webview/') && !file.path.includes('/build/index.js') && !file.path.includes('/build/electron/') && !isTodoPreloadPath) {
-              originalReloadBehaviour(file);
-            } else {
-              if (isTodoPreloadPath) {
-                debug('Livereload: Reloading all webviews');
-                const webview = document.querySelector('webview[partition="persist:todos"]');
-                if (webview) webview.reload();
-              } else if (file.path.includes('/build/webview/')) {
-                debug('Livereload: Reloading all webviews');
-                const webviews = document.querySelectorAll('webview').forEach(webview => webview.reload());
+            window._onLiveReloadFileChanged = file => {
+              const isTodoPreloadPath = file.path.includes(
+                '/build/features/todos/preload.js',
+              );
+              if (
+                !file.path.includes('/build/webview/') &&
+                !file.path.includes('/build/index.js') &&
+                !file.path.includes('/build/electron/') &&
+                !isTodoPreloadPath
+              ) {
+                originalReloadBehaviour(file);
               } else {
-                debug('Livereload: skip reload as only main process files have changed');
+                if (isTodoPreloadPath) {
+                  debug('Livereload: Reloading all webviews');
+                  const webview = document.querySelector(
+                    'webview[partition="persist:todos"]',
+                  );
+                  if (webview) webview.reload();
+                } else if (file.path.includes('/build/webview/')) {
+                  debug('Livereload: Reloading all webviews');
+                  const webviews = document
+                    .querySelectorAll('webview')
+                    .forEach(webview => webview.reload());
+                } else {
+                  debug(
+                    'Livereload: skip reload as only main process files have changed',
+                  );
+                }
               }
-            }
-          }
-        }
-      })();
-    }
-  </script>
-</body>
+            };
+          };
+        })();
+      }
+    </script>
+  </body>
 </html>

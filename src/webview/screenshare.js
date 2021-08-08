@@ -3,17 +3,23 @@ import { desktopCapturer } from 'electron';
 const CANCEL_ID = 'desktop-capturer-selection__cancel';
 
 export async function getDisplayMediaSelector() {
-  const sources = await desktopCapturer.getSources({ types: ['screen', 'window'] });
+  const sources = await desktopCapturer.getSources({
+    types: ['screen', 'window'],
+  });
   return `<div class="desktop-capturer-selection__scroller">
   <ul class="desktop-capturer-selection__list">
-    ${sources.map(({ id, name, thumbnail }) => `
+    ${sources
+    .map(
+      ({ id, name, thumbnail }) => `
       <li class="desktop-capturer-selection__item">
         <button class="desktop-capturer-selection__btn" data-id="${id}" title="${name}">
           <img class="desktop-capturer-selection__thumbnail" src="${thumbnail.toDataURL()}" />
           <span class="desktop-capturer-selection__name">${name}</span>
         </button>
       </li>
-    `).join('')}
+    `,
+    )
+    .join('')}
     <li class="desktop-capturer-selection__item">
       <button class="desktop-capturer-selection__btn" data-id="${CANCEL_ID}" title="Cancel">
         <span class="desktop-capturer-selection__name desktop-capturer-selection__name--cancel">Cancel</span>
@@ -67,7 +73,9 @@ export const screenShareCss = `
   padding: 4px;
   background: #252626;
   text-align: left;
-  transition: background-color .15s, box-shadow .15s, color .15s;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color .15s, box-shadow .15s, color .15s;
+  }
   color: #dedede;
 }
 .desktop-capturer-selection__btn:hover,

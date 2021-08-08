@@ -35,13 +35,21 @@ interface IProps extends IFormField, IWithStyle {
   target?: string;
 }
 
+let buttonTransition: string = 'none';
+let loaderContainerTransition: string = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  buttonTransition = 'background .5s, opacity 0.3s';
+  loaderContainerTransition = 'all 0.3s';
+}
+
 const styles = (theme: Theme) => ({
   button: {
     borderRadius: theme.borderRadiusSmall,
     border: 'none',
     display: 'inline-flex',
     position: 'relative' as Property.Position,
-    transition: 'background .5s, opacity 0.3s',
+    transition: buttonTransition,
     textAlign: 'center' as Property.TextAlign,
     outline: 'none',
     alignItems: 'center',
@@ -50,7 +58,6 @@ const styles = (theme: Theme) => ({
       (props.stretch ? '100%' : 'auto') as Property.Width<string>,
     fontSize: theme.uiFontSize,
     textDecoration: 'none',
-    // height: theme.buttonHeight,
 
     '&:hover': {
       opacity: 0.8,
@@ -129,7 +136,7 @@ const styles = (theme: Theme) => ({
     width: (props: IProps): string => (!props.busy ? '0' : '40px'),
     height: 20,
     overflow: 'hidden',
-    transition: 'all 0.3s',
+    transition: loaderContainerTransition,
     marginLeft: (props: IProps): number => (!props.busy ? 10 : 20),
     marginRight: (props: IProps): number => (!props.busy ? -10 : -20),
     position: (props: IProps): Property.Position =>

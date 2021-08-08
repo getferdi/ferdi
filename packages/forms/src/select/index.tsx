@@ -46,6 +46,14 @@ interface IState {
   options: IOptions;
 }
 
+let popupTransition: string = 'none';
+let toggleTransition: string = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  popupTransition = 'all 0.3s';
+  toggleTransition = 'transform 0.3s';
+}
+
 const styles = (theme: Theme) => ({
   select: {
     background: theme.selectBackground,
@@ -70,7 +78,7 @@ const styles = (theme: Theme) => ({
     overflowX: 'scroll',
     border: theme.selectBorder,
     borderTop: 0,
-    transition: 'all 0.3s',
+    transition: popupTransition,
   },
   open: {
     opacity: 1,
@@ -98,7 +106,7 @@ const styles = (theme: Theme) => ({
   toggle: {
     marginLeft: 'auto',
     fill: theme.selectToggleColor,
-    transition: 'transform 0.3s',
+    transition: toggleTransition,
   },
   toggleOpened: {
     transform: 'rotateZ(90deg)',

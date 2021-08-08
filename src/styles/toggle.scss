@@ -39,7 +39,9 @@ $toggle-button-size: 22px;
       left: 1px;
       top: 1px;
       position: absolute;
-      transition: all 0.5s;
+      @media (prefers-reduced-motion: no-preference) {
+        transition: all 0.5s;
+      }
       width: $toggle-size - 2;
     }
 

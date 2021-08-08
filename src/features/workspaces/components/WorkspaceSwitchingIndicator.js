@@ -15,12 +15,18 @@ const messages = defineMessages({
   },
 });
 
-const styles = (theme) => ({
+let wrapperTransition = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  wrapperTransition = 'width 0.5s ease';
+}
+
+const styles = theme => ({
   wrapper: {
     display: 'flex',
     alignItems: 'flex-start',
     position: 'absolute',
-    transition: 'width 0.5s ease',
+    transition: wrapperTransition,
     width: `calc(100% - ${theme.workspaces.drawer.width}px)`,
     marginTop: '20px',
   },
@@ -47,7 +53,8 @@ const styles = (theme) => ({
   },
 });
 
-@injectSheet(styles) @observer
+@injectSheet(styles)
+@observer
 class WorkspaceSwitchingIndicator extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -63,13 +70,11 @@ class WorkspaceSwitchingIndicator extends Component {
     const { intl } = this.context;
     const { isSwitchingWorkspace, nextWorkspace } = workspaceStore;
     if (!isSwitchingWorkspace) return null;
-    const nextWorkspaceName = nextWorkspace ? nextWorkspace.name : 'All services';
+    const nextWorkspaceName = nextWorkspace
+      ? nextWorkspace.name
+      : 'All services';
     return (
-      <div
-        className={classnames([
-          classes.wrapper,
-        ])}
-      >
+      <div className={classnames([classes.wrapper])}>
         <div className={classes.component}>
           <Loader
             className={classes.spinner}

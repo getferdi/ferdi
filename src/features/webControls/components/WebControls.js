@@ -6,7 +6,11 @@ import { Icon } from '@meetfranz/ui';
 import { defineMessages, intlShape } from 'react-intl';
 
 import {
-  mdiReload, mdiArrowRight, mdiArrowLeft, mdiHomeOutline, mdiEarth,
+  mdiReload,
+  mdiArrowRight,
+  mdiArrowLeft,
+  mdiHomeOutline,
+  mdiEarth,
 } from '@mdi/js';
 
 const messages = defineMessages({
@@ -32,7 +36,13 @@ const messages = defineMessages({
   },
 });
 
-const styles = (theme) => ({
+let buttonTransition = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  buttonTransition = 'opacity 0.25s';
+}
+
+const styles = theme => ({
   root: {
     background: theme.colorBackground,
     position: 'relative',
@@ -51,7 +61,7 @@ const styles = (theme) => ({
   button: {
     width: 30,
     height: 50,
-    transition: 'opacity 0.25s',
+    transition: buttonTransition,
 
     '&:hover': {
       opacity: 0.8,
@@ -83,7 +93,8 @@ const styles = (theme) => ({
   },
 });
 
-@injectSheet(styles) @observer
+@injectSheet(styles)
+@observer
 class WebControls extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -96,7 +107,7 @@ class WebControls extends Component {
     openInBrowser: PropTypes.func.isRequired,
     url: PropTypes.string.isRequired,
     navigate: PropTypes.func.isRequired,
-  }
+  };
 
   static contextTypes = {
     intl: intlShape,
@@ -119,7 +130,7 @@ class WebControls extends Component {
   state = {
     inputUrl: '',
     editUrl: false,
-  }
+  };
 
   render() {
     const {
@@ -135,10 +146,7 @@ class WebControls extends Component {
       navigate,
     } = this.props;
 
-    const {
-      inputUrl,
-      editUrl,
-    } = this.state;
+    const { inputUrl, editUrl } = this.state;
 
     const { intl } = this.context;
 
@@ -151,10 +159,7 @@ class WebControls extends Component {
           data-tip={intl.formatMessage(messages.goHome)}
           data-place="bottom"
         >
-          <Icon
-            icon={mdiHomeOutline}
-            className={classes.icon}
-          />
+          <Icon icon={mdiHomeOutline} className={classes.icon} />
         </button>
         <button
           onClick={goBack}
@@ -164,10 +169,7 @@ class WebControls extends Component {
           data-tip={intl.formatMessage(messages.back)}
           data-place="bottom"
         >
-          <Icon
-            icon={mdiArrowLeft}
-            className={classes.icon}
-          />
+          <Icon icon={mdiArrowLeft} className={classes.icon} />
         </button>
         <button
           onClick={goForward}
@@ -177,10 +179,7 @@ class WebControls extends Component {
           data-tip={intl.formatMessage(messages.forward)}
           data-place="bottom"
         >
-          <Icon
-            icon={mdiArrowRight}
-            className={classes.icon}
-          />
+          <Icon icon={mdiArrowRight} className={classes.icon} />
         </button>
         <button
           onClick={reload}
@@ -189,25 +188,24 @@ class WebControls extends Component {
           data-tip={intl.formatMessage(messages.reload)}
           data-place="bottom"
         >
-          <Icon
-            icon={mdiReload}
-            className={classes.icon}
-          />
+          <Icon icon={mdiReload} className={classes.icon} />
         </button>
         <input
           value={editUrl ? inputUrl : url}
           className={classes.input}
-          onChange={(event) => this.setState({
-            inputUrl: event.target.value,
-          })}
-          onFocus={(event) => {
+          onChange={event =>
+            this.setState({
+              inputUrl: event.target.value,
+            })
+          }
+          onFocus={event => {
             console.log('on focus event');
             event.target.select();
             this.setState({
               editUrl: true,
             });
           }}
-          onKeyDown={(event) => {
+          onKeyDown={event => {
             if (event.key === 'Enter') {
               this.setState({
                 editUrl: false,
@@ -231,10 +229,7 @@ class WebControls extends Component {
           data-tip={intl.formatMessage(messages.openInBrowser)}
           data-place="bottom"
         >
-          <Icon
-            icon={mdiEarth}
-            className={classes.icon}
-          />
+          <Icon icon={mdiEarth} className={classes.icon} />
         </button>
       </div>
     );

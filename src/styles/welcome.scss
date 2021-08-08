@@ -1,24 +1,26 @@
 .auth .welcome {
   height: auto;
-  
+
   &__content {
     align-items: center;
-    color: #FFF;
+    color: #fff;
     display: flex;
     justify-content: center;
     height: auto;
   }
 
-  &__logo { width: 100px; }
+  &__logo {
+    width: 100px;
+  }
 
   &__text {
-    border-left: 1px solid #FFF;
+    border-left: 1px solid #fff;
     margin-left: 40px;
     padding-left: 40px;
 
     h1 {
       font-size: 60px;
-      letter-spacing: -.4rem;
+      letter-spacing: -0.4rem;
       margin-bottom: 5px;
     }
 
@@ -42,33 +44,35 @@
     text-align: center;
     height: auto;
 
-    .button:first-of-type { margin-right: 25px; }
+    .button:first-of-type {
+      margin-right: 25px;
+    }
   }
 
   .button {
-    border-color: #FFF;
-    color: #FFF;
+    border-color: #fff;
+    color: #fff;
     cursor: pointer;
 
     &:hover {
-      background: #FFF;
+      background: #fff;
       color: $theme-brand-primary;
     }
 
     &__inverted {
-      background: #FFF;
+      background: #fff;
       color: $theme-brand-primary;
     }
 
     &__inverted:hover {
       background: none;
-      color: #FFF;
+      color: #fff;
     }
   }
 
   &__featured-services {
     align-items: center;
-    background: #FFF;
+    background: #fff;
     border-radius: 6px;
     display: flex;
     flex-wrap: wrap;
@@ -82,9 +86,13 @@
   &__featured-service {
     margin: 0 10px 15px;
     height: 35px;
-    transition: .5s filter, .5s opacity;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: 0.5s filter, 0.5s opacity;
+    }
     width: 35px;
 
-    img { width: 35px; }
+    img {
+      width: 35px;
+    }
   }
 }

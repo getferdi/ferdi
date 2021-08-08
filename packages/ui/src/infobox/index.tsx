@@ -44,6 +44,14 @@ const buttonStyles = (theme: Theme) => {
   return styles;
 };
 
+let infoBoxTransition: string = 'none';
+let ctaTransition: string = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  infoBoxTransition = 'all 0.5s';
+  ctaTransition = 'opacity 0.3s';
+}
+
 const styles = (theme: Theme) => ({
   wrapper: {
     position: 'relative',
@@ -58,7 +66,7 @@ const styles = (theme: Theme) => ({
     height: 'auto',
     padding: '15px 20px',
     top: 0,
-    transition: 'all 0.5s',
+    transition: infoBoxTransition,
     opacity: 1,
   },
   dismissing: {
@@ -91,7 +99,7 @@ const styles = (theme: Theme) => ({
     marginLeft: 15,
     padding: [4, 10],
     fontSize: theme.uiFontSize,
-    transition: 'opacity 0.3s',
+    transition: ctaTransition,
 
     '&:hover': {
       opacity: 0.6,

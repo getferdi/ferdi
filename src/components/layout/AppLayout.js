@@ -40,22 +40,32 @@ const messages = defineMessages({
   },
   authRequestFailed: {
     id: 'infobar.authRequestFailed',
-    defaultMessage: '!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.',
+    defaultMessage:
+      '!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.',
   },
 });
 
-const styles = (theme) => ({
+let transition = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  transition = 'transform 0.5s ease';
+}
+
+const styles = theme => ({
   appContent: {
     // width: `calc(100% + ${theme.workspaces.drawer.width}px)`,
     width: '100%',
-    transition: 'transform 0.5s ease',
+    transition,
     transform() {
-      return workspaceStore.isWorkspaceDrawerOpen ? 'translateX(0)' : `translateX(-${theme.workspaces.drawer.width}px)`;
+      return workspaceStore.isWorkspaceDrawerOpen
+        ? 'translateX(0)'
+        : `translateX(-${theme.workspaces.drawer.width}px)`;
     },
   },
 });
 
-@injectSheet(styles) @observer
+@injectSheet(styles)
+@observer
 class AppLayout extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -80,7 +90,7 @@ class AppLayout extends Component {
 
   state = {
     shouldShowAppUpdateInfoBar: true,
-  }
+  };
 
   static defaultProps = {
     children: [],
@@ -118,42 +128,48 @@ class AppLayout extends Component {
     return (
       <ErrorBoundary>
         <div className="app">
-          {isWindows && !isFullScreen && <TitleBar menu={window.ferdi.menu.template} icon="assets/images/logo.svg" />}
+          {isWindows && !isFullScreen && (
+            <TitleBar
+              menu={window.ferdi.menu.template}
+              icon="assets/images/logo.svg"
+            />
+          )}
           <div className={`app__content ${classes.appContent}`}>
             {workspacesDrawer}
             {sidebar}
             <div className="app__service">
               <WorkspaceSwitchingIndicator />
-              {news.length > 0 && news.map((item) => (
-                <InfoBar
-                  key={item.id}
-                  position="top"
-                  type={item.type}
-                  sticky={item.sticky}
-                  onHide={() => removeNewsItem({ newsId: item.id })}
-                >
-                  <span
-                    dangerouslySetInnerHTML={createMarkup(item.message)}
-                    onClick={(event) => {
-                      const { target } = event;
-                      if (target && target.hasAttribute('data-is-news-cta')) {
-                        removeNewsItem({ newsId: item.id });
-                      }
-                    }}
-                  />
-                </InfoBar>
-              ))}
+              {news.length > 0 &&
+                news.map(item => (
+                  <InfoBar
+                    key={item.id}
+                    position="top"
+                    type={item.type}
+                    sticky={item.sticky}
+                    onHide={() => removeNewsItem({ newsId: item.id })}
+                  >
+                    <span
+                      dangerouslySetInnerHTML={createMarkup(item.message)}
+                      onClick={event => {
+                        const { target } = event;
+                        if (target && target.hasAttribute('data-is-news-cta')) {
+                          removeNewsItem({ newsId: item.id });
+                        }
+                      }}
+                    />
+                  </InfoBar>
+                ))}
               {!areRequiredRequestsSuccessful && showRequiredRequestsError && (
-              <InfoBar
-                type="danger"
-                ctaLabel="Try again"
-                ctaLoading={areRequiredRequestsLoading}
-                sticky
-                onClick={retryRequiredRequests}
-              >
-                <span className="mdi mdi-flash" />
-                {intl.formatMessage(messages.requiredRequestsFailed)}
-              </InfoBar>
+                <InfoBar
+                  type="danger"
+                  ctaLabel="Try again"
+                  ctaLoading={areRequiredRequestsLoading}
+                  sticky
+                  onClick={retryRequiredRequests}
+                >
+                  <span className="mdi mdi-flash" />
+                  {intl.formatMessage(messages.requiredRequestsFailed)}
+                </InfoBar>
               )}
               {authRequestFailed && (
                 <InfoBar
@@ -178,7 +194,7 @@ class AppLayout extends Component {
                   {intl.formatMessage(messages.servicesUpdated)}
                 </InfoBar>
               )}
-              { appUpdateIsDownloaded && this.state.shouldShowAppUpdateInfoBar && (
+              {appUpdateIsDownloaded && this.state.shouldShowAppUpdateInfoBar && (
                 <AppUpdateInfoBar
                   nextAppReleaseVersion={nextAppReleaseVersion}
                   onInstallUpdate={installAppUpdate}

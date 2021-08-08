@@ -17,6 +17,12 @@ interface IProps
   className?: string;
 }
 
+let buttonTransition: string = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  buttonTransition = 'all .5s';
+}
+
 const styles = (theme: Theme) => ({
   toggle: {
     background: theme.toggleBackground,
@@ -34,7 +40,7 @@ const styles = (theme: Theme) => ({
     left: 1,
     top: 1,
     position: 'absolute' as Property.Position,
-    transition: 'all .5s',
+    transition: buttonTransition,
   },
   buttonActive: {
     background: theme.toggleButtonActive,

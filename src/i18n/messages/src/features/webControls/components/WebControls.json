@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Home",
     "file": "src/features/webControls/components/WebControls.js",
     "start": {
-      "line": 13,
+      "line": 17,
       "column": 10
     },
     "end": {
-      "line": 16,
+      "line": 20,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Open in Browser",
     "file": "src/features/webControls/components/WebControls.js",
     "start": {
-      "line": 17,
+      "line": 21,
       "column": 17
     },
     "end": {
-      "line": 20,
+      "line": 24,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Back",
     "file": "src/features/webControls/components/WebControls.js",
     "start": {
-      "line": 21,
+      "line": 25,
       "column": 8
     },
     "end": {
-      "line": 24,
+      "line": 28,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Forward",
     "file": "src/features/webControls/components/WebControls.js",
     "start": {
-      "line": 25,
+      "line": 29,
       "column": 11
     },
     "end": {
-      "line": 28,
+      "line": 32,
       "column": 3
     }
   },
@@ -56,11 +56,11 @@
     "defaultMessage": "!!!Reload",
     "file": "src/features/webControls/components/WebControls.js",
     "start": {
-      "line": 29,
+      "line": 33,
       "column": 10
     },
     "end": {
-      "line": 32,
+      "line": 36,
       "column": 3
     }
   }

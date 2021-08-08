@@ -1,3 +1,9 @@
+let sloganTransition = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  sloganTransition = 'opacity 1s ease';
+}
+
 export default {
   component: {
     color: '#FFF',
@@ -5,7 +11,7 @@ export default {
   slogan: {
     display: 'block',
     opacity: 0,
-    transition: 'opacity 1s ease',
+    transition: sloganTransition,
     position: 'absolute',
     textAlign: 'center',
     width: '100%',

@@ -5,9 +5,7 @@ import injectSheet from 'react-jss';
 import { Icon } from '@meetfranz/ui';
 import { intlShape, defineMessages } from 'react-intl';
 
-import {
-  mdiAlert,
-} from '@mdi/js';
+import { mdiAlert } from '@mdi/js';
 import { LIVE_API_FERDI_WEBSITE } from '../../../config';
 // import { Button } from '@meetfranz/forms';
 
@@ -26,7 +24,13 @@ const messages = defineMessages({
   },
 });
 
-const styles = (theme) => ({
+let buttonTransition = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  buttonTransition = 'opacity 0.25s';
+}
+
+const styles = theme => ({
   root: {
     background: theme.colorBackground,
     borderRadius: theme.borderRadius,
@@ -47,7 +51,7 @@ const styles = (theme) => ({
     opacity: 0.7,
   },
   button: {
-    transition: 'opacity 0.25s',
+    transition: buttonTransition,
     color: theme.colorText,
     border: [1, 'solid', theme.colorText],
     borderRadius: theme.borderRadiusSmall,
@@ -65,13 +69,14 @@ const styles = (theme) => ({
   },
 });
 
-@injectSheet(styles) @observer
+@injectSheet(styles)
+@observer
 class ConnectionLostBanner extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     reload: PropTypes.func.isRequired,
-  }
+  };
 
   static contextTypes = {
     intl: intlShape,
@@ -80,20 +85,13 @@ class ConnectionLostBanner extends Component {
   inputRef = React.createRef();
 
   render() {
-    const {
-      classes,
-      name,
-      reload,
-    } = this.props;
+    const { classes, name, reload } = this.props;
 
     const { intl } = this.context;
 
     return (
       <div className={classes.root}>
-        <Icon
-          icon={mdiAlert}
-          className={classes.icon}
-        />
+        <Icon icon={mdiAlert} className={classes.icon} />
         <p>
           {intl.formatMessage(messages.text, { name })}
           <br />
@@ -104,11 +102,7 @@ class ConnectionLostBanner extends Component {
             {intl.formatMessage(messages.moreInformation)}
           </a>
         </p>
-        <button
-          type="button"
-          className={classes.button}
-          onClick={reload}
-        >
+        <button type="button" className={classes.button} onClick={reload}>
           {intl.formatMessage(messages.cta)}
         </button>
       </div>

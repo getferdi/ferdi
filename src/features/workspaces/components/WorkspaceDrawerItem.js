@@ -18,12 +18,18 @@ const messages = defineMessages({
   },
 });
 
-const styles = (theme) => ({
+let itemTransition = 'none';
+
+if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+  itemTransition = 'background-color 300ms ease-out';
+}
+
+const styles = theme => ({
   item: {
     height: '67px',
     padding: `15px ${theme.workspaces.drawer.padding}px`,
     borderBottom: `1px solid ${theme.workspaces.drawer.listItem.border}`,
-    transition: 'background-color 300ms ease-out',
+    transition: itemTransition,
     '&:first-child': {
       borderTop: `1px solid ${theme.workspaces.drawer.listItem.border}`,
     },
@@ -59,7 +65,8 @@ const styles = (theme) => ({
   },
 });
 
-@injectSheet(styles) @observer
+@injectSheet(styles)
+@observer
 class WorkspaceDrawerItem extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -91,15 +98,19 @@ class WorkspaceDrawerItem extends Component {
     } = this.props;
     const { intl } = this.context;
 
-    const contextMenuTemplate = [{
-      label: name,
-      enabled: false,
-    }, {
-      type: 'separator',
-    }, {
-      label: intl.formatMessage(messages.contextMenuEdit),
-      click: onContextMenuEditClick,
-    }];
+    const contextMenuTemplate = [
+      {
+        label: name,
+        enabled: false,
+      },
+      {
+        type: 'separator',
+      },
+      {
+        label: intl.formatMessage(messages.contextMenuEdit),
+        click: onContextMenuEditClick,
+      },
+    ];
 
     const contextMenu = Menu.buildFromTemplate(contextMenuTemplate);
 
@@ -110,10 +121,12 @@ class WorkspaceDrawerItem extends Component {
           isActive ? classes.isActiveItem : null,
         ])}
         onClick={onClick}
-        onContextMenu={() => (
+        onContextMenu={() =>
           onContextMenuEditClick && contextMenu.popup(getCurrentWindow())
-        )}
-        data-tip={`${shortcutIndex <= 9 ? `(${ctrlKey}+Alt+${shortcutIndex})` : ''}`}
+        }
+        data-tip={`${
+          shortcutIndex <= 9 ? `(${ctrlKey}+Alt+${shortcutIndex})` : ''
+        }`}
       >
         <span
           className={classnames([
@@ -129,7 +142,9 @@ class WorkspaceDrawerItem extends Component {
             isActive ? classes.activeServices : null,
           ])}
         >
-          {services.length ? services.join(', ') : intl.formatMessage(messages.noServicesAddedYet)}
+          {services.length
+            ? services.join(', ')
+            : intl.formatMessage(messages.noServicesAddedYet)}
         </span>
       </div>
     );

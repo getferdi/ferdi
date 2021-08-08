@@ -11,9 +11,10 @@
   }
 }
 
-
 .franz-form {
-  .franz-form__radio-wrapper { display: flex; }
+  .franz-form__radio-wrapper {
+    display: flex;
+  }
 
   .franz-form__radio {
     border: 2px solid $theme-gray-lighter;
@@ -24,18 +25,24 @@
     margin-right: 20px;
     padding: 11px;
     text-align: center;
-    transition: background $theme-transition-time;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: background $theme-transition-time;
+    }
 
-    &:last-of-type { margin-right: 0; }
+    &:last-of-type {
+      margin-right: 0;
+    }
 
     &.is-selected {
-      background: #FFF;
+      background: #fff;
       border-width: 2px;
       border-style: solid;
       border-color: $theme-brand-primary;
       color: $theme-brand-primary;
     }
 
-    input { display: none; }
+    input {
+      display: none;
+    }
   }
 }

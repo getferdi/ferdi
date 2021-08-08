@@ -1,6 +1,8 @@
 @import './config.scss';
 
-html { overflow: hidden; }
+html {
+  overflow: hidden;
+}
 
 @keyframes pulse-danger {
   0% {
@@ -21,7 +23,7 @@ html { overflow: hidden; }
 
     &::after {
       box-shadow: inset 0 0 5px 0 $dark-theme-black,
-                  inset 0 0 2px 0 rgba(0, 0, 0, 0.4);
+        inset 0 0 2px 0 rgba(0, 0, 0, 0.4);
     }
 
     .sidebar__add-service {
@@ -48,12 +50,12 @@ html { overflow: hidden; }
         filter: grayscale(1);
       }
 
-      .update-available { 
+      .update-available {
         align-items: center;
         background: $theme-brand-danger;
         border-radius: 20px;
         bottom: 5px;
-        color: #FFF;
+        color: #fff;
         display: flex;
         justify-content: center;
         padding: 0px 5px;
@@ -71,7 +73,9 @@ html { overflow: hidden; }
     }
   }
 
-  .app-loader .app-loader__title { color: $dark-theme-gray-lightest; }
+  .app-loader .app-loader__title {
+    color: $dark-theme-gray-lightest;
+  }
 }
 
 body.win32:not(.isFullScreen) .app .app__content {
@@ -96,7 +100,9 @@ body.win32:not(.isFullScreen) .app .app__content {
   }
 }
 
-.electron-app-title-bar { z-index: 99999999; }
+.electron-app-title-bar {
+  z-index: 99999999;
+}
 
 .window-draggable {
   height: 22px;
@@ -109,7 +115,9 @@ body.win32:not(.isFullScreen) .app .app__content {
   -webkit-app-region: drag;
 }
 
-.darwin .sidebar { padding-top: 23px; }
+.darwin .sidebar {
+  padding-top: 23px;
+}
 
 .sidebar {
   position: relative;
@@ -133,8 +141,8 @@ body.win32:not(.isFullScreen) .app .app__content {
     z-index: 1000;
     pointer-events: none;
     clip-path: inset(10px 0 10px 10px);
-    box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, .12),
-                inset 0 0 2px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.12),
+      inset 0 0 2px 0 rgba(0, 0, 0, 0.24);
   }
 
   .sidebar__add-service {
@@ -154,16 +162,25 @@ body.win32:not(.isFullScreen) .app .app__content {
     width: $theme-sidebar-width;
 
     &:hover,
-    &:active { color: lighten($theme-gray-light, 10%); }
-    &.is-muted, &.is-active { color: $theme-brand-primary; }
-    &--new-service { padding-bottom: 6px; }
+    &:active {
+      color: lighten($theme-gray-light, 10%);
+    }
+    &.is-muted,
+    &.is-active {
+      color: $theme-brand-primary;
+    }
+    &--new-service {
+      padding-bottom: 6px;
+    }
   }
 
   & > div {
     display: flex;
     overflow-y: scroll;
 
-    &::-webkit-scrollbar { display: none; }
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
@@ -171,8 +188,12 @@ body.win32:not(.isFullScreen) .app .app__content {
   display: flex;
   flex-direction: row;
 
-  & > * { margin-right: 20px; }
-  & :last-child { margin-right: 0; }
+  & > * {
+    margin-right: 20px;
+  }
+  & :last-child {
+    margin-right: 0;
+  }
 }
 
 .app-loader {
@@ -181,19 +202,23 @@ body.win32:not(.isFullScreen) .app .app__content {
   justify-content: center;
 
   .app-loader__title {
-    color: #FFF;
+    color: #fff;
     font-size: 40px;
   }
 
-  & > span { height: auto; }
+  & > span {
+    height: auto;
+  }
 }
 
-.dev-warning { display: none; }
+.dev-warning {
+  display: none;
+}
 
 .isDevMode .dev-warning {
   border-radius: 3px;
   background: $theme-brand-warning;
-  color: #FFF;
+  color: #fff;
   display: block;
   font-size: 8px;
   height: auto;
@@ -201,12 +226,15 @@ body.win32:not(.isFullScreen) .app .app__content {
   position: fixed;
   left: 9px;
   bottom: 0px;
-  transition: opacity .5s ease;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 0.5s ease;
+  }
   width: auto;
   z-index: 999999999;
   pointer-events: none;
 }
 
-a, button {
+a,
+button {
   cursor: pointer;
 }

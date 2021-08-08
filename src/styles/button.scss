@@ -4,29 +4,45 @@
   background: $theme-brand-primary;
   color: $dark-theme-text-color;
 
-  &:hover { background: darken($theme-brand-primary, 5%); }
-  &:active { background: lighten($theme-brand-primary, 5%); }
+  &:hover {
+    background: darken($theme-brand-primary, 5%);
+  }
+  &:active {
+    background: lighten($theme-brand-primary, 5%);
+  }
 
   &.franz-form__button--secondary {
     background: $dark-theme-gray-dark;
     color: $dark-theme-text-color;
 
-    &:hover { background: lighten($dark-theme-gray-dark, 10%); }
-    &:active { background: lighten($dark-theme-gray-dark, 20%); }
+    &:hover {
+      background: lighten($dark-theme-gray-dark, 10%);
+    }
+    &:active {
+      background: lighten($dark-theme-gray-dark, 20%);
+    }
   }
 
   &.franz-form__button--danger {
     background: $theme-brand-danger;
 
-    &:hover { background: darken($theme-brand-danger, 5%); }
-    &:active { background: lighten($theme-brand-danger, 5%); }
+    &:hover {
+      background: darken($theme-brand-danger, 5%);
+    }
+    &:active {
+      background: lighten($theme-brand-danger, 5%);
+    }
   }
 
   &.franz-form__button--warning {
     background: $theme-brand-warning;
 
-    &:hover { background: darken($theme-brand-warning, 5%); }
-    &:active { background: lighten($theme-brand-warning, 5%); }
+    &:hover {
+      background: darken($theme-brand-warning, 5%);
+    }
+    &:active {
+      background: lighten($theme-brand-warning, 5%);
+    }
   }
 
   &.franz-form__button--inverted {
@@ -39,27 +55,35 @@
     }
   }
 
-  &:disabled { opacity: .5; }
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .franz-form__button {
   background: $theme-brand-primary;
   border-radius: 3px;
   display: block;
-  color: #FFF;
+  color: #fff;
   padding: 10px 20px;
   position: relative;
-  transition: background .5s;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background 0.5s;
+  }
   text-align: center;
 
-  &:hover { background: darken($theme-brand-primary, 5%) }
+  &:hover {
+    background: darken($theme-brand-primary, 5%);
+  }
 
   &:active {
     background: lighten($theme-brand-primary, 5%);
     transition: none;
   }
 
-  &:disabled { opacity: .2; }
+  &:disabled {
+    opacity: 0.2;
+  }
 
   &.franz-form__button--large {
     width: 100%;
@@ -70,22 +94,34 @@
     background: $theme-gray-lighter;
     color: $theme-gray;
 
-    &:hover { background: darken($theme-gray-lighter, 5%); }
-    &:active { background: lighten($theme-gray-lighter, 5%); }
+    &:hover {
+      background: darken($theme-gray-lighter, 5%);
+    }
+    &:active {
+      background: lighten($theme-gray-lighter, 5%);
+    }
   }
 
   &.franz-form__button--danger {
     background: $theme-brand-danger;
 
-    &:hover { background: darken($theme-brand-danger, 5%); }
-    &:active { background: lighten($theme-brand-danger, 5%); }
+    &:hover {
+      background: darken($theme-brand-danger, 5%);
+    }
+    &:active {
+      background: lighten($theme-brand-danger, 5%);
+    }
   }
 
   &.franz-form__button--warning {
     background: $theme-brand-warning;
 
-    &:hover { background: darken($theme-brand-warning, 5%); }
-    &:active { background: lighten($theme-brand-warning, 5%); }
+    &:hover {
+      background: darken($theme-brand-warning, 5%);
+    }
+    &:active {
+      background: lighten($theme-brand-warning, 5%);
+    }
   }
 
   &.franz-form__button--inverted {
@@ -93,11 +129,12 @@
     border: 2px solid $theme-brand-primary;
     color: $theme-brand-primary;
     padding: 10px 20px;
-    transition: background .5s, color .5s;
-
+    @media (prefers-reduced-motion: no-preference) {
+      transition: background 0.5s, color 0.5s;
+    }
     &:hover {
       background: darken($theme-brand-primary, 5%);
-      color: #FFF;
+      color: #fff;
     }
   }
 
@@ -122,20 +159,20 @@
   z-index: 9998;
   list-style: none;
   background: $theme-brand-primary;
-  
+
   position: absolute;
   bottom: 20px;
   right: 20px;
 
   cursor: pointer;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   a {
     font-size: 30px;
-    color: #FFFFFF;
-    cursor: pointer;  
+    color: #ffffff;
+    cursor: pointer;
   }
 }

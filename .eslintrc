@@ -119,6 +119,7 @@
     // eslint-plugin-react
     "react/forbid-prop-types": 1,
     "react/destructuring-assignment": 0,
+    "react/jsx-curly-newline": 0,
     "react/jsx-filename-extension": 1,
     "react/jsx-no-bind": 1,
     "react/jsx-props-no-spreading": 0,

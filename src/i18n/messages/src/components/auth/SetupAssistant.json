@@ -21,7 +21,7 @@
       "column": 15
     },
     "end": {
-      "line": 26,
+      "line": 27,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Let's go",
     "file": "src/components/auth/SetupAssistant.js",
     "start": {
-      "line": 27,
+      "line": 28,
       "column": 21
     },
     "end": {
-      "line": 30,
+      "line": 31,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Invitations sent successfully",
     "file": "src/components/auth/SetupAssistant.js",
     "start": {
-      "line": 31,
+      "line": 32,
       "column": 21
     },
     "end": {
-      "line": 34,
+      "line": 35,
       "column": 3
     }
   }

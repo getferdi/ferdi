@@ -2,9 +2,15 @@
 @import './mixins.scss';
 
 .theme__dark {
-  a { color: $dark-theme-gray-smoke; }
-  .label { color: $dark-theme-gray-lightest; }
-  .footnote { color: $dark-theme-gray-lightest; }
+  a {
+    color: $dark-theme-gray-smoke;
+  }
+  .label {
+    color: $dark-theme-gray-lightest;
+  }
+  .footnote {
+    color: $dark-theme-gray-lightest;
+  }
 }
 
 h1 {
@@ -21,36 +27,45 @@ h2 {
   margin-bottom: 25px;
   margin-top: 5px;
 
-  &:first-of-type { margin-top: 0; }
+  &:first-of-type {
+    margin-top: 0;
+  }
 }
 
 p {
   margin-bottom: 10px;
   line-height: 1.7rem;
 
-  &:last-of-type { margin-bottom: 0; }
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
-strong { font-weight: bold; }
+strong {
+  font-weight: bold;
+}
 
-a, button {
+a,
+button {
   color: $theme-text-color;
   text-decoration: none;
 
   &.button {
     background: $theme-brand-primary;
-    color: #FFF;
+    color: #fff;
     border-radius: 3px;
     display: inline-block;
     padding: 10px 20px;
     position: relative;
     text-align: center;
-    transition: background .5s, color .5s;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: background 0.5s, color 0.5s;
+    }
     cursor: pointer;
 
     &:hover {
       background: darken($theme-brand-primary, 10%);
-      color: #FFF;
+      color: #fff;
     }
   }
 
@@ -60,14 +75,19 @@ a, button {
   }
 }
 
-.error-message, .error-message:last-of-type {
+.error-message,
+.error-message:last-of-type {
   color: $theme-brand-danger;
   margin: 10px 0;
 }
 
-.center { text-align: center; }
+.center {
+  text-align: center;
+}
 
-.label { @include formLabel(); }
+.label {
+  @include formLabel();
+}
 
 .footnote {
   color: $theme-gray-light;

@@ -5,17 +5,23 @@
     color: $dark-theme-gray-lighter;
 
     &__action {
-      &-background { background: rgba($dark-theme-black, .7); }
+      &-background {
+        background: rgba($dark-theme-black, 0.7);
+      }
 
       button {
         color: $dark-theme-gray-lightest;
 
-        .mdi { color: $dark-theme-gray-lightest; }
+        .mdi {
+          color: $dark-theme-gray-lightest;
+        }
       }
     }
   }
 
-  .image-upload-wrapper .mdi { color: $dark-theme-gray-light; }
+  .image-upload-wrapper .mdi {
+    color: $dark-theme-gray-light;
+  }
 }
 
 .image-upload {
@@ -49,11 +55,13 @@
     justify-content: center;
     opacity: 0;
     position: relative;
-    transition: opacity .5s;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: opacity 0.5s;
+    }
     z-index: 10;
 
     &-background {
-      background: rgba($theme-gray, .7);
+      background: rgba($theme-gray, 0.7);
       bottom: 0;
       left: 0;
       position: absolute;
@@ -63,11 +71,13 @@
     }
 
     button {
-      color: #FFF;
+      color: #fff;
       position: relative;
       z-index: 100;
 
-      .mdi { color: #FFF; }
+      .mdi {
+        color: #fff;
+      }
     }
   }
 
@@ -83,7 +93,9 @@
 
   &__dropzone,
   button {
-    .mdi { margin-bottom: 5px; }
+    .mdi {
+      margin-bottom: 5px;
+    }
 
     p {
       font-size: 10px;
@@ -91,7 +103,9 @@
     }
   }
 
-  &:hover .image-upload__action { opacity: 1; }
+  &:hover .image-upload__action {
+    opacity: 1;
+  }
 }
 
 .image-upload-wrapper .mdi {
