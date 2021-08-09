@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Копіювати інформацію для налагодження",
   "menu.help.debugInfoCopiedBody": "Your Debug Information has been copied to your clipboard.",
   "menu.help.debugInfoCopiedHeadline": "Інформація для відладки",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Докладніше",
   "menu.help.privacy": "Заява про конфіденційність",
   "menu.help.publishDebugInfo": "Publish Debug Information",

@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "העתק פרטי ניפוי שגיאות",
   "menu.help.debugInfoCopiedBody": "פרטי ניקוי השגיאות הועתקו בהצלחה ללוח.",
   "menu.help.debugInfoCopiedHeadline": "פרטי ניקוי השגיאות של פרדי",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "למידע נוסף",
   "menu.help.privacy": "הצהרת פרטיות",
   "menu.help.publishDebugInfo": "פרסם את פרטי ניפוי השגיאות",

@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Kopioi virheraportin tiedot",
   "menu.help.debugInfoCopiedBody": "Virheraportin tiedot on kopioitu leikepöydälle.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi virheraportin tiedot",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Lue lisää",
   "menu.help.privacy": "Tietosuojalauseke",
   "menu.help.publishDebugInfo": "Julkaise virheraportin tiedot",

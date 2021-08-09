@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "複製除錯資訊",
   "menu.help.debugInfoCopiedBody": "Your Debug Information has been copied to your clipboard.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi Debug Information",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "了解更多",
   "menu.help.privacy": "隱私聲明",
   "menu.help.publishDebugInfo": "Publish Debug Information",

@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Hata ayıklama bilgisini kopyala",
   "menu.help.debugInfoCopiedBody": "Hata ayıklama bilgilerin panoya kopyalandı.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi Hata Ayıklama Bilgisi",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Daha Fazlasını Öğrenin",
   "menu.help.privacy": "Gizlilik Sözleşmesi",
   "menu.help.publishDebugInfo": "Publish Debug Information",

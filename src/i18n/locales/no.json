@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Kopier feilsøkingsinformasjon",
   "menu.help.debugInfoCopiedBody": "Din feilsøkingsinformasjon har blitt kopiert til utklippstavlen.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi feilsøkingsinformasjon",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Finn ut mer",
   "menu.help.privacy": "Personvernerklæring",
   "menu.help.publishDebugInfo": "Publiser feilsøkingsinformasjon",

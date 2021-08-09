@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Kopiera felsökningsinformation",
   "menu.help.debugInfoCopiedBody": "Din felsökningsinformation har kopierats till ditt urklipp.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi felsökningsinformation",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Läs mer",
   "menu.help.privacy": "Integritetspolicy",
   "menu.help.publishDebugInfo": "Skicka felsökningsinformation",

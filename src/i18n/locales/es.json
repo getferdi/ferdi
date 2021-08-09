@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Copiar información de depuración",
   "menu.help.debugInfoCopiedBody": "Tu información de depuración ha sido copiada a tu portapapeles",
   "menu.help.debugInfoCopiedHeadline": "Información de depurador de Ferdi",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Conocer más",
   "menu.help.privacy": "Declaración de privacidad",
   "menu.help.publishDebugInfo": "Escribir información de depuración",

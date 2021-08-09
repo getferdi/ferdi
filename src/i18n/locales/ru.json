@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Скопировать отладочную информацию",
   "menu.help.debugInfoCopiedBody": "Ваша информация отладки была скопирована в буфер обмена.",
   "menu.help.debugInfoCopiedHeadline": "Отладочная информация Ferdi",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Подробнее",
   "menu.help.privacy": "Политика конфиденциальности",
   "menu.help.publishDebugInfo": "Publish Debug Information",

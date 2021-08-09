@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "디버그 정보 복사",
   "menu.help.debugInfoCopiedBody": "디버그 정보가 클립보드에 복사되었습니다.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi 디버그 정보",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "자세히 보기",
   "menu.help.privacy": "개인정보보호정책",
   "menu.help.publishDebugInfo": "디버깅 정보 공개",

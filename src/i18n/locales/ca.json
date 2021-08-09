@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Copia la informació de depuració",
   "menu.help.debugInfoCopiedBody": "La informació de depuració s'ha copiat al porta-retalls.",
   "menu.help.debugInfoCopiedHeadline": "Informació de depuració de Ferdi",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Conegueu-ne més detalls",
   "menu.help.privacy": "Declaració de privacitat",
   "menu.help.publishDebugInfo": "Publicar informació de depuració",

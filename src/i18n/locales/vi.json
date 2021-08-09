@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Sao chép thông tin gỡ lỗi",
   "menu.help.debugInfoCopiedBody": "Thông tin sản phẩm đã được sao chép vào bộ nhớ tạm của bạn.",
   "menu.help.debugInfoCopiedHeadline": "Thông tin gỡ lỗi",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Tìm Hiểu Thêm",
   "menu.help.privacy": "Privacy Statement",
   "menu.help.publishDebugInfo": "Gửi thông tin gỡ lỗi",

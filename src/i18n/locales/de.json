@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Debugging-Information anzeigen",
   "menu.help.debugInfoCopiedBody": "Deine Debugging-Information wurde in die Zwischenablage kopiert.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi Debugging-Information",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Mehr erfahren",
   "menu.help.privacy": "Datenschutzerklärung",
   "menu.help.publishDebugInfo": "Debug-Informationen veröffentlichen",

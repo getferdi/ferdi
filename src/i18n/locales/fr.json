@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Copier les informations de Debug",
   "menu.help.debugInfoCopiedBody": "Les informations de Debug ont été copié dans votre presse-papier.",
   "menu.help.debugInfoCopiedHeadline": "Information de Debug de Ferdi",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "En savoir plus",
   "menu.help.privacy": "Déclaration de confidentialité",
   "menu.help.publishDebugInfo": "Publier les informations de débogage",

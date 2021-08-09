@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "デバッグ情報をコピー",
   "menu.help.debugInfoCopiedBody": "デバッグ情報をクリップボードにコピーしました。",
   "menu.help.debugInfoCopiedHeadline": "Ferdiデバッグ情報",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Ferdiについて",
   "menu.help.privacy": "プライバシーについて",
   "menu.help.publishDebugInfo": "デバッグ情報の公開",

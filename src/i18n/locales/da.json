@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Kopier fejlfindingsoplysninger",
   "menu.help.debugInfoCopiedBody": "Dine fejlfindingsoplysninger er blevet kopieret til udklipsholderen.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi fejlfindingsoplysninger",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Få mere at vide",
   "menu.help.privacy": "Privatlivspolitik",
   "menu.help.publishDebugInfo": "Udgiv fejlfindingsoplysninger",

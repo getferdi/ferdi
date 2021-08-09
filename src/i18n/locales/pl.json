@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Kopiuj dane diagnostyczne",
   "menu.help.debugInfoCopiedBody": "Dane diagnostyczne zostały skopiowane do schowka.",
   "menu.help.debugInfoCopiedHeadline": "Dane diagnostyczne",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Dowiedz się więcej",
   "menu.help.privacy": "Polityka prywatności",
   "menu.help.publishDebugInfo": "Opublikuj dane diagnostyczne",

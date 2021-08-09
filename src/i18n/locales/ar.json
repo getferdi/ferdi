@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "نسخ معلومات تصحيح الأخطاء",
   "menu.help.debugInfoCopiedBody": "تم نسخ معلومات تصحيح الأخطاء الخاصة بك إلى الحافظة.",
   "menu.help.debugInfoCopiedHeadline": "معلومات تصحيح الأخطاء لفردي",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "معرفة المزيد",
   "menu.help.privacy": "بيان الخصوصية",
   "menu.help.publishDebugInfo": "نشر معلومات تصحيح الأخطاء",

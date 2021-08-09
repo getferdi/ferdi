@@ -112,6 +112,7 @@
   "menu.help.debugInfo": "Hibajelentés másolása",
   "menu.help.debugInfoCopiedBody": "A Hibajelentést a vágólapra másoltuk.",
   "menu.help.debugInfoCopiedHeadline": "Ferdi Hibajelentés",
+  "menu.help.importExportData": "Import/Export Configuration Data",
   "menu.help.learnMore": "Tudjon meg többet",
   "menu.help.privacy": "Adatvédelmi Nyilatkozatot",
   "menu.help.publishDebugInfo": "Publish Debug Information",
