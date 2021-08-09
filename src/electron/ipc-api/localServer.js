@@ -1,10 +1,8 @@
 import { ipcMain } from 'electron';
 import net from 'net';
-import { LOCAL_HOSTNAME } from '../../config';
+import { LOCAL_HOSTNAME, LOCAL_PORT } from '../../config';
 import { userDataPath } from '../../environment';
 import startServer from '../../internal-server/start';
-
-const DEFAULT_PORT = 45569;
 
 const portInUse = function (port) {
   return new Promise((resolve) => {
@@ -30,10 +28,10 @@ export default (params) => {
   ipcMain.on('startLocalServer', () => {
     if (!localServerStarted) {
       // Find next unused port for server
-      let port = DEFAULT_PORT;
+      let port = LOCAL_PORT;
       (async () => {
         // eslint-disable-next-line no-await-in-loop
-        while ((await portInUse(port)) && port < DEFAULT_PORT + 10) {
+        while ((await portInUse(port)) && port < LOCAL_PORT + 10) {
           port += 1;
         }
         console.log('Starting local server on port', port);

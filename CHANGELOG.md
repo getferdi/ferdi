@@ -1,10 +1,12 @@
 # [v5.6.1-nightly.20](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.19...v5.6.1-nightly.20) (2021-08-10)
 
+- Added a new menu entry (Help > Browse Server) to allow the user to quickly navigate and import/export configuration data 💖 @vraravam
+
 ### Bug Fixes
 
 - Use electron's API to enable/disable spell-check when the app starts up (#1743) 💖 @vraravam
 
-### Internal Changes
+### Internal
 
 - Upgraded `electron-builder` to `22.12.0` 💖 @vraravam
 
@@ -14,7 +16,7 @@
 
 - Fix the changelog api to handle nightly builds 💖 @vraravam
 
-### Internal Changes
+### Internal
 
 - Remove unused setting, add debug stmt. 💖 @vraravam
 - Fix issue with hidden db migration 💖 @vraravam
@@ -23,7 +25,7 @@
 
 # [v5.6.1-nightly.18](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.17...v5.6.1-nightly.18) (2021-08-08)
 
-### Internal Changes
+### Internal
 
 [Perf] Path-references refactoring and using 'import' instead of 'require' 💖 @vraravam
 
@@ -69,7 +71,6 @@
 - [Cleanup] Moved 'internal-server' into a sub-folder as opposed to a git submodule. 💖 @vraravam
 - Minor visual refactoring to hide double separator. [skip ci] 💖 @vraravam
 - Fixed #1717: Turned on ToDo feature. 💖 @vraravam
-
 
 ## [5.6.1-nightly.10](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.9...v5.6.1-nightly.10) (2021-08-01)
 

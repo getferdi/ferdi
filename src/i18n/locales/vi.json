@@ -180,7 +180,7 @@
   "service.webviewLoader.loading": "Đang tải {service}",
   "services.getStarted": "Bắt đầu",
   "services.login": "Vui lòng đăng nhập để sử dụng Ferdi.",
-  "services.serverInfo": "Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner.",
+  "services.serverInfo": "Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner. If you are switching over (from one of the hosted servers) to using Ferdi without an account, please be informed that you can export your data from that server and subsequently import it using the Help menu to resurrect all your workspaces and configured services!",
   "services.serverless": "Sử dụng Ferdi không cần Đăng nhập Tài khoản",
   "services.welcome": "Chào mừng bạn đến với Ferdi",
   "settings.account.account.editButton": "Chỉnh sửa Tài khoản",

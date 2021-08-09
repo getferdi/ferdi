@@ -14,7 +14,7 @@ import { todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { workspaceActions } from '../features/workspaces/actions';
 import { workspaceStore } from '../features/workspaces/index';
-import { termsBase } from '../api/apiBase';
+import apiBase, { termsBase } from '../api/apiBase';
 
 const menuItems = defineMessages({
   edit: {
@@ -152,6 +152,10 @@ const menuItems = defineMessages({
   changelog: {
     id: 'menu.help.changelog',
     defaultMessage: '!!!Changelog',
+  },
+  importExportData: {
+    id: 'menu.help.importExportData',
+    defaultMessage: '!!!Import/Export Configuration Data',
   },
   support: {
     id: 'menu.help.support',
@@ -515,6 +519,11 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.changelog),
         click() { shell.openExternal(`${GITHUB_FERDI_URL}/ferdi/blob/master/CHANGELOG.md`); },
+      },
+      {
+        label: intl.formatMessage(menuItems.importExportData),
+        click() { shell.openExternal(apiBase(false)); },
+        enabled: !locked,
       },
       {
         type: 'separator',
