@@ -271,7 +271,7 @@
   "settings.app.restartRequired": "Zmiany wymagają ponownego uruchomienia",
   "settings.app.scheduledDNDInfo": "Zaplanowanie trybu Nie przeszkadzać umożliwia określić czas, gdy nie chcesz otrzymywać powiadomień z Ferdi.",
   "settings.app.scheduledDNDTimeInfo": "Przedział czasu w formacie 24-godzinnym. Czas zakończenia ustawiony przed czasem rozpoczęcia (np. od 17:00 do 9:00) pozwoli na działanie trybu Nie przeszkadzać przez noc.",
-  "settings.app.sentryInfo": "Wysyłanie danych telemetrii pozwala nam znaleźć błędy w Ferdi - żadne dane personalne, takie jak dane wiadomości, nie są wysyłane! Zmiana tej opcji wymaga ponownego uruchomienia Ferdi.",
+  "settings.app.sentryInfo": "Wysyłanie danych telemetrii pozwala nam znaleźć błędy w Ferdi - żadne dane personalne, takie jak dane wiadomości, nie są wysyłane!",
   "settings.app.spellCheckerLanguageInfo": "Ferdi używa sprawdzania pisowni wbudowanego w Twojego Maca do sprawdzania pomyłek. Aby zmienić języki ze sprawdzaniem pisowni, przejdź do Preferencji systemowych swojego Maca.",
   "settings.app.subheadlineCache": "Pamięć podręczna",
   "settings.app.todoServerInfo": "This server will be used for the \"Ferdi Todo\" feature.",

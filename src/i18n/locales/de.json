@@ -271,7 +271,7 @@
   "settings.app.restartRequired": "Änderungen werden erst nach einem Neustart wirksam.",
   "settings.app.scheduledDNDInfo": "Die geplante \"Nicht-stören\"-Funktion erlaubt es dir eine Zeitspanne festzulegen, in der du keine Benachrichtigungen von Ferdi erhalten möchtest.",
   "settings.app.scheduledDNDTimeInfo": "Zeiten im 24-Stunden-Format (z.B. 18:00). Endzeit kann vor Beginn der Startzeit sein (z.B. 17:00 Uhr, Ende 09:00), um die Funktion über Nacht zu aktivieren.",
-  "settings.app.sentryInfo": "Das Senden von Telemetrie-Daten ermöglicht es uns, Fehler in Ferdi zu finden - wir werden keine persönlichen Informationen wie deine Nachrichten versenden! Ändern dieser Option erfordert einen Neustart von Ferdi.",
+  "settings.app.sentryInfo": "Das Senden von Telemetrie-Daten ermöglicht es uns, Fehler in Ferdi zu finden - wir werden keine persönlichen Informationen wie deine Nachrichten versenden!",
   "settings.app.spellCheckerLanguageInfo": "Ferdi verwendet den eingebauten Rechtschreibprüfer deines Macs, um nach Tippfehlern zu suchen. Wenn du die zu überprüfenden Sprachen ändern möchtest, kannst du das in deinen Systemeinstellungen tun.",
   "settings.app.subheadlineCache": "Cache",
   "settings.app.todoServerInfo": "Dieser Server wird für die \"Ferdi Todo\"-Funktion verwendet.",

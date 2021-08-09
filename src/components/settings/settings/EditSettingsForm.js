@@ -30,7 +30,7 @@ const messages = defineMessages({
   },
   sentryInfo: {
     id: 'settings.app.sentryInfo',
-    defaultMessage: '!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data! Changing this option requires you to restart Ferdi.',
+    defaultMessage: '!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data!',
   },
   hibernateInfo: {
     id: 'settings.app.hibernateInfo',
@@ -502,8 +502,12 @@ export default @observer class EditSettingsForm extends Component {
                 <Hr />
 
                 <Select field={form.$('searchEngine')} />
+
+                <Hr />
+
                 <Toggle field={form.$('sentry')} />
-                <p>{intl.formatMessage(messages.sentryInfo)}</p>
+                <p className="settings__help">{intl.formatMessage(messages.sentryInfo)}</p>
+                <p className="settings__help">{intl.formatMessage(messages.appRestartRequired)}</p>
 
                 <Hr />
 
@@ -564,8 +568,11 @@ export default @observer class EditSettingsForm extends Component {
                   <Select field={form.$('spellcheckerLanguage')} />
                 )}
                 {isMac && form.$('enableSpellchecking').value && (
-                  <p>{intl.formatMessage(messages.spellCheckerLanguageInfo)}</p>
+                  <p className="settings__help">{intl.formatMessage(messages.spellCheckerLanguageInfo)}</p>
                 )}
+                <p className="settings__help">{intl.formatMessage(messages.appRestartRequired)}</p>
+
+                <Hr />
 
                 <a
                   href={FRANZ_TRANSLATION}

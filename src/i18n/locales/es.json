@@ -271,7 +271,7 @@
   "settings.app.restartRequired": "Los cambios requieren reiniciar",
   "settings.app.scheduledDNDInfo": "El \"No molestar\" programado permite definir un período de tiempo en el que no recibir notificaciones de Ferdi.",
   "settings.app.scheduledDNDTimeInfo": "Horas en formato 24 horas. La hora de finalización puede ser anterior a la hora de inicio (por ejemplo, inicio 17:00, final 09:00) para habilitar No molestar la noche.",
-  "settings.app.sentryInfo": "El envío de datos de telemetría nos permite encontrar errores en Ferdi - no enviaremos ninguna información personal como sus datos de mensaje! Cambiar esta opción requiere reiniciar Ferdi.",
+  "settings.app.sentryInfo": "El envío de datos de telemetría nos permite encontrar errores en Ferdi - no enviaremos ninguna información personal como sus datos de mensaje!",
   "settings.app.spellCheckerLanguageInfo": "Ferdi utiliza el corrector ortográfico incluido en su Mac. Si desea cambiar los lenguajes que el corrector ortográfico revisa, lo puede hacer en las Preferencias del Sistema de su Mac.",
   "settings.app.subheadlineCache": "Caché",
   "settings.app.todoServerInfo": "Este servidor se utilizará para la función \"Ferdi Todo\".",

@@ -271,7 +271,7 @@
   "settings.app.restartRequired": "Muutokset vaativat uudelleenkäynnistyksen",
   "settings.app.scheduledDNDInfo": "Ajastetun Älä häiritse-tilan avulla voit määritellä ajanjakson, jonka aikana et halua saada ilmoituksia Ferdistä.",
   "settings.app.scheduledDNDTimeInfo": "Ajastin 24 tunnin järjestelmässä. Kun Älä häiritse-tila otetaan yöksi käyttöön, päättymisaika voi olla ennen alkamisaikaa (esim. alku 17:00, loppu 09:00).",
-  "settings.app.sentryInfo": "Telemetriatiedon lähettäminen antaa meille mahdollisuudet löytää virheitä Ferdistä - emme lähetä mitään henkilökohtaisia tietoja, kuten viestitietoja! Tämän vaihtoehdon muuttaminen edellyttää, että käynnistät Ferdin uudelleen.",
+  "settings.app.sentryInfo": "Telemetriatiedon lähettäminen antaa meille mahdollisuudet löytää virheitä Ferdistä - emme lähetä mitään henkilökohtaisia tietoja, kuten viestitietoja!",
   "settings.app.spellCheckerLanguageInfo": "Ferdi käyttää Macin sisäänrakennettua oikolukua tarkastaessaan kirjoitusvirheitä. Jos haluat muuttaa tarkastettavaa kieltä, voit tehdä sen Macin järjestelmän asetuksissa.",
   "settings.app.subheadlineCache": "Välimuisti",
   "settings.app.todoServerInfo": "Tätä palvelinta käytetään \"Ferdi Todo\" -toiminnossa.",

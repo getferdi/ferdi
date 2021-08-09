@@ -27,7 +27,7 @@
   },
   {
     "id": "settings.app.sentryInfo",
-    "defaultMessage": "!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data! Changing this option requires you to restart Ferdi.",
+    "defaultMessage": "!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data!",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 31,

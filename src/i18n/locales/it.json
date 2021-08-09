@@ -271,7 +271,7 @@
   "settings.app.restartRequired": "Le modifiche richiedono un riavvio",
   "settings.app.scheduledDNDInfo": "I Do-not-Disturb pianificati consentono di definire un periodo di tempo nel quale le notifiche da Ferdi saranno disabilitate.",
   "settings.app.scheduledDNDTimeInfo": "Ora in formato 24 ore. L'ora di fine può essere prima dell'ora di inizio (ad esempio inizio 17:00, fine 09:00) per abilitare Do-not-Disturb durante la notte.",
-  "settings.app.sentryInfo": "L'invio dei dati di telemetria ci permette di trovare errori in Ferdi - non invieremo alcuna informazione personale come i tuoi dati dei messaggi! La modifica di questa opzione richiede il riavvio di Ferdi.",
+  "settings.app.sentryInfo": "L'invio dei dati di telemetria ci permette di trovare errori in Ferdi - non invieremo alcuna informazione personale come i tuoi dati dei messaggi!",
   "settings.app.spellCheckerLanguageInfo": "Ferdi utilizza il controllo ortografico del tuo Mac per verificare la presenza di errori. Se si desidera modificare le lingue del controllo ortografico, è possibile farlo nelle preferenze di sistema del vostro Mac.",
   "settings.app.subheadlineCache": "Cache",
   "settings.app.todoServerInfo": "Questo server verrà usato per le funzionalità 'Ferdi Todo'.",

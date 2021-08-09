@@ -271,7 +271,7 @@
   "settings.app.restartRequired": "Essa alteração requer uma reinicialização",
   "settings.app.scheduledDNDInfo": "O modo Não perturbe agendado permite definir um período de tempo em que você não deseja receber notificações do Ferdi.",
   "settings.app.scheduledDNDTimeInfo": "Horários no formato de 24 horas. O horário de término pode ser anterior ao horário de início (por exemplo, início às 17:00 e término às 09:00) para ativar a opção Não perturbe da noite para o dia.",
-  "settings.app.sentryInfo": "O envio de dados de telemetria nos permite encontrar erros no Ferdi. Não enviaremos nenhuma informação pessoal como seus dados de mensagem! Alterar esta opção requer que você reinicie o Ferdi.",
+  "settings.app.sentryInfo": "O envio de dados de telemetria nos permite encontrar erros no Ferdi. Não enviaremos nenhuma informação pessoal como seus dados de mensagem!",
   "settings.app.spellCheckerLanguageInfo": "O Ferdi utiliza o corretor ortográfico integrado do Mac para verificar se há erros de digitação. Se quiser alterar os idiomas que o corretor ortográfico verifica, você pode fazer isso nas Preferências do Sistema do Mac.",
   "settings.app.subheadlineCache": "Memória Cache",
   "settings.app.todoServerInfo": "Este servidor será usado para o recurso \"Tarefas do Ferdi\".",

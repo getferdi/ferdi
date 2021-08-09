@@ -271,7 +271,7 @@
   "settings.app.restartRequired": "Ændringer kræver genstart",
   "settings.app.scheduledDNDInfo": "Planlagt Forstyr ikke giver dig mulighed for at definere et tidsrum, hvor du ikke ønsker at få meddelelser fra Ferdi.",
   "settings.app.scheduledDNDTimeInfo": "Tider er i 24-timer format. Sluttidspunktet kan være før starttidspunktet (f.eks. fra 17:00 til 09:00) for at aktivere Forstyr ikke natten over.",
-  "settings.app.sentryInfo": "At sende telemetri data hjælper os med at finde fejl i Ferdi - vi vil ikke sende nogen personlige oplysninger så som dine besked data! Ændring af denne indstilling kræver, at du genstarter Ferdi.",
+  "settings.app.sentryInfo": "At sende telemetri data hjælper os med at finde fejl i Ferdi - vi vil ikke sende nogen personlige oplysninger så som dine besked data!",
   "settings.app.spellCheckerLanguageInfo": "Ferdi bruger din Macs indbyggede stavekontrol. Hvis du ønsker at ændre de sprog, stavekontrollen kontrollerer for, kan du gøre det i din Macs systemindstillinger.",
   "settings.app.subheadlineCache": "Cache",
   "settings.app.todoServerInfo": "Denne server vil blive brugt til funktionen \"Ferdi Todo\".",

@@ -271,7 +271,7 @@
   "settings.app.restartRequired": "Endringer krever omstart",
   "settings.app.scheduledDNDInfo": "Planlagt ikke-forstyrr lar deg definere en tidsperiode hvor du ikke vil få varsler fra Ferdi.",
   "settings.app.scheduledDNDTimeInfo": "Tider i 24-Hour-Format. Sluttiden kan være før starttiden (f.eks start 17:00, slutt 09:00) for å aktivere ikke-forstyrr over natten.",
-  "settings.app.sentryInfo": "Å sende telemetridata lar oss finne feil i Ferdi - vi vil ikke sende noen personlig informasjon som dine meldingsdata! Endring av dette valget krever at du starter om Ferdi.",
+  "settings.app.sentryInfo": "Å sende telemetridata lar oss finne feil i Ferdi - vi vil ikke sende noen personlig informasjon som dine meldingsdata!",
   "settings.app.spellCheckerLanguageInfo": "Ferdi bruker Mac'en sin innebygde stavekontroll, for å se etter skrivefeil. Hvis du vil endre språket på stavekontrollen, så kan du gjøre det under Mac'ens system-innstillinger.",
   "settings.app.subheadlineCache": "Hurtiglager",
   "settings.app.todoServerInfo": "Denne tjeneren vil ble brukt for \"Ferdi gjøremål\" funksjonen.",
