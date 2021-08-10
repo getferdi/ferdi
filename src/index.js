@@ -190,6 +190,7 @@ const createWindow = () => {
     show: false,
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
+    spellcheck: settings.get('enableSpellchecking'),
     backgroundColor,
     webPreferences: {
       nodeIntegration: true,
@@ -391,10 +392,10 @@ app.on('ready', () => {
   enforceMacOSAppLocation();
 
   // Register App URL
-  app.setAsDefaultProtocolClient('ferdi');
-
   if (isDevMode) {
     app.setAsDefaultProtocolClient('ferdi-dev');
+  } else {
+    app.setAsDefaultProtocolClient('ferdi');
   }
 
   if (isWindows) {

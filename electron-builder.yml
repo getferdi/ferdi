@@ -44,7 +44,7 @@ win:
       arch: [x64, ia32]
     - target: portable
       arch: [x64, ia32]
-  publisherName: 'Amine Mouafik'
+  publisherName: "Amine Mouafik"
 
 linux:
   icon: ./build-helpers/images/icons
@@ -59,6 +59,11 @@ linux:
     - target: tar.gz
     - target: rpm
     - target: freebsd
+    - target: snap
+
+snap:
+  publish:
+    provider: "snapStore"
 
 nsis:
   perMachine: false

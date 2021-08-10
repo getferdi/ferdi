@@ -1,6 +1,6 @@
 import { getCurrentWebContents } from '@electron/remote';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
-import { isMac } from '../environment';
+import { DEFAULT_APP_SETTINGS, isMac } from '../environment';
 
 const debug = require('debug')('Ferdi:spellchecker');
 
@@ -33,7 +33,7 @@ export function switchDict(locale) {
     locales.push(foundLocale);
   }
 
-  locales.push(defaultLocale, 'de');
+  locales.push(defaultLocale, DEFAULT_APP_SETTINGS.fallbackLocale);
 
   webContents.session.setSpellCheckerLanguages(locales);
 }

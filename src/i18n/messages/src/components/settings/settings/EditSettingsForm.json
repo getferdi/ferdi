@@ -27,7 +27,7 @@
   },
   {
     "id": "settings.app.sentryInfo",
-    "defaultMessage": "!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data! Changing this option requires you to restart Ferdi.",
+    "defaultMessage": "!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data!",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 31,
@@ -105,7 +105,7 @@
   },
   {
     "id": "settings.app.lockInfo",
-    "defaultMessage": "!!!Password Lock allows you to keep your messages protected.\nUsing Password Lock, you will be prompted to enter your password everytime you start Ferdi or lock Ferdi yourself using the lock symbol in the bottom left corner or the shortcut CMD/CTRL+Shift+L.",
+    "defaultMessage": "!!!Password Lock allows you to keep your messages protected.\nUsing Password Lock, you will be prompted to enter your password everytime you start Ferdi or lock Ferdi yourself using the lock symbol in the bottom left corner or the shortcut {lockShortcut}.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 55,

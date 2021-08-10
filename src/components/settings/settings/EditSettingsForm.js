@@ -1,5 +1,5 @@
 import { app, systemPreferences } from '@electron/remote';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import prettyBytes from 'pretty-bytes';
@@ -16,7 +16,7 @@ import {
   FRANZ_TRANSLATION,
   GITHUB_FRANZ_URL,
 } from '../../../config';
-import { DEFAULT_APP_SETTINGS, isMac, isWindows } from '../../../environment';
+import { DEFAULT_APP_SETTINGS, isMac, isWindows, lockFerdiShortcutKey } from '../../../environment';
 import globalMessages from '../../../i18n/globalMessages';
 
 const messages = defineMessages({
@@ -30,7 +30,7 @@ const messages = defineMessages({
   },
   sentryInfo: {
     id: 'settings.app.sentryInfo',
-    defaultMessage: '!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data! Changing this option requires you to restart Ferdi.',
+    defaultMessage: '!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data!',
   },
   hibernateInfo: {
     id: 'settings.app.hibernateInfo',
@@ -54,7 +54,7 @@ const messages = defineMessages({
   },
   lockInfo: {
     id: 'settings.app.lockInfo',
-    defaultMessage: '!!!Password Lock allows you to keep your messages protected.\nUsing Password Lock, you will be prompted to enter your password everytime you start Ferdi or lock Ferdi yourself using the lock symbol in the bottom left corner or the shortcut CMD/CTRL+Shift+L.',
+    defaultMessage: '!!!Password Lock allows you to keep your messages protected.\nUsing Password Lock, you will be prompted to enter your password everytime you start Ferdi or lock Ferdi yourself using the lock symbol in the bottom left corner or the shortcut {lockShortcut}.',
   },
   scheduledDNDTimeInfo: {
     id: 'settings.app.scheduledDNDTimeInfo',
@@ -502,8 +502,12 @@ export default @observer class EditSettingsForm extends Component {
                 <Hr />
 
                 <Select field={form.$('searchEngine')} />
+
+                <Hr />
+
                 <Toggle field={form.$('sentry')} />
-                <p>{intl.formatMessage(messages.sentryInfo)}</p>
+                <p className="settings__help">{intl.formatMessage(messages.sentryInfo)}</p>
+                <p className="settings__help">{intl.formatMessage(messages.appRestartRequired)}</p>
 
                 <Hr />
 
@@ -544,7 +548,7 @@ export default @observer class EditSettingsForm extends Component {
                   }}
                 >
                   <span>
-                    { intl.formatMessage(messages.lockInfo) }
+                    { intl.formatMessage(messages.lockInfo, { lockShortcut: `${lockFerdiShortcutKey(false)}` }) }
                   </span>
                 </p>
               </div>
@@ -564,8 +568,11 @@ export default @observer class EditSettingsForm extends Component {
                   <Select field={form.$('spellcheckerLanguage')} />
                 )}
                 {isMac && form.$('enableSpellchecking').value && (
-                  <p>{intl.formatMessage(messages.spellCheckerLanguageInfo)}</p>
+                  <p className="settings__help">{intl.formatMessage(messages.spellCheckerLanguageInfo)}</p>
                 )}
+                <p className="settings__help">{intl.formatMessage(messages.appRestartRequired)}</p>
+
+                <Hr />
 
                 <a
                   href={FRANZ_TRANSLATION}

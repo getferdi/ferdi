@@ -9,6 +9,7 @@ const btoa = require('btoa');
 const fetch = require('node-fetch');
 const uuid = require('uuid/v4');
 const crypto = require('crypto');
+const { DEFAULT_APP_SETTINGS } = require('../../../../environment');
 
 const apiRequest = (url, route, method, auth) => new Promise((resolve, reject) => {
   const base = `${url}/v1/`;
@@ -92,7 +93,7 @@ class UserController {
       id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
       isSubscriptionOwner: true,
       lastname: 'Application',
-      locale: 'en-US',
+      locale: DEFAULT_APP_SETTINGS.fallbackLocale,
       ...settings || {},
     });
   }
@@ -128,7 +129,7 @@ class UserController {
         id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
         isSubscriptionOwner: true,
         lastname: 'Application',
-        locale: 'en-US',
+        locale: DEFAULT_APP_SETTINGS.fallbackLocale,
         ...newSettings,
       },
       status: [
