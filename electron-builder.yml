@@ -59,7 +59,6 @@ linux:
     - target: tar.gz
     - target: rpm
     - target: freebsd
-    - target: snap
 
 nsis:
   perMachine: false
