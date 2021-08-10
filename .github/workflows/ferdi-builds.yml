@@ -190,7 +190,7 @@ jobs:
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
           echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
           echo "SKIP_NOTARIZATION=${{ !contains(github.repository_owner, 'getferdi') }}" >> $GITHUB_ENV
-          echo "PACKAGE_VERSION=${{ node -p "require('./package.json').version" }}" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
       - name: Checkout code along with submodules for the 'nightly' branch if the trigger event is 'scheduled' or this is a forced rebuild on the nightly branch
         uses: actions/checkout@v2
         if: ${{ github.event_name == 'schedule' || env.MANUAL_REBUILD_ON_NIGHTLY == 'true' }}
