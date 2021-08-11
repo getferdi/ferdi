@@ -38,7 +38,7 @@ interface IProps extends IFormField, IWithStyle {
 let buttonTransition: string = 'none';
 let loaderContainerTransition: string = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
   buttonTransition = 'background .5s, opacity 0.3s';
   loaderContainerTransition = 'all 0.3s';
 }

@@ -17,7 +17,7 @@ const messages = defineMessages({
 
 let wrapperTransition = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
   wrapperTransition = 'width 0.5s ease';
 }
 

@@ -20,7 +20,7 @@ const messages = defineMessages({
 
 let itemTransition = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
   itemTransition = 'background-color 300ms ease-out';
 }
 

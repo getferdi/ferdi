@@ -19,7 +19,7 @@ interface IProps
 
 let buttonTransition: string = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
   buttonTransition = 'all .5s';
 }
 

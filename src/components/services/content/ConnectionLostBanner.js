@@ -26,7 +26,7 @@ const messages = defineMessages({
 
 let buttonTransition = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
   buttonTransition = 'opacity 0.25s';
 }
 

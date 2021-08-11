@@ -49,7 +49,7 @@ interface IState {
 let popupTransition: string = 'none';
 let toggleTransition: string = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
   popupTransition = 'all 0.3s';
   toggleTransition = 'transform 0.3s';
 }

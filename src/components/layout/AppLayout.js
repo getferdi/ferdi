@@ -47,7 +47,7 @@ const messages = defineMessages({
 
 let transition = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
   transition = 'transform 0.5s ease';
 }
 

@@ -44,13 +44,14 @@ const buttonStyles = (theme: Theme) => {
   return styles;
 };
 
-let infoBoxTransition: string = 'none';
-let ctaTransition: string = 'none';
+const infoBoxTransition: string = 'none';
+const ctaTransition: string = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
-  infoBoxTransition = 'all 0.5s';
-  ctaTransition = 'opacity 0.3s';
-}
+// TODO: Not sure why, but this location alone, the `dinwo` is not defined - and it throws an error thus aborting the startup sequence of ferdi
+// if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+//   infoBoxTransition = 'all 0.5s';
+//   ctaTransition = 'opacity 0.3s';
+// }
 
 const styles = (theme: Theme) => ({
   wrapper: {

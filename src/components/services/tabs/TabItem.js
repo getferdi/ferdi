@@ -72,7 +72,7 @@ let pollIndicatorTransition = 'none';
 let polledTransition = 'none';
 let pollAnsweredTransition = 'none';
 
-if (window.matchMedia('(prefers-reduced-motion: no-preference)')) {
+if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
   pollIndicatorTransition = 'background 0.5s';
   polledTransition = 'background 0.1s';
   pollAnsweredTransition = 'background 0.1s';
