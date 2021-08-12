@@ -15,6 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "removeComments": true,
+    "skipLibCheck": true,
     "typeRoots": ["node_modules/@types"]
   }
 }

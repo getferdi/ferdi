@@ -28,7 +28,7 @@ import DBus from './lib/DBus';
 import Settings from './electron/Settings';
 import handleDeepLink from './electron/deepLinking';
 import { isPositionValid } from './electron/windowUtils';
-import { appId } from '../package.json'; // eslint-disable-line import/no-unresolved
+import appId from '../package.json'; // eslint-disable-line import/no-unresolved
 import './electron/exception';
 
 import { asarPath } from './helpers/asar-helpers';

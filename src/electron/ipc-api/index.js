@@ -3,7 +3,7 @@ import settings from './settings';
 import appIndicator from './appIndicator';
 import download from './download';
 import localServer from './localServer';
-// import cld from './cld';
+import cld from './cld';
 import dnd from './dnd';
 
 export default params => {
@@ -12,6 +12,6 @@ export default params => {
   appIndicator(params);
   download(params);
   localServer(params);
-  // cld(params);
+  cld(params);
   dnd();
 };
