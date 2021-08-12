@@ -1,7 +1,7 @@
 # [v5.6.1-nightly.24](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.23...v5.6.1-nightly.24) (2021-08-13)
 
 - Added new recipe for Proton Calendar (getferdi/recipes#606) 💖 @cereum
-- Services now have aliases - so the user can search for alternative names to get matches (#) 💖 @vraravam
+- Services now have aliases - so the user can search for alternative names to get matches (#1774) 💖 @vraravam
 
 ### Bug Fixes
 
