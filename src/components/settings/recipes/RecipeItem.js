@@ -28,6 +28,11 @@ export default @observer class RecipeItem extends Component {
           alt=""
         />
         <span className="recipe-teaser__label">{recipe.name}</span>
+        {recipe.aliases && recipe.aliases.length > 0 && (
+          <span className="recipe-teaser__alias_label">
+            {`Aliases: ${recipe.aliases.join(', ')}`}
+          </span>
+        )}
       </button>
     );
   }

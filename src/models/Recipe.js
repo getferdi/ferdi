@@ -12,6 +12,8 @@ export default class Recipe {
 
   version = '';
 
+  aliases = [];
+
   path = '';
 
   serviceURL = '';
@@ -61,6 +63,7 @@ export default class Recipe {
     this.id = data.id || this.id;
     this.name = data.name || this.name;
     this.version = data.version || this.version;
+    this.aliases = data.aliases || this.aliases;
     this.path = data.path;
 
     this.serviceURL = data.config.serviceURL || this.serviceURL;

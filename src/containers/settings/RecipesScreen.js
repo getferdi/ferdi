@@ -128,7 +128,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
       // All search recipes from local recipes
       ...this.createPreviews(
         this.customRecipes
-          .filter((service) => service.name.toLowerCase().includes(this.state.needle.toLowerCase())),
+          .filter((service) => service.name.toLowerCase().includes(this.state.needle.toLowerCase()) || (service.aliases || []).some(alias => alias.toLowerCase().includes(this.state.needle.toLowerCase()))),
       ),
     ]) : recipeFilter;
 
