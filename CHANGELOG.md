@@ -6,7 +6,8 @@
 ### Bug Fixes
 
 - Fix startup crash for Ferdi v5.6.1-nightly.23 💖 @vraravam
-- Fixed the sidebar context menu for toggling dark mode. 💖 @vraravam
+- Fix the sidebar context menu for toggling dark mode. 💖 @vraravam
+- Fix error while importing ferdi data (#1776) 💖 @vraravam
 
 ### Internal
 
