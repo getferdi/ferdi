@@ -346,7 +346,9 @@ class UserController {
           workspaceId = uuid();
         } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
 
-        const services = workspace.services.map((service) => serviceIdTranslation[service]);
+        const services = (workspace.services && typeof (workspace.services) === 'object') ?
+          workspace.services.map((service) => serviceIdTranslation[service]) :
+          [];
 
         await Workspace.create({ // eslint-disable-line no-await-in-loop
           workspaceId,
