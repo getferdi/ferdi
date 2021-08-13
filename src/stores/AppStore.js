@@ -24,6 +24,7 @@ import {
   electronVersion,
   osRelease,
   userDataPath,
+  ferdiLocale,
 } from '../environment';
 import locales from '../i18n/translations';
 import { onVisibilityChange } from '../helpers/visibility-helper';
@@ -509,7 +510,7 @@ export default class AppStore extends Store {
 
   _getDefaultLocale() {
     return getLocale({
-      locale: app.getLocale(),
+      locale: ferdiLocale,
       locales,
       defaultLocale,
       fallbackLocale: DEFAULT_APP_SETTINGS.fallbackLocale,

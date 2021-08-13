@@ -31,6 +31,7 @@ export const ferdiVersion = app.getVersion();
 export const electronVersion = process.versions.electron;
 export const chromeVersion = process.versions.chrome;
 export const nodeVersion = process.versions.node;
+export const ferdiLocale = app.getLocale();
 
 // Set app directory before loading user modules
 if (process.env.FERDI_APPDATA_DIR != null) {

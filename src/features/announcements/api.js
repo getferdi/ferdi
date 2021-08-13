@@ -1,14 +1,14 @@
-import { app } from '@electron/remote';
 import Request from '../../stores/lib/Request';
 import apiBase from '../../api/apiBase';
 import { GITHUB_FERDI_REPO_NAME, GITHUB_NIGHTLIES_REPO_NAME, GITHUB_ORG_NAME } from '../../config';
+import { ferdiVersion } from '../../environment';
 
 const debug = require('debug')('Ferdi:feature:announcements:api');
 
 export const announcementsApi = {
   async getCurrentVersion() {
     debug('getting current version of electron app');
-    return Promise.resolve(app.getVersion());
+    return Promise.resolve(ferdiVersion);
   },
 
   async getChangelog(version) {

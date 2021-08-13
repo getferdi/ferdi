@@ -1,4 +1,4 @@
-import { app, systemPreferences } from '@electron/remote';
+import { systemPreferences } from '@electron/remote';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
@@ -16,7 +16,7 @@ import {
   FRANZ_TRANSLATION,
   GITHUB_FRANZ_URL,
 } from '../../../config';
-import { DEFAULT_APP_SETTINGS, isMac, isWindows, lockFerdiShortcutKey } from '../../../environment';
+import { DEFAULT_APP_SETTINGS, ferdiVersion, isMac, isWindows, lockFerdiShortcutKey } from '../../../environment';
 import globalMessages from '../../../i18n/globalMessages';
 
 const messages = defineMessages({
@@ -669,7 +669,7 @@ export default @observer class EditSettingsForm extends Component {
               )}
               {intl.formatMessage(messages.currentVersion)}
               {' '}
-              {app.getVersion()}
+              {ferdiVersion}
               {noUpdateAvailable && (
               <>
                 <br />

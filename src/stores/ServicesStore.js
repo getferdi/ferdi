@@ -2,7 +2,6 @@ import { shell } from 'electron';
 import { action, reaction, computed, observable } from 'mobx';
 import { debounce, remove } from 'lodash';
 import ms from 'ms';
-import { app } from '@electron/remote';
 import { ensureFileSync, pathExistsSync, writeFileSync } from 'fs-extra';
 import { join } from 'path';
 
@@ -18,6 +17,7 @@ import {
 import { workspaceStore } from '../features/workspaces';
 import { KEEP_WS_LOADED_USID } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
+import { ferdiVersion } from '../environment';
 
 const debug = require('debug')('Ferdi:ServiceStore');
 
@@ -1149,7 +1149,7 @@ export default class ServicesStore extends Store {
         'initialize-recipe',
         {
           ...shareWithWebview,
-          franzVersion: app.getVersion(),
+          franzVersion: ferdiVersion,
         },
         service.recipe,
       );

@@ -1,5 +1,5 @@
-import { app } from '@electron/remote';
 import localStorage from 'mobx-localstorage';
+import { ferdiLocale, ferdiVersion } from '../../environment';
 
 export const prepareAuthRequest = (options = { method: 'GET' }, auth = true) => {
   const request = Object.assign(options, {
@@ -7,10 +7,10 @@ export const prepareAuthRequest = (options = { method: 'GET' }, auth = true) => 
     headers: {
       'Content-Type': 'application/json',
       'X-Franz-Source': 'desktop',
-      'X-Franz-Version': app.getVersion(),
+      'X-Franz-Version': ferdiVersion,
       'X-Franz-platform': process.platform,
       'X-Franz-Timezone-Offset': new Date().getTimezoneOffset(),
-      'X-Franz-System-Locale': app.getLocale(),
+      'X-Franz-System-Locale': ferdiLocale,
       ...options.headers,
     },
   });
