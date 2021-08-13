@@ -63,7 +63,8 @@ linux:
 
 snap:
   publish:
-    provider: "snapStore"
+    - snapStore
+    - github
 
 nsis:
   perMachine: false
