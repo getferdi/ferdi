@@ -6,6 +6,8 @@ import { is, api as electronApi } from 'electron-util';
 import { DEFAULT_ACCENT_COLOR } from '@meetfranz/theme';
 
 import osName from 'os-name';
+import * as buildInfo from 'preval-build-info';
+
 import {
   LIVE_FERDI_API,
   DEV_FRANZ_API,
@@ -24,7 +26,6 @@ import {
 } from './config';
 
 import { asarPath } from './helpers/asar-helpers';
-import * as buildInfo from './buildInfo.json'; // eslint-disable-line import/no-unresolved
 
 export const { app } = electronApi;
 export const ferdiVersion = app.getVersion();
@@ -38,7 +39,11 @@ if (process.env.FERDI_APPDATA_DIR != null) {
   app.setPath('appData', process.env.FERDI_APPDATA_DIR);
   app.setPath('userData', join(app.getPath('appData')));
 } else if (process.env.PORTABLE_EXECUTABLE_DIR != null) {
-  app.setPath('appData', process.env.PORTABLE_EXECUTABLE_DIR, `${app.name}AppData`);
+  app.setPath(
+    'appData',
+    process.env.PORTABLE_EXECUTABLE_DIR,
+    `${app.name}AppData`,
+  );
   app.setPath('userData', join(app.getPath('appData'), `${app.name}AppData`));
 } else if (is.windows) {
   app.setPath('appData', process.env.APPDATA);
@@ -51,16 +56,16 @@ if (isDevMode) {
 }
 
 export function userDataPath(...segments) {
-  return join(app.getPath('userData'), ...([segments].flat()));
+  return join(app.getPath('userData'), ...[segments].flat());
 }
 
 export function userDataRecipesPath(...segments) {
-  return userDataPath('recipes', ...([segments].flat()));
+  return userDataPath('recipes', ...[segments].flat());
 }
 
 // Replacing app.asar is not beautiful but unfortunately necessary
 export function asarRecipesPath(...segments) {
-  return join(asarPath(join(__dirname, 'recipes')), ...([segments].flat()));
+  return join(asarPath(join(__dirname, 'recipes')), ...[segments].flat());
 }
 
 export const useLiveAPI = process.env.USE_LIVE_API;
@@ -83,13 +88,20 @@ export const altKey = isMac ? '⌥' : 'Alt';
 export const shiftKey = isMac ? '⇧' : 'Shift';
 
 // Platform specific shortcut keys
-export const shortcutKey = (isAccelerator = true) => (isAccelerator ? cmdKey : ctrlKey);
-export const lockFerdiShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+${shiftKey}+L`;
-export const todosToggleShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+T`;
-export const workspaceToggleShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+D`;
-export const muteFerdiShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+${shiftKey}+M`;
-export const addNewServiceShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+N`;
-export const settingsShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+${isMac ? ',' : 'P'}`;
+export const shortcutKey = (isAccelerator = true) =>
+  isAccelerator ? cmdKey : ctrlKey;
+export const lockFerdiShortcutKey = (isAccelerator = true) =>
+  `${shortcutKey(isAccelerator)}+${shiftKey}+L`;
+export const todosToggleShortcutKey = (isAccelerator = true) =>
+  `${shortcutKey(isAccelerator)}+T`;
+export const workspaceToggleShortcutKey = (isAccelerator = true) =>
+  `${shortcutKey(isAccelerator)}+D`;
+export const muteFerdiShortcutKey = (isAccelerator = true) =>
+  `${shortcutKey(isAccelerator)}+${shiftKey}+M`;
+export const addNewServiceShortcutKey = (isAccelerator = true) =>
+  `${shortcutKey(isAccelerator)}+N`;
+export const settingsShortcutKey = (isAccelerator = true) =>
+  `${shortcutKey(isAccelerator)}+${isMac ? ',' : 'P'}`;
 
 let api;
 let wsApi;
@@ -172,6 +184,12 @@ export const DEFAULT_APP_SETTINGS = {
   alwaysShowWorkspaces: false,
 };
 
+const buildInfoData = {
+  timestamp: buildInfo.timestamp,
+  gitHashShort: buildInfo.gitHashShort,
+  gitBranch: buildInfo.gitBranch,
+};
+
 export function aboutAppDetails() {
   return [
     `Version: ${ferdiVersion}`,
@@ -180,8 +198,8 @@ export function aboutAppDetails() {
     `Node.js: ${nodeVersion}`,
     `Platform: ${osName()}`,
     `Arch: ${process.arch}`,
-    `Build date: ${new Date(Number(buildInfo.timestamp))}`,
-    `Git SHA: ${buildInfo.gitHashShort}`,
-    `Git branch: ${buildInfo.gitBranch}`,
+    `Build date: ${new Date(Number(buildInfoData.timestamp))}`,
+    `Git SHA: ${buildInfoData.gitHashShort}`,
+    `Git branch: ${buildInfoData.gitBranch}`,
   ].join('\n');
 }
