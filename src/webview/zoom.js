@@ -1,6 +1,4 @@
-import electron from 'electron';
-
-const { ipcRenderer, webFrame } = electron;
+import { ipcRenderer, webFrame } from 'electron';
 
 const maxZoomLevel = 9;
 const minZoomLevel = -8;
