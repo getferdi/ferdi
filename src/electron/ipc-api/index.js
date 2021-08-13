@@ -5,6 +5,7 @@ import download from './download';
 import localServer from './localServer';
 import cld from './cld';
 import dnd from './dnd';
+import focusState from './focusState';
 
 export default (params) => {
   settings(params);
@@ -14,4 +15,5 @@ export default (params) => {
   localServer(params);
   cld(params);
   dnd();
+  focusState(params);
 };

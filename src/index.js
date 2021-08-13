@@ -455,7 +455,12 @@ ipcMain.on('open-browser-window', (e, { url, serviceId }) => {
   const serviceSession = session.fromPartition(`persist:service-${serviceId}`);
   const child = new BrowserWindow({
     parent: mainWindow,
-    webPreferences: { session: serviceSession },
+    webPreferences: {
+      session: serviceSession,
+      // TODO: Aren't these needed here?
+      // contextIsolation: false,
+      // enableRemoteModule: true,
+    },
   });
   child.show();
   child.loadURL(url);

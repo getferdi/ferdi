@@ -27,7 +27,6 @@ import {
   ferdiLocale,
 } from '../environment';
 import locales from '../i18n/translations';
-import { onVisibilityChange } from '../helpers/visibility-helper';
 import { getLocale } from '../helpers/i18n-helpers';
 
 import {
@@ -221,10 +220,9 @@ export default class AppStore extends Store {
 
     this.isSystemDarkModeEnabled = nativeTheme.shouldUseDarkColors;
 
-    onVisibilityChange((isVisible) => {
-      this.isFocused = isVisible;
-
-      debug('Window is visible/focused', isVisible);
+    ipcRenderer.on('isWindowFocused', (event, isFocused) => {
+      debug('Setting is focused to', isFocused);
+      this.isFocused = isFocused;
     });
 
     powerMonitor.on('suspend', () => {
