@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDevBuild = process.env.NODE_ENV === 'development';
 
@@ -20,12 +21,12 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: ['/node_modules/'],
+        exclude: /node_modules/,
       },
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
         use: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/i,
@@ -40,6 +41,10 @@ module.exports = {
         type: 'asset',
       },
       {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
+      {
         test: /\.node$/,
         loader: 'node-loader',
       },
@@ -48,14 +53,22 @@ module.exports = {
   mode: isDevBuild ? 'development' : 'production',
   plugins: [
     new webpack.ProvidePlugin({
-      process: 'process/browser',
+      process: 'process',
     }),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(isDevBuild),
-      },
+      'process.env.NODE_ENV': JSON.stringify(
+        isDevBuild ? 'development' : 'production',
+      ),
+      // 'process.env.DEBUG': JSON.stringify(process.env.DEBUG),
     }),
-    new MiniCssExtractPlugin(),
+    // new HtmlWebpackPlugin({
+    //   template: path.resolve(__dirname, './src/index.html'),
+    //   filename: 'index.html',
+    // }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
     new CopyPlugin({
       patterns: [
         // mvSrc
@@ -84,6 +97,9 @@ module.exports = {
     hot: true,
   },
   devtool: isDevBuild ? 'inline-source-map' : false,
+  cache: {
+    type: 'filesystem',
+  },
   optimization: {
     minimize: false,
     // TODO: make minification work, issue with decorators
