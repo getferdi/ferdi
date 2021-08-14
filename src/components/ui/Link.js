@@ -1,4 +1,3 @@
-import { shell } from 'electron';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
@@ -7,6 +6,7 @@ import classnames from 'classnames';
 
 import { oneOrManyChildElements } from '../../prop-types';
 import { matchRoute } from '../../helpers/routing-helpers';
+import { openExternalUrl } from '../../helpers/url-helpers';
 
 // TODO: create container component for this component
 export default @inject('stores') @observer class Link extends Component {
@@ -15,9 +15,9 @@ export default @inject('stores') @observer class Link extends Component {
       e.preventDefault();
     } else if (this.props.target === '_blank') {
       e.preventDefault();
-      shell.openExternal(this.props.to);
+      openExternalUrl(this.props.to, true);
     }
-    // if neither of the above, then let the other onClick handlers process it
+    // Note: if neither of the above, then let the other onClick handlers process it
   }
 
   render() {

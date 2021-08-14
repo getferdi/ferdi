@@ -1,4 +1,4 @@
-import { ipcRenderer, shell } from 'electron';
+import { ipcRenderer } from 'electron';
 import {
   app,
   screen,
@@ -33,7 +33,7 @@ import {
   getServiceIdsFromPartitions,
   removeServicePartitionDirectory,
 } from '../helpers/service-helpers';
-import { isValidExternalURL } from '../helpers/url-helpers';
+import { openExternalUrl } from '../helpers/url-helpers';
 import { sleep } from '../helpers/async-helpers';
 
 const debug = require('debug')('Ferdi:AppStore');
@@ -390,12 +390,7 @@ export default class AppStore extends Store {
 
   // Ideally(?) this should be merged with the 'shell-helpers' functionality
   @action _openExternalUrl({ url }) {
-    const parsedUrl = new URL(url);
-    debug('open external url', parsedUrl);
-
-    if (isValidExternalURL(url)) {
-      shell.openExternal(url);
-    }
+    openExternalUrl(new URL(url));
   }
 
   @action _checkForUpdates() {

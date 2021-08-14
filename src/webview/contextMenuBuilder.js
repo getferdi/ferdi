@@ -6,13 +6,12 @@
  *
  * Source: https://github.com/electron-userland/electron-spellchecker/blob/master/src/context-menu-builder.js
  */
-import {
-  clipboard, ipcRenderer, nativeImage, shell,
-} from 'electron';
+import { clipboard, ipcRenderer, nativeImage } from 'electron';
 import { Menu, MenuItem } from '@electron/remote';
 import { shortcutKey, isMac } from '../environment';
 
 import { SEARCH_ENGINE_NAMES, SEARCH_ENGINE_URLS } from '../config';
+import { openExternalUrl } from '../helpers/url-helpers';
 
 const { URL } = require('url');
 
@@ -170,7 +169,7 @@ module.exports = class ContextMenuBuilder {
     const openLink = new MenuItem({
       label: this.stringTable.openLinkUrl(),
       click: () => {
-        shell.openExternal(menuInfo.linkURL);
+        openExternalUrl(menuInfo.linkURL, true);
       },
     });
 
@@ -299,7 +298,7 @@ module.exports = class ContextMenuBuilder {
       label: this.stringTable.searchWith({ searchEngine: SEARCH_ENGINE_NAMES[menuInfo.searchEngine] }),
       click: () => {
         const url = SEARCH_ENGINE_URLS[menuInfo.searchEngine]({ searchTerm: encodeURIComponent(menuInfo.selectionText) });
-        shell.openExternal(url);
+        openExternalUrl(url, true);
       },
     });
 
@@ -555,7 +554,7 @@ module.exports = class ContextMenuBuilder {
       label: this.stringTable.openInBrowser(),
       enabled: true,
       click: () => {
-        shell.openExternal(menuInfo.pageURL);
+        openExternalUrl(menuInfo.pageURL, true);
       },
     }));
 

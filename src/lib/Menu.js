@@ -1,7 +1,5 @@
-import { clipboard, shell } from 'electron';
-import {
-  app, Menu, dialog, systemPreferences,
-} from '@electron/remote';
+import { clipboard } from 'electron';
+import { app, Menu, dialog, systemPreferences } from '@electron/remote';
 import { autorun, observable } from 'mobx';
 import { defineMessages } from 'react-intl';
 import { CUSTOM_WEBSITE_RECIPE_ID, GITHUB_FERDI_URL, LIVE_API_FERDI_WEBSITE } from '../config';
@@ -15,6 +13,7 @@ import { todoActions } from '../features/todos/actions';
 import { workspaceActions } from '../features/workspaces/actions';
 import { workspaceStore } from '../features/workspaces/index';
 import apiBase, { termsBase } from '../api/apiBase';
+import { openExternalUrl } from '../helpers/url-helpers';
 
 const menuItems = defineMessages({
   edit: {
@@ -514,15 +513,15 @@ const _titleBarTemplateFactory = (intl, locked) => [
     submenu: [
       {
         label: intl.formatMessage(menuItems.learnMore),
-        click() { shell.openExternal(LIVE_API_FERDI_WEBSITE); },
+        click() { openExternalUrl(LIVE_API_FERDI_WEBSITE, true); },
       },
       {
         label: intl.formatMessage(menuItems.changelog),
-        click() { shell.openExternal(`${GITHUB_FERDI_URL}/ferdi/blob/master/CHANGELOG.md`); },
+        click() { openExternalUrl(`${GITHUB_FERDI_URL}/ferdi/blob/master/CHANGELOG.md`, true); },
       },
       {
         label: intl.formatMessage(menuItems.importExportData),
-        click() { shell.openExternal(apiBase(false)); },
+        click() { openExternalUrl(apiBase(false), true); },
         enabled: !locked,
       },
       {
@@ -540,18 +539,18 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.support),
-        click() { shell.openExternal(`${LIVE_API_FERDI_WEBSITE}/contact`); },
+        click() { openExternalUrl(`${LIVE_API_FERDI_WEBSITE}/contact`, true); },
       },
       {
         type: 'separator',
       },
       {
         label: intl.formatMessage(menuItems.tos),
-        click() { shell.openExternal(`${termsBase()}/terms`); },
+        click() { openExternalUrl(`${termsBase()}/terms`, true); },
       },
       {
         label: intl.formatMessage(menuItems.privacy),
-        click() { shell.openExternal(`${termsBase()}/privacy`); },
+        click() { openExternalUrl(`${termsBase()}/privacy`, true); },
       },
     ],
   },

@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 
-import { app, BrowserWindow, shell, ipcMain, session } from 'electron';
+import { app, BrowserWindow, ipcMain, session } from 'electron';
 
 import { emptyDirSync, ensureFileSync } from 'fs-extra';
 import { join } from 'path';
@@ -34,7 +34,7 @@ import { appId } from './package.json'; // eslint-disable-line import/no-unresol
 import './electron/exception';
 
 import { asarPath } from './helpers/asar-helpers';
-import { isValidExternalURL } from './helpers/url-helpers';
+import { openExternalUrl } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
 
 const debug = require('debug')('Ferdi:App');
@@ -344,10 +344,7 @@ const createWindow = () => {
   mainWindow.webContents.on('new-window', (e, url) => {
     debug('Open url', url);
     e.preventDefault();
-
-    if (isValidExternalURL(url)) {
-      shell.openExternal(url);
-    }
+    openExternalUrl(url);
   });
 
   if (settings.get('startMinimized')) {

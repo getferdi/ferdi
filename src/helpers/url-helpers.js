@@ -27,3 +27,9 @@ export async function openPath(folderName) {
   ensureDirSync(folderName);
   shell.openPath(folderName);
 }
+
+export function openExternalUrl(url, skipValidityCheck = false) {
+  if (skipValidityCheck || isValidExternalURL(url)) {
+    shell.openExternal(url);
+  }
+}
