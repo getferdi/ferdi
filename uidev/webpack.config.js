@@ -1,14 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.tsx',
   module: {
-    rules: [{
-      test: /\.tsx?$/,
-      use: 'ts-loader',
-      exclude: /node_modules/,
-    }],
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -21,7 +24,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join('src', 'app.html'),
     }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
   ],
+
   devServer: {
     inline: true,
     port: 8008,

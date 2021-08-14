@@ -104,6 +104,7 @@
     "function-paren-newline": 0,
     "max-len": 0,
     "no-await-in-loop": 1,
+    "no-confusing-arrow": 0,
     "no-console": [1, { "allow": ["warn", "error"] }],
     "no-param-reassign": 1,
     "no-restricted-syntax": 0,
