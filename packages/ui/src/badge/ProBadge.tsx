@@ -1,20 +1,19 @@
 import { mdiStar } from '@mdi/js';
 import classnames from 'classnames';
-import React, { Component } from 'react';
-import injectStyle from 'react-jss';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { Badge, Icon } from '..';
 import { Theme } from '../../../theme';
-import { IWithStyle } from '../typings/generic';
 
-interface IProps extends IWithStyle {
+interface IProps {
   badgeClasses?: string;
   iconClasses?: string;
   inverted?: boolean;
   className?: string;
 }
 
-const styles = (theme: Theme) => ({
+const useStyles = createUseStyles((theme: Theme) => ({
   badge: {
     height: 'auto',
     padding: [4, 6, 2, 7],
@@ -30,34 +29,34 @@ const styles = (theme: Theme) => ({
   invertedIcon: {
     fill: theme.styleTypes.primary.accent,
   },
-});
+}));
 
-class ProBadgeComponent extends Component<IProps> {
-  render() {
-    const { classes, badgeClasses, iconClasses, inverted, className } =
-      this.props;
+export const ProBadge = ({
+  badgeClasses,
+  iconClasses,
+  inverted,
+  className,
+}: IProps) => {
+  const classes = useStyles();
 
-    return (
-      <Badge
-        type="primary"
+  return (
+    <Badge
+      type="primary"
+      className={classnames([
+        classes.badge,
+        inverted && classes.invertedBadge,
+        badgeClasses,
+        className,
+      ])}
+    >
+      <Icon
+        icon={mdiStar}
         className={classnames([
-          classes.badge,
-          inverted && classes.invertedBadge,
-          badgeClasses,
-          className,
+          classes.icon,
+          inverted && classes.invertedIcon,
+          iconClasses,
         ])}
-      >
-        <Icon
-          icon={mdiStar}
-          className={classnames([
-            classes.icon,
-            inverted && classes.invertedIcon,
-            iconClasses,
-          ])}
-        />
-      </Badge>
-    );
-  }
-}
-
-export const ProBadge = injectStyle(styles)(ProBadgeComponent);
+      />
+    </Badge>
+  );
+};
