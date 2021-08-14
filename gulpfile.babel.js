@@ -14,6 +14,7 @@ import sassVariables from 'gulp-sass-variables';
 import { removeSync, outputJson } from 'fs-extra';
 import kebabCase from 'kebab-case';
 import hexRgb from 'hex-rgb';
+import ts from 'gulp-typescript';
 
 import * as buildInfo from 'preval-build-info';
 import config from './package.json';
@@ -28,6 +29,8 @@ const uglify = composer(terser, console);
 const isDevBuild = process.env.NODE_ENV === 'development';
 
 const getTargetEnv = isDevBuild ? 'development' : 'production';
+
+const tsProject = ts.createProject('tsconfig.json');
 
 const styleConfig = Object.keys(rawStyleConfig).map(key => {
   const isHex = /^#[0-9A-F]{6}$/i.test(rawStyleConfig[key]);
@@ -67,12 +70,20 @@ const paths = {
     src: 'src/styles/vertical.scss',
     dest: 'build/styles',
   },
-  scripts: {
+  javascripts: {
     src: 'src/**/*.js',
     dest: 'build/',
     watch: [
       // 'packages/**/*.js',
       'src/**/*.js',
+    ],
+  },
+  typescripts: {
+    src: 'src/**/*.ts',
+    dest: 'build/',
+    watch: [
+      // 'packages/**/*.ts',
+      'src/**/*.ts',
     ],
   },
   packages: {
@@ -121,9 +132,11 @@ export function mvSrc() {
       [
         `${paths.src}/*`,
         `${paths.src}/*/**`,
-        `!${paths.scripts.watch[1]}`,
+        `!${paths.javascripts.watch[1]}`,
+        `!${paths.typescripts.watch[1]}`,
         `!${paths.src}/styles/**`,
         `!${paths.src}/**/*.js`,
+        `!${paths.src}/**/*.ts`,
       ],
       { since: gulp.lastRun(mvSrc) },
     )
@@ -226,16 +239,41 @@ export function verticalStyle() {
     .pipe(connect.reload());
 }
 
-export function scripts() {
+export function processJavascripts() {
   return gulp
-    .src(paths.scripts.src, { since: gulp.lastRun(scripts) })
+    .src(
+      [
+        paths.javascripts.src,
+        `!${paths.tmp}/**/*`,
+      ],
+      { since: gulp.lastRun(processJavascripts) })
     .pipe(
       babel({
         comments: false,
       }),
     )
     .pipe(gulpIf(!isDevBuild, uglify())) // Only uglify in production to speed up dev builds
-    .pipe(gulp.dest(paths.scripts.dest))
+    .pipe(gulp.dest(paths.javascripts.dest))
+    .pipe(connect.reload());
+}
+
+export function processTypescripts() {
+  return gulp
+    .src(
+      [
+        paths.typescripts.src,
+        `!${paths.tmp}/**/*`,
+      ],
+      { since: gulp.lastRun(processTypescripts) })
+    .pipe(tsProject())
+    .pipe(
+      babel({
+        comments: false,
+      }),
+    )
+    // TODO: Need to fix this (it errors out since it somehow also includes the `.tmp/**/*.d.ts` files)
+    // .pipe(gulpIf(!isDevBuild, uglify())) // Only uglify in production to speed up dev builds
+    .pipe(gulp.dest(paths.typescripts.dest))
     .pipe(connect.reload());
 }
 
@@ -244,9 +282,10 @@ export function watch() {
   gulp.watch(paths.styles.watch, styles);
   gulp.watch(paths.verticalStyle.src, verticalStyle);
 
-  gulp.watch([paths.src, `${paths.scripts.src}`, `${paths.styles.src}`], mvSrc);
+  gulp.watch([paths.src, `${paths.javascripts.src}`, `${paths.styles.src}`], mvSrc);
 
-  gulp.watch(paths.scripts.watch, scripts);
+  gulp.watch(paths.javascripts.watch, processJavascripts);
+  gulp.watch(paths.typescripts.watch, processTypescripts);
 }
 
 export function webserver() {
@@ -270,7 +309,7 @@ export function recipeInfo() {
 const build = gulp.series(
   clean,
   gulp.parallel(mvSrc, mvPackageJson, mvLernaPackages, exportBuildInfo),
-  gulp.parallel(html, scripts, styles, verticalStyle, recipes, recipeInfo),
+  gulp.parallel(html, processJavascripts, processTypescripts, styles, verticalStyle, recipes, recipeInfo),
 );
 export { build };
 

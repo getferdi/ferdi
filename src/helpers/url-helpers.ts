@@ -8,8 +8,8 @@ import { ALLOWED_PROTOCOLS } from '../config';
 
 const debug = require('debug')('Ferdi:Helpers:url');
 
-export function isValidExternalURL(url) {
-  let parsedUrl;
+export function isValidExternalURL(url: string) {
+  let parsedUrl: URL;
   try {
     parsedUrl = new URL(url);
   } catch (_) {
@@ -23,13 +23,13 @@ export function isValidExternalURL(url) {
   return isAllowed;
 }
 
-export async function openPath(folderName) {
+export async function openPath(folderName: string) {
   ensureDirSync(folderName);
   shell.openPath(folderName);
 }
 
 // TODO: Need to verify and fix/remove the skipping logic. Ideally, we should never skip this check
-export function openExternalUrl(url, skipValidityCheck = false) {
+export function openExternalUrl(url: string, skipValidityCheck: boolean = false) {
   if (skipValidityCheck || isValidExternalURL(url)) {
     shell.openExternal(url);
   }

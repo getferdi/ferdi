@@ -45,5 +45,8 @@
       }
     ]
   ],
-  "sourceMaps": "inline"
+  "sourceMaps": "inline",
+  "ignore": [
+    ".tmp/**/*"
+  ]
 }
