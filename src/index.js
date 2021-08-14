@@ -329,7 +329,7 @@ const createWindow = () => {
 
   if (isMac) {
     // eslint-disable-next-line global-require
-    const { default: askFormacOSPermissions } = require('./electron/macOSPermissions');
+    const { askFormacOSPermissions } = require('./electron/macOSPermissions');
     setTimeout(() => askFormacOSPermissions(mainWindow), ms('30s'));
   }
 

@@ -1,7 +1,9 @@
 import os from 'os';
 import { join } from 'path';
+import { ensureDirSync } from 'fs-extra';
 
 import { is, api as electronApi } from 'electron-util';
+import { shell } from 'electron';
 
 import { DEFAULT_ACCENT_COLOR } from '@meetfranz/theme';
 
@@ -61,6 +63,11 @@ export function userDataRecipesPath(...segments) {
 // Replacing app.asar is not beautiful but unfortunately necessary
 export function asarRecipesPath(...segments) {
   return join(asarPath(join(__dirname, 'recipes')), ...([segments].flat()));
+}
+
+export async function openPath(folderName) {
+  ensureDirSync(folderName);
+  shell.openPath(folderName);
 }
 
 export const useLiveAPI = process.env.USE_LIVE_API;

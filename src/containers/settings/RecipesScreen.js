@@ -1,5 +1,4 @@
-import { shell } from 'electron';
-import { ensureDirSync, readJsonSync } from 'fs-extra';
+import { readJsonSync } from 'fs-extra';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
@@ -13,7 +12,7 @@ import UserStore from '../../stores/UserStore';
 import RecipesDashboard from '../../components/settings/recipes/RecipesDashboard';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { CUSTOM_WEBSITE_RECIPE_ID, FRANZ_DEV_DOCS } from '../../config';
-import { asarRecipesPath, userDataRecipesPath } from '../../environment';
+import { asarRecipesPath, openPath, userDataRecipesPath } from '../../environment';
 import { communityRecipesStore } from '../../features/communityRecipes';
 import RecipePreview from '../../models/RecipePreview';
 import AppStore from '../../stores/AppStore';
@@ -154,13 +153,8 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
           serviceStatus={services.actionStatus}
           recipeFilter={filter}
           recipeDirectory={recipeDirectory}
-          openRecipeDirectory={async () => {
-            ensureDirSync(recipeDirectory);
-            shell.openExternal(`file://${recipeDirectory}`);
-          }}
-          openDevDocs={() => {
-            appActions.openExternalUrl({ url: FRANZ_DEV_DOCS });
-          }}
+          openRecipeDirectory={() => openPath(recipeDirectory)}
+          openDevDocs={() => appActions.openExternalUrl({ url: FRANZ_DEV_DOCS })}
         />
       </ErrorBoundary>
     );

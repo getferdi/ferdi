@@ -16,7 +16,7 @@ import {
   FRANZ_TRANSLATION,
   GITHUB_FRANZ_URL,
 } from '../../../config';
-import { DEFAULT_APP_SETTINGS, ferdiVersion, isMac, isWindows, lockFerdiShortcutKey } from '../../../environment';
+import { DEFAULT_APP_SETTINGS, ferdiVersion, isMac, isWindows, lockFerdiShortcutKey, openPath, userDataPath, userDataRecipesPath } from '../../../environment';
 import globalMessages from '../../../i18n/globalMessages';
 
 const messages = defineMessages({
@@ -115,6 +115,18 @@ const messages = defineMessages({
   buttonClearAllCache: {
     id: 'settings.app.buttonClearAllCache',
     defaultMessage: '!!!Clear cache',
+  },
+  subheadlineFerdiProfile: {
+    id: 'settings.app.subheadlineFerdiProfile',
+    defaultMessage: '!!!Ferdi Profile',
+  },
+  buttonOpenFerdiProfileFolder: {
+    id: 'settings.app.buttonOpenFerdiProfileFolder',
+    defaultMessage: '!!!Open Profile folder',
+  },
+  buttonOpenFerdiServiceRecipesFolder: {
+    id: 'settings.app.buttonOpenFerdiServiceRecipesFolder',
+    defaultMessage: '!!!Open Service Recipes folder',
   },
   buttonSearchForUpdate: {
     id: 'settings.app.buttonSearchForUpdate',
@@ -258,6 +270,9 @@ export default @observer class EditSettingsForm extends Component {
         notCleared = false;
       }
     }
+
+    const profileFolder = userDataPath();
+    const recipeFolder = userDataRecipesPath();
 
     return (
       <div className="settings__main">
@@ -629,6 +644,30 @@ export default @observer class EditSettingsForm extends Component {
                       disabled={isClearingAllCache}
                       loaded={!isClearingAllCache}
                     />
+                  </p>
+                </div>
+
+                <Hr />
+
+                <div className="settings__settings-group">
+                  <h3>
+                    {intl.formatMessage(messages.subheadlineFerdiProfile)}
+                  </h3>
+                  <p>
+                    <div className="settings__open-settings-file-container">
+                      <Button
+                        buttonType="secondary"
+                        label={intl.formatMessage(messages.buttonOpenFerdiProfileFolder)}
+                        className="settings__open-settings-file-button"
+                        onClick={() => openPath(profileFolder)}
+                      />
+                      <Button
+                        buttonType="secondary"
+                        label={intl.formatMessage(messages.buttonOpenFerdiServiceRecipesFolder)}
+                        className="settings__open-settings-file-button"
+                        onClick={() => openPath(recipeFolder)}
+                      />
+                    </div>
                   </p>
                 </div>
               </div>

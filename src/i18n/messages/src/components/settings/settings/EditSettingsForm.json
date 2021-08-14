@@ -312,12 +312,12 @@
     }
   },
   {
-    "id": "settings.app.buttonSearchForUpdate",
-    "defaultMessage": "!!!Check for updates",
+    "id": "settings.app.subheadlineFerdiProfile",
+    "defaultMessage": "!!!Ferdi Profile",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 119,
-      "column": 25
+      "column": 27
     },
     "end": {
       "line": 122,
@@ -325,12 +325,12 @@
     }
   },
   {
-    "id": "settings.app.buttonInstallUpdate",
-    "defaultMessage": "!!!Restart & install update",
+    "id": "settings.app.buttonOpenFerdiProfileFolder",
+    "defaultMessage": "!!!Open Profile folder",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 123,
-      "column": 23
+      "column": 32
     },
     "end": {
       "line": 126,
@@ -338,12 +338,12 @@
     }
   },
   {
-    "id": "settings.app.updateStatusSearching",
-    "defaultMessage": "!!!Is searching for update",
+    "id": "settings.app.buttonOpenFerdiServiceRecipesFolder",
+    "defaultMessage": "!!!Open Service Recipes folder",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 127,
-      "column": 25
+      "column": 39
     },
     "end": {
       "line": 130,
@@ -351,8 +351,8 @@
     }
   },
   {
-    "id": "settings.app.updateStatusAvailable",
-    "defaultMessage": "!!!Update available, downloading...",
+    "id": "settings.app.buttonSearchForUpdate",
+    "defaultMessage": "!!!Check for updates",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 131,
@@ -364,15 +364,54 @@
     }
   },
   {
+    "id": "settings.app.buttonInstallUpdate",
+    "defaultMessage": "!!!Restart & install update",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 135,
+      "column": 23
+    },
+    "end": {
+      "line": 138,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.updateStatusSearching",
+    "defaultMessage": "!!!Is searching for update",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 139,
+      "column": 25
+    },
+    "end": {
+      "line": 142,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.updateStatusAvailable",
+    "defaultMessage": "!!!Update available, downloading...",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 143,
+      "column": 25
+    },
+    "end": {
+      "line": 146,
+      "column": 3
+    }
+  },
+  {
     "id": "settings.app.updateStatusUpToDate",
     "defaultMessage": "!!!You are using the latest version of Ferdi",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 135,
+      "line": 147,
       "column": 24
     },
     "end": {
-      "line": 138,
+      "line": 150,
       "column": 3
     }
   },
@@ -381,11 +420,11 @@
     "defaultMessage": "!!!Current version:",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 139,
+      "line": 151,
       "column": 18
     },
     "end": {
-      "line": 142,
+      "line": 154,
       "column": 3
     }
   },
@@ -394,11 +433,11 @@
     "defaultMessage": "!!!Changes require restart",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 143,
+      "line": 155,
       "column": 22
     },
     "end": {
-      "line": 146,
+      "line": 158,
       "column": 3
     }
   },
@@ -407,11 +446,11 @@
     "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 147,
+      "line": 159,
       "column": 22
     },
     "end": {
-      "line": 150,
+      "line": 162,
       "column": 3
     }
   }

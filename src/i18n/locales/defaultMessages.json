@@ -3202,107 +3202,146 @@
         }
       },
       {
-        "defaultMessage": "!!!Check for updates",
+        "defaultMessage": "!!!Ferdi Profile",
         "end": {
           "column": 3,
           "line": 122
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
-        "id": "settings.app.buttonSearchForUpdate",
+        "id": "settings.app.subheadlineFerdiProfile",
         "start": {
-          "column": 25,
+          "column": 27,
           "line": 119
         }
       },
       {
-        "defaultMessage": "!!!Restart & install update",
+        "defaultMessage": "!!!Open Profile folder",
         "end": {
           "column": 3,
           "line": 126
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
-        "id": "settings.app.buttonInstallUpdate",
+        "id": "settings.app.buttonOpenFerdiProfileFolder",
         "start": {
-          "column": 23,
+          "column": 32,
           "line": 123
         }
       },
       {
-        "defaultMessage": "!!!Is searching for update",
+        "defaultMessage": "!!!Open Service Recipes folder",
         "end": {
           "column": 3,
           "line": 130
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
-        "id": "settings.app.updateStatusSearching",
+        "id": "settings.app.buttonOpenFerdiServiceRecipesFolder",
         "start": {
-          "column": 25,
+          "column": 39,
           "line": 127
         }
       },
       {
-        "defaultMessage": "!!!Update available, downloading...",
+        "defaultMessage": "!!!Check for updates",
         "end": {
           "column": 3,
           "line": 134
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
-        "id": "settings.app.updateStatusAvailable",
+        "id": "settings.app.buttonSearchForUpdate",
         "start": {
           "column": 25,
           "line": 131
         }
       },
       {
-        "defaultMessage": "!!!You are using the latest version of Ferdi",
+        "defaultMessage": "!!!Restart & install update",
         "end": {
           "column": 3,
           "line": 138
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.buttonInstallUpdate",
+        "start": {
+          "column": 23,
+          "line": 135
+        }
+      },
+      {
+        "defaultMessage": "!!!Is searching for update",
+        "end": {
+          "column": 3,
+          "line": 142
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.updateStatusSearching",
+        "start": {
+          "column": 25,
+          "line": 139
+        }
+      },
+      {
+        "defaultMessage": "!!!Update available, downloading...",
+        "end": {
+          "column": 3,
+          "line": 146
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
+        "id": "settings.app.updateStatusAvailable",
+        "start": {
+          "column": 25,
+          "line": 143
+        }
+      },
+      {
+        "defaultMessage": "!!!You are using the latest version of Ferdi",
+        "end": {
+          "column": 3,
+          "line": 150
+        },
+        "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.updateStatusUpToDate",
         "start": {
           "column": 24,
-          "line": 135
+          "line": 147
         }
       },
       {
         "defaultMessage": "!!!Current version:",
         "end": {
           "column": 3,
-          "line": 142
+          "line": 154
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.currentVersion",
         "start": {
           "column": 18,
-          "line": 139
+          "line": 151
         }
       },
       {
         "defaultMessage": "!!!Changes require restart",
         "end": {
           "column": 3,
-          "line": 146
+          "line": 158
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.restartRequired",
         "start": {
           "column": 22,
-          "line": 143
+          "line": 155
         }
       },
       {
         "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
         "end": {
           "column": 3,
-          "line": 150
+          "line": 162
         },
         "file": "src/components/settings/settings/EditSettingsForm.js",
         "id": "settings.app.languageDisclaimer",
         "start": {
           "column": 22,
-          "line": 147
+          "line": 159
         }
       }
     ],
