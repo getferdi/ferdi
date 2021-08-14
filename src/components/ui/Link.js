@@ -11,11 +11,13 @@ import { matchRoute } from '../../helpers/routing-helpers';
 // TODO: create container component for this component
 export default @inject('stores') @observer class Link extends Component {
   onClick(e) {
-    if (this.props.disabled) e.preventDefault();
-    else if (this.props.target === '_blank') {
+    if (this.props.disabled) {
+      e.preventDefault();
+    } else if (this.props.target === '_blank') {
       e.preventDefault();
       shell.openExternal(this.props.to);
     }
+    // if neither of the above, then let the other onClick handlers process it
   }
 
   render() {

@@ -388,6 +388,7 @@ export default class AppStore extends Store {
     }
   }
 
+  // Ideally(?) this should be merged with the 'shell-helpers' functionality
   @action _openExternalUrl({ url }) {
     const parsedUrl = new URL(url);
     debug('open external url', parsedUrl);

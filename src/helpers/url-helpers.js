@@ -1,4 +1,8 @@
+// This is taken from: https://benjamin-altpeter.de/shell-openexternal-dangers/
+
 import { URL } from 'url';
+import { ensureDirSync } from 'fs-extra';
+import { shell } from 'electron';
 
 import { ALLOWED_PROTOCOLS } from '../config';
 
@@ -17,4 +21,9 @@ export function isValidExternalURL(url) {
   debug('protocol check is', isAllowed, 'for:', url);
 
   return isAllowed;
+}
+
+export async function openPath(folderName) {
+  ensureDirSync(folderName);
+  shell.openPath(folderName);
 }
