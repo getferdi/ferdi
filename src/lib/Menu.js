@@ -4,7 +4,7 @@ import { autorun, observable } from 'mobx';
 import { defineMessages } from 'react-intl';
 import { CUSTOM_WEBSITE_RECIPE_ID, GITHUB_FERDI_URL, LIVE_API_FERDI_WEBSITE } from '../config';
 import {
-  shortcutKey, altKey, shiftKey, settingsShortcutKey, isLinux, isMac, aboutAppDetails, lockFerdiShortcutKey, todosToggleShortcutKey, workspaceToggleShortcutKey, addNewServiceShortcutKey, muteFerdiShortcutKey,
+  cmdOrCtrlShortcutKey, altKey, shiftKey, settingsShortcutKey, isLinux, isMac, aboutAppDetails, lockFerdiShortcutKey, todosToggleShortcutKey, workspaceToggleShortcutKey, addNewServiceShortcutKey, muteFerdiShortcutKey,
 } from '../environment';
 import { announcementsStore } from '../features/announcements';
 import { announcementActions } from '../features/announcements/actions';
@@ -317,7 +317,7 @@ function getActiveWebview() {
 const _titleBarTemplateFactory = (intl, locked) => [
   {
     label: intl.formatMessage(menuItems.edit),
-    accelerator: `${altKey}+E`,
+    accelerator: `${altKey()}+E`,
     submenu: [
       {
         label: intl.formatMessage(menuItems.undo),
@@ -332,22 +332,22 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.cut),
-        accelerator: `${shortcutKey()}+X`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+X`,
         role: 'cut',
       },
       {
         label: intl.formatMessage(menuItems.copy),
-        accelerator: `${shortcutKey()}+C`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+C`,
         role: 'copy',
       },
       {
         label: intl.formatMessage(menuItems.paste),
-        accelerator: `${shortcutKey()}+V`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+V`,
         role: 'paste',
       },
       {
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
-        accelerator: `${shortcutKey()}+${shiftKey}+V`, // Override the accelerator since this adds new key combo in macos
+        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+V`, // Override the accelerator since this adds new key combo in macos
         role: 'pasteAndMatchStyle',
         click() {
           getActiveWebview().pasteAndMatchStyle();
@@ -359,14 +359,14 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.selectAll),
-        accelerator: `${shortcutKey()}+A`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+A`,
         role: 'selectall',
       },
     ],
   },
   {
     label: intl.formatMessage(menuItems.view),
-    accelerator: `${altKey}+V`,
+    accelerator: `${altKey()}+V`,
     visible: !locked,
     submenu: [
       {
@@ -374,7 +374,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.openQuickSwitch),
-        accelerator: `${shortcutKey()}+S`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+S`,
         click() {
           window.ferdi.features.quickSwitch.state.isModalVisible = true;
         },
@@ -384,7 +384,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.findInPage),
-        accelerator: `${shortcutKey()}+F`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+F`,
         click() {
           // Check if there is a service active
           if (!window.ferdi.stores.services.active) return;
@@ -405,14 +405,14 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.back),
-        accelerator: `${shortcutKey()}+Left`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+Left`,
         click() {
           getActiveWebview().goBack();
         },
       },
       {
         label: intl.formatMessage(menuItems.forward),
-        accelerator: `${shortcutKey()}+Right`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+Right`,
         click() {
           getActiveWebview().goForward();
         },
@@ -422,7 +422,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.resetZoom),
-        accelerator: `${shortcutKey()}+0`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+0`,
         role: 'resetZoom',
         click() {
           getActiveWebview().setZoomLevel(0);
@@ -430,7 +430,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
-        accelerator: `${shortcutKey()}+plus`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+plus`,
         role: 'zoomIn',
         click() {
           const activeService = getActiveWebview();
@@ -442,7 +442,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       },
       {
         label: intl.formatMessage(menuItems.zoomOut),
-        accelerator: `${shortcutKey()}+-`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+-`,
         role: 'zoomOut',
         click() {
           const activeService = getActiveWebview();
@@ -462,7 +462,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.toggleDarkMode),
         type: 'checkbox',
-        accelerator: `${shortcutKey()}+${shiftKey}+D`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+D`,
         checked: window.ferdi.stores.settings.app.darkMode,
         click: () => {
           window.ferdi.actions.settings.update({
@@ -477,13 +477,13 @@ const _titleBarTemplateFactory = (intl, locked) => [
   },
   {
     label: intl.formatMessage(menuItems.services),
-    accelerator: `${altKey}+S`,
+    accelerator: `${altKey()}+S`,
     visible: !locked,
     submenu: [],
   },
   {
     label: intl.formatMessage(menuItems.workspaces),
-    accelerator: `${altKey}+W`,
+    accelerator: `${altKey()}+W`,
     submenu: [],
     visible: !locked && workspaceStore.isFeatureEnabled,
   },
@@ -508,7 +508,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
   },
   {
     label: intl.formatMessage(menuItems.help),
-    accelerator: `${altKey}+H`,
+    accelerator: `${altKey()}+H`,
     role: 'help',
     submenu: [
       {
@@ -611,13 +611,13 @@ export default class FranzMenu {
         type: 'separator',
       }, {
         label: intl.formatMessage(menuItems.toggleDevTools),
-        accelerator: `${shortcutKey()}+${altKey}+I`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+I`,
         click: (menuItem, browserWindow) => {
           browserWindow.webContents.toggleDevTools();
         },
       }, {
         label: intl.formatMessage(menuItems.toggleServiceDevTools),
-        accelerator: `${shortcutKey()}+${shiftKey}+${altKey}+I`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+${altKey()}+I`,
         click: () => {
           this.actions.service.openDevToolsForActiveService();
         },
@@ -627,7 +627,7 @@ export default class FranzMenu {
       if (this.stores.features.features.isTodosEnabled) {
         tpl[1].submenu.push({
           label: intl.formatMessage(menuItems.toggleTodosDevTools),
-          accelerator: `${shortcutKey()}+${shiftKey}+${altKey}+O`,
+          accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+${altKey()}+O`,
           click: () => {
             const webview = document.querySelector('#todos-panel webview');
             if (webview) this.actions.todos.openDevTools();
@@ -638,7 +638,7 @@ export default class FranzMenu {
       tpl[1].submenu.unshift({
         label: intl.formatMessage(menuItems.reloadService),
         id: 'reloadService', // TODO: needed?
-        accelerator: `${shortcutKey()}+R`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+R`,
         click: () => {
           if (this.stores.user.isLoggedIn
           && this.stores.services.enabled.length > 0) {
@@ -653,13 +653,13 @@ export default class FranzMenu {
         },
       }, {
         label: intl.formatMessage(menuItems.reloadFerdi),
-        accelerator: `${shortcutKey()}+${shiftKey}+R`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+R`,
         click: () => {
           window.location.reload();
         },
       }, {
         label: intl.formatMessage(menuItems.reloadTodos),
-        accelerator: `${shortcutKey()}+${shiftKey}+${altKey}+R`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+${altKey()}+R`,
         click: () => {
           this.actions.todos.reload();
         },
@@ -715,7 +715,7 @@ export default class FranzMenu {
 
     tpl.unshift({
       label: isMac ? app.name : intl.formatMessage(menuItems.file),
-      accelerator: `${altKey}+F`,
+      accelerator: `${altKey()}+F`,
       submenu: [
         {
           label: intl.formatMessage(menuItems.about),
@@ -831,7 +831,7 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(menuItems.quit),
           role: 'quit',
-          accelerator: `${shortcutKey()}+Q`,
+          accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
           click() {
             app.quit();
           },
@@ -882,22 +882,22 @@ export default class FranzMenu {
       type: 'separator',
     }, {
       label: intl.formatMessage(menuItems.activateNextService),
-      accelerator: `${shortcutKey()}+tab`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+tab`,
       click: () => this.actions.service.setActiveNext(),
       visible: !cmdAltShortcutsVisibile,
     }, {
       label: intl.formatMessage(menuItems.activateNextService),
-      accelerator: `${shortcutKey()}+${altKey}+right`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+right`,
       click: () => this.actions.service.setActiveNext(),
       visible: cmdAltShortcutsVisibile,
     }, {
       label: intl.formatMessage(menuItems.activatePreviousService),
-      accelerator: `${shortcutKey()}+${shiftKey}+tab`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+tab`,
       click: () => this.actions.service.setActivePrev(),
       visible: !cmdAltShortcutsVisibile,
     }, {
       label: intl.formatMessage(menuItems.activatePreviousService),
-      accelerator: `${shortcutKey()}+${altKey}+left`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+left`,
       click: () => this.actions.service.setActivePrev(),
       visible: cmdAltShortcutsVisibile,
     }, {
@@ -912,7 +912,7 @@ export default class FranzMenu {
 
     services.allDisplayed.forEach((service, i) => (menu.push({
       label: this._getServiceName(service),
-      accelerator: i < 9 ? `${shortcutKey()}+${i + 1}` : null,
+      accelerator: i < 9 ? `${cmdOrCtrlShortcutKey()}+${i + 1}` : null,
       type: 'radio',
       checked: service.isActive,
       click: () => {
@@ -929,7 +929,7 @@ export default class FranzMenu {
         type: 'separator',
       }, {
         label: intl.formatMessage(menuItems.serviceGoHome),
-        accelerator: `${shortcutKey()}+${shiftKey}+H`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+H`,
         click: () => this.actions.service.reloadActive(),
       });
     }
@@ -945,7 +945,7 @@ export default class FranzMenu {
     // Add new workspace item:
     menu.push({
       label: intl.formatMessage(menuItems.addNewWorkspace),
-      accelerator: `${shortcutKey()}+${shiftKey}+N`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+N`,
       click: () => {
         workspaceActions.openWorkspaceSettings();
       },
@@ -974,7 +974,7 @@ export default class FranzMenu {
     // Default workspace
     menu.push({
       label: intl.formatMessage(menuItems.defaultWorkspace),
-      accelerator: `${shortcutKey()}+${altKey}+0`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+0`,
       type: 'radio',
       checked: !activeWorkspace,
       click: () => {
@@ -985,7 +985,7 @@ export default class FranzMenu {
     // Workspace items
     workspaces.forEach((workspace, i) => menu.push({
       label: workspace.name,
-      accelerator: i < 9 ? `${shortcutKey()}+${altKey}+${i + 1}` : null,
+      accelerator: i < 9 ? `${cmdOrCtrlShortcutKey()}+${altKey()}+${i + 1}` : null,
       type: 'radio',
       checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
       click: () => {
