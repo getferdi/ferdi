@@ -244,7 +244,6 @@ export function processJavascripts() {
     .src(
       [
         paths.javascripts.src,
-        `!${paths.tmp}/**/*`,
       ],
       { since: gulp.lastRun(processJavascripts) })
     .pipe(
@@ -262,17 +261,16 @@ export function processTypescripts() {
     .src(
       [
         paths.typescripts.src,
-        `!${paths.tmp}/**/*`,
       ],
       { since: gulp.lastRun(processTypescripts) })
     .pipe(tsProject())
+    .js
     .pipe(
       babel({
         comments: false,
       }),
     )
-    // TODO: Need to fix this (it errors out since it somehow also includes the `.tmp/**/*.d.ts` files)
-    // .pipe(gulpIf(!isDevBuild, uglify())) // Only uglify in production to speed up dev builds
+    .pipe(gulpIf(!isDevBuild, uglify())) // Only uglify in production to speed up dev builds
     .pipe(gulp.dest(paths.typescripts.dest))
     .pipe(connect.reload());
 }

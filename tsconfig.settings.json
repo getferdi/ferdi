@@ -23,13 +23,5 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "preserveConstEnums": true,
-  },
-  // "exclude": [
-  //   "build",
-  //   ".tmp",
-  //   "node_modules",
-  //   "**/node_modules",
-  //   "**/*.spec.ts",
-  //   "**/*.d.ts"
-  // ]
+  }
 }
