@@ -248,7 +248,7 @@ export function watch() {
   gulp.watch(paths.packages.watch, mvLernaPackages);
   gulp.watch(paths.styles.watch, styles);
 
-  gulp.watch([paths.src, `${paths.javascripts.src}`, `${paths.styles.src}`], mvSrc);
+  gulp.watch([paths.src], mvSrc);
 
   gulp.watch(paths.javascripts.watch, processJavascripts);
   gulp.watch(paths.typescripts.watch, processTypescripts);
@@ -266,6 +266,7 @@ export function recipes() {
     .src(paths.recipes.src, { since: gulp.lastRun(recipes) })
     .pipe(gulp.dest(paths.recipes.dest));
 }
+
 export function recipeInfo() {
   return gulp
     .src(paths.recipeInfo.src, { since: gulp.lastRun(recipeInfo) })
