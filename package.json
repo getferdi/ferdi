@@ -34,7 +34,7 @@
     "reformat-files": "./node_modules/.bin/prettier --ignore-path .eslintignore --write --require-pragma \"**/*.{js,jsx,scss}\"",
     "packages": "npx lerna publish --no-git-tag-version",
     "uidev": "cd uidev && webpack-dev-server",
-    "postinstall": "npx lerna run prepare && electron-builder install-app-deps",
+    "postinstall": "npx lerna run prepare",
     "apply-branding": "node ./src/i18n/apply-branding.js",
     "update-submodules": "git submodule update --remote --force",
     "prepare-code": "npm run lint && npm run reformat-files && npm run manage-translations && npm run apply-branding",
