@@ -121,7 +121,7 @@
     "react-tooltip": "4.2.21",
     "route-parser": "0.0.5",
     "semver": "7.3.5",
-    "sqlite3": "5.0.2",
+    "sqlite3": "5.0.0",
     "tar": "4.4.15",
     "useragent-generator": "1.1.1-amkt-22079-finish.0",
     "uuid": "3.3.3",

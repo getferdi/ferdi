@@ -1,3 +1,18 @@
+# [v5.6.1-nightly.28](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.27...v5.6.1-nightly.28) (2021-08-16)
+
+- Moved some npm dependencies that were incorrectly classified as runtime deps. This has saved 11MB from the installed file (on macos) 💖 @vraravam
+- Removed unused npm dependencies 💖 @vraravam
+
+### Bug Fixes
+
+- Fixed the 'Changelog' menu item to point to the correct branch 💖 @vraravam
+
+### Internal
+
+- Completed plumbing required for conversion from javascript to typescript 💖 @vraravam
+- npm upgrades 💖 @vraravam
+- Started typescript conversion of some simple scripts 💖 @vraravam
+
 # [v5.6.1-nightly.27](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.26...v5.6.1-nightly.27) (2021-08-15)
 
 - Add buttons in the 'Advanced' section of preferences to allow users to quickly open the ferdi profile in their file explorer 💖 @vraravam
