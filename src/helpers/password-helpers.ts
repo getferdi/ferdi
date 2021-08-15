@@ -1,10 +1,10 @@
 import crypto from 'crypto';
 
-export function hash(password) {
+export function hash(password: crypto.BinaryLike) {
   return crypto.createHash('sha256').update(password).digest('base64');
 }
 
-export function scorePassword(password) {
+export function scorePassword(password: string) {
   let score = 0;
   if (!password) {
     return score;
@@ -32,5 +32,5 @@ export function scorePassword(password) {
 
   score += (variationCount - 1) * 10;
 
-  return parseInt(score, 10);
+  return parseInt(score.toString(), 10);
 }

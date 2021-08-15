@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-export function isInTimeframe(start, end) {
+export function isInTimeframe(start: string, end: string) {
   const [
     startHourStr,
     startMinuteStr,

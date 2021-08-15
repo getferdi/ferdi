@@ -8,9 +8,9 @@ const debug = require('debug')('Ferdi:LocalApi');
 
 export default class LocalApi {
   // Settings
-  getAppSettings(type) {
+  getAppSettings(type: any) {
     return new Promise(resolve => {
-      ipcRenderer.once('appSettings', (event, resp) => {
+      ipcRenderer.once('appSettings', (_event, resp) => {
         debug('LocalApi::getAppSettings resolves', resp.type, resp.data);
         resolve(resp);
       });
@@ -19,7 +19,7 @@ export default class LocalApi {
     });
   }
 
-  async updateAppSettings(type, data) {
+  async updateAppSettings(type: any, data: any) {
     debug('LocalApi::updateAppSettings resolves', type, data);
     ipcRenderer.send('updateAppSettings', {
       type,
@@ -31,7 +31,7 @@ export default class LocalApi {
   async getAppCacheSize() {
     const partitionsDir = getServicePartitionsDirectory();
     return new Promise((resolve, reject) => {
-      du(partitionsDir, (err, size) => {
+      du(partitionsDir, (err: Error | null, size?: number | undefined) => {
         if (err) reject(err);
 
         debug('LocalApi::getAppCacheSize resolves', size);
@@ -40,7 +40,7 @@ export default class LocalApi {
     });
   }
 
-  async clearCache(serviceId = null) {
+  async clearCache(serviceId: string | null = null) {
     const s = serviceId
       ? session.fromPartition(`persist:service-${serviceId}`)
       : session.defaultSession;

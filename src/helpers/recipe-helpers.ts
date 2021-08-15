@@ -1,15 +1,15 @@
 import { parse } from 'path';
 import { userDataRecipesPath } from '../environment';
 
-export function getRecipeDirectory(id = '') {
+export function getRecipeDirectory(id: string = ''): string {
   return userDataRecipesPath(id);
 }
 
-export function getDevRecipeDirectory(id = '') {
+export function getDevRecipeDirectory(id: string = ''): string {
   return userDataRecipesPath('dev', id);
 }
 
-export function loadRecipeConfig(recipeId) {
+export function loadRecipeConfig(recipeId: string) {
   try {
     const configPath = `${recipeId}/package.json`;
     // Delete module from cache

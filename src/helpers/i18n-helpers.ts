@@ -3,7 +3,7 @@ export function getLocale({
 }) {
   let localeStr = locale;
   if (locales[locale] === undefined) {
-    let localeFuzzy;
+    let localeFuzzy: string | undefined;
     Object.keys(locales).forEach((localStr) => {
       if (locales && Object.hasOwnProperty.call(locales, localStr)) {
         if (locale.substring(0, 2) === localStr.substring(0, 2)) {
@@ -31,7 +31,7 @@ export function getLocale({
 export function getSelectOptions({
   locales, resetToDefaultText = '', automaticDetectionText = '', sort = true,
 }) {
-  const options = [];
+  const options: object[] = [];
 
   if (resetToDefaultText) {
     options.push(
