@@ -1,7 +1,6 @@
 import { Property } from 'csstype';
 import { Classes } from 'jss';
 import { observer } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
 import React from 'react';
 import injectSheet from 'react-jss';
 
@@ -122,7 +121,6 @@ export const App = injectSheet(styles)(
           </div>
         ))}
       </div>
-      <DevTools />
     </div>
   )),
 );

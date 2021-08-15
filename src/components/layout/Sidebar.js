@@ -216,8 +216,7 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
           className="sidebar__button sidebar__button--settings"
           data-tip={`${intl.formatMessage(messages.settings)} (${settingsShortcutKey(false)})`}
         >
-          {/* TODO: Because of https://github.com/Templarian/MaterialDesign-Webfont/issues/81 bug in @mdi/font in 5.9.55, added `mdi-memory` as a fallback */}
-          <i className="mdi mdi-settings mdi-memory" />
+          <i className="mdi mdi-cog" />
           { (this.props.stores.app.updateStatus === this.props.stores.app.updateStatusTypes.AVAILABLE
             || this.props.stores.app.updateStatus === this.props.stores.app.updateStatusTypes.DOWNLOADED) && (
             <span className="update-available">
