@@ -8,10 +8,10 @@ import { ALLOWED_PROTOCOLS } from '../config';
 
 const debug = require('debug')('Ferdi:Helpers:url');
 
-export function isValidExternalURL(url: string) {
+export function isValidExternalURL(url: string | URL) {
   let parsedUrl: URL;
   try {
-    parsedUrl = new URL(url);
+    parsedUrl = new URL(url.toString());
   } catch (_) {
     return false;
   }
@@ -29,8 +29,9 @@ export async function openPath(folderName: string) {
 }
 
 // TODO: Need to verify and fix/remove the skipping logic. Ideally, we should never skip this check
-export function openExternalUrl(url: string, skipValidityCheck: boolean = false) {
+export function openExternalUrl(url: string | URL, skipValidityCheck: boolean = false) {
+  debug('for url:', url, 'skipValidityCheck:', skipValidityCheck);
   if (skipValidityCheck || isValidExternalURL(url)) {
-    shell.openExternal(url);
+    shell.openExternal(url.toString());
   }
 }
