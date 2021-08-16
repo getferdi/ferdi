@@ -1,15 +1,15 @@
 // @flow
 
 export default class News {
-  id = '';
+  id: string = '';
 
-  message = '';
+  message: string = '';
 
-  type = 'primary';
+  type: string = 'primary';
 
-  sticky = false;
+  sticky: boolean = false;
 
-  constructor(data) {
+  constructor(data: { id: string; message: string; type: string; sticky: boolean | undefined; }) {
     if (!data.id) {
       throw Error('News requires Id');
     }

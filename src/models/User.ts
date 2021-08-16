@@ -1,20 +1,22 @@
 import { observable } from 'mobx';
 
+// TODO: Need to cleanup these fields since we have removed the tiers of the paid plans from Ferdi
 export default class User {
-  id = null;
+  id: string | null = null;
 
-  @observable email = null;
+  @observable email: string | null = null;
 
-  @observable firstname = null;
+  @observable firstname: string | null = null;
 
-  @observable lastname = null;
+  @observable lastname: string | null = null;
 
-  @observable organization = null;
+  @observable organization: string | null = null;
 
-  @observable accountType = null;
+  @observable accountType: string | null = null;
 
   @observable emailIsConfirmed = true;
 
+  // TODO: Need to delete references to 'subscription' and 'donor'
   // better assume it's confirmed to avoid noise
   @observable subscription = {};
 
@@ -36,7 +38,7 @@ export default class User {
 
   @observable team = {};
 
-  constructor(data) {
+  constructor(data: { id: string | null; email: string | null; firstname: string | null; lastname: string | null; organization: string | null; accountType: string | null; beta: boolean; donor: {}; isDonor: boolean; isMiner: boolean; locale: boolean; isSubscriptionOwner: boolean; hasSubscription: boolean; hadSubscription: boolean; team: {}; }) {
     if (!data.id) {
       throw Error('User requires Id');
     }

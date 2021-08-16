@@ -1,15 +1,15 @@
 // @flow
 
 export default class RecipePreview {
-  id = '';
+  id: string = '';
 
-  name = '';
+  name: string = '';
 
-  icon = '';
+  icon: string = '';
 
-  featured = false;
+  featured: boolean = false;
 
-  aliases = [];
+  aliases: string[] = [];
 
   constructor(data) {
     if (!data.id) {
