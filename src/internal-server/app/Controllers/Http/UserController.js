@@ -1,41 +1,38 @@
 const User = use('App/Models/User');
 const Service = use('App/Models/Service');
 const Workspace = use('App/Models/Workspace');
-const {
-  validateAll,
-} = use('Validator');
+const { validateAll } = use('Validator');
 
 const btoa = require('btoa');
 const fetch = require('node-fetch');
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 const crypto = require('crypto');
 const { DEFAULT_APP_SETTINGS } = require('../../../../environment');
 
-const apiRequest = (url, route, method, auth) => new Promise((resolve, reject) => {
-  const base = `${url}/v1/`;
-  const user = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Ferdi/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
+const apiRequest = (url, route, method, auth) =>
+  new Promise((resolve, reject) => {
+    const base = `${url}/v1/`;
+    const user =
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Ferdi/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
 
-  try {
-    fetch(base + route, {
-      method,
-      headers: {
-        Authorization: `Bearer ${auth}`,
-        'User-Agent': user,
-      },
-    })
-      .then(data => data.json())
-      .then(json => resolve(json));
-  } catch (e) {
-    reject();
-  }
-});
+    try {
+      fetch(base + route, {
+        method,
+        headers: {
+          Authorization: `Bearer ${auth}`,
+          'User-Agent': user,
+        },
+      })
+        .then(data => data.json())
+        .then(json => resolve(json));
+    } catch (e) {
+      reject();
+    }
+  });
 
 class UserController {
   // Register a new user
-  async signup({
-    request,
-    response,
-  }) {
+  async signup({ request, response }) {
     // Validate user input
     const validation = await validateAll(request.all(), {
       firstname: 'required',
@@ -52,15 +49,13 @@ class UserController {
 
     return response.send({
       message: 'Successfully created account',
-      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGZXJkaSBJbnRlcm5hbCBTZXJ2ZXIiLCJpYXQiOjE1NzEwNDAyMTUsImV4cCI6MjUzMzk1NDE3ODQ0LCJhdWQiOiJnZXRmZXJkaS5jb20iLCJzdWIiOiJmZXJkaUBsb2NhbGhvc3QiLCJ1c2VySWQiOiIxIn0.9_TWFGp6HROv8Yg82Rt6i1-95jqWym40a-HmgrdMC6M',
+      token:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGZXJkaSBJbnRlcm5hbCBTZXJ2ZXIiLCJpYXQiOjE1NzEwNDAyMTUsImV4cCI6MjUzMzk1NDE3ODQ0LCJhdWQiOiJnZXRmZXJkaS5jb20iLCJzdWIiOiJmZXJkaUBsb2NhbGhvc3QiLCJ1c2VySWQiOiIxIn0.9_TWFGp6HROv8Yg82Rt6i1-95jqWym40a-HmgrdMC6M',
     });
   }
 
   // Login using an existing user
-  async login({
-    request,
-    response,
-  }) {
+  async login({ request, response }) {
     if (!request.header('Authorization')) {
       return response.status(401).send({
         message: 'Please provide authorization',
@@ -70,17 +65,19 @@ class UserController {
 
     return response.send({
       message: 'Successfully logged in',
-      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGZXJkaSBJbnRlcm5hbCBTZXJ2ZXIiLCJpYXQiOjE1NzEwNDAyMTUsImV4cCI6MjUzMzk1NDE3ODQ0LCJhdWQiOiJnZXRmZXJkaS5jb20iLCJzdWIiOiJmZXJkaUBsb2NhbGhvc3QiLCJ1c2VySWQiOiIxIn0.9_TWFGp6HROv8Yg82Rt6i1-95jqWym40a-HmgrdMC6M',
+      token:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGZXJkaSBJbnRlcm5hbCBTZXJ2ZXIiLCJpYXQiOjE1NzEwNDAyMTUsImV4cCI6MjUzMzk1NDE3ODQ0LCJhdWQiOiJnZXRmZXJkaS5jb20iLCJzdWIiOiJmZXJkaUBsb2NhbGhvc3QiLCJ1c2VySWQiOiIxIn0.9_TWFGp6HROv8Yg82Rt6i1-95jqWym40a-HmgrdMC6M',
     });
   }
 
   // Return information about the current user
-  async me({
-    response,
-  }) {
+  async me({ response }) {
     const user = await User.find(1);
 
-    const settings = typeof user.settings === 'string' ? JSON.parse(user.settings) : user.settings;
+    const settings =
+      typeof user.settings === 'string'
+        ? JSON.parse(user.settings)
+        : user.settings;
 
     return response.send({
       accountType: 'individual',
@@ -94,14 +91,11 @@ class UserController {
       isSubscriptionOwner: true,
       lastname: 'Application',
       locale: DEFAULT_APP_SETTINGS.fallbackLocale,
-      ...settings || {},
+      ...(settings || {}),
     });
   }
 
-  async updateMe({
-    request,
-    response,
-  }) {
+  async updateMe({ request, response }) {
     const user = await User.find(1);
 
     let settings = user.settings || {};
@@ -132,16 +126,11 @@ class UserController {
         locale: DEFAULT_APP_SETTINGS.fallbackLocale,
         ...newSettings,
       },
-      status: [
-        'data-updated',
-      ],
+      status: ['data-updated'],
     });
   }
 
-  async import({
-    request,
-    response,
-  }) {
+  async import({ request, response }) {
     // Validate user input
     const validation = await validateAll(request.all(), {
       email: 'required|email',
@@ -149,7 +138,8 @@ class UserController {
       server: 'required',
     });
     if (validation.fails()) {
-      let errorMessage = 'There was an error while trying to import your account:\n';
+      let errorMessage =
+        'There was an error while trying to import your account:\n';
       for (const message of validation.messages()) {
         if (message.validation === 'required') {
           errorMessage += `- Please make sure to supply your ${message.field}\n`;
@@ -162,16 +152,16 @@ class UserController {
       return response.status(401).send(errorMessage);
     }
 
-    const {
-      email,
-      password,
-      server,
-    } = request.all();
+    const { email, password, server } = request.all();
 
-    const hashedPassword = crypto.createHash('sha256').update(password).digest('base64');
+    const hashedPassword = crypto
+      .createHash('sha256')
+      .update(password)
+      .digest('base64');
 
     const base = `${server}/v1/`;
-    const userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Ferdi/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
+    const userAgent =
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Ferdi/5.3.0-beta.1 Chrome/69.0.3497.128 Electron/4.2.4 Safari/537.36';
 
     // Try to get an authentication token
     let token;
@@ -188,7 +178,8 @@ class UserController {
       const content = await rawResponse.json();
 
       if (!content.message || content.message !== 'Successfully logged in') {
-        const errorMessage = 'Could not login into Franz with your supplied credentials. Please check and try again';
+        const errorMessage =
+          'Could not login into Franz with your supplied credentials. Please check and try again';
         return response.status(401).send(errorMessage);
       }
 
@@ -210,7 +201,8 @@ class UserController {
       return response.status(401).send(errorMessage);
     }
     if (!userInf) {
-      const errorMessage = 'Could not get your user info from Franz. Please check your credentials or try again later';
+      const errorMessage =
+        'Could not get your user info from Franz. Please check your credentials or try again later';
       return response.status(401).send(errorMessage);
     }
 
@@ -225,9 +217,14 @@ class UserController {
         let serviceId;
         do {
           serviceId = uuid();
-        } while ((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+        } while (
+          // eslint-disable-next-line no-await-in-loop
+          (await Service.query().where('serviceId', serviceId).fetch()).rows
+            .length > 0
+        );
 
-        await Service.create({ // eslint-disable-line no-await-in-loop
+        // eslint-disable-next-line no-await-in-loop
+        await Service.create({
           serviceId,
           name: service.name,
           recipeId: service.recipeId,
@@ -249,11 +246,18 @@ class UserController {
         let workspaceId;
         do {
           workspaceId = uuid();
-        } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+        } while (
+          // eslint-disable-next-line no-await-in-loop
+          (await Workspace.query().where('workspaceId', workspaceId).fetch())
+            .rows.length > 0
+        );
 
-        const services = workspace.services.map(service => serviceIdTranslation[service]);
+        const services = workspace.services.map(
+          service => serviceIdTranslation[service],
+        );
 
-        await Workspace.create({ // eslint-disable-line no-await-in-loop
+        // eslint-disable-next-line no-await-in-loop
+        await Workspace.create({
           workspaceId,
           name: workspace.name,
           order: workspace.order,
@@ -266,7 +270,9 @@ class UserController {
       return response.status(401).send(errorMessage);
     }
 
-    return response.send('Your account has been imported. You can now use your Franz account in Ferdi.');
+    return response.send(
+      'Your account has been imported. You can now use your Franz account in Ferdi.',
+    );
   }
 
   // Account import/export
@@ -291,10 +297,7 @@ class UserController {
       .send(exportData);
   }
 
-  async importFerdi({
-    request,
-    response,
-  }) {
+  async importFerdi({ request, response }) {
     const validation = await validateAll(request.all(), {
       file: 'required',
     });
@@ -306,7 +309,9 @@ class UserController {
     try {
       file = JSON.parse(request.input('file'));
     } catch (e) {
-      return response.send('Could not import: Invalid file, could not read file');
+      return response.send(
+        'Could not import: Invalid file, could not read file',
+      );
     }
 
     if (!file || !file.services || !file.workspaces) {
@@ -322,9 +327,14 @@ class UserController {
         let serviceId;
         do {
           serviceId = uuid();
-        } while ((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+        } while (
+          // eslint-disable-next-line no-await-in-loop
+          (await Service.query().where('serviceId', serviceId).fetch()).rows
+            .length > 0
+        );
 
-        await Service.create({ // eslint-disable-line no-await-in-loop
+        // eslint-disable-next-line no-await-in-loop
+        await Service.create({
           serviceId,
           name: service.name,
           recipeId: service.recipeId,
@@ -344,13 +354,19 @@ class UserController {
         let workspaceId;
         do {
           workspaceId = uuid();
-        } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+        } while (
+          // eslint-disable-next-line no-await-in-loop
+          (await Workspace.query().where('workspaceId', workspaceId).fetch())
+            .rows.length > 0
+        );
 
-        const services = (workspace.services && typeof (workspace.services) === 'object') ?
-          workspace.services.map((service) => serviceIdTranslation[service]) :
-          [];
+        const services =
+          workspace.services && typeof workspace.services === 'object'
+            ? workspace.services.map(service => serviceIdTranslation[service])
+            : [];
 
-        await Workspace.create({ // eslint-disable-line no-await-in-loop
+        // eslint-disable-next-line no-await-in-loop
+        await Workspace.create({
           workspaceId,
           name: workspace.name,
           order: workspace.order,

@@ -1,16 +1,11 @@
 const Workspace = use('App/Models/Workspace');
-const {
-  validateAll,
-} = use('Validator');
+const { validateAll } = use('Validator');
 
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 
 class WorkspaceController {
   // Create a new workspace for user
-  async create({
-    request,
-    response,
-  }) {
+  async create({ request, response }) {
     // Validate user input
     const validation = await validateAll(request.all(), {
       name: 'required',
@@ -29,7 +24,10 @@ class WorkspaceController {
     let workspaceId;
     do {
       workspaceId = uuid();
-    } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+    } while (
+      (await Workspace.query().where('workspaceId', workspaceId).fetch()).rows
+        .length > 0
+    ); // eslint-disable-line no-await-in-loop
 
     const order = (await Workspace.all()).rows.length;
 
@@ -50,11 +48,7 @@ class WorkspaceController {
     });
   }
 
-  async edit({
-    request,
-    response,
-    params,
-  }) {
+  async edit({ request, response, params }) {
     // Validate user input
     const validation = await validateAll(request.all(), {
       name: 'required',
@@ -69,20 +63,19 @@ class WorkspaceController {
     }
 
     const data = request.all();
-    const {
-      id,
-    } = params;
+    const { id } = params;
 
     // Update data in database
-    await (Workspace.query()
-      .where('workspaceId', id)).update({
-      name: data.name,
-      services: JSON.stringify(data.services),
-    });
+    await Workspace.query()
+      .where('workspaceId', id)
+      .update({
+        name: data.name,
+        services: JSON.stringify(data.services),
+      });
 
     // Get updated row
-    const workspace = (await Workspace.query()
-      .where('workspaceId', id).fetch()).rows[0];
+    const workspace = (await Workspace.query().where('workspaceId', id).fetch())
+      .rows[0];
 
     return response.send({
       id: workspace.workspaceId,
@@ -111,13 +104,10 @@ class WorkspaceController {
       });
     }
 
-    const {
-      id,
-    } = params;
+    const { id } = params;
 
     // Update data in database
-    await (Workspace.query()
-      .where('workspaceId', id)).delete();
+    await Workspace.query().where('workspaceId', id).delete();
 
     return response.send({
       message: 'Successfully deleted workspace',
@@ -125,9 +115,7 @@ class WorkspaceController {
   }
 
   // List all workspaces a user has created
-  async list({
-    response,
-  }) {
+  async list({ response }) {
     const workspaces = (await Workspace.all()).rows;
     // Convert to array with all data Franz wants
     let workspacesArray = [];
@@ -136,7 +124,10 @@ class WorkspaceController {
         id: workspace.workspaceId,
         name: workspace.name,
         order: workspace.order,
-        services: typeof workspace.services === 'string' ? JSON.parse(workspace.services) : workspace.services,
+        services:
+          typeof workspace.services === 'string'
+            ? JSON.parse(workspace.services)
+            : workspace.services,
         userId: 1,
       }));
     }

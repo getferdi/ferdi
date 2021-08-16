@@ -1,5 +1,5 @@
 import React from 'react';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import { Input } from '@meetfranz/forms';
 import { storiesOf } from '../stores/stories';
@@ -10,7 +10,8 @@ const defaultProps = () => {
     label: 'Label',
     id: `test-${id}`,
     name: `test-${id}`,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log('changed event', e),
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+      console.log('changed event', e),
   };
 };
 
@@ -21,44 +22,23 @@ const defaultPasswordProps = () => {
     id: `test-${id}`,
     name: `test-${id}`,
     type: 'password',
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log('changed event', e),
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+      console.log('changed event', e),
   };
 };
 
 storiesOf('Input')
   .add('Basic', () => (
-    <Input
-      {...defaultProps()}
-      placeholder="Placeholder text"
-    />
+    <Input {...defaultProps()} placeholder="Placeholder text" />
   ))
-  .add('Without Label', () => (
-    <Input
-      {...defaultProps()}
-      showLabel={false}
-    />
-  ))
-  .add('Disabled', () => (
-    <Input {...defaultProps()} disabled />
-  ))
-  .add('With prefix', () => (
-    <Input
-      {...defaultProps()}
-      prefix="https://"
-    />
-  ))
+  .add('Without Label', () => <Input {...defaultProps()} showLabel={false} />)
+  .add('Disabled', () => <Input {...defaultProps()} disabled />)
+  .add('With prefix', () => <Input {...defaultProps()} prefix="https://" />)
   .add('With suffix', () => (
-    <Input
-      {...defaultProps()}
-      suffix=".meetfranz.com"
-    />
+    <Input {...defaultProps()} suffix=".meetfranz.com" />
   ))
   .add('With pre-suffix', () => (
-    <Input
-      {...defaultProps()}
-      prefix="https://"
-      suffix=".meetfranz.com"
-    />
+    <Input {...defaultProps()} prefix="https://" suffix=".meetfranz.com" />
   ))
   .add('With error', () => (
     <Input
@@ -68,32 +48,16 @@ storiesOf('Input')
     />
   ))
   .add('Type number with min & max', () => (
-    <Input
-      {...defaultProps()}
-      type="number"
-      min={1}
-      max={10}
-    />
+    <Input {...defaultProps()} type="number" min={1} max={10} />
   ));
 
 storiesOf('Password')
-  .add('Basic', () => (
-    <Input
-      {...defaultPasswordProps()}
-    />
-  ))
+  .add('Basic', () => <Input {...defaultPasswordProps()} />)
   .add('Show password toggle', () => (
-    <Input
-      {...defaultPasswordProps()}
-      showPasswordToggle
-    />
+    <Input {...defaultPasswordProps()} showPasswordToggle />
   ))
   .add('Score password', () => (
-    <Input
-      {...defaultPasswordProps()}
-      showPasswordToggle
-      scorePassword
-    />
+    <Input {...defaultPasswordProps()} showPasswordToggle scorePassword />
   ))
   .add('Score password with error', () => (
     <Input
