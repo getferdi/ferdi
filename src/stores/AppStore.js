@@ -8,7 +8,7 @@ import {
   process as remoteProcess,
 } from '@electron/remote';
 import { action, computed, observable } from 'mobx';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import AutoLaunch from 'auto-launch';
 import ms from 'ms';
 import { URL } from 'url';
@@ -48,7 +48,8 @@ const autoLauncher = new AutoLaunch({
   path: executablePath,
 });
 
-const CATALINA_NOTIFICATION_HACK_KEY = '_temp_askedForCatalinaNotificationPermissions';
+const CATALINA_NOTIFICATION_HACK_KEY =
+  '_temp_askedForCatalinaNotificationPermissions';
 
 export default class AppStore extends Store {
   updateStatusTypes = {
@@ -74,7 +75,7 @@ export default class AppStore extends Store {
 
   @observable authRequestFailed = false;
 
-  @observable timeSuspensionStart = moment();
+  @observable timeSuspensionStart = dayjs();
 
   @observable timeOfflineStart;
 
@@ -228,7 +229,7 @@ export default class AppStore extends Store {
     powerMonitor.on('suspend', () => {
       debug('System suspended starting timer');
 
-      this.timeSuspensionStart = moment();
+      this.timeSuspensionStart = dayjs();
     });
 
     powerMonitor.on('resume', () => {
@@ -236,8 +237,8 @@ export default class AppStore extends Store {
       this.actions.service.resetLastPollTimer();
 
       if (
-        this.timeSuspensionStart.add(10, 'm').isBefore(moment())
-        && this.stores.settings.app.get('reloadAfterResume')
+        this.timeSuspensionStart.add(10, 'm').isBefore(dayjs()) &&
+        this.stores.settings.app.get('reloadAfterResume')
       ) {
         debug('Reloading services, user info and features');
 
@@ -283,15 +284,15 @@ export default class AppStore extends Store {
       ferdi: {
         version: ferdiVersion,
         electron: electronVersion,
-        installedRecipes: this.stores.recipes.all.map((recipe) => ({
+        installedRecipes: this.stores.recipes.all.map(recipe => ({
           id: recipe.id,
           version: recipe.version,
         })),
-        devRecipes: this.stores.recipePreviews.dev.map((recipe) => ({
+        devRecipes: this.stores.recipePreviews.dev.map(recipe => ({
           id: recipe.id,
           version: recipe.version,
         })),
-        services: this.stores.services.all.map((service) => ({
+        services: this.stores.services.all.map(service => ({
           id: service.id,
           recipe: service.recipe.id,
           isAttached: service.isAttached,
@@ -302,7 +303,7 @@ export default class AppStore extends Store {
           isDarkModeEnabled: service.isDarkModeEnabled,
         })),
         messages: this.stores.globalError.messages,
-        workspaces: this.stores.workspaces.workspaces.map((workspace) => ({
+        workspaces: this.stores.workspaces.workspaces.map(workspace => ({
           id: workspace.id,
           services: workspace.services,
         })),
@@ -315,9 +316,7 @@ export default class AppStore extends Store {
   }
 
   // Actions
-  @action _notify({
-    title, options, notificationId, serviceId = null,
-  }) {
+  @action _notify({ title, options, notificationId, serviceId = null }) {
     if (this.stores.settings.all.app.isAppMuted) return;
 
     // TODO: is there a simple way to use blobs for notifications without storing them on disk?
@@ -359,8 +358,8 @@ export default class AppStore extends Store {
     if (indicator === 0 && unreadIndirectMessageCount !== 0) {
       indicator = '•';
     } else if (
-      unreadDirectMessageCount === 0
-      && unreadIndirectMessageCount === 0
+      unreadDirectMessageCount === 0 &&
+      unreadIndirectMessageCount === 0
     ) {
       indicator = 0;
     } else {
@@ -441,22 +440,25 @@ export default class AppStore extends Store {
     const clearAppCache = this.clearAppCacheRequest.execute();
     const allServiceIds = await getServiceIdsFromPartitions();
     const allOrphanedServiceIds = allServiceIds.filter(
-      (id) => !this.stores.services.all.find(
-        (s) => id.replace('service-', '') === s.id,
-      ),
+      id =>
+        !this.stores.services.all.find(
+          s => id.replace('service-', '') === s.id,
+        ),
     );
 
     try {
       await Promise.all(
-        allOrphanedServiceIds.map((id) => removeServicePartitionDirectory(id)),
+        allOrphanedServiceIds.map(id => removeServicePartitionDirectory(id)),
       );
     } catch (ex) {
       console.log('Error while deleting service partition directory - ', ex);
     }
     await Promise.all(
-      this.stores.services.all.map((s) => this.actions.service.clearCache({
-        serviceId: s.id,
-      })),
+      this.stores.services.all.map(s =>
+        this.actions.service.clearCache({
+          serviceId: s.id,
+        }),
+      ),
     );
 
     await clearAppCache._promise;
@@ -471,9 +473,9 @@ export default class AppStore extends Store {
   // Reactions
   _offlineCheck() {
     if (!this.isOnline) {
-      this.timeOfflineStart = moment();
+      this.timeOfflineStart = dayjs();
     } else {
-      const deltaTime = moment().diff(this.timeOfflineStart);
+      const deltaTime = dayjs().diff(this.timeOfflineStart);
 
       if (deltaTime > ms('30m')) {
         this.actions.service.reloadAll();
@@ -488,16 +490,16 @@ export default class AppStore extends Store {
     }
 
     if (
-      locale
-      && Object.prototype.hasOwnProperty.call(locales, locale)
-      && locale !== this.locale
+      locale &&
+      Object.prototype.hasOwnProperty.call(locales, locale) &&
+      locale !== this.locale
     ) {
       this.locale = locale;
     } else if (!locale) {
       this.locale = this._getDefaultLocale();
     }
 
-    moment.locale(this.locale);
+    dayjs.locale(this.locale);
 
     debug(`Set locale to "${this.locale}"`);
   }
@@ -569,8 +571,8 @@ export default class AppStore extends Store {
     debug('Do not disturb mode is', dnd);
     // ipcRenderer.on('autoUpdate', (event, data) => {
     if (
-      dnd !== this.stores.settings.all.app.isAppMuted
-      && !this.isSystemMuteOverridden
+      dnd !== this.stores.settings.all.app.isAppMuted &&
+      !this.isSystemMuteOverridden
     ) {
       this.actions.app.muteApp({
         isMuted: dnd,
