@@ -1,14 +1,17 @@
 import { systemPreferences, dialog } from 'electron';
 import { pathExistsSync, mkdirSync, writeFileSync } from 'fs-extra';
-import macosVersion from 'macos-version';
+import { isMacOSVersionGreaterThanOrEqualTo } from 'macos-version';
 import { dirname } from 'path';
 import { askForScreenCaptureAccess } from 'node-mac-permissions';
 import { userDataPath } from '../environment';
 
 const debug = require('debug')('Ferdi:macOSPermissions');
 
-const isExplicitScreenCapturePermissionReqd = macosVersion.isGreaterThanOrEqualTo('10.15');
-debug(`Should check explicitly for screen-capture permissions: ${isExplicitScreenCapturePermissionReqd}`);
+const isExplicitScreenCapturePermissionReqd =
+  isMacOSVersionGreaterThanOrEqualTo('10.15');
+debug(
+  `Should check explicitly for screen-capture permissions: ${isExplicitScreenCapturePermissionReqd}`,
+);
 
 const filePath = userDataPath('.has-app-requested-screen-capture-permissions');
 
