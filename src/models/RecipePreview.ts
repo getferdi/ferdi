@@ -11,7 +11,7 @@ export default class RecipePreview {
 
   aliases: string[] = [];
 
-  constructor(data) {
+  constructor(data: { id: any; }) {
     if (!data.id) {
       throw Error('RecipePreview requires Id');
     }

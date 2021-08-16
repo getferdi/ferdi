@@ -2,6 +2,29 @@ import semver from 'semver';
 import { pathExistsSync } from 'fs-extra';
 import { join } from 'path';
 
+interface IRecipe {
+  id: string;
+  name: string;
+  version: string;
+  aliases?: string[];
+  path: string;
+  config: {
+    serviceURL?: string;
+    hasDirectMessages?: boolean;
+    hasIndirectMessages?: boolean;
+    hasNotificationSound?: boolean;
+    hasTeamId?: boolean;
+    hasCustomUrl?: boolean;
+    hasHostedOption?: boolean;
+    urlInputPrefix?: string;
+    urlInputSuffix?: string;
+    disablewebsecurity?: boolean;
+    autoHibernate?: boolean;
+    partition?: string;
+    message?: string;
+  };
+}
+
 export default class Recipe {
   // Note: Do NOT change these default values. If they change, then the corresponding changes in the recipes needs to be done
   id: string = '';
@@ -43,7 +66,7 @@ export default class Recipe {
   partition: string = '';
 
   // TODO: Need to reconcile which of these are optional/mandatory
-  constructor(data: { id: string; name: string; version: string; aliases?: string[]; path: string; config: { serviceURL?: string; hasDirectMessages?: boolean; hasIndirectMessages?: boolean; hasNotificationSound?: boolean; hasTeamId?: boolean; hasCustomUrl?: boolean; hasHostedOption?: boolean; urlInputPrefix?: string; urlInputSuffix?: string; disablewebsecurity?: boolean; autoHibernate?: boolean; partition?: string; message?: string; }; }) {
+  constructor(data: IRecipe) {
     if (!data) {
       throw Error('Recipe config not valid');
     }

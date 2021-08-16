@@ -1,5 +1,12 @@
 // @flow
 
+interface INews {
+  id: string;
+  message: string;
+  type: string;
+  sticky: boolean | undefined;
+}
+
 export default class News {
   id: string = '';
 
@@ -9,7 +16,7 @@ export default class News {
 
   sticky: boolean = false;
 
-  constructor(data: { id: string; message: string; type: string; sticky: boolean | undefined; }) {
+  constructor(data: INews) {
     if (!data.id) {
       throw Error('News requires Id');
     }

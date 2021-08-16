@@ -1,5 +1,23 @@
 import { observable } from 'mobx';
 
+interface IUser {
+  id: string | null;
+  email: string | null;
+  firstname: string | null;
+  lastname: string | null;
+  organization: string | null;
+  accountType: string | null;
+  beta: boolean;
+  donor: object;
+  isDonor: boolean;
+  isMiner: boolean;
+  locale: boolean;
+  isSubscriptionOwner: boolean;
+  hasSubscription: boolean;
+  hadSubscription: boolean;
+  team: object;
+}
+
 // TODO: Need to cleanup these fields since we have removed the tiers of the paid plans from Ferdi
 export default class User {
   id: string | null = null;
@@ -38,7 +56,7 @@ export default class User {
 
   @observable team = {};
 
-  constructor(data: { id: string | null; email: string | null; firstname: string | null; lastname: string | null; organization: string | null; accountType: string | null; beta: boolean; donor: {}; isDonor: boolean; isMiner: boolean; locale: boolean; isSubscriptionOwner: boolean; hasSubscription: boolean; hadSubscription: boolean; team: {}; }) {
+  constructor(data: IUser) {
     if (!data.id) {
       throw Error('User requires Id');
     }

@@ -1,4 +1,14 @@
 // TODO: Can this file be deleted?
+
+interface IOrder {
+  id: string;
+  subscriptionId: string;
+  name: string;
+  invoiceUrl: string;
+  price: string;
+  date: string;
+}
+
 export default class Order {
   id: string = '';
 
@@ -12,7 +22,7 @@ export default class Order {
 
   date: string = '';
 
-  constructor(data: { id: string; subscriptionId: string; name: string; invoiceUrl: string; price: string; date: string; }) {
+  constructor(data: IOrder) {
     this.id = data.id;
     this.subscriptionId = data.subscriptionId;
     this.name = data.name || this.name;
