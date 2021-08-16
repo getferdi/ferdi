@@ -262,7 +262,7 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
           echo "$SNAPCRAFT_LOGIN" | snapcraft login --with -
-          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies
+          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies -c.snap.publish.repo=nightlies -c.snap.publish.releaseType=prerelease -c.snap.publish.channels=edge
           snapcraft logout
         shell: bash
       - name: Build Ferdi with publish for 'release' beta branch
@@ -274,7 +274,7 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
           echo "$SNAPCRAFT_LOGIN" | snapcraft login --with -
-          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi -c.snap.publish.channels=beta
+          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi -c.snap.publish.repo=ferdi -c.snap.publish.releaseType=prerelease -c.snap.publish.channels=beta
           snapcraft logout
         shell: bash
       - name: Build Ferdi with publish for 'release' stable branch
@@ -286,7 +286,7 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
           echo "$SNAPCRAFT_LOGIN" | snapcraft login --with -
-          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi -c.snap.publish.channels=stable
+          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi -c.snap.publish.repo=ferdi -c.snap.publish.releaseType=release -c.snap.publish.channels=stable
           snapcraft logout
         shell: bash
 
