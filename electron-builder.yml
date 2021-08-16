@@ -64,7 +64,9 @@ linux:
 snap:
   publish:
     - snapStore
-    - github
+    - provider: github
+      repo: "https://github.com/getferdi/nightlies.git"
+      releaseType: prerelease
 
 nsis:
   perMachine: false
