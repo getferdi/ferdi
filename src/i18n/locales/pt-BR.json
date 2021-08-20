@@ -10,7 +10,7 @@
   "connectionLostBanner.cta": "Recarregar serviço",
   "connectionLostBanner.informationLink": "O que aconteceu?",
   "connectionLostBanner.message": "Ah não! Ferdi perdeu a conexão com {name}.",
-  "feature.announcements.changelog.headline": "Alterações no Ferdi {version}",
+  "feature.announcements.changelog.headline": "Mudanças no Ferdi {version}",
   "feature.debugger.title": "Publicar informações de depuração",
   "feature.nightlyBuilds.activate": "Ativar",
   "feature.nightlyBuilds.cancel": "Cancelar",
