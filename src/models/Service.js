@@ -8,6 +8,7 @@ import { todosStore } from '../features/todos';
 import { isValidExternalURL } from '../helpers/url-helpers';
 import UserAgent from './UserAgent';
 import { DEFAULT_SERVICE_ORDER } from '../config';
+import { ifUndefinedString, ifUndefinedBoolean, ifUndefinedNumber } from '../jsUtils';
 
 const debug = require('debug')('Ferdi:Service');
 
@@ -101,8 +102,11 @@ export default class Service {
       throw Error('Service recipe not valid');
     }
 
+    this.recipe = recipe;
+
     this.userAgentModel = new UserAgent(recipe.overrideUserAgent);
 
+    // TODO: Should these also follow the 'ifUndefined*' style?
     this.id = data.id || this.id;
     this.name = data.name || this.name;
     this.team = data.team || this.team;
@@ -110,38 +114,19 @@ export default class Service {
     // this.customIconUrl = data.customIconUrl || this.customIconUrl;
     this.iconUrl = data.iconUrl || this.iconUrl;
 
-    this.order = data.order !== undefined
-      ? data.order : this.order;
-
-    this.isEnabled = data.isEnabled !== undefined
-      ? data.isEnabled : this.isEnabled;
-
-    this.isNotificationEnabled = data.isNotificationEnabled !== undefined
-      ? data.isNotificationEnabled : this.isNotificationEnabled;
-
-    this.isBadgeEnabled = data.isBadgeEnabled !== undefined
-      ? data.isBadgeEnabled : this.isBadgeEnabled;
-
-    this.isIndirectMessageBadgeEnabled = data.isIndirectMessageBadgeEnabled !== undefined
-      ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
-
-    this.isMuted = data.isMuted !== undefined ? data.isMuted : this.isMuted;
-
-    this.isDarkModeEnabled = data.isDarkModeEnabled !== undefined ? data.isDarkModeEnabled : this.isDarkModeEnabled;
-
-    this.darkReaderSettings = data.darkReaderSettings !== undefined ? data.darkReaderSettings : this.darkReaderSettings;
-
-    this.hasCustomUploadedIcon = data.hasCustomIcon !== undefined ? data.hasCustomIcon : this.hasCustomUploadedIcon;
-
-    this.proxy = data.proxy !== undefined ? data.proxy : this.proxy;
-
-    this.spellcheckerLanguage = data.spellcheckerLanguage !== undefined ? data.spellcheckerLanguage : this.spellcheckerLanguage;
-
-    this.userAgentPref = data.userAgentPref !== undefined ? data.userAgentPref : this.userAgentPref;
-
-    this.isHibernationEnabled = data.isHibernationEnabled !== undefined ? data.isHibernationEnabled : this.isHibernationEnabled;
-
-    this.recipe = recipe;
+    this.order = ifUndefinedNumber(data.order, this.order);
+    this.isEnabled = ifUndefinedBoolean(data.isEnabled, this.isEnabled);
+    this.isNotificationEnabled = ifUndefinedBoolean(data.isNotificationEnabled, this.isNotificationEnabled);
+    this.isBadgeEnabled = ifUndefinedBoolean(data.isBadgeEnabled, this.isBadgeEnabled);
+    this.isIndirectMessageBadgeEnabled = ifUndefinedBoolean(data.isIndirectMessageBadgeEnabled, this.isIndirectMessageBadgeEnabled);
+    this.isMuted = ifUndefinedBoolean(data.isMuted, this.isMuted);
+    this.isDarkModeEnabled = ifUndefinedBoolean(data.isDarkModeEnabled, this.isDarkModeEnabled);
+    this.darkReaderSettings = ifUndefinedString(data.darkReaderSettings, this.darkReaderSettings);
+    this.hasCustomUploadedIcon = ifUndefinedBoolean(data.hasCustomIcon, this.hasCustomUploadedIcon);
+    this.proxy = ifUndefinedString(data.proxy, this.proxy);
+    this.spellcheckerLanguage = ifUndefinedString(data.spellcheckerLanguage, this.spellcheckerLanguage);
+    this.userAgentPref = ifUndefinedString(data.userAgentPref, this.userAgentPref);
+    this.isHibernationEnabled = ifUndefinedBoolean(data.isHibernationEnabled, this.isHibernationEnabled);
 
     // Check if "Hibernate on Startup" is enabled and hibernate all services except active one
     const { hibernateOnStartup } = window.ferdi.stores.settings.app;

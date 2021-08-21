@@ -1,5 +1,7 @@
 // @flow
 
+import { ifUndefinedString, ifUndefinedBoolean } from '../jsUtils';
+
 interface INews {
   id: string;
   message: string;
@@ -22,8 +24,8 @@ export default class News {
     }
 
     this.id = data.id;
-    this.message = data.message || this.message;
-    this.type = data.type || this.type;
-    this.sticky = data.sticky !== undefined ? data.sticky : this.sticky;
+    this.message = ifUndefinedString(data.message, this.message);
+    this.type = ifUndefinedString(data.type, this.type);
+    this.sticky = ifUndefinedBoolean(data.sticky, this.sticky);
   }
 }
