@@ -1,3 +1,18 @@
+# [v5.6.1-nightly.35](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.34...v5.6.1-nightly.35) (2021-08-22)
+
+- Remove checks that refers to paid subscription since Ferdi is always free 💖 @vraravam
+- Remove 'shareFranz' feature since its always turned off for Ferdi 💖 @vraravam
+
+### Bug Fixes
+
+- Incorrect position while adding a new service when there were pre-existing services (#1820) 💖 @vraravam
+
+### Internal
+
+- Typescript conversion 💖 @vraravam
+- Set stricter rules for typescript conversion 💖 @vraravam
+- Move build-time js files out of 'src' and into 'scripts' 💖 @vraravam
+
 # [v5.6.1-nightly.34](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.33...v5.6.1-nightly.34) (2021-08-21)
 
 ### Bug Fixes
