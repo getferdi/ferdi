@@ -7,6 +7,7 @@ import { join } from 'path';
 import { todosStore } from '../features/todos';
 import { isValidExternalURL } from '../helpers/url-helpers';
 import UserAgent from './UserAgent';
+import { DEFAULT_SERVICE_ORDER } from '../config';
 
 const debug = require('debug')('Ferdi:Service');
 
@@ -31,7 +32,7 @@ export default class Service {
 
   @observable unreadIndirectMessageCount = 0;
 
-  @observable order = 99;
+  @observable order = DEFAULT_SERVICE_ORDER;
 
   @observable isEnabled = true;
 

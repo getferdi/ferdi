@@ -181,3 +181,5 @@ export const DEFAULT_IS_FEATURE_ENABLED_BY_USER = true;
 export const TODOS_PARTITION_ID = 'persist:todos';
 
 export const CUSTOM_WEBSITE_RECIPE_ID = 'franz-custom-website';
+
+export const DEFAULT_SERVICE_ORDER = 99; // something high enough that it gets added to the end of the already-added services on the left sidebar

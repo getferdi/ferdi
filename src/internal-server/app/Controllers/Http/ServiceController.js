@@ -5,7 +5,7 @@ const Env = use('Env');
 const uuid = require('uuid/v4');
 const path = require('path');
 const fs = require('fs-extra');
-const { LOCAL_HOSTNAME } = require('../../../../config');
+const { LOCAL_HOSTNAME, DEFAULT_SERVICE_ORDER } = require('../../../../config');
 
 const hostname = LOCAL_HOSTNAME;
 const port = Env.get('PORT');
@@ -54,7 +54,7 @@ class ServiceController {
         isMuted: false,
         isDarkModeEnabled: '', // TODO: This should ideally be a boolean (false). But, changing it caused the sidebar toggle to not work.
         spellcheckerLanguage: '',
-        order: 1,
+        order: DEFAULT_SERVICE_ORDER,
         customRecipe: false,
         hasCustomIcon: false,
         workspaces: [],
@@ -83,7 +83,7 @@ class ServiceController {
         isEnabled: true,
         isMuted: false,
         isNotificationEnabled: true,
-        order: 1,
+        order: DEFAULT_SERVICE_ORDER,
         spellcheckerLanguage: '',
         workspaces: [],
         ...JSON.parse(service.settings),
@@ -257,7 +257,7 @@ class ServiceController {
         isEnabled: true,
         isMuted: false,
         isNotificationEnabled: true,
-        order: 1,
+        order: DEFAULT_SERVICE_ORDER,
         spellcheckerLanguage: '',
         workspaces: [],
         ...JSON.parse(service.settings),
