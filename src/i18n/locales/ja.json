@@ -35,7 +35,7 @@
   "feature.shareFranz.text": "あなたのお友達にFerdiを教えてあげましょう。",
   "global.api.unhealthy": "Ferdiのオンラインサービスに接続できません。",
   "global.notConnectedToTheInternet": "インターネットに接続されていません。",
-  "global.spellchecker.useDefault": " {default}を初期設定で使用してください",
+  "global.spellchecker.useDefault": "システムデフォルトを使用する({default})",
   "global.spellchecking.autodetect": "言語を自動的に検出する",
   "global.spellchecking.autodetect.short": "自動",
   "global.spellchecking.language": "スペルチェックする言語",
