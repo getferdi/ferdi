@@ -1,3 +1,13 @@
+# [v5.6.1-nightly.36](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.35...v5.6.1-nightly.36) (2021-08-23)
+
+### Bug Fixes
+
+- Audio toggle is now decoupled from notification toggle (#1691) 💖 @vraravam
+
+### Internal
+
+- [Perf] Removed double nested looping while deactivating service (#1824) 💖 @vraravam
+
 # [v5.6.1-nightly.35](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.34...v5.6.1-nightly.35) (2021-08-22)
 
 - Remove checks that refers to paid subscription since Ferdi is always free 💖 @vraravam
