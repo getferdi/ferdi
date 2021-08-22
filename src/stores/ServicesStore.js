@@ -215,12 +215,12 @@ export default class ServicesStore extends Store {
    * Run various maintenance tasks on services
    */
   _serviceMaintenance() {
-    this.all.forEach(service => {
+    this.enabled.forEach(service => {
       // Defines which services should be hibernated or woken up
       if (!service.isActive) {
         if (
           !service.lastHibernated &&
-          Date.now() - service.lastUsed >
+          (Date.now() - service.lastUsed) >
             ms(`${this.stores.settings.all.app.hibernationStrategy}s`)
         ) {
           // If service is stale, hibernate it.
@@ -229,21 +229,18 @@ export default class ServicesStore extends Store {
 
         if (
           service.lastHibernated &&
-          Number(this.stores.settings.all.app.wakeUpStrategy) > 0
+          Number(this.stores.settings.all.app.wakeUpStrategy) > 0 &&
+          (Date.now() - service.lastHibernated) >
+          ms(`${this.stores.settings.all.app.wakeUpStrategy}s`)
         ) {
           // If service is in hibernation and the wakeup time has elapsed, wake it.
-          if (
-            Date.now() - service.lastHibernated >
-            ms(`${this.stores.settings.all.app.wakeUpStrategy}s`)
-          ) {
-            this._awake({ serviceId: service.id });
-          }
+          this._awake({ serviceId: service.id });
         }
       }
 
       if (
         service.lastPoll &&
-        service.lastPoll - service.lastPollAnswer > ms('1m')
+        (service.lastPoll - service.lastPollAnswer) > ms('1m')
       ) {
         // If service did not reply for more than 1m try to reload.
         if (!service.isActive) {
@@ -621,9 +618,8 @@ export default class ServicesStore extends Store {
       this.allDisplayed.length,
     );
 
-    // TODO: simplify this;
-    this.all.forEach((s, index) => {
-      this.all[index].isActive = false;
+    this.all.forEach(s => {
+      s.isActive = false;
     });
     this.allDisplayed[nextIndex].isActive = true;
   }
@@ -635,9 +631,8 @@ export default class ServicesStore extends Store {
       this.allDisplayed.length,
     );
 
-    // TODO: simplify this;
-    this.all.forEach((s, index) => {
-      this.all[index].isActive = false;
+    this.all.forEach(s => {
+      s.isActive = false;
     });
     this.allDisplayed[prevIndex].isActive = true;
   }
@@ -902,6 +897,7 @@ export default class ServicesStore extends Store {
     );
 
     const services = {};
+    // TODO: simplify this
     this.all.forEach((s, index) => {
       services[this.all[index].id] = index;
     });
