@@ -400,7 +400,8 @@ export default class ServicesStore extends Store {
 
     // set default values for serviceData
     // eslint-disable-next-line prefer-object-spread
-    Object.assign(
+    // TODO: How is this different from the defaults of the recipe in 'src/models/Recipe' file?
+    serviceData = Object.assign(
       {
         isEnabled: true,
         isHibernationEnabled: false,
@@ -416,11 +417,7 @@ export default class ServicesStore extends Store {
       serviceData,
     );
 
-    let data = serviceData;
-
-    if (!skipCleanup) {
-      data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
-    }
+    const data = skipCleanup ? serviceData : this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
 
     const response = await this.createServiceRequest.execute(recipeId, data)
       ._promise;
@@ -452,12 +449,13 @@ export default class ServicesStore extends Store {
       serviceData.name = data.name;
     }
 
-    if (data.team && !data.customURL) {
-      serviceData.team = data.team;
-    }
-
-    if (data.team && data.customURL) {
-      serviceData.customUrl = data.team;
+    if (data.team) {
+      if (!data.customURL) {
+        serviceData.team = data.team;
+      } else {
+        // TODO: Is this correct?
+        serviceData.customUrl = data.team;
+      }
     }
 
     this.actions.service.createService({
