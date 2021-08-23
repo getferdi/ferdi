@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Set env vars
         run: |
-          echo "NPM_CACHE=$HOME/.npm" >> $GITHUB_ENV
+          echo "PNPM_CACHE=~/.pnpm-store" >> $GITHUB_ENV
       - name: Checkout code along with submodules
         uses: actions/checkout@v2
         with:
@@ -35,8 +35,8 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ${{ env.NPM_CACHE }}
-          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ env.PNPM_CACHE }}
+          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
@@ -44,21 +44,21 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.3
-      - name: Uninstall locally and reinstall global npm modules
+          cache: "pnpm"
+      - name: Uninstall locally and reinstall global pnpm modules
         run: |
-          npm uninstall node-gyp
-          npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
-          npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
+          pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
+          pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
         run: npx lerna bootstrap
       - name: Update submodules
-        run: npm run update-submodules
+        run: pnpm run update-submodules
       - name: Update browserslist db
-        run: npx browserslist@latest --update-db
+        run: pnpx browserslist@latest --update-db
       - name: Run linter, reformatter, rebrander and tests
         run: |
-          npm run prepare-code
-          npm run test
+          pnpm run prepare-code
+          pnpm run test
       - name: Commit submodules, dependency-updates and linter changes
         run: |
           git config user.name github-actions

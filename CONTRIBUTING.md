@@ -13,7 +13,7 @@
   - [How Can I Contribute?](#how-can-i-contribute)
   - [Setting up your Development machine](#setting-up-your-development-machine)
     - [Install System-level dependencies](#install-system-level-dependencies)
-      - [Node.js, npm, node-gyp](#nodejs-npm-node-gyp)
+      - [Node.js, pnpm, node-gyp](#nodejs-pnpm-node-gyp)
       - [Git](#git)
       - [Debian/Ubuntu](#debianubuntu)
       - [Fedora](#fedora)
@@ -52,7 +52,7 @@ As a basic rule, before filing issues, feature requests or anything else. Take a
 
 ### Install System-level dependencies
 
-#### Node.js, npm, node-gyp
+#### Node.js, pnpm, node-gyp
 
 Please make sure you are conforming to the `engines` requirements used by the developers/contributors as specified in the [package.json file](./package.json#engines).
 
@@ -61,8 +61,8 @@ Currently, these are the combinations of system dependencies that work for MacOS
 ```bash
 node -v
 v14.17.3
-npm -v
-6.14.13
+pnpm -v
+6.14.2
 ```
 
 #### Git
@@ -88,7 +88,7 @@ dnf install libX11-devel libXext-devel libXScrnSaver-devel libxkbfile-devel rpm
 Please make sure you run this command as an administrator:
 
 ```bash
-npm i -g windows-build-tools --vs2015
+pnpm i -g windows-build-tools --vs2015
 ```
 
 #### node-gyp
@@ -96,13 +96,13 @@ npm i -g windows-build-tools --vs2015
 We need `node-gyp` to be able to compile any native dependencies
 
 ```bash
-npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
+pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
 ```
 
 #### Lerna
 
 ```bash
-npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
+pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
 ```
 
 ### Clone repository with submodule
@@ -129,15 +129,15 @@ export ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 Run the following command to install all dependencies, and link sibling modules with Ferdi.
 
 ```bash
-npx lerna bootstrap
+pnpx lerna bootstrap
 ```
 
-If you previously ran `npm install`, it sometimes is necessary to delete your `node_modules` folder before running `npx lerna bootstrap`. If you encounter the `gyp: No Xcode or CLT version` error on macOS at this step, please have a look [here](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d).
+If you previously ran `pnpm install`, it sometimes is necessary to delete your `node_modules` folder before running `pnpx lerna bootstrap`. If you encounter the `gyp: No Xcode or CLT version` error on macOS at this step, please have a look [here](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d).
 
 ### Fix native modules to match current electron node version
 
 ```bash
-npm run rebuild
+pnpm run rebuild
 ```
 
 ### Package recipe repository
@@ -145,7 +145,7 @@ npm run rebuild
 Ferdi requires its recipes to be packaged before it can use it. When running Ferdi as a development instance, you'll need to package the local recipes before you can create any services inside Ferdi.
 
 ```bash
-cd recipes && npm i && npm run package
+cd recipes && pnpm i && pnpm run package
 ```
 
 ### Using Docker to build a linux-targetted packaged app
@@ -174,7 +174,7 @@ mv /ferdi/latest-linux.yml /ferdi-out/latest-linux-$GIT_SHA.yml
 
 ### Code Signing on a mac
 
-If you are building the packaged app (on a mac) for local testing, you can set this environment variable to bypass the code signing step during the packaging process (`npm run build`):
+If you are building the packaged app (on a mac) for local testing, you can set this environment variable to bypass the code signing step during the packaging process (`pnpm run build`):
 
 ```bash
 export CSC_IDENTITY_AUTO_DISCOVERY=false
@@ -191,14 +191,14 @@ codesign --deep --force --verbose --sign - node_modules/electron/dist/Electron.a
 Run these two commands **simultaneously** in different terminals:
 
 ```bash
-npm run dev
-DEBUG=Ferdi:* npm run start
+pnpm run dev
+DEBUG=Ferdi:* pnpm run start
 ```
 
 - Optionally, you can run both commands in one terminal with [misty](https://github.com/adlk/misty) (see [misty.yml](https://github.com/getferdi/ferdi/blob/develop/misty.yml)):
 
 ```bash
-DEBUG=Ferdi:* npx misty
+DEBUG=Ferdi:* pnpx misty
 ```
 
 Note: please prefer [`debug()`](https://github.com/visionmedia/debug) over `console.log()`.
@@ -220,7 +220,7 @@ Note: please prefer [`debug()`](https://github.com/visionmedia/debug) over `cons
 ## Packaging
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Assets will be available in the `out` folder.
