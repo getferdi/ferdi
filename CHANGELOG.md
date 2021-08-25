@@ -1,5 +1,9 @@
 # [v5.6.1-nightly.39](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.38...v5.6.1-nightly.39) (2021-08-26)
 
+### Bug Fixes
+
+- Fix reordering of services in vertical style layout (#1833) 💖 @vraravam
+
 ### Internal
 
 - Upgraded `electron-builder` to `22.13.0` 💖 @vraravam

@@ -20,6 +20,7 @@ export default @observer class TabBar extends Component {
     updateService: PropTypes.func.isRequired,
     hibernateService: PropTypes.func.isRequired,
     wakeUpService: PropTypes.func.isRequired,
+    useVerticalStyle: PropTypes.bool.isRequired,
     showMessageBadgeWhenMutedSetting: PropTypes.bool.isRequired,
     showMessageBadgesEvenWhenMuted: PropTypes.bool.isRequired,
   };
@@ -81,9 +82,12 @@ export default @observer class TabBar extends Component {
       toggleAudio,
       toggleDarkMode,
       deleteService,
+      useVerticalStyle,
       showMessageBadgeWhenMutedSetting,
       showMessageBadgesEvenWhenMuted,
     } = this.props;
+
+    const axis = useVerticalStyle ? 'x' : 'y';
 
     return (
       <div>
@@ -104,8 +108,8 @@ export default @observer class TabBar extends Component {
           wakeUpService={(args) => this.wakeUpService(args)}
           openSettings={openSettings}
           distance={20}
-          axis="y"
-          lockAxis="y"
+          axis={axis}
+          lockAxis={axis}
           helperClass="is-reordering"
           showMessageBadgeWhenMutedSetting={showMessageBadgeWhenMutedSetting}
           showMessageBadgesEvenWhenMuted={showMessageBadgesEvenWhenMuted}

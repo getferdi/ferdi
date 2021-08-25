@@ -134,6 +134,7 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
           {...this.props}
           enableToolTip={() => this.enableToolTip()}
           disableToolTip={() => this.disableToolTip()}
+          useVerticalStyle={stores.settings.all.app.useVerticalStyle}
         />
         { isLoggedIn ? (
           <>
