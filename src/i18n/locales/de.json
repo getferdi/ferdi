@@ -249,7 +249,7 @@
   "settings.app.form.startMinimized": "Minimiert starten",
   "settings.app.form.universalDarkMode": "Universellen Dark Mode aktivieren",
   "settings.app.form.useTouchIdToUnlock": "Verwenden von Touch ID zum Entsperren von Ferdi erlauben",
-  "settings.app.form.useVerticalStyle": "Vertikalen Stil verwenden",
+  "settings.app.form.useVerticalStyle": "Use horizontal style",
   "settings.app.form.wakeUpStrategy": "Wake up strategy",
   "settings.app.headline": "Einstellungen",
   "settings.app.headlineAdvanced": "Erweitert",
