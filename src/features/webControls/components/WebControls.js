@@ -199,10 +199,15 @@ class WebControls extends Component {
             })
           }
           onFocus={event => {
-            console.log('on focus event');
             event.target.select();
             this.setState({
               editUrl: true,
+            });
+          }}
+          onBlur={event => {
+            event.target.blur();
+            this.setState({
+              editUrl: false,
             });
           }}
           onKeyDown={event => {
@@ -217,7 +222,7 @@ class WebControls extends Component {
                 editUrl: false,
                 inputUrl: url,
               });
-              event.target.blur();
+              this.inputRef.current.blur();
             }
           }}
           ref={this.inputRef}
