@@ -249,7 +249,7 @@
   "settings.app.form.startMinimized": "Start minimeret",
   "settings.app.form.universalDarkMode": "Aktiver universel mørk tilstand",
   "settings.app.form.useTouchIdToUnlock": "Tillad brug af TouchID for at låse Ferdi op",
-  "settings.app.form.useVerticalStyle": "Brug lodret stil",
+  "settings.app.form.useVerticalStyle": "Use horizontal style",
   "settings.app.form.wakeUpStrategy": "Wake up strategy",
   "settings.app.headline": "Indstillinger",
   "settings.app.headlineAdvanced": "Avanceret",
