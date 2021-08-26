@@ -249,7 +249,7 @@
   "settings.app.form.startMinimized": "最小化して起動",
   "settings.app.form.universalDarkMode": "ユニバーサルダークモードを有効にする",
   "settings.app.form.useTouchIdToUnlock": "Touch IDを使用してFerdiのロックを解除する",
-  "settings.app.form.useVerticalStyle": "垂直レイアウトを使用する",
+  "settings.app.form.useVerticalStyle": "Use horizontal style",
   "settings.app.form.wakeUpStrategy": "起動方法",
   "settings.app.headline": "設定",
   "settings.app.headlineAdvanced": "詳細",
