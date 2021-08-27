@@ -21,6 +21,7 @@
     "start": "electron ./build",
     "start:local": "cross-env USE_LOCAL_API=1 npm start",
     "start:live": "cross-env USE_LIVE_API=1 npm start",
+    "start:all-dev": "concurrently \"npm run dev\" \"wait-on http://localhost:8080 && npm start\"",
     "dev": "cross-env NODE_ENV=development gulp dev",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -161,6 +162,7 @@
     "all-contributors-cli": "6.20.0",
     "babel-plugin-react-intl": "3.5.1",
     "commitizen": "4.2.4",
+    "concurrently": "6.2.1",
     "conventional-changelog-cli": "2.1.1",
     "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
@@ -206,6 +208,7 @@
     "terser": "4.8.0",
     "ts-loader": "5.4.5",
     "typescript": "3.9.10",
+    "wait-on": "6.0.0",
     "webpack": "4.46.0",
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.11.2"
