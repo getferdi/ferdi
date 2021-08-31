@@ -58,6 +58,10 @@ export function userDataRecipesPath(...segments) {
   return userDataPath('recipes', ...([segments].flat()));
 }
 
+export function userDataExtensionsPath(...segments) {
+  return userDataPath('extensions', ...([segments].flat()));
+}
+
 // Replacing app.asar is not beautiful but unfortunately necessary
 export function asarRecipesPath(...segments) {
   return join(asarPath(join(__dirname, 'recipes')), ...([segments].flat()));

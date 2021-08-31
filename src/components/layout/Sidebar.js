@@ -12,6 +12,7 @@ import { todosStore } from '../../features/todos';
 import { todoActions } from '../../features/todos/actions';
 import AppStore from '../../stores/AppStore';
 import SettingsStore from '../../stores/SettingsStore';
+import ExtensionsActions from './ExtensionsActions';
 
 const messages = defineMessages({
   settings: {
@@ -136,6 +137,9 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
           disableToolTip={() => this.disableToolTip()}
           useVerticalStyle={stores.settings.all.app.useVerticalStyle}
         />
+
+        <ExtensionsActions />
+
         { isLoggedIn ? (
           <>
             { stores.settings.all.app.lockingFeatureEnabled ? (

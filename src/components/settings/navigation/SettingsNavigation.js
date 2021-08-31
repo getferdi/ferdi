@@ -59,6 +59,7 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
     }).isRequired,
     serviceCount: PropTypes.number.isRequired,
     workspaceCount: PropTypes.number.isRequired,
+    extensionsCount: PropTypes.number.isRequired,
   };
 
   static contextTypes = {
@@ -95,7 +96,7 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
   }
 
   render() {
-    const { serviceCount, workspaceCount, stores } = this.props;
+    const { serviceCount, workspaceCount, extensionsCount, stores } = this.props;
     const { intl } = this.context;
     const isLoggedIn = Boolean(localStorage.getItem('authToken'));
     const isUsingWithoutAccount = stores.settings.app.server === LOCAL_SERVER;
@@ -121,6 +122,32 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
           <span className="badge">
             {serviceCount}
           </span>
+        </Link>
+        <Link
+          to="/settings/extensions"
+          className="settings-navigation__link"
+          activeClassName="is-active"
+          disabled={!isLoggedIn}
+        >
+          Your extensions
+          {' '}
+          <span className="badge">{extensionsCount}</span>
+        </Link>
+        <Link
+          to="/settings/store-extensions"
+          className="settings-navigation__link"
+          activeClassName="is-active"
+          disabled={!isLoggedIn}
+        >
+          Extension-Store
+        </Link>
+        <Link
+          to="/settings/user"
+          className="settings-navigation__link"
+          activeClassName="is-active"
+          disabled={!isLoggedIn}
+        >
+          {intl.formatMessage(messages.account)}
         </Link>
         {workspaceStore.isFeatureEnabled ? (
           <Link

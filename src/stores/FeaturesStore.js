@@ -18,6 +18,7 @@ import settingsWS from '../features/settingsWS';
 import communityRecipes from '../features/communityRecipes';
 import todos from '../features/todos';
 import appearance from '../features/appearance';
+import extensions from '../features/extensions';
 
 import { DEFAULT_FEATURES_CONFIG } from '../config';
 
@@ -77,5 +78,6 @@ export default class FeaturesStore extends Store {
     communityRecipes(this.stores, this.actions);
     todos(this.stores, this.actions);
     appearance(this.stores, this.actions);
+    extensions(this.stores, this.actions);
   }
 }
