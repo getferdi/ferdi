@@ -134,10 +134,11 @@ export const ICON_SIZES = {
 export const iconSizeBias = 20;
 
 export const DEFAULT_FEATURES_CONFIG = {
-  isServiceProxyEnabled: false,
+  isServiceProxyEnabled: true,
   isAnnouncementsEnabled: true,
-  isWorkspaceEnabled: false,
+  isWorkspaceEnabled: true,
   isTodosEnabled: true,
+  isSettingsWSEnabled: false,
 };
 
 export const DEFAULT_WINDOW_OPTIONS = {
