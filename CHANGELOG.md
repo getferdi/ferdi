@@ -2,7 +2,7 @@
 
 ### Bug Fixes
 
-- Workspaces are now working 💖 @sad270, @vraravam
+- Workspaces are now working. When the active workspace gets deleted, the default workspace gets auto-selected. 💖 @sad270, @vraravam
 
 # [v5.6.1-nightly.45](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.43...v5.6.1-nightly.45) (2021-09-01)
 
