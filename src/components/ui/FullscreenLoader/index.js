@@ -16,16 +16,6 @@ export default @inject('stores') @withTheme @injectSheet(styles) @observer class
     theme: PropTypes.object.isRequired,
     spinnerColor: PropTypes.string,
     children: PropTypes.node,
-    stores: PropTypes.shape({
-      app: PropTypes.shape({
-        accentColor: PropTypes.string.isRequired,
-      }).isRequired,
-      settings: PropTypes.shape({
-        app: PropTypes.shape({
-          accentColor: PropTypes.string.isRequired,
-        }).isRequired,
-      }).isRequired,
-    }).isRequired,
   };
 
   static defaultProps = {
@@ -42,16 +32,10 @@ export default @inject('stores') @withTheme @injectSheet(styles) @observer class
       spinnerColor,
       className,
       theme,
-      stores,
     } = this.props;
 
     return (
-      <div
-        className={classes.wrapper}
-        style={{
-          background: stores.app.accentColor,
-        }}
-      >
+      <div className={classes.wrapper}>
         <div
           className={classnames({
             [`${classes.component}`]: true,
