@@ -1,3 +1,9 @@
+# [v5.6.1-nightly.46](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.45...v5.6.1-nightly.46) (2021-09-01)
+
+### Bug Fixes
+
+- Workspaces are now working 💖 @sad270, @vraravam
+
 # [v5.6.1-nightly.45](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.43...v5.6.1-nightly.45) (2021-09-01)
 
 - Upgrade to [electron 13.3.0](https://github.com/electron/electron/releases/tag/v13.3.0) 💖 @vraravam
