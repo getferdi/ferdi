@@ -35,6 +35,8 @@ export default class User {
 
   @observable isSubscriptionOwner = false;
 
+  @observable isPremium = true;
+
   @observable beta = false;
 
   @observable locale = false;

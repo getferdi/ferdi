@@ -1,6 +1,7 @@
 import {
   computed,
   observable,
+  reaction,
   runInAction,
 } from 'mobx';
 
@@ -36,6 +37,13 @@ export default class FeaturesStore extends Store {
 
     await this.featuresRequest._promise;
     setTimeout(this._setupFeatures.bind(this), 1);
+
+    // single key reaction
+    reaction(() => this.stores.user.data.isPremium, () => {
+      if (this.stores.user.isLoggedIn) {
+        this.featuresRequest.invalidate({ immediately: true });
+      }
+    });
   }
 
   @computed get anonymousFeatures() {
