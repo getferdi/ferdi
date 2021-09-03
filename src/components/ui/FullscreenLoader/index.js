@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import injectSheet, { withTheme } from 'react-jss';
 import classnames from 'classnames';
 
@@ -8,7 +8,7 @@ import Loader from '../Loader';
 
 import styles from './styles';
 
-export default @inject('stores') @withTheme @injectSheet(styles) @observer class FullscreenLoader extends Component {
+export default @withTheme @injectSheet(styles) @observer class FullscreenLoader extends Component {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
