@@ -35,11 +35,11 @@ export default
 @observer
 class Routes extends Component {
   render() {
-    const { locked, lockingFeatureEnabled } = this.props.stores.settings.app;
+    const { locked } = this.props.stores.settings.app;
 
     const { history } = this.props;
 
-    if (lockingFeatureEnabled && locked) {
+    if (locked) {
       return <LockedScreen />;
     }
 

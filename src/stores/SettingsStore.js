@@ -65,7 +65,7 @@ export default class SettingsStore extends Store {
     // Inactivity lock timer
     let inactivityTimer;
     getCurrentWindow().on('blur', () => {
-      if (this.all.app.inactivityLock !== 0) {
+      if (this.all.app.lockingFeatureEnabled && this.all.app.inactivityLock !== 0) {
         inactivityTimer = setTimeout(() => {
           this.actions.settings.update({
             type: 'app',
