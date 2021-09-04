@@ -14,7 +14,10 @@ import AppLoader from '../../components/ui/AppLoader';
 import { oneOrManyChildElements } from '../../prop-types';
 import FeaturesStore from '../../stores/FeaturesStore';
 
-export default @inject('stores', 'actions') @observer class AuthLayoutContainer extends Component {
+export default
+@inject('stores', 'actions')
+@observer
+class AuthLayoutContainer extends Component {
   static propTypes = {
     children: oneOrManyChildElements.isRequired,
     location: PropTypes.shape({
@@ -23,15 +26,12 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
   };
 
   render() {
-    const {
-      stores, actions, children, location,
-    } = this.props;
-    const {
-      app, features, globalError, user,
-    } = stores;
+    const { stores, actions, children, location } = this.props;
+    const { app, features, globalError, user } = stores;
 
-    const isLoadingBaseFeatures = features.defaultFeaturesRequest.isExecuting
-      && !features.defaultFeaturesRequest.wasExecuted;
+    const isLoadingBaseFeatures =
+      features.defaultFeaturesRequest.isExecuting &&
+      !features.defaultFeaturesRequest.wasExecuted;
 
     if (isLoadingBaseFeatures) {
       return (
@@ -61,8 +61,9 @@ export default @inject('stores', 'actions') @observer class AuthLayoutContainer 
           isHealthCheckLoading={app.healthCheckRequest.isExecuting}
           isFullScreen={app.isFullScreen}
           installAppUpdate={actions.app.installUpdate}
-          nextAppReleaseVersion={app.nextAppReleaseVersion}
-          appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
+          appUpdateIsDownloaded={
+            app.updateStatus === app.updateStatusTypes.DOWNLOADED
+          }
         >
           {children}
         </AuthLayout>

@@ -1,9 +1,5 @@
 import { ThemeType } from '@meetfranz/theme';
-import {
-  computed,
-  action,
-  observable,
-} from 'mobx';
+import { computed, action, observable } from 'mobx';
 import localStorage from 'mobx-localstorage';
 
 import { todoActions } from './actions';
@@ -44,12 +40,13 @@ export default class TodoStore extends FeatureStore {
   }
 
   @computed get isTodosPanelForceHidden() {
-    const { isAnnouncementShown } = this.stores.announcements;
-    return !this.isFeatureEnabledByUser || isAnnouncementShown;
+    return !this.isFeatureEnabledByUser;
   }
 
   @computed get isTodosPanelVisible() {
-    if (this.settings.isTodosPanelVisible === undefined) return DEFAULT_TODOS_VISIBLE;
+    if (this.settings.isTodosPanelVisible === undefined) {
+      return DEFAULT_TODOS_VISIBLE;
+    }
     return this.settings.isTodosPanelVisible;
   }
 
@@ -66,7 +63,10 @@ export default class TodoStore extends FeatureStore {
   }
 
   @computed get isUsingPredefinedTodoServer() {
-    return this.stores && this.stores.settings.app.predefinedTodoServer !== CUSTOM_TODO_SERVICE;
+    return (
+      this.stores &&
+      this.stores.settings.app.predefinedTodoServer !== CUSTOM_TODO_SERVICE
+    );
   }
 
   @computed get todoUrl() {
@@ -79,12 +79,17 @@ export default class TodoStore extends FeatureStore {
   }
 
   @computed get isTodoUrlValid() {
-    return !this.isUsingPredefinedTodoServer || isValidExternalURL(this.todoUrl);
+    return (
+      !this.isUsingPredefinedTodoServer || isValidExternalURL(this.todoUrl)
+    );
   }
 
   @computed get todoRecipeId() {
-    if (this.isFeatureEnabledByUser && this.isUsingPredefinedTodoServer
-        && this.todoUrl in TODO_SERVICE_RECIPE_IDS) {
+    if (
+      this.isFeatureEnabledByUser &&
+      this.isUsingPredefinedTodoServer &&
+      this.todoUrl in TODO_SERVICE_RECIPE_IDS
+    ) {
       return TODO_SERVICE_RECIPE_IDS[this.todoUrl];
     }
     return null;
@@ -99,16 +104,21 @@ export default class TodoStore extends FeatureStore {
 
     // ACTIONS
 
-    this._registerActions(createActionBindings([
-      [todoActions.resize, this._resize],
-      [todoActions.toggleTodosPanel, this._toggleTodosPanel],
-      [todoActions.setTodosWebview, this._setTodosWebview],
-      [todoActions.handleHostMessage, this._handleHostMessage],
-      [todoActions.handleClientMessage, this._handleClientMessage],
-      [todoActions.toggleTodosFeatureVisibility, this._toggleTodosFeatureVisibility],
-      [todoActions.openDevTools, this._openDevTools],
-      [todoActions.reload, this._reload],
-    ]));
+    this._registerActions(
+      createActionBindings([
+        [todoActions.resize, this._resize],
+        [todoActions.toggleTodosPanel, this._toggleTodosPanel],
+        [todoActions.setTodosWebview, this._setTodosWebview],
+        [todoActions.handleHostMessage, this._handleHostMessage],
+        [todoActions.handleClientMessage, this._handleClientMessage],
+        [
+          todoActions.toggleTodosFeatureVisibility,
+          this._toggleTodosFeatureVisibility,
+        ],
+        [todoActions.openDevTools, this._openDevTools],
+        [todoActions.reload, this._reload],
+      ]),
+    );
 
     // REACTIONS
 
@@ -133,7 +143,7 @@ export default class TodoStore extends FeatureStore {
 
   // ========== PRIVATE METHODS ========= //
 
-  _updateSettings = (changes) => {
+  _updateSettings = changes => {
     localStorage.setItem('todos', {
       ...this.settings,
       ...changes,
@@ -162,7 +172,7 @@ export default class TodoStore extends FeatureStore {
     }
   };
 
-  @action _handleHostMessage = (message) => {
+  @action _handleHostMessage = message => {
     debug('_handleHostMessage', message);
     if (message.action === 'todos:create') {
       this.webview.send(IPC.TODOS_HOST_CHANNEL, message);
@@ -172,11 +182,18 @@ export default class TodoStore extends FeatureStore {
   @action _handleClientMessage = ({ channel, message = {} }) => {
     debug('_handleClientMessage', channel, message);
     switch (message.action) {
-      case 'todos:initialized': this._onTodosClientInitialized(); break;
-      case 'todos:goToService': this._goToService(message.data); break;
+      case 'todos:initialized':
+        this._onTodosClientInitialized();
+        break;
+      case 'todos:goToService':
+        this._goToService(message.data);
+        break;
       default:
         debug('Other message received', channel, message);
-        console.log('this.stores.services.isTodosServiceAdded', this.stores.services.isTodosServiceAdded);
+        console.log(
+          'this.stores.services.isTodosServiceAdded',
+          this.stores.services.isTodosServiceAdded,
+        );
         if (this.stores.services.isTodosServiceAdded) {
           this.actions.service.handleIPCMessage({
             serviceId: this.stores.services.isTodosServiceAdded.id,
@@ -189,7 +206,7 @@ export default class TodoStore extends FeatureStore {
 
   _handleNewWindowEvent = ({ url }) => {
     this.actions.app.openExternalUrl({ url });
-  }
+  };
 
   @action _toggleTodosFeatureVisibility = () => {
     debug('_toggleTodosFeatureVisibility');
@@ -204,14 +221,14 @@ export default class TodoStore extends FeatureStore {
 
     const webview = document.querySelector('#todos-panel webview');
     if (webview) webview.openDevTools();
-  }
+  };
 
   _reload = () => {
     debug('_reload');
 
     const webview = document.querySelector('#todos-panel webview');
     if (webview) webview.reload();
-  }
+  };
 
   // Todos client message handlers
 
@@ -291,5 +308,5 @@ export default class TodoStore extends FeatureStore {
         });
       }
     }
-  }
+  };
 }

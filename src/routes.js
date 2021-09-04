@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import {
-  Router, Route, IndexRedirect,
-} from 'react-router';
+import { Router, Route, IndexRedirect } from 'react-router';
 
 import AppLayoutContainer from './containers/layout/AppLayoutContainer';
 import SettingsWindow from './containers/settings/SettingsWindow';
@@ -29,38 +27,39 @@ import AuthLayoutContainer from './containers/auth/AuthLayoutContainer';
 import WorkspacesScreen from './features/workspaces/containers/WorkspacesScreen';
 import EditWorkspaceScreen from './features/workspaces/containers/EditWorkspaceScreen';
 import { WORKSPACES_ROUTES } from './features/workspaces/constants';
-import AnnouncementScreen from './features/announcements/components/AnnouncementScreen';
-import { ANNOUNCEMENTS_ROUTES } from './features/announcements/constants';
 
 import SettingsStore from './stores/SettingsStore';
 
-export default @inject('stores', 'actions') @observer class Routes extends Component {
+export default
+@inject('stores', 'actions')
+@observer
+class Routes extends Component {
   render() {
-    const {
-      locked,
-      lockingFeatureEnabled,
-    } = this.props.stores.settings.app;
+    const { locked, lockingFeatureEnabled } = this.props.stores.settings.app;
 
     const { history } = this.props;
 
     if (lockingFeatureEnabled && locked) {
-      return (
-        <LockedScreen />
-      );
+      return <LockedScreen />;
     }
 
     return (
       <Router history={history}>
         <Route path="/" component={AppLayoutContainer}>
-          <Route path={ANNOUNCEMENTS_ROUTES.TARGET} component={AnnouncementScreen} />
           <Route path="/settings" component={SettingsWindow}>
             <IndexRedirect to="/settings/recipes" />
             <Route path="/settings/recipes" component={RecipesScreen} />
             <Route path="/settings/recipes/:filter" component={RecipesScreen} />
             <Route path="/settings/services" component={ServicesScreen} />
-            <Route path="/settings/services/:action/:id" component={EditServiceScreen} />
+            <Route
+              path="/settings/services/:action/:id"
+              component={EditServiceScreen}
+            />
             <Route path={WORKSPACES_ROUTES.ROOT} component={WorkspacesScreen} />
-            <Route path={WORKSPACES_ROUTES.EDIT} component={EditWorkspaceScreen} />
+            <Route
+              path={WORKSPACES_ROUTES.EDIT}
+              component={EditWorkspaceScreen}
+            />
             <Route path="/settings/user" component={AccountScreen} />
             <Route path="/settings/user/edit" component={EditUserScreen} />
             <Route path="/settings/team" component={TeamScreen} />

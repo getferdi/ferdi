@@ -228,13 +228,6 @@ export default (brandPrimary: string) => {
       },
     },
 
-    // Announcements
-    announcements: {
-      spotlight: {
-        background: legacyStyles.themeGrayLightest,
-      },
-    },
-
     // Todos
     todos: {
       todosLayer: {

@@ -7,24 +7,13 @@ import { DEFAULT_FEATURES_CONFIG } from '../../../../config';
 // TODO: This endpoint and associated code needs to be remoeved as cleanup
 class StaticController {
   // Enable all features
-  features({
-    response,
-  }) {
+  features({ response }) {
     return response.send(DEFAULT_FEATURES_CONFIG);
   }
 
   // Return an empty array
-  emptyArray({
-    response,
-  }) {
+  emptyArray({ response }) {
     return response.send([]);
-  }
-
-  // Show announcements
-  announcement({
-    response,
-  }) {
-    return response.send({});
   }
 }
 

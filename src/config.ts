@@ -27,7 +27,8 @@ export const STATS_API = 'https://stats.franzinfra.com';
 
 export const LOCAL_TODOS_FRONTEND_URL = 'http://localhost:4000';
 export const PRODUCTION_TODOS_FRONTEND_URL = 'https://app.franztodos.com';
-export const DEVELOPMENT_TODOS_FRONTEND_URL = 'https://development--franz-todos.netlify.com';
+export const DEVELOPMENT_TODOS_FRONTEND_URL =
+  'https://development--franz-todos.netlify.com';
 
 export const CDN_URL = 'https://cdn.franzinfra.com';
 
@@ -69,8 +70,10 @@ export const SEARCH_ENGINE_NAMES = {
 };
 
 export const SEARCH_ENGINE_URLS = {
-  [SEARCH_ENGINE_GOOGLE]: ({ searchTerm }) => `https://www.google.com/search?q=${searchTerm}`,
-  [SEARCH_ENGINE_DDG]: ({ searchTerm }) => `https://duckduckgo.com/?q=${searchTerm}`,
+  [SEARCH_ENGINE_GOOGLE]: ({ searchTerm }) =>
+    `https://www.google.com/search?q=${searchTerm}`,
+  [SEARCH_ENGINE_DDG]: ({ searchTerm }) =>
+    `https://duckduckgo.com/?q=${searchTerm}`,
 };
 
 export const CUSTOM_TODO_SERVICE = 'isUsingCustomTodoService';
@@ -83,7 +86,8 @@ const TODO_HABITICA_URL = 'https://habitica.com/login';
 const TODO_NOZBE_URL = 'https://app.nozbe.com/#login';
 const TODO_RTM_URL = 'https://www.rememberthemilk.com/login/';
 const TODO_ANYDO_URL = 'https://desktop.any.do/';
-const TODO_GOOGLETASKS_URL = 'https://tasks.google.com/embed/?origin=https%3A%2F%2Fcalendar.google.com&fullWidth=1';
+const TODO_GOOGLETASKS_URL =
+  'https://tasks.google.com/embed/?origin=https%3A%2F%2Fcalendar.google.com&fullWidth=1';
 
 export const TODO_SERVICE_RECIPE_IDS = {
   [TODO_TODOIST_URL]: 'todoist',
@@ -108,7 +112,8 @@ export const TODO_APPS = {
 };
 
 export const DEFAULT_TODO_SERVICE = TODO_FRANZ_TODOS_URL;
-export const DEFAULT_TODO_RECIPE_ID = TODO_SERVICE_RECIPE_IDS[DEFAULT_TODO_SERVICE];
+export const DEFAULT_TODO_RECIPE_ID =
+  TODO_SERVICE_RECIPE_IDS[DEFAULT_TODO_SERVICE];
 export const DEFAULT_TODO_SERVICE_NAME = TODO_APPS[DEFAULT_TODO_SERVICE];
 
 export const SIDEBAR_WIDTH = {
@@ -135,7 +140,6 @@ export const iconSizeBias = 20;
 
 export const DEFAULT_FEATURES_CONFIG = {
   isServiceProxyEnabled: true,
-  isAnnouncementsEnabled: true,
   isWorkspaceEnabled: true,
   isTodosEnabled: true,
   isSettingsWSEnabled: false,
@@ -158,20 +162,12 @@ export const GITHUB_ORG_NAME = 'getferdi';
 export const GITHUB_FERDI_REPO_NAME = 'ferdi';
 export const GITHUB_NIGHTLIES_REPO_NAME = 'nightlies';
 
-export const FILE_SYSTEM_SETTINGS_TYPES = [
-  'app',
-  'proxy',
-];
+export const FILE_SYSTEM_SETTINGS_TYPES = ['app', 'proxy'];
 
 export const LOCAL_SERVER = 'You are using Ferdi without a server';
 export const SERVER_NOT_LOADED = 'Ferdi::SERVER_NOT_LOADED';
 
-export const ALLOWED_PROTOCOLS = [
-  'https:',
-  'http:',
-  'ftp:',
-  'ferdi:',
-];
+export const ALLOWED_PROTOCOLS = ['https:', 'http:', 'ftp:', 'ferdi:'];
 
 export const DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED = false;
 
