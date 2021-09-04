@@ -1,3 +1,3 @@
-export const ifUndefinedString = (source: string | undefined, defaultValue: string): string => (source !== undefined ? source : defaultValue);
-export const ifUndefinedBoolean = (source: boolean | undefined, defaultValue: boolean): boolean => Boolean(source !== undefined ? source : defaultValue);
-export const ifUndefinedNumber = (source: number | undefined, defaultValue: number): number => Number(source !== undefined ? source : defaultValue) || 0;
+export const ifUndefinedString = (source: string | undefined | null, defaultValue: string): string => (source !== undefined && source !== null ? source : defaultValue);
+export const ifUndefinedBoolean = (source: boolean | undefined | null, defaultValue: boolean): boolean => Boolean(source !== undefined && source !== null ? source : defaultValue);
+export const ifUndefinedNumber = (source: number | undefined | null, defaultValue: number): number => Number(source !== undefined && source !== null ? source : defaultValue);
