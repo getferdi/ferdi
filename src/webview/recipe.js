@@ -1,5 +1,6 @@
 /* eslint-disable import/first */
-import { contextBridge, ipcRenderer } from 'electron';
+import { contextBridge, desktopCapturer, ipcRenderer } from 'electron';
+import { BrowserWindow, getCurrentWebContents } from '@electron/remote';
 import { join } from 'path';
 import { autorun, computed, observable } from 'mobx';
 import { pathExistsSync, readFileSync } from 'fs-extra';
@@ -107,6 +108,11 @@ contextBridge.exposeInMainWorld('ferdi', {
   displayNotification: (title, options) =>
     notificationsHandler.displayNotification(title, options),
   getDisplayMediaSelector,
+  getCurrentWebContents,
+  BrowserWindow,
+  ipcRenderer,
+  // TODO: When the discord recipe is changed to use the screenshare.js, this can be removed
+  desktopCapturer,
 });
 
 ipcRenderer.sendToHost(

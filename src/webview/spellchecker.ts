@@ -4,8 +4,8 @@ import { DEFAULT_APP_SETTINGS, isMac } from '../environment';
 
 const debug = require('debug')('Ferdi:spellchecker');
 
-const webContents = getCurrentWebContents();
-const [defaultLocale] = webContents.session.getSpellCheckerLanguages();
+const { session } = getCurrentWebContents();
+const [defaultLocale] = session.getSpellCheckerLanguages();
 debug('Spellchecker default locale is', defaultLocale);
 
 export function getSpellcheckerLocaleByFuzzyIdentifier(identifier: string) {
@@ -31,5 +31,5 @@ export function switchDict(locale: string) {
 
   locales.push(defaultLocale, DEFAULT_APP_SETTINGS.fallbackLocale);
 
-  webContents.session.setSpellCheckerLanguages(locales);
+  session.setSpellCheckerLanguages(locales);
 }
