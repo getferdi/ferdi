@@ -1,5 +1,9 @@
 # [v5.6.1-nightly.51](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.50...v5.6.1-nightly.51) (2021-09-06)
 
+### Bug Fixes
+
+- Fix sidebar context menu not synced when toggling via the context menu (#1871) 💖 @sad270
+
 ### Internal
 
 - Remove dependency of recipes requiring `electron` and `electron/remote` modules (#1869 & getferdi/recipes#674) 💖 @vraravam
