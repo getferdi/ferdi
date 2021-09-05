@@ -1,3 +1,9 @@
+# [v5.6.1-nightly.51](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.50...v5.6.1-nightly.51) (2021-09-06)
+
+### Internal
+
+- Remove dependency of recipes requiring `electron` and `electron/remote` modules (#1869 & getferdi/recipes#674) 💖 @vraravam
+
 # [v5.6.1-nightly.50](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.48...v5.6.1-nightly.50) (2021-09-05)
 
 ### Bug Fixes
