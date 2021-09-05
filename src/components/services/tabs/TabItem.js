@@ -227,8 +227,8 @@ class TabItem extends Component {
       },
       {
         label: service.isDarkModeEnabled
-          ? intl.formatMessage(messages.enableDarkMode)
-          : intl.formatMessage(messages.disableDarkMode),
+          ? intl.formatMessage(messages.disableDarkMode)
+          : intl.formatMessage(messages.enableDarkMode),
         click: () => toggleDarkMode(),
       },
       {
