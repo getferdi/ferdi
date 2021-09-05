@@ -973,7 +973,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/5607440?v=4",
       "profile": "https://www.ekino.com",
       "contributions": [
-        "code"
+        "code",
+        "bug"
       ]
     }
   ],
