@@ -314,6 +314,9 @@ class UserController {
     const services = (workspace.services && typeof (workspace.services) === 'object') ?
       workspace.services.map(oldServiceId => serviceIdTranslation[oldServiceId]) :
       [];
+    if (workspace.data && typeof (workspace.data) === 'string' && workspace.data.length > 0) {
+      workspace.data = JSON.parse(workspace.data);
+    }
 
     await Workspace.create({
       workspaceId: newWorkspaceId,
