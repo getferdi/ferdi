@@ -30,6 +30,19 @@ const apiRequest = (url, route, method, auth) => new Promise((resolve, reject) =
 
 const LOGIN_SUCCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGZXJkaSBJbnRlcm5hbCBTZXJ2ZXIiLCJpYXQiOjE1NzEwNDAyMTUsImV4cCI6MjUzMzk1NDE3ODQ0LCJhdWQiOiJnZXRmZXJkaS5jb20iLCJzdWIiOiJmZXJkaUBsb2NhbGhvc3QiLCJ1c2VySWQiOiIxIn0.9_TWFGp6HROv8Yg82Rt6i1-95jqWym40a-HmgrdMC6M';
 
+const DEFAULT_USER_DATA = {
+  accountType: 'individual',
+  beta: false,
+  email: '',
+  emailValidated: true,
+  features: {},
+  firstname: 'Ferdi',
+  id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
+  isSubscriptionOwner: true,
+  lastname: 'Application',
+  locale: DEFAULT_APP_SETTINGS.fallbackLocale,
+};
+
 class UserController {
   // Register a new user
   async signup({
@@ -83,16 +96,7 @@ class UserController {
     const settings = typeof user.settings === 'string' ? JSON.parse(user.settings) : user.settings;
 
     return response.send({
-      accountType: 'individual',
-      beta: false,
-      email: '',
-      emailValidated: true,
-      features: {},
-      firstname: 'Ferdi',
-      id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
-      isSubscriptionOwner: true,
-      lastname: 'Application',
-      locale: DEFAULT_APP_SETTINGS.fallbackLocale,
+      ...DEFAULT_USER_DATA,
       ...settings || {},
     });
   }
@@ -118,16 +122,7 @@ class UserController {
 
     return response.send({
       data: {
-        accountType: 'individual',
-        beta: false,
-        email: '',
-        emailValidated: true,
-        features: {},
-        firstname: 'Ferdi',
-        id: '82c1cf9d-ab58-4da2-b55e-aaa41d2142d8',
-        isSubscriptionOwner: true,
-        lastname: 'Application',
-        locale: DEFAULT_APP_SETTINGS.fallbackLocale,
+        ...DEFAULT_USER_DATA,
         ...newSettings,
       },
       status: [
@@ -216,20 +211,7 @@ class UserController {
       const services = await apiRequest(server, 'me/services', 'GET', token);
 
       for (const service of services) {
-        // Get new, unused uuid
-        let serviceId;
-        do {
-          serviceId = uuid();
-        } while ((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
-
-        await Service.create({ // eslint-disable-line no-await-in-loop
-          serviceId,
-          name: service.name,
-          recipeId: service.recipeId,
-          settings: JSON.stringify(service),
-        });
-
-        serviceIdTranslation[service.id] = serviceId;
+        await this._createAndCacheService(service, serviceIdTranslation); // eslint-disable-line no-await-in-loop
       }
     } catch (e) {
       const errorMessage = `Could not import your services into our system.\nError: ${e}`;
@@ -241,20 +223,7 @@ class UserController {
       const workspaces = await apiRequest(server, 'workspace', 'GET', token);
 
       for (const workspace of workspaces) {
-        let workspaceId;
-        do {
-          workspaceId = uuid();
-        } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
-
-        const services = workspace.services.map(service => serviceIdTranslation[service]);
-
-        await Workspace.create({ // eslint-disable-line no-await-in-loop
-          workspaceId,
-          name: workspace.name,
-          order: workspace.order,
-          services: JSON.stringify(services),
-          data: JSON.stringify({}),
-        });
+        await this._createWorkspace(workspace, serviceIdTranslation); // eslint-disable-line no-await-in-loop
       }
     } catch (e) {
       const errorMessage = `Could not import your workspaces into our system.\nError: ${e}`;
@@ -313,20 +282,7 @@ class UserController {
     // Import services
     try {
       for (const service of file.services) {
-        // Get new, unused uuid
-        let serviceId;
-        do {
-          serviceId = uuid();
-        } while ((await Service.query().where('serviceId', serviceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
-
-        await Service.create({ // eslint-disable-line no-await-in-loop
-          serviceId,
-          name: service.name,
-          recipeId: service.recipeId,
-          settings: JSON.stringify(service.settings),
-        });
-
-        serviceIdTranslation[service.id] = serviceId;
+        await this._createAndCacheService(service, serviceIdTranslation); // eslint-disable-line no-await-in-loop
       }
     } catch (e) {
       const errorMessage = `Could not import your services into our system.\nError: ${e}`;
@@ -336,22 +292,7 @@ class UserController {
     // Import workspaces
     try {
       for (const workspace of file.workspaces) {
-        let workspaceId;
-        do {
-          workspaceId = uuid();
-        } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
-
-        const services = (workspace.services && typeof (workspace.services) === 'object') ?
-          workspace.services.map((service) => serviceIdTranslation[service]) :
-          [];
-
-        await Workspace.create({ // eslint-disable-line no-await-in-loop
-          workspaceId,
-          name: workspace.name,
-          order: workspace.order,
-          services: JSON.stringify(services),
-          data: JSON.stringify(workspace.data),
-        });
+        await this._createWorkspace(workspace, serviceIdTranslation); // eslint-disable-line no-await-in-loop
       }
     } catch (e) {
       const errorMessage = `Could not import your workspaces into our system.\nError: ${e}`;
@@ -359,6 +300,46 @@ class UserController {
     }
 
     return response.send('Your account has been imported.');
+  }
+
+  async _createWorkspace(workspace, serviceIdTranslation) {
+    let newWorkspaceId;
+    do {
+      newWorkspaceId = uuid();
+    } while ((await Workspace.query().where('workspaceId', newWorkspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+
+    if (workspace.services && typeof (workspace.services) === 'string' && workspace.services.length > 0) {
+      workspace.services = JSON.parse(workspace.services);
+    }
+    const services = (workspace.services && typeof (workspace.services) === 'object') ?
+      workspace.services.map(oldServiceId => serviceIdTranslation[oldServiceId]) :
+      [];
+
+    await Workspace.create({
+      workspaceId: newWorkspaceId,
+      name: workspace.name,
+      order: workspace.order,
+      services: JSON.stringify(services),
+      data: JSON.stringify(workspace.data || {}),
+    });
+  }
+
+  async _createAndCacheService(service, serviceIdTranslation) {
+    // Get new, unused uuid
+    let newServiceId;
+    do {
+      newServiceId = uuid();
+    } while ((await Service.query().where('serviceId', newServiceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+
+    // store the old serviceId as the key for future lookup
+    serviceIdTranslation[service.serviceId] = newServiceId;
+
+    await Service.create({
+      serviceId: newServiceId,
+      name: service.name,
+      recipeId: service.recipeId,
+      settings: JSON.stringify(service.settings),
+    });
   }
 }
 
