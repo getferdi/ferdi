@@ -345,7 +345,7 @@ class UserController {
       serviceId: newServiceId,
       name: service.name,
       recipeId: service.recipeId,
-      settings: JSON.stringify(service.settings),
+      settings: JSON.stringify(service.settings || {}),
     });
   }
 }
