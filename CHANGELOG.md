@@ -1,3 +1,10 @@
+# [v5.6.1-nightly.52](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.51...v5.6.1-nightly.52) (2021-09-07)
+
+### Bug Fixes
+
+- Fix issue while importing exported `ferdi.data` file while switching from one laptop to another when it had workspaces (#1874) 💖 @vraravam
+- Fix for 'Support' link not working (404 error) (#1806) 💖 @kytwb
+
 # [v5.6.1-nightly.51](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.50...v5.6.1-nightly.51) (2021-09-06)
 
 ### Bug Fixes

@@ -334,6 +334,10 @@ class UserController {
     // store the old serviceId as the key for future lookup
     serviceIdTranslation[service.serviceId] = newServiceId;
 
+    if (service.settings && typeof (service.settings) === 'string' && service.settings.length > 0) {
+      service.settings = JSON.parse(service.settings);
+    }
+
     await Service.create({
       serviceId: newServiceId,
       name: service.name,
