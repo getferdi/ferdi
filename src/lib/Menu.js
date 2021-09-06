@@ -362,9 +362,6 @@ const _titleBarTemplateFactory = (intl, locked) => [
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+V`, // Override the accelerator since this adds new key combo in macos
         role: 'pasteAndMatchStyle',
-        click() {
-          getActiveService().webview.pasteAndMatchStyle();
-        },
       },
       {
         label: intl.formatMessage(menuItems.delete),
@@ -438,7 +435,6 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.resetZoom),
         accelerator: `${cmdOrCtrlShortcutKey()}+0`,
-        role: 'resetZoom',
         click() {
           this.actions.service.zoomResetForActiveService();
         },
@@ -446,7 +442,6 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.zoomIn),
         accelerator: `${cmdOrCtrlShortcutKey()}+plus`,
-        role: 'zoomIn',
         click() {
           this.actions.service.zoomInForActiveService();
         },
@@ -454,7 +449,6 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: `${cmdOrCtrlShortcutKey()}+-`,
-        role: 'zoomOut',
         click() {
           this.actions.service.zoomOutForActiveService();
         },
