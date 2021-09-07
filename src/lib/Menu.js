@@ -27,6 +27,7 @@ import { workspaceActions } from '../features/workspaces/actions';
 import { workspaceStore } from '../features/workspaces/index';
 import apiBase, { termsBase } from '../api/apiBase';
 import { openExternalUrl } from '../helpers/url-helpers';
+import globalMessages from '../i18n/globalMessages';
 
 const menuItems = defineMessages({
   edit: {
@@ -253,10 +254,6 @@ const menuItems = defineMessages({
   autohideMenuBar: {
     id: 'menu.app.autohideMenuBar',
     defaultMessage: '!!!Auto-hide menu bar',
-  },
-  quit: {
-    id: 'menu.app.quit',
-    defaultMessage: '!!!Quit',
   },
   addNewService: {
     id: 'menu.services.addNewService',
@@ -598,6 +595,21 @@ export default class FranzMenu {
     const { intl } = window.ferdi;
     const tpl = _titleBarTemplateFactory(intl, this.stores.settings.app.locked);
     const { actions } = this;
+    const quit = () => {
+      const yesButtonIndex = 0;
+      let selection = yesButtonIndex;
+      if (window.ferdi.stores.settings.app.confirmOnQuit) {
+        selection = dialog.showMessageBoxSync(app.mainWindow, {
+          type: 'question',
+          message: intl.formatMessage(globalMessages.quit),
+          detail: intl.formatMessage(globalMessages.quitConfirmation),
+          buttons: [intl.formatMessage(globalMessages.yes), intl.formatMessage(globalMessages.no)],
+        });
+      }
+      if (selection === yesButtonIndex) {
+        app.quit();
+      }
+    };
 
     if (!isMac) {
       tpl[1].submenu.push({
@@ -801,11 +813,9 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.quit),
-          role: 'quit',
-          click() {
-            app.quit();
-          },
+          label: intl.formatMessage(globalMessages.quit),
+          accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
+          click: quit,
         },
       ],
     });
@@ -862,12 +872,9 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.quit),
-          role: 'quit',
+          label: intl.formatMessage(globalMessages.quit),
           accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
-          click() {
-            app.quit();
-          },
+          click: quit,
         },
       ];
 

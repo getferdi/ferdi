@@ -40,11 +40,11 @@ const messages = defineMessages({
   },
   openTodosDrawer: {
     id: 'sidebar.openTodosDrawer',
-    defaultMessage: '!!!Open Franz Todos',
+    defaultMessage: '!!!Open Ferdi Todos',
   },
   closeTodosDrawer: {
     id: 'sidebar.closeTodosDrawer',
-    defaultMessage: '!!!Close Franz Todos',
+    defaultMessage: '!!!Close Ferdi Todos',
   },
   lockFerdi: {
     id: 'sidebar.lockFerdi',

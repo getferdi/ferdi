@@ -1,5 +1,5 @@
 import {
-  app, Menu, nativeImage, nativeTheme, systemPreferences, Tray, ipcMain,
+  app, Menu, nativeImage, nativeTheme, systemPreferences, Tray, ipcMain, dialog,
 } from 'electron';
 import { join } from 'path';
 import macosVersion from 'macos-version';
@@ -44,7 +44,17 @@ export default class TrayIcon {
     {
       label: 'Quit Ferdi',
       click() {
-        app.quit();
+        // TODO: Need to have a pref that can override this prompt
+        // TODO: Need to externalize strings
+        const selection = dialog.showMessageBoxSync(app.mainWindow, {
+          type: 'question',
+          message: 'Quit',
+          detail: 'Do you really want to quit Ferdi?',
+          buttons: ['Yes', 'No'],
+        });
+        if (selection === 0) {
+          app.quit();
+        }
       },
     },
   ];

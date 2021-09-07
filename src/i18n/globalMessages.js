@@ -57,4 +57,13 @@ export default defineMessages({
     id: 'global.submit',
     defaultMessage: '!!!Submit',
   },
+  quit: {
+    id: 'global.quit',
+    defaultMessage: '!!!Quit',
+  },
+  quitConfirmation: {
+    id: 'global.quitConfirmation',
+    defaultMessage:
+      '!!!Do you really want to quit Ferdi?',
+  },
 });

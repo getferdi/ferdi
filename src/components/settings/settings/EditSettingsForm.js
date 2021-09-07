@@ -334,6 +334,7 @@ export default @observer class EditSettingsForm extends Component {
               <div>
                 <Toggle field={form.$('autoLaunchOnStart')} />
                 <Toggle field={form.$('runInBackground')} />
+                <Toggle field={form.$('confirmOnQuit')} />
                 <Toggle field={form.$('enableSystemTray')} />
                 <Toggle field={form.$('reloadAfterResume')} />
                 <Toggle field={form.$('startMinimized')} />

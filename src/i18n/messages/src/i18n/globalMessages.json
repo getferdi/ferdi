@@ -180,5 +180,31 @@
       "line": 59,
       "column": 3
     }
+  },
+  {
+    "id": "global.quit",
+    "defaultMessage": "!!!Quit",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 60,
+      "column": 8
+    },
+    "end": {
+      "line": 63,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.quitConfirmation",
+    "defaultMessage": "!!!Do you really want to quit Ferdi?",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 64,
+      "column": 20
+    },
+    "end": {
+      "line": 68,
+      "column": 3
+    }
   }
 ]

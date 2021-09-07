@@ -45,6 +45,10 @@ const messages = defineMessages({
     id: 'settings.app.form.startMinimized',
     defaultMessage: '!!!Start minimized',
   },
+  confirmOnQuit: {
+    id: 'settings.app.form.confirmOnQuit',
+    defaultMessage: '!!!Confirm when quitting Ferdi',
+  },
   enableSystemTray: {
     id: 'settings.app.form.enableSystemTray',
     defaultMessage: '!!!Always show Ferdi in System Tray',
@@ -253,6 +257,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         enableSystemTray: Boolean(settingsData.enableSystemTray),
         reloadAfterResume: Boolean(settingsData.reloadAfterResume),
         startMinimized: Boolean(settingsData.startMinimized),
+        confirmOnQuit: Boolean(settingsData.confirmOnQuit),
         minimizeToSystemTray: Boolean(settingsData.minimizeToSystemTray),
         closeToSystemTray: Boolean(settingsData.closeToSystemTray),
         privateNotifications: Boolean(settingsData.privateNotifications),
@@ -389,6 +394,11 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           label: intl.formatMessage(messages.startMinimized),
           value: settings.all.app.startMinimized,
           default: DEFAULT_APP_SETTINGS.startMinimized,
+        },
+        confirmOnQuit: {
+          label: intl.formatMessage(messages.confirmOnQuit),
+          value: settings.all.app.confirmOnQuit,
+          default: DEFAULT_APP_SETTINGS.confirmOnQuit,
         },
         enableSystemTray: {
           label: intl.formatMessage(isMac ? messages.enableMenuBar : messages.enableSystemTray),

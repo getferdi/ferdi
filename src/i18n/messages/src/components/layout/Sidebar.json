@@ -79,7 +79,7 @@
   },
   {
     "id": "sidebar.openTodosDrawer",
-    "defaultMessage": "!!!Open Franz Todos",
+    "defaultMessage": "!!!Open Ferdi Todos",
     "file": "src/components/layout/Sidebar.js",
     "start": {
       "line": 41,
@@ -92,7 +92,7 @@
   },
   {
     "id": "sidebar.closeTodosDrawer",
-    "defaultMessage": "!!!Close Franz Todos",
+    "defaultMessage": "!!!Close Ferdi Todos",
     "file": "src/components/layout/Sidebar.js",
     "start": {
       "line": 45,
