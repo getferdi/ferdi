@@ -595,7 +595,9 @@ export default class FranzMenu {
     const { intl } = window.ferdi;
     const tpl = _titleBarTemplateFactory(intl, this.stores.settings.app.locked);
     const { actions } = this;
-    const quit = () => {
+
+    // TODO: Extract this into a reusable component and remove the duplications
+    const quitApp = () => {
       const yesButtonIndex = 0;
       let selection = yesButtonIndex;
       if (window.ferdi.stores.settings.app.confirmOnQuit) {
@@ -815,7 +817,7 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(globalMessages.quit),
           accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
-          click: quit,
+          click: quitApp,
         },
       ],
     });
@@ -874,7 +876,7 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(globalMessages.quit),
           accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
-          click: quit,
+          click: quitApp,
         },
       ];
 
