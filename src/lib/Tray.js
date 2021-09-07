@@ -43,19 +43,7 @@ export default class TrayIcon {
     },
     {
       label: 'Quit Ferdi',
-      click() {
-        // TODO: Need to have a pref that can override this prompt
-        // TODO: Need to externalize strings
-        const selection = dialog.showMessageBoxSync(app.mainWindow, {
-          type: 'question',
-          message: 'Quit',
-          detail: 'Do you really want to quit Ferdi?',
-          buttons: ['Yes', 'No'],
-        });
-        if (selection === 0) {
-          app.quit();
-        }
-      },
+      click: this.quitApp,
     },
   ];
 
@@ -188,4 +176,22 @@ export default class TrayIcon {
       __dirname, '..', 'assets', 'images', type, platform, `${asset}.${FILE_EXTENSION}`,
     ));
   }
+
+  // TODO: Extract this into a reusable component and remove the duplications
+  quitApp = () => {
+    const yesButtonIndex = 0;
+    let selection = yesButtonIndex;
+    if (window.ferdi.stores.settings.app.confirmOnQuit) {
+      selection = dialog.showMessageBoxSync(app.mainWindow, {
+        // TODO: Externalize strings
+        type: 'question',
+        message: 'Quit',
+        detail: 'Do you really want to quit Ferdi?',
+        buttons: ['Yes', 'No'],
+      });
+    }
+    if (selection === yesButtonIndex) {
+      app.quit();
+    }
+  };
 }
