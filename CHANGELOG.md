@@ -1,3 +1,7 @@
+# [v5.6.1-nightly.53](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.52...v5.6.1-nightly.53) (2021-09-08)
+
+- Add a confirmation dialog and a preference while quitting Ferdi (#1879) 💖 @vraravam
+
 # [v5.6.1-nightly.52](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.51...v5.6.1-nightly.52) (2021-09-07)
 
 ### Bug Fixes
