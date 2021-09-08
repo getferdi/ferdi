@@ -1,3 +1,9 @@
+# [v5.6.1-nightly.54](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.53...v5.6.1-nightly.54) (2021-09-09)
+
+### Internal
+
+- Ability for service recipe to expose known certificate hosts (#1890) 💖 @vraravam
+
 # [v5.6.1-nightly.53](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.52...v5.6.1-nightly.53) (2021-09-08)
 
 - Add a confirmation dialog and a preference while quitting Ferdi (#1879) 💖 @vraravam
