@@ -133,7 +133,6 @@
     "ws": "7.4.6"
   },
   "devDependencies": {
-    "@adlk/misty": "0.2.0",
     "@babel/cli": "7.14.8",
     "@babel/core": "7.15.0",
     "@babel/eslint-parser": "7.15.0",
