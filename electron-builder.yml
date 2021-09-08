@@ -60,6 +60,7 @@ linux:
     - target: rpm
     - target: freebsd
     - target: snap
+      plugs: ["default", "u2f-devices"]
 
 nsis:
   perMachine: false
