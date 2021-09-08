@@ -200,6 +200,7 @@ importers:
       electron-dl: 3.2.1
       electron-fetch: 1.7.4
       electron-find: 1.0.7
+      electron-notarize: 1.1.0
       electron-react-titlebar: 0.8.2_react-dom@16.14.0+react@16.14.0
       electron-updater: 4.3.9
       electron-util: 0.17.2
@@ -285,7 +286,6 @@ importers:
       dotenv: 10.0.0
       electron: 13.3.0
       electron-builder: 22.12.1
-      electron-notarize: 1.1.0
       eslint: 7.32.0
       eslint-config-airbnb: 18.2.1_0f490a8e9ecd3ab62a8bed97dadddd78
       eslint-config-airbnb-typescript: 12.3.1_cdffc74553d9d0db8087a319473540f5
@@ -4869,7 +4869,6 @@ packages:
   /at-least-node/1.0.0:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
-    dev: true
 
   /atob/2.1.2:
     resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==}
@@ -7386,7 +7385,7 @@ packages:
       fs-extra: 9.1.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
+    dev: false
 
   /electron-osx-sign/0.5.0:
     resolution: {integrity: sha512-icoRLHzFz/qxzDh/N4Pi2z4yVHurlsCAYQvsCSG7fCedJ4UJXBS6PoQyGH71IfcqKupcKeK7HX/NkyfG+v6vlQ==}
@@ -8755,7 +8754,6 @@ packages:
       graceful-fs: 4.2.8
       jsonfile: 6.1.0
       universalify: 2.0.0
-    dev: true
 
   /fs-minipass/1.2.7:
     resolution: {integrity: sha512-GWSSJGFy4e9GUeCcbIkED+bgAoFyj7XF1mV8rma3QW4NIqX9Kyx79N/PF61H5udOV3aY1IaMLs6pGbH71nlCTA==}
