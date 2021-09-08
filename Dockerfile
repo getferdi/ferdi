@@ -26,7 +26,7 @@ RUN pnpm i -g node-gyp@8.1.0 \
 COPY . .
 
 # Note: Ideally this needs to be done before the COPY step - BUT moving this here resolves the issue with `preval-build-info-cli` not being found
-RUN pnpx lerna bootstrap
+RUN npx lerna bootstrap
 
 RUN cd recipes \
   && pnpm i \

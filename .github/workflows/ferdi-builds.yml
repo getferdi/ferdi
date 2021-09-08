@@ -148,7 +148,7 @@ jobs:
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
-        run: pnpx lerna bootstrap
+        run: npx lerna bootstrap
       - name: Package recipes
         run: pnpm i && pnpm run package
         working-directory: ./recipes
@@ -244,7 +244,7 @@ jobs:
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
-        run: pnpx lerna bootstrap
+        run: npx lerna bootstrap
       - name: Package recipes
         run: pnpm i && pnpm run package
         working-directory: ./recipes
@@ -359,7 +359,7 @@ jobs:
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
         shell: bash
       - name: Install node dependencies recursively
-        run: pnpx lerna bootstrap
+        run: npx lerna bootstrap
         shell: bash
       - name: Package recipes
         run: pnpm i && pnpm run package

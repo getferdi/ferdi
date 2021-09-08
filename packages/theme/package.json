@@ -17,7 +17,7 @@
     "dev": "tsc -w",
     "prepare": "tsc",
     "preprepare": "pnpm run test",
-    "test": "pnpx mocha"
+    "test": "npx mocha"
   },
   "bugs": {
     "url": "https://github.com/meetfranz/franz/issues"

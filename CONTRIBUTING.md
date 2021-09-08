@@ -131,10 +131,10 @@ export ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 Run the following command to install all dependencies, and link sibling modules with Ferdi.
 
 ```bash
-pnpx lerna bootstrap
+npx lerna bootstrap
 ```
 
-If you previously ran `pnpm install`, it is sometimes necessary to delete your `node_modules` folder before running `pnpx lerna bootstrap`. If you encounter the `gyp: No Xcode or CLT version` error on macOS at this step, please have a look [here](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d).
+If you previously ran `pnpm install`, it is sometimes necessary to delete your `node_modules` folder before running `npx lerna bootstrap`. If you encounter the `gyp: No Xcode or CLT version` error on macOS at this step, please have a look [here](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d).
 
 ### Fix native modules to match current electron node version
 

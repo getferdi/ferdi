@@ -54,7 +54,7 @@ jobs:
       - name: Update submodules
         run: pnpm run update-submodules
       - name: Update browserslist db
-        run: pnpx browserslist@latest --update-db
+        run: npx browserslist@latest --update-db
       - name: Run linter, reformatter, rebrander and tests
         run: |
           pnpm run prepare-code
