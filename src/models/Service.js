@@ -245,7 +245,7 @@ export default class Service {
 
     this.userAgentModel.setWebviewReference(this.webview);
 
-    // If the recipe has implemented modifyRequestHeaders,
+    // If the recipe has implemented 'modifyRequestHeaders',
     // Send those headers to ipcMain so that it can be set in session
     if (typeof this.recipe.modifyRequestHeaders === 'function') {
       const modifiedRequestHeaders = this.recipe.modifyRequestHeaders();
@@ -256,6 +256,18 @@ export default class Service {
       });
     } else {
       debug(this.name, 'modifyRequestHeaders is not defined in the recipe');
+    }
+
+    // if the recipe has implemented 'knownCertificateHosts'
+    if (typeof this.recipe.knownCertificateHosts === 'function') {
+      const knownHosts = this.recipe.knownCertificateHosts();
+      debug(this.name, 'knownCertificateHosts', knownHosts);
+      ipcRenderer.send('knownCertificateHosts', {
+        knownHosts,
+        serviceId: this.id,
+      });
+    } else {
+      debug(this.name, 'knownCertificateHosts is not defined in the recipe');
     }
 
     this.webview.addEventListener('ipc-message', async (e) => {
