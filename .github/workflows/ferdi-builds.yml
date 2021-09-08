@@ -45,7 +45,7 @@ jobs:
         with:
           ref: nightly
           submodules: recursive
-          fetch-depth: 0    # Note: Needed to be able to pull the 'develop' branch as well for merging
+          fetch-depth: 0 # Note: Needed to be able to pull the 'develop' branch as well for merging
       - id: should_run
         name: Check whether there are any commits since this run was last triggered and push them and/or set the output
         if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]')) }}
@@ -262,7 +262,7 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
           echo "$SNAPCRAFT_LOGIN" | snapcraft login --with -
-          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies -c.snap.publish.provider=snapStore -c.snap.publish.repo=nightlies -c.snap.publish.channels=edge
+          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=nightlies -c.snap.publish.provider=snapStore -c.snap.publish.repo=nightlies -c.snap.publish.channels=edge -c.snap.plugs="['default', 'u2f-devices']"
           snapcraft logout
         shell: bash
       - name: Build Ferdi with publish for 'release' beta branch
@@ -274,7 +274,7 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
           echo "$SNAPCRAFT_LOGIN" | snapcraft login --with -
-          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi -c.snap.publish.provider=snapStore -c.snap.publish.repo=ferdi -c.snap.publish.channels=beta
+          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi -c.snap.publish.provider=snapStore -c.snap.publish.repo=ferdi -c.snap.publish.channels=beta -c.snap.plugs="['default', 'u2f-devices']"
           snapcraft logout
         shell: bash
       - name: Build Ferdi with publish for 'release' stable branch
@@ -286,7 +286,7 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
           echo "$SNAPCRAFT_LOGIN" | snapcraft login --with -
-          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi -c.snap.publish.provider=snapStore -c.snap.publish.repo=ferdi -c.snap.publish.channels=stable
+          npm run build -- --publish always -c.publish.provider=github -c.publish.owner=${{ github.repository_owner }} -c.publish.repo=ferdi -c.snap.publish.provider=snapStore -c.snap.publish.repo=ferdi -c.snap.publish.channels=stable -c.snap.plugs="['default', 'u2f-devices']"
           snapcraft logout
         shell: bash
 
