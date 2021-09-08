@@ -2,20 +2,35 @@
   "root": true,
   "parser": "@babel/eslint-parser",
   "extends": "eslint-config-airbnb",
-  "plugins": ["jest"],
+  "plugins": [
+    "jest"
+  ],
   "overrides": [
     {
-      "files": ["**/*.ts", "**/*.tsx"],
-      "env": { "browser": true, "es6": true, "node": true },
-      "extends": ["airbnb-typescript"],
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
+      "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+      },
+      "extends": [
+        "airbnb-typescript"
+      ],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
-        "ecmaFeatures": { "jsx": true },
+        "ecmaFeatures": {
+          "jsx": true
+        },
         "ecmaVersion": 2018,
         "sourceType": "module",
         "project": "./tsconfig.json"
       },
-      "plugins": ["@typescript-eslint"],
+      "plugins": [
+        "@typescript-eslint"
+      ],
       "rules": {
         // eslint
         "arrow-parens": 0,
@@ -64,9 +79,13 @@
         "jsx-a11y/label-has-for": [
           2,
           {
-            "components": ["Label"],
+            "components": [
+              "Label"
+            ],
             "required": {
-              "every": ["id"]
+              "every": [
+                "id"
+              ]
             },
             "allowChildren": false
           }
@@ -104,7 +123,15 @@
     "function-paren-newline": 0,
     "max-len": 0,
     "no-await-in-loop": 1,
-    "no-console": [1, { "allow": ["warn", "error"] }],
+    "no-console": [
+      1,
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
     "no-param-reassign": 1,
     "no-restricted-syntax": 0,
     "no-underscore-dangle": 0,
@@ -121,6 +148,7 @@
     "react/destructuring-assignment": 0,
     "react/jsx-curly-newline": 0,
     "react/jsx-filename-extension": 1,
+    "react/jsx-one-expression-per-line": 0,
     "react/jsx-no-bind": 1,
     "react/jsx-props-no-spreading": 0,
     "react/prefer-stateless-function": 1,

@@ -280,6 +280,11 @@ const createWindow = () => {
           debug('Skip taskbar: true');
           mainWindow.setSkipTaskbar(true);
         }
+      } else if (isMac && mainWindow.isFullScreen()) {
+        debug('Window: leaveFullScreen and hide');
+        mainWindow.once('show', () => mainWindow.setFullScreen(true));
+        mainWindow.once('leave-full-screen', () => mainWindow.hide());
+        mainWindow.setFullScreen(false);
       } else {
         debug('Window: hide');
         mainWindow.hide();

@@ -1,5 +1,6 @@
 /* eslint-disable import/first */
-import { contextBridge, ipcRenderer } from 'electron';
+import { contextBridge, desktopCapturer, ipcRenderer } from 'electron';
+import { BrowserWindow, getCurrentWebContents } from '@electron/remote';
 import { join } from 'path';
 import { autorun, computed, observable } from 'mobx';
 import { pathExistsSync, readFileSync } from 'fs-extra';
@@ -102,9 +103,16 @@ contextBridge.exposeInMainWorld('ferdi', {
   open: window.open,
   setBadge: (direct, indirect) =>
     badgeHandler.setBadge(direct, indirect),
+  safeParseInt: (text) =>
+    badgeHandler.safeParseInt(text),
   displayNotification: (title, options) =>
     notificationsHandler.displayNotification(title, options),
   getDisplayMediaSelector,
+  getCurrentWebContents,
+  BrowserWindow,
+  ipcRenderer,
+  // TODO: When the discord recipe is changed to use the screenshare.js, this can be removed
+  desktopCapturer,
 });
 
 ipcRenderer.sendToHost(
@@ -314,7 +322,7 @@ class RecipeController {
       );
       const darkModeExists = pathExistsSync(darkModeStyle);
 
-      debug('darkmode.css exists? ', darkModeExists ? 'Yes' : 'No');
+      debug('darkmode.css exists? ', darkModeExists);
 
       // Check if recipe has a custom dark mode handler
       if (this.recipe && this.recipe.darkModeHandler) {

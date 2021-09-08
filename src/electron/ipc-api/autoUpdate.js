@@ -17,9 +17,11 @@ export default (params) => {
         try {
           autoUpdater.autoInstallOnAppQuit = false;
           autoUpdater.allowPrerelease = Boolean(params.settings.app.get('beta'));
+          autoUpdater.channel = autoUpdater.allowPrerelease ? 'beta' : 'latest';
 
           if (params.settings.app.get('nightly')) {
             autoUpdater.allowPrerelease = Boolean(params.settings.app.get('nightly'));
+            autoUpdater.channel = 'alpha';
             autoUpdater.setFeedURL({
               provider: 'github',
               owner: GITHUB_ORG_NAME,

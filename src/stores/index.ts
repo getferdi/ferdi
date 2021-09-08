@@ -10,7 +10,6 @@ import NewsStore from './NewsStore';
 import RequestStore from './RequestStore';
 import GlobalErrorStore from './GlobalErrorStore';
 import { workspaceStore } from '../features/workspaces';
-import { announcementsStore } from '../features/announcements';
 import { communityRecipesStore } from '../features/communityRecipes';
 import { todosStore } from '../features/todos';
 
@@ -30,13 +29,12 @@ export default (api, actions, router) => {
     requests: new RequestStore(stores, api, actions),
     globalError: new GlobalErrorStore(stores, api, actions),
     workspaces: workspaceStore,
-    announcements: announcementsStore,
     communityRecipes: communityRecipesStore,
     todos: todosStore,
   });
 
   // Initialize all stores
-  Object.keys(stores).forEach((name) => {
+  Object.keys(stores).forEach(name => {
     if (stores[name] && stores[name].initialize) {
       stores[name].initialize();
     }

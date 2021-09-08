@@ -3,8 +3,6 @@ import TodoStore from './store';
 
 const debug = require('debug')('Ferdi:feature:todos');
 
-export const GA_CATEGORY_TODOS = 'Todos';
-
 export const todosStore = new TodoStore();
 
 export default function initTodos(stores, actions) {

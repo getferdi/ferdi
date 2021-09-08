@@ -10,6 +10,7 @@ import { Badge } from '@meetfranz/ui';
 import Modal from '../ui/Modal';
 import Infobox from '../ui/Infobox';
 import Appear from '../ui/effects/Appear';
+import globalMessages from '../../i18n/globalMessages';
 
 import { CDN_URL } from '../../config';
 
@@ -300,11 +301,14 @@ class SetupAssistant extends Component {
                 value={slackWorkspace}
               />
               <div className={classes.modalActionContainer}>
-                <Button type="submit" label="Save" />
+                <Button
+                  type="submit"
+                  label={intl.formatMessage(globalMessages.save)}
+                />
                 <Button
                   type="link"
                   buttonType="secondary"
-                  label="Cancel"
+                  label={intl.formatMessage(globalMessages.cancel)}
                   className={classes.ctaCancel}
                   onClick={() => this.setState({ slackWorkspace: '' })}
                 />

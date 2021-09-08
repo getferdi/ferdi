@@ -1,27 +1,14 @@
 [
   {
-    "id": "settings.app.headline",
-    "defaultMessage": "!!!Settings",
-    "file": "src/components/settings/settings/EditSettingsForm.js",
-    "start": {
-      "line": 21,
-      "column": 12
-    },
-    "end": {
-      "line": 24,
-      "column": 3
-    }
-  },
-  {
     "id": "settings.app.headlineGeneral",
     "defaultMessage": "!!!General",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 25,
+      "line": 21,
       "column": 19
     },
     "end": {
-      "line": 28,
+      "line": 24,
       "column": 3
     }
   },
@@ -30,11 +17,11 @@
     "defaultMessage": "!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data!",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 29,
+      "line": 25,
       "column": 14
     },
     "end": {
-      "line": 32,
+      "line": 28,
       "column": 3
     }
   },
@@ -43,11 +30,11 @@
     "defaultMessage": "!!!By default, Ferdi will keep all your services open and loaded in the background so they are ready when you want to use them. Service Hibernation will unload your services after a specified amount. This is useful to save RAM or keeping services from slowing down your computer.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 33,
+      "line": 29,
       "column": 17
     },
     "end": {
-      "line": 36,
+      "line": 32,
       "column": 3
     }
   },
@@ -56,8 +43,21 @@
     "defaultMessage": "!!!Minutes of inactivity, after which Ferdi should automatically lock. Use 0 to disable",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 37,
+      "line": 33,
       "column": 22
+    },
+    "end": {
+      "line": 36,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.todoServerInfo",
+    "defaultMessage": "!!!This server will be used for the \"Franz Todo\" feature. (default: https://app.franztodos.com)",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 37,
+      "column": 18
     },
     "end": {
       "line": 40,
@@ -65,8 +65,8 @@
     }
   },
   {
-    "id": "settings.app.todoServerInfo",
-    "defaultMessage": "!!!This server will be used for the \"Franz Todo\" feature. (default: https://app.franztodos.com)",
+    "id": "settings.app.lockedPassword",
+    "defaultMessage": "!!!Password",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 41,
@@ -78,28 +78,15 @@
     }
   },
   {
-    "id": "settings.app.lockedPassword",
-    "defaultMessage": "!!!Password",
-    "file": "src/components/settings/settings/EditSettingsForm.js",
-    "start": {
-      "line": 45,
-      "column": 18
-    },
-    "end": {
-      "line": 48,
-      "column": 3
-    }
-  },
-  {
     "id": "settings.app.lockedPasswordInfo",
     "defaultMessage": "!!!Please make sure to set a password you'll remember.\nIf you loose this password, you will have to reinstall Ferdi.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 49,
+      "line": 45,
       "column": 22
     },
     "end": {
-      "line": 52,
+      "line": 48,
       "column": 3
     }
   },
@@ -108,11 +95,11 @@
     "defaultMessage": "!!!Password Lock allows you to keep your messages protected.\nUsing Password Lock, you will be prompted to enter your password everytime you start Ferdi or lock Ferdi yourself using the lock symbol in the bottom left corner or the shortcut {lockShortcut}.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 53,
+      "line": 49,
       "column": 12
     },
     "end": {
-      "line": 56,
+      "line": 52,
       "column": 3
     }
   },
@@ -121,8 +108,21 @@
     "defaultMessage": "!!!Times in 24-Hour-Format. End time can be before start time (e.g. start 17:00, end 09:00) to enable Do-not-Disturb overnight.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 57,
+      "line": 53,
       "column": 24
+    },
+    "end": {
+      "line": 56,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.scheduledDNDInfo",
+    "defaultMessage": "!!!Scheduled Do-not-Disturb allows you to define a period of time in which you do not want to get Notifications from Ferdi.",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 57,
+      "column": 20
     },
     "end": {
       "line": 60,
@@ -130,8 +130,8 @@
     }
   },
   {
-    "id": "settings.app.scheduledDNDInfo",
-    "defaultMessage": "!!!Scheduled Do-not-Disturb allows you to define a period of time in which you do not want to get Notifications from Ferdi.",
+    "id": "settings.app.headlineLanguage",
+    "defaultMessage": "!!!Language",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 61,
@@ -143,28 +143,15 @@
     }
   },
   {
-    "id": "settings.app.headlineLanguage",
-    "defaultMessage": "!!!Language",
-    "file": "src/components/settings/settings/EditSettingsForm.js",
-    "start": {
-      "line": 65,
-      "column": 20
-    },
-    "end": {
-      "line": 68,
-      "column": 3
-    }
-  },
-  {
     "id": "settings.app.headlineUpdates",
     "defaultMessage": "!!!Updates",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 69,
+      "line": 65,
       "column": 19
     },
     "end": {
-      "line": 72,
+      "line": 68,
       "column": 3
     }
   },
@@ -173,11 +160,11 @@
     "defaultMessage": "!!!Appearance",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 73,
+      "line": 69,
       "column": 22
     },
     "end": {
-      "line": 76,
+      "line": 72,
       "column": 3
     }
   },
@@ -186,8 +173,21 @@
     "defaultMessage": "!!!Universal Dark Mode tries to dynamically generate dark mode styles for services that are otherwise not currently supported.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 77,
+      "line": 73,
       "column": 25
+    },
+    "end": {
+      "line": 76,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.accentColorInfo",
+    "defaultMessage": "!!!Write your accent color in a CSS-compatible format. (Default: {defaultAccentColor})",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 77,
+      "column": 19
     },
     "end": {
       "line": 80,
@@ -195,8 +195,8 @@
     }
   },
   {
-    "id": "settings.app.accentColorInfo",
-    "defaultMessage": "!!!Write your accent color in a CSS-compatible format. (Default: {defaultAccentColor})",
+    "id": "settings.app.headlinePrivacy",
+    "defaultMessage": "!!!Privacy",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 81,
@@ -208,28 +208,15 @@
     }
   },
   {
-    "id": "settings.app.headlinePrivacy",
-    "defaultMessage": "!!!Privacy",
-    "file": "src/components/settings/settings/EditSettingsForm.js",
-    "start": {
-      "line": 85,
-      "column": 19
-    },
-    "end": {
-      "line": 88,
-      "column": 3
-    }
-  },
-  {
     "id": "settings.app.headlineAdvanced",
     "defaultMessage": "!!!Advanced",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 89,
+      "line": 85,
       "column": 20
     },
     "end": {
-      "line": 92,
+      "line": 88,
       "column": 3
     }
   },
@@ -238,11 +225,11 @@
     "defaultMessage": "!!!Help us to translate Ferdi into your language.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 93,
+      "line": 89,
       "column": 19
     },
     "end": {
-      "line": 96,
+      "line": 92,
       "column": 3
     }
   },
@@ -251,11 +238,11 @@
     "defaultMessage": "!!!Ferdi uses your Mac's build-in spellchecker to check for typos. If you want to change the languages the spellchecker checks for, you can do so in your Mac's System Preferences.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 97,
+      "line": 93,
       "column": 28
     },
     "end": {
-      "line": 100,
+      "line": 96,
       "column": 3
     }
   },
@@ -264,11 +251,11 @@
     "defaultMessage": "!!!Cache",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 101,
+      "line": 97,
       "column": 20
     },
     "end": {
-      "line": 104,
+      "line": 100,
       "column": 3
     }
   },
@@ -277,11 +264,11 @@
     "defaultMessage": "!!!Ferdi cache is currently using {size} of disk space.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 105,
+      "line": 101,
       "column": 13
     },
     "end": {
-      "line": 108,
+      "line": 104,
       "column": 3
     }
   },
@@ -290,11 +277,11 @@
     "defaultMessage": "!!!Couldn't clear all cache",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 109,
+      "line": 105,
       "column": 19
     },
     "end": {
-      "line": 112,
+      "line": 108,
       "column": 3
     }
   },
@@ -303,11 +290,11 @@
     "defaultMessage": "!!!Clear cache",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 113,
+      "line": 109,
       "column": 23
     },
     "end": {
-      "line": 116,
+      "line": 112,
       "column": 3
     }
   },
@@ -316,11 +303,11 @@
     "defaultMessage": "!!!Ferdi Profile",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 117,
+      "line": 113,
       "column": 27
     },
     "end": {
-      "line": 120,
+      "line": 116,
       "column": 3
     }
   },
@@ -329,11 +316,11 @@
     "defaultMessage": "!!!Open Profile folder",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 121,
+      "line": 117,
       "column": 32
     },
     "end": {
-      "line": 124,
+      "line": 120,
       "column": 3
     }
   },
@@ -342,11 +329,11 @@
     "defaultMessage": "!!!Open Service Recipes folder",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 125,
+      "line": 121,
       "column": 39
     },
     "end": {
-      "line": 128,
+      "line": 124,
       "column": 3
     }
   },
@@ -355,11 +342,11 @@
     "defaultMessage": "!!!Check for updates",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 129,
+      "line": 125,
       "column": 25
     },
     "end": {
-      "line": 132,
+      "line": 128,
       "column": 3
     }
   },
@@ -368,8 +355,21 @@
     "defaultMessage": "!!!Restart & install update",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 133,
+      "line": 129,
       "column": 23
+    },
+    "end": {
+      "line": 132,
+      "column": 3
+    }
+  },
+  {
+    "id": "settings.app.updateStatusSearching",
+    "defaultMessage": "!!!Is searching for update",
+    "file": "src/components/settings/settings/EditSettingsForm.js",
+    "start": {
+      "line": 133,
+      "column": 25
     },
     "end": {
       "line": 136,
@@ -377,8 +377,8 @@
     }
   },
   {
-    "id": "settings.app.updateStatusSearching",
-    "defaultMessage": "!!!Is searching for update",
+    "id": "settings.app.updateStatusAvailable",
+    "defaultMessage": "!!!Update available, downloading...",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
       "line": 137,
@@ -390,28 +390,15 @@
     }
   },
   {
-    "id": "settings.app.updateStatusAvailable",
-    "defaultMessage": "!!!Update available, downloading...",
-    "file": "src/components/settings/settings/EditSettingsForm.js",
-    "start": {
-      "line": 141,
-      "column": 25
-    },
-    "end": {
-      "line": 144,
-      "column": 3
-    }
-  },
-  {
     "id": "settings.app.updateStatusUpToDate",
     "defaultMessage": "!!!You are using the latest version of Ferdi",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 145,
+      "line": 141,
       "column": 24
     },
     "end": {
-      "line": 148,
+      "line": 144,
       "column": 3
     }
   },
@@ -420,11 +407,11 @@
     "defaultMessage": "!!!Current version:",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 149,
+      "line": 145,
       "column": 18
     },
     "end": {
-      "line": 152,
+      "line": 148,
       "column": 3
     }
   },
@@ -433,11 +420,11 @@
     "defaultMessage": "!!!Changes require restart",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 153,
+      "line": 149,
       "column": 22
     },
     "end": {
-      "line": 156,
+      "line": 152,
       "column": 3
     }
   },
@@ -446,11 +433,11 @@
     "defaultMessage": "!!!Official translations are English & German. All other languages are community based translations.",
     "file": "src/components/settings/settings/EditSettingsForm.js",
     "start": {
-      "line": 157,
+      "line": 153,
       "column": 22
     },
     "end": {
-      "line": 160,
+      "line": 156,
       "column": 3
     }
   }

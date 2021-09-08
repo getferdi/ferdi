@@ -25,7 +25,10 @@ import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawe
 import { workspaceStore } from '../../features/workspaces';
 import WorkspacesStore from '../../features/workspaces/store';
 
-export default @inject('stores', 'actions') @observer class AppLayoutContainer extends Component {
+export default
+@inject('stores', 'actions')
+@observer
+class AppLayoutContainer extends Component {
   static defaultProps = {
     children: null,
   };
@@ -65,25 +68,25 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     const { retryRequiredRequests } = this.props.actions.requests;
 
-    const {
-      installUpdate,
-      toggleMuteApp,
-    } = this.props.actions.app;
+    const { installUpdate, toggleMuteApp } = this.props.actions.app;
 
-    const {
-      openSettings,
-      closeSettings,
-    } = this.props.actions.ui;
+    const { openSettings, closeSettings } = this.props.actions.ui;
 
     const { children } = this.props;
 
-    const isLoadingFeatures = features.featuresRequest.isExecuting
-      && !features.featuresRequest.wasExecuted;
+    const isLoadingFeatures =
+      features.featuresRequest.isExecuting &&
+      !features.featuresRequest.wasExecuted;
 
-    const isLoadingServices = services.allServicesRequest.isExecuting
-      && services.allServicesRequest.isExecutingFirstTime;
+    const isLoadingServices =
+      services.allServicesRequest.isExecuting &&
+      services.allServicesRequest.isExecutingFirstTime;
 
-    if (isLoadingFeatures || isLoadingServices || workspaces.isLoadingWorkspaces) {
+    if (
+      isLoadingFeatures ||
+      isLoadingServices ||
+      workspaces.isLoadingWorkspaces
+    ) {
       return (
         <ThemeProvider theme={ui.theme}>
           <AppLoader />
@@ -93,9 +96,11 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
 
     const workspacesDrawer = (
       <WorkspaceDrawer
-        getServicesForWorkspace={(workspace) => (
-          workspace ? workspaceStore.getWorkspaceServices(workspace).map((s) => s.name) : services.all.map((s) => s.name)
-        )}
+        getServicesForWorkspace={workspace =>
+          (workspace
+            ? workspaceStore.getWorkspaceServices(workspace).map(s => s.name)
+            : services.all.map(s => s.name))
+        }
       />
     );
 
@@ -118,7 +123,9 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
         toggleMuteApp={toggleMuteApp}
         toggleWorkspaceDrawer={workspaceActions.toggleWorkspaceDrawer}
         isWorkspaceDrawerOpen={workspaceStore.isWorkspaceDrawerOpen}
-        showMessageBadgeWhenMutedSetting={settings.all.app.showMessageBadgeWhenMuted}
+        showMessageBadgeWhenMutedSetting={
+          settings.all.app.showMessageBadgeWhenMuted
+        }
         showMessageBadgesEvenWhenMuted={ui.showMessageBadgesEvenWhenMuted}
         isTodosServiceActive={services.isTodosServiceActive || false}
       />
@@ -145,8 +152,9 @@ export default @inject('stores', 'actions') @observer class AppLayoutContainer e
           isFullScreen={app.isFullScreen}
           isOnline={app.isOnline}
           showServicesUpdatedInfoBar={ui.showServicesUpdatedInfoBar}
-          appUpdateIsDownloaded={app.updateStatus === app.updateStatusTypes.DOWNLOADED}
-          nextAppReleaseVersion={app.nextAppReleaseVersion}
+          appUpdateIsDownloaded={
+            app.updateStatus === app.updateStatusTypes.DOWNLOADED
+          }
           authRequestFailed={app.authRequestFailed}
           sidebar={sidebar}
           workspacesDrawer={workspacesDrawer}

@@ -10,7 +10,6 @@ import user from './user';
 import news from './news';
 import settings from './settings';
 import requests from './requests';
-import announcements from '../features/announcements/actions';
 import workspaces from '../features/workspaces/actions';
 import todos from '../features/todos/actions';
 
@@ -28,7 +27,6 @@ const actions = {
 
 export default Object.assign(
   defineActions(actions, PropTypes.checkPropTypes),
-  { announcements },
   { workspaces },
   { todos },
 );

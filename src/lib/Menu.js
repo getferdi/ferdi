@@ -2,18 +2,32 @@ import { clipboard } from 'electron';
 import { app, Menu, dialog, systemPreferences } from '@electron/remote';
 import { autorun, observable } from 'mobx';
 import { defineMessages } from 'react-intl';
-import { CUSTOM_WEBSITE_RECIPE_ID, GITHUB_FERDI_URL, LIVE_API_FERDI_WEBSITE } from '../config';
 import {
-  cmdOrCtrlShortcutKey, altKey, shiftKey, settingsShortcutKey, isLinux, isMac, aboutAppDetails, lockFerdiShortcutKey, todosToggleShortcutKey, workspaceToggleShortcutKey, addNewServiceShortcutKey, muteFerdiShortcutKey,
+  CUSTOM_WEBSITE_RECIPE_ID,
+  GITHUB_FERDI_URL,
+  LIVE_API_FERDI_WEBSITE,
+} from '../config';
+import {
+  cmdOrCtrlShortcutKey,
+  altKey,
+  shiftKey,
+  settingsShortcutKey,
+  isLinux,
+  isMac,
+  aboutAppDetails,
+  lockFerdiShortcutKey,
+  todosToggleShortcutKey,
+  workspaceToggleShortcutKey,
+  addNewServiceShortcutKey,
+  muteFerdiShortcutKey,
 } from '../environment';
-import { announcementsStore } from '../features/announcements';
-import { announcementActions } from '../features/announcements/actions';
 import { todosStore } from '../features/todos';
 import { todoActions } from '../features/todos/actions';
 import { workspaceActions } from '../features/workspaces/actions';
 import { workspaceStore } from '../features/workspaces/index';
 import apiBase, { termsBase } from '../api/apiBase';
 import { openExternalUrl } from '../helpers/url-helpers';
+import globalMessages from '../i18n/globalMessages';
 
 const menuItems = defineMessages({
   edit: {
@@ -174,7 +188,8 @@ const menuItems = defineMessages({
   },
   debugInfoCopiedBody: {
     id: 'menu.help.debugInfoCopiedBody',
-    defaultMessage: '!!!Your Debug Information has been copied to your clipboard.',
+    defaultMessage:
+      '!!!Your Debug Information has been copied to your clipboard.',
   },
   touchId: {
     id: 'locked.touchId',
@@ -216,14 +231,6 @@ const menuItems = defineMessages({
     id: 'menu.app.about',
     defaultMessage: '!!!About Ferdi',
   },
-  announcement: {
-    id: 'menu.app.announcement',
-    defaultMessage: '!!!What\'s new?',
-  },
-  settings: {
-    id: 'menu.app.settings',
-    defaultMessage: '!!!Settings',
-  },
   checkForUpdates: {
     id: 'menu.app.checkForUpdates',
     defaultMessage: '!!!Check for updates',
@@ -243,10 +250,6 @@ const menuItems = defineMessages({
   autohideMenuBar: {
     id: 'menu.app.autohideMenuBar',
     defaultMessage: '!!!Auto-hide menu bar',
-  },
-  quit: {
-    id: 'menu.app.quit',
-    defaultMessage: '!!!Quit',
   },
   addNewService: {
     id: 'menu.services.addNewService',
@@ -310,8 +313,8 @@ const menuItems = defineMessages({
   },
 });
 
-function getActiveWebview() {
-  return window.ferdi.stores.services.active.webview;
+function getActiveService() {
+  return window.ferdi.stores.services.active;
 }
 
 const _titleBarTemplateFactory = (intl, locked) => [
@@ -349,9 +352,6 @@ const _titleBarTemplateFactory = (intl, locked) => [
         label: intl.formatMessage(menuItems.pasteAndMatchStyle),
         accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+V`, // Override the accelerator since this adds new key combo in macos
         role: 'pasteAndMatchStyle',
-        click() {
-          getActiveWebview().pasteAndMatchStyle();
-        },
       },
       {
         label: intl.formatMessage(menuItems.delete),
@@ -386,18 +386,18 @@ const _titleBarTemplateFactory = (intl, locked) => [
         label: intl.formatMessage(menuItems.findInPage),
         accelerator: `${cmdOrCtrlShortcutKey()}+F`,
         click() {
+          const service = getActiveService();
           // Check if there is a service active
-          if (!window.ferdi.stores.services.active) return;
+          if (service) {
+            // Focus webview so find in page popup gets focused
+            service.webview.focus();
 
-          // Focus webview so find in page popup gets focused
-          window.ferdi.stores.services.active.webview.focus();
-
-          const currentService = window.ferdi.stores.services.active.id;
-          window.ferdi.actions.service.sendIPCMessage({
-            serviceId: currentService,
-            channel: 'find-in-page',
-            args: {},
-          });
+            window.ferdi.actions.service.sendIPCMessage({
+              serviceId: service.id,
+              channel: 'find-in-page',
+              args: {},
+            });
+          }
         },
       },
       {
@@ -407,14 +407,14 @@ const _titleBarTemplateFactory = (intl, locked) => [
         label: intl.formatMessage(menuItems.back),
         accelerator: `${cmdOrCtrlShortcutKey()}+Left`,
         click() {
-          getActiveWebview().goBack();
+          getActiveService().webview.goBack();
         },
       },
       {
         label: intl.formatMessage(menuItems.forward),
         accelerator: `${cmdOrCtrlShortcutKey()}+Right`,
         click() {
-          getActiveWebview().goForward();
+          getActiveService().webview.goForward();
         },
       },
       {
@@ -423,17 +423,15 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.resetZoom),
         accelerator: `${cmdOrCtrlShortcutKey()}+0`,
-        role: 'resetZoom',
         click() {
-          getActiveWebview().setZoomLevel(0);
+          getActiveService().webview.setZoomLevel(0);
         },
       },
       {
         label: intl.formatMessage(menuItems.zoomIn),
         accelerator: `${cmdOrCtrlShortcutKey()}+plus`,
-        role: 'zoomIn',
         click() {
-          const activeService = getActiveWebview();
+          const activeService = getActiveService().webview;
           const level = activeService.getZoomLevel();
 
           // level 9 =~ +300% and setZoomLevel wouldnt zoom in further
@@ -443,9 +441,8 @@ const _titleBarTemplateFactory = (intl, locked) => [
       {
         label: intl.formatMessage(menuItems.zoomOut),
         accelerator: `${cmdOrCtrlShortcutKey()}+-`,
-        role: 'zoomOut',
         click() {
-          const activeService = getActiveWebview();
+          const activeService = getActiveService().webview;
           const level = activeService.getZoomLevel();
 
           // level -9 =~ -50% and setZoomLevel wouldnt zoom out further
@@ -513,44 +510,49 @@ const _titleBarTemplateFactory = (intl, locked) => [
     submenu: [
       {
         label: intl.formatMessage(menuItems.learnMore),
-        click() { openExternalUrl(LIVE_API_FERDI_WEBSITE, true); },
+        click() {
+          openExternalUrl(LIVE_API_FERDI_WEBSITE, true);
+        },
       },
       {
         label: intl.formatMessage(menuItems.changelog),
-        click() { openExternalUrl(`${GITHUB_FERDI_URL}/ferdi/blob/develop/CHANGELOG.md`, true); },
+        click() {
+          openExternalUrl(
+            `${GITHUB_FERDI_URL}/ferdi/blob/develop/CHANGELOG.md`,
+            true,
+          );
+        },
       },
       {
         label: intl.formatMessage(menuItems.importExportData),
-        click() { openExternalUrl(apiBase(false), true); },
+        click() {
+          openExternalUrl(apiBase(false), true);
+        },
         enabled: !locked,
       },
       {
         type: 'separator',
       },
       {
-        label: intl.formatMessage(menuItems.announcement),
-        click: () => {
-          announcementActions.show();
-        },
-        enabled: !locked && window.ferdi.stores.user.isLoggedIn && announcementsStore.areNewsAvailable,
-      },
-      {
-        type: 'separator',
-      },
-      {
         label: intl.formatMessage(menuItems.support),
-        click() { openExternalUrl(`${LIVE_API_FERDI_WEBSITE}/contact`, true); },
+        click() {
+          openExternalUrl(`${LIVE_API_FERDI_WEBSITE}/contact`, true);
+        },
       },
       {
         type: 'separator',
       },
       {
         label: intl.formatMessage(menuItems.tos),
-        click() { openExternalUrl(`${termsBase()}/terms`, true); },
+        click() {
+          openExternalUrl(`${termsBase()}/terms`, true);
+        },
       },
       {
         label: intl.formatMessage(menuItems.privacy),
-        click() { openExternalUrl(`${termsBase()}/privacy`, true); },
+        click() {
+          openExternalUrl(`${termsBase()}/privacy`, true);
+        },
       },
     ],
   },
@@ -590,6 +592,23 @@ export default class FranzMenu {
     const tpl = _titleBarTemplateFactory(intl, this.stores.settings.app.locked);
     const { actions } = this;
 
+    // TODO: Extract this into a reusable component and remove the duplications
+    const quitApp = () => {
+      const yesButtonIndex = 0;
+      let selection = yesButtonIndex;
+      if (window.ferdi.stores.settings.app.confirmOnQuit) {
+        selection = dialog.showMessageBoxSync(app.mainWindow, {
+          type: 'question',
+          message: intl.formatMessage(globalMessages.quit),
+          detail: intl.formatMessage(globalMessages.quitConfirmation),
+          buttons: [intl.formatMessage(globalMessages.yes), intl.formatMessage(globalMessages.no)],
+        });
+      }
+      if (selection === yesButtonIndex) {
+        app.quit();
+      }
+    };
+
     if (!isMac) {
       tpl[1].submenu.push({
         label: intl.formatMessage(menuItems.autohideMenuBar),
@@ -599,7 +618,8 @@ export default class FranzMenu {
           window.ferdi.actions.settings.update({
             type: 'app',
             data: {
-              autohideMenuBar: !window.ferdi.stores.settings.app.autohideMenuBar,
+              autohideMenuBar:
+                !window.ferdi.stores.settings.app.autohideMenuBar,
             },
           });
         },
@@ -607,22 +627,28 @@ export default class FranzMenu {
     }
 
     if (!this.stores.settings.app.locked) {
-      tpl[1].submenu.push({
-        type: 'separator',
-      }, {
-        label: intl.formatMessage(menuItems.toggleDevTools),
-        accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+I`,
-        click: (menuItem, browserWindow) => {
-          browserWindow.webContents.toggleDevTools();
+      tpl[1].submenu.push(
+        {
+          type: 'separator',
         },
-      }, {
-        label: intl.formatMessage(menuItems.toggleServiceDevTools),
-        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+${altKey()}+I`,
-        click: () => {
-          this.actions.service.openDevToolsForActiveService();
+        {
+          label: intl.formatMessage(menuItems.toggleDevTools),
+          accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+I`,
+          click: (menuItem, browserWindow) => {
+            browserWindow.webContents.toggleDevTools();
+          },
         },
-        enabled: this.stores.user.isLoggedIn && this.stores.services.enabled.length > 0,
-      });
+        {
+          label: intl.formatMessage(menuItems.toggleServiceDevTools),
+          accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+${altKey()}+I`,
+          click: () => {
+            this.actions.service.openDevToolsForActiveService();
+          },
+          enabled:
+            this.stores.user.isLoggedIn &&
+            this.stores.services.enabled.length > 0,
+        },
+      );
 
       if (this.stores.features.features.isTodosEnabled) {
         tpl[1].submenu.push({
@@ -635,49 +661,58 @@ export default class FranzMenu {
         });
       }
 
-      tpl[1].submenu.unshift({
-        label: intl.formatMessage(menuItems.reloadService),
-        id: 'reloadService', // TODO: needed?
-        accelerator: `${cmdOrCtrlShortcutKey()}+R`,
-        click: () => {
-          if (this.stores.user.isLoggedIn
-          && this.stores.services.enabled.length > 0) {
-            if (this.stores.services.active.recipe.id === CUSTOM_WEBSITE_RECIPE_ID) {
-              this.stores.services.active.webview.reload();
+      tpl[1].submenu.unshift(
+        {
+          label: intl.formatMessage(menuItems.reloadService),
+          accelerator: `${cmdOrCtrlShortcutKey()}+R`,
+          click: () => {
+            if (
+              this.stores.user.isLoggedIn &&
+              this.stores.services.enabled.length > 0
+            ) {
+              if (getActiveService().recipe.id === CUSTOM_WEBSITE_RECIPE_ID) {
+                getActiveService().webview.reload();
+              } else {
+                this.actions.service.reloadActive();
+              }
             } else {
-              this.actions.service.reloadActive();
+              window.location.reload();
             }
-          } else {
+          },
+        },
+        {
+          label: intl.formatMessage(menuItems.reloadFerdi),
+          accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+R`,
+          click: () => {
             window.location.reload();
-          }
+          },
         },
-      }, {
-        label: intl.formatMessage(menuItems.reloadFerdi),
-        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+R`,
-        click: () => {
-          window.location.reload();
+        {
+          label: intl.formatMessage(menuItems.reloadTodos),
+          accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+${altKey()}+R`,
+          click: () => {
+            this.actions.todos.reload();
+          },
         },
-      }, {
-        label: intl.formatMessage(menuItems.reloadTodos),
-        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+${altKey()}+R`,
-        click: () => {
-          this.actions.todos.reload();
+        {
+          type: 'separator',
         },
-      }, {
-        type: 'separator',
-      }, {
-        label: intl.formatMessage(menuItems.lockFerdi),
-        accelerator: `${lockFerdiShortcutKey()}`,
-        enabled: this.stores.user.isLoggedIn && this.stores.settings.app.lockingFeatureEnabled,
-        click() {
-          actions.settings.update({
-            type: 'app',
-            data: {
-              locked: true,
-            },
-          });
+        {
+          label: intl.formatMessage(menuItems.lockFerdi),
+          accelerator: `${lockFerdiShortcutKey()}`,
+          enabled:
+            this.stores.user.isLoggedIn &&
+            this.stores.settings.app.lockingFeatureEnabled,
+          click() {
+            actions.settings.update({
+              type: 'app',
+              data: {
+                locked: true,
+              },
+            });
+          },
         },
-      });
+      );
 
       if (serviceTpl.length > 0) {
         tpl[2].submenu = serviceTpl;
@@ -691,26 +726,34 @@ export default class FranzMenu {
         tpl[4].submenu = this.todosMenu();
       }
     } else {
-      const touchIdEnabled = isMac ? (this.stores.settings.app.useTouchIdToUnlock && systemPreferences.canPromptTouchID()) : false;
+      const touchIdEnabled = isMac
+        ? this.stores.settings.app.useTouchIdToUnlock &&
+          systemPreferences.canPromptTouchID()
+        : false;
 
-      tpl[0].submenu.unshift({
-        label: intl.formatMessage(menuItems.touchId),
-        accelerator: `${lockFerdiShortcutKey()}`,
-        visible: touchIdEnabled,
-        click() {
-          systemPreferences.promptTouchID(intl.formatMessage(menuItems.touchIdPrompt)).then(() => {
-            actions.settings.update({
-              type: 'app',
-              data: {
-                locked: false,
-              },
-            });
-          });
+      tpl[0].submenu.unshift(
+        {
+          label: intl.formatMessage(menuItems.touchId),
+          accelerator: `${lockFerdiShortcutKey()}`,
+          visible: touchIdEnabled,
+          click() {
+            systemPreferences
+              .promptTouchID(intl.formatMessage(menuItems.touchIdPrompt))
+              .then(() => {
+                actions.settings.update({
+                  type: 'app',
+                  data: {
+                    locked: false,
+                  },
+                });
+              });
+          },
         },
-      }, {
-        type: 'separator',
-        visible: touchIdEnabled,
-      });
+        {
+          type: 'separator',
+          visible: touchIdEnabled,
+        },
+      );
     }
 
     tpl.unshift({
@@ -725,7 +768,7 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.settings),
+          label: intl.formatMessage(globalMessages.settings),
           accelerator: `${settingsShortcutKey()}`,
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
@@ -768,18 +811,15 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.quit),
-          role: 'quit',
-          click() {
-            app.quit();
-          },
+          label: intl.formatMessage(globalMessages.quit),
+          accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
+          click: quitApp,
         },
       ],
     });
 
     const about = {
       label: intl.formatMessage(menuItems.about),
-      role: 'about',
       click: () => {
         dialog.showMessageBox({
           type: 'info',
@@ -829,18 +869,18 @@ export default class FranzMenu {
           type: 'separator',
         },
         {
-          label: intl.formatMessage(menuItems.quit),
-          role: 'quit',
+          label: intl.formatMessage(globalMessages.quit),
           accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
-          click() {
-            app.quit();
-          },
+          click: quitApp,
         },
       ];
 
-      tpl[tpl.length - 1].submenu.push({
-        type: 'separator',
-      }, about);
+      tpl[tpl.length - 1].submenu.push(
+        {
+          type: 'separator',
+        },
+        about,
+      );
     }
 
     if (!this.stores.settings.app.locked) {
@@ -856,9 +896,12 @@ export default class FranzMenu {
         tpl[5].submenu = this.todosMenu();
       }
 
-      tpl[tpl.length - 1].submenu.push({
-        type: 'separator',
-      }, ...this.debugMenu());
+      tpl[tpl.length - 1].submenu.push(
+        {
+          type: 'separator',
+        },
+        ...this.debugMenu(),
+      );
     }
     this.currentTemplate = tpl;
     const menu = Menu.buildFromTemplate(tpl);
@@ -872,73 +915,95 @@ export default class FranzMenu {
     const menu = [];
     const cmdAltShortcutsVisibile = !isLinux;
 
-    menu.push({
-      label: intl.formatMessage(menuItems.addNewService),
-      accelerator: `${addNewServiceShortcutKey()}`,
-      click: () => {
-        this.actions.ui.openSettings({ path: 'recipes' });
+    menu.push(
+      {
+        label: intl.formatMessage(menuItems.addNewService),
+        accelerator: `${addNewServiceShortcutKey()}`,
+        click: () => {
+          this.actions.ui.openSettings({ path: 'recipes' });
+        },
       },
-    }, {
-      type: 'separator',
-    }, {
-      label: intl.formatMessage(menuItems.activateNextService),
-      accelerator: `${cmdOrCtrlShortcutKey()}+tab`,
-      click: () => this.actions.service.setActiveNext(),
-      visible: !cmdAltShortcutsVisibile,
-    }, {
-      label: intl.formatMessage(menuItems.activateNextService),
-      accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+right`,
-      click: () => this.actions.service.setActiveNext(),
-      visible: cmdAltShortcutsVisibile,
-    }, {
-      label: intl.formatMessage(menuItems.activatePreviousService),
-      accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+tab`,
-      click: () => this.actions.service.setActivePrev(),
-      visible: !cmdAltShortcutsVisibile,
-    }, {
-      label: intl.formatMessage(menuItems.activatePreviousService),
-      accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+left`,
-      click: () => this.actions.service.setActivePrev(),
-      visible: cmdAltShortcutsVisibile,
-    }, {
-      label: intl.formatMessage(
-        settings.all.app.isAppMuted ? menuItems.unmuteApp : menuItems.muteApp,
-      ).replace('&', '&&'),
-      accelerator: `${muteFerdiShortcutKey()}`,
-      click: () => this.actions.app.toggleMuteApp(),
-    }, {
-      type: 'separator',
-    });
-
-    services.allDisplayed.forEach((service, i) => (menu.push({
-      label: this._getServiceName(service),
-      accelerator: i < 9 ? `${cmdOrCtrlShortcutKey()}+${i + 1}` : null,
-      type: 'radio',
-      checked: service.isActive,
-      click: () => {
-        this.actions.service.setActive({ serviceId: service.id });
-
-        if (isMac && i === 0) {
-          app.mainWindow.restore();
-        }
-      },
-    })));
-
-    if (services.active && services.active.recipe.id === CUSTOM_WEBSITE_RECIPE_ID) {
-      menu.push({
+      {
         type: 'separator',
-      }, {
-        label: intl.formatMessage(menuItems.serviceGoHome),
-        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+H`,
-        click: () => this.actions.service.reloadActive(),
-      });
+      },
+      {
+        label: intl.formatMessage(menuItems.activateNextService),
+        accelerator: `${cmdOrCtrlShortcutKey()}+tab`,
+        click: () => this.actions.service.setActiveNext(),
+        visible: !cmdAltShortcutsVisibile,
+      },
+      {
+        label: intl.formatMessage(menuItems.activateNextService),
+        accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+right`,
+        click: () => this.actions.service.setActiveNext(),
+        visible: cmdAltShortcutsVisibile,
+      },
+      {
+        label: intl.formatMessage(menuItems.activatePreviousService),
+        accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+tab`,
+        click: () => this.actions.service.setActivePrev(),
+        visible: !cmdAltShortcutsVisibile,
+      },
+      {
+        label: intl.formatMessage(menuItems.activatePreviousService),
+        accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+left`,
+        click: () => this.actions.service.setActivePrev(),
+        visible: cmdAltShortcutsVisibile,
+      },
+      {
+        label: intl
+          .formatMessage(
+            settings.all.app.isAppMuted
+              ? menuItems.unmuteApp
+              : menuItems.muteApp,
+          )
+          .replace('&', '&&'),
+        accelerator: `${muteFerdiShortcutKey()}`,
+        click: () => this.actions.app.toggleMuteApp(),
+      },
+      {
+        type: 'separator',
+      },
+    );
+
+    services.allDisplayed.forEach((service, i) =>
+      menu.push({
+        label: this._getServiceName(service),
+        accelerator: i < 9 ? `${cmdOrCtrlShortcutKey()}+${i + 1}` : null,
+        type: 'radio',
+        checked: service.isActive,
+        click: () => {
+          this.actions.service.setActive({ serviceId: service.id });
+
+          if (isMac && i === 0) {
+            app.mainWindow.restore();
+          }
+        },
+      }),
+    );
+
+    if (
+      services.active &&
+      services.active.recipe.id === CUSTOM_WEBSITE_RECIPE_ID
+    ) {
+      menu.push(
+        {
+          type: 'separator',
+        },
+        {
+          label: intl.formatMessage(menuItems.serviceGoHome),
+          accelerator: `${cmdOrCtrlShortcutKey()}+${shiftKey()}+H`,
+          click: () => this.actions.service.reloadActive(),
+        },
+      );
     }
 
     return menu;
   }
 
   workspacesMenu() {
-    const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } = workspaceStore;
+    const { workspaces, activeWorkspace, isWorkspaceDrawerOpen } =
+      workspaceStore;
     const { intl } = window.ferdi;
     const menu = [];
 
@@ -954,9 +1019,9 @@ export default class FranzMenu {
 
     // Open workspace drawer:
     if (!this.stores.settings.app.alwaysShowWorkspaces) {
-      const drawerLabel = (
-        isWorkspaceDrawerOpen ? menuItems.closeWorkspaceDrawer : menuItems.openWorkspaceDrawer
-      );
+      const drawerLabel = isWorkspaceDrawerOpen
+        ? menuItems.closeWorkspaceDrawer
+        : menuItems.openWorkspaceDrawer;
       menu.push({
         label: intl.formatMessage(drawerLabel),
         accelerator: `${workspaceToggleShortcutKey()}`,
@@ -983,15 +1048,18 @@ export default class FranzMenu {
     });
 
     // Workspace items
-    workspaces.forEach((workspace, i) => menu.push({
-      label: workspace.name,
-      accelerator: i < 9 ? `${cmdOrCtrlShortcutKey()}+${altKey()}+${i + 1}` : null,
-      type: 'radio',
-      checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
-      click: () => {
-        workspaceActions.activate({ workspace });
-      },
-    }));
+    workspaces.forEach((workspace, i) =>
+      menu.push({
+        label: workspace.name,
+        accelerator:
+          i < 9 ? `${cmdOrCtrlShortcutKey()}+${altKey()}+${i + 1}` : null,
+        type: 'radio',
+        checked: activeWorkspace ? workspace.id === activeWorkspace.id : false,
+        click: () => {
+          workspaceActions.activate({ workspace });
+        },
+      }),
+    );
 
     return menu;
   }
@@ -1001,7 +1069,9 @@ export default class FranzMenu {
     const { intl } = window.ferdi;
     const menu = [];
 
-    const drawerLabel = isTodosPanelVisible ? menuItems.closeTodosDrawer : menuItems.openTodosDrawer;
+    const drawerLabel = isTodosPanelVisible
+      ? menuItems.closeTodosDrawer
+      : menuItems.openTodosDrawer;
 
     menu.push({
       label: intl.formatMessage(drawerLabel),
@@ -1013,14 +1083,17 @@ export default class FranzMenu {
     });
 
     if (!isFeatureEnabledByUser) {
-      menu.push({
-        type: 'separator',
-      }, {
-        label: intl.formatMessage(menuItems.enableTodos),
-        click: () => {
-          todoActions.toggleTodosFeatureVisibility();
+      menu.push(
+        {
+          type: 'separator',
         },
-      });
+        {
+          label: intl.formatMessage(menuItems.enableTodos),
+          click: () => {
+            todoActions.toggleTodosFeatureVisibility();
+          },
+        },
+      );
     }
 
     return menu;
@@ -1029,28 +1102,31 @@ export default class FranzMenu {
   debugMenu() {
     const { intl } = window.ferdi;
 
-    return [{
-      label: intl.formatMessage(menuItems.debugInfo),
-      click: () => {
-        const { debugInfo } = this.stores.app;
+    return [
+      {
+        label: intl.formatMessage(menuItems.debugInfo),
+        click: () => {
+          const { debugInfo } = this.stores.app;
 
-        clipboard.write({
-          text: JSON.stringify(debugInfo),
-        });
+          clipboard.write({
+            text: JSON.stringify(debugInfo),
+          });
 
-        this.actions.app.notify({
-          title: intl.formatMessage(menuItems.debugInfoCopiedHeadline),
-          options: {
-            body: intl.formatMessage(menuItems.debugInfoCopiedBody),
-          },
-        });
+          this.actions.app.notify({
+            title: intl.formatMessage(menuItems.debugInfoCopiedHeadline),
+            options: {
+              body: intl.formatMessage(menuItems.debugInfoCopiedBody),
+            },
+          });
+        },
       },
-    }, {
-      label: intl.formatMessage(menuItems.publishDebugInfo),
-      click: () => {
-        window.ferdi.features.publishDebugInfo.state.isModalVisible = true;
+      {
+        label: intl.formatMessage(menuItems.publishDebugInfo),
+        click: () => {
+          window.ferdi.features.publishDebugInfo.state.isModalVisible = true;
+        },
       },
-    }];
+    ];
   }
 
   _getServiceName(service) {

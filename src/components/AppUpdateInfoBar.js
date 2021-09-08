@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, intlShape } from 'react-intl';
 
-import { announcementActions } from '../features/announcements/actions';
 import InfoBar from './ui/InfoBar';
+import { GITHUB_FERDI_URL } from '../config';
+import { openExternalUrl } from '../helpers/url-helpers';
 
 const messages = defineMessages({
   updateAvailable: {
@@ -23,12 +24,7 @@ const messages = defineMessages({
 class AppUpdateInfoBar extends Component {
   static propTypes = {
     onInstallUpdate: PropTypes.func.isRequired,
-    nextAppReleaseVersion: PropTypes.string,
     onHide: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    nextAppReleaseVersion: null,
   };
 
   static contextTypes = {
@@ -37,11 +33,7 @@ class AppUpdateInfoBar extends Component {
 
   render() {
     const { intl } = this.context;
-    const {
-      onInstallUpdate,
-      nextAppReleaseVersion,
-      onHide,
-    } = this.props;
+    const { onInstallUpdate, onHide } = this.props;
 
     return (
       <InfoBar
@@ -51,12 +43,16 @@ class AppUpdateInfoBar extends Component {
         onHide={onHide}
       >
         <span className="mdi mdi-information" />
-        {intl.formatMessage(messages.updateAvailable)}
-        {' '}
+        {intl.formatMessage(messages.updateAvailable)}{' '}
         <button
           className="info-bar__inline-button"
           type="button"
-          onClick={() => announcementActions.show({ targetVersion: nextAppReleaseVersion })}
+          onClick={() =>
+            openExternalUrl(
+              `${GITHUB_FERDI_URL}/ferdi/blob/develop/CHANGELOG.md`,
+              true,
+            )
+          }
         >
           <u>{intl.formatMessage(messages.changelog)}</u>
         </button>

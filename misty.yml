@@ -1,6 +1,0 @@
-code:
-  cmd: pnpm run dev
-
-app:
-  cmd: pnpm start
-  waitOn: http://localhost:8080

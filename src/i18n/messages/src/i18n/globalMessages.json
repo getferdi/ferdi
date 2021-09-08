@@ -102,5 +102,135 @@
       "line": 35,
       "column": 3
     }
+  },
+  {
+    "id": "global.yes",
+    "defaultMessage": "!!!Yes",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 36,
+      "column": 7
+    },
+    "end": {
+      "line": 39,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.no",
+    "defaultMessage": "!!!No",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 40,
+      "column": 6
+    },
+    "end": {
+      "line": 43,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.ok",
+    "defaultMessage": "!!!Ok",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 44,
+      "column": 6
+    },
+    "end": {
+      "line": 47,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.cancel",
+    "defaultMessage": "!!!Cancel",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 48,
+      "column": 10
+    },
+    "end": {
+      "line": 51,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.save",
+    "defaultMessage": "!!!Save",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 52,
+      "column": 8
+    },
+    "end": {
+      "line": 55,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.submit",
+    "defaultMessage": "!!!Submit",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 56,
+      "column": 10
+    },
+    "end": {
+      "line": 59,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.quit",
+    "defaultMessage": "!!!Quit",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 60,
+      "column": 8
+    },
+    "end": {
+      "line": 63,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.quitConfirmation",
+    "defaultMessage": "!!!Do you really want to quit Ferdi?",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 64,
+      "column": 20
+    },
+    "end": {
+      "line": 68,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.settings",
+    "defaultMessage": "!!!Settings",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 69,
+      "column": 12
+    },
+    "end": {
+      "line": 72,
+      "column": 3
+    }
+  },
+  {
+    "id": "global.edit",
+    "defaultMessage": "!!!Edit",
+    "file": "src/i18n/globalMessages.js",
+    "start": {
+      "line": 73,
+      "column": 8
+    },
+    "end": {
+      "line": 76,
+      "column": 3
+    }
   }
 ]

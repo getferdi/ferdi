@@ -42,6 +42,10 @@ export default class User {
   @observable team = {};
 
   constructor(data: IUser) {
+    if (!data) {
+      throw Error('User config not valid');
+    }
+
     if (!data.id) {
       throw Error('User requires Id');
     }

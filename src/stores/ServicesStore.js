@@ -400,27 +400,22 @@ export default class ServicesStore extends Store {
 
     // set default values for serviceData
     // eslint-disable-next-line prefer-object-spread
-    Object.assign(
-      {
-        isEnabled: true,
-        isHibernationEnabled: false,
-        isNotificationEnabled: true,
-        isBadgeEnabled: true,
-        isMuted: false,
-        customIcon: false,
-        isDarkModeEnabled: false,
-        spellcheckerLanguage:
+    // TODO: How is this different from the defaults of the recipe in 'src/models/Recipe' file?
+    serviceData = {
+      isEnabled: true,
+      isHibernationEnabled: false,
+      isNotificationEnabled: true,
+      isBadgeEnabled: true,
+      isMuted: false,
+      customIcon: false,
+      isDarkModeEnabled: false,
+      spellcheckerLanguage:
           SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
-        userAgentPref: '',
-      },
-      serviceData,
-    );
+      userAgentPref: '',
+      ...serviceData,
+    };
 
-    let data = serviceData;
-
-    if (!skipCleanup) {
-      data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
-    }
+    const data = skipCleanup ? serviceData : this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
 
     const response = await this.createServiceRequest.execute(recipeId, data)
       ._promise;
@@ -452,12 +447,13 @@ export default class ServicesStore extends Store {
       serviceData.name = data.name;
     }
 
-    if (data.team && !data.customURL) {
-      serviceData.team = data.team;
-    }
-
-    if (data.team && data.customURL) {
-      serviceData.customUrl = data.team;
+    if (data.team) {
+      if (!data.customURL) {
+        serviceData.team = data.team;
+      } else {
+        // TODO: Is this correct?
+        serviceData.customUrl = data.team;
+      }
     }
 
     this.actions.service.createService({
@@ -607,8 +603,12 @@ export default class ServicesStore extends Store {
   }
 
   @action _blurActive() {
-    if (!this.active) return;
-    this.active.isActive = false;
+    const service = this.active;
+    if (service) {
+      service.isActive = false;
+    } else {
+      debug('No service is active');
+    }
   }
 
   @action _setActiveNext() {
@@ -682,6 +682,8 @@ export default class ServicesStore extends Store {
       const service = this.active;
       if (service) {
         this._focusService({ serviceId: service.id });
+      } else {
+        debug('No service is active');
       }
     } else {
       this.allServicesRequest.invalidate();
@@ -850,12 +852,13 @@ export default class ServicesStore extends Store {
   }
 
   @action _reloadActive() {
-    if (this.active) {
-      const service = this.one(this.active.id);
-
+    const service = this.active;
+    if (service) {
       this._reload({
         serviceId: service.id,
       });
+    } else {
+      debug('No service is active');
     }
   }
 
@@ -914,7 +917,6 @@ export default class ServicesStore extends Store {
 
   @action _toggleNotifications({ serviceId }) {
     const service = this.one(serviceId);
-    service.isNotificationEnabled = !service.isNotificationEnabled;
 
     this.actions.service.updateService({
       serviceId,
@@ -927,7 +929,6 @@ export default class ServicesStore extends Store {
 
   @action _toggleAudio({ serviceId }) {
     const service = this.one(serviceId);
-    service.isMuted = !service.isMuted;
 
     this.actions.service.updateService({
       serviceId,
@@ -940,7 +941,6 @@ export default class ServicesStore extends Store {
 
   @action _toggleDarkMode({ serviceId }) {
     const service = this.one(serviceId);
-    service.isDarkModeEnabled = !service.isDarkModeEnabled;
 
     this.actions.service.updateService({
       serviceId,
@@ -1022,12 +1022,13 @@ export default class ServicesStore extends Store {
     if (service) {
       this.actions.service.focusService({ serviceId: service.id });
       document.title = `Ferdi - ${service.name}`;
+    } else {
+      debug('No service is active');
     }
   }
 
   _saveActiveService() {
     const service = this.active;
-
     if (service) {
       this.actions.settings.update({
         type: 'service',
@@ -1035,6 +1036,8 @@ export default class ServicesStore extends Store {
           activeService: service.id,
         },
       });
+    } else {
+      debug('No service is active');
     }
   }
 

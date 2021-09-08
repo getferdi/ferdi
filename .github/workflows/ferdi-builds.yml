@@ -134,11 +134,11 @@ jobs:
         uses: pnpm/action-setup@v2.0.1
         with:
           version: 6.14.2
-      - name: Use Node.js 14.17.3
+      - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
-          node-version: 14.17.3
-          cache: "pnpm"
+          node-version: 14.17.6
+          cache: 'pnpm'
       - name: Upgrade Xcode version on the macOS 10.15 default runners provided by GH Actions
         run: |
           sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
@@ -234,11 +234,11 @@ jobs:
         uses: pnpm/action-setup@v2.0.1
         with:
           version: 6.14.2
-      - name: Use Node.js 14.17.3
+      - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
-          node-version: 14.17.3
-          cache: "pnpm"
+          node-version: 14.17.6
+          cache: 'pnpm'
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
@@ -348,11 +348,11 @@ jobs:
         uses: pnpm/action-setup@v2.0.1
         with:
           version: 6.14.2
-      - name: Use Node.js 14.17.3
+      - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
-          node-version: 14.17.3
-          cache: "pnpm"
+          node-version: 14.17.6
+          cache: 'pnpm'
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0

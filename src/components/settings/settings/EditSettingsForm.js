@@ -18,10 +18,6 @@ import { openPath } from '../../../helpers/url-helpers';
 import globalMessages from '../../../i18n/globalMessages';
 
 const messages = defineMessages({
-  headline: {
-    id: 'settings.app.headline',
-    defaultMessage: '!!!Settings',
-  },
   headlineGeneral: {
     id: 'settings.app.headlineGeneral',
     defaultMessage: '!!!General',
@@ -275,7 +271,7 @@ export default @observer class EditSettingsForm extends Component {
     return (
       <div className="settings__main">
         <div className="settings__header">
-          <h1>{intl.formatMessage(messages.headline)}</h1>
+          <h1>{intl.formatMessage(globalMessages.settings)}</h1>
         </div>
         <div className="settings__body">
           <form
@@ -334,6 +330,7 @@ export default @observer class EditSettingsForm extends Component {
               <div>
                 <Toggle field={form.$('autoLaunchOnStart')} />
                 <Toggle field={form.$('runInBackground')} />
+                <Toggle field={form.$('confirmOnQuit')} />
                 <Toggle field={form.$('enableSystemTray')} />
                 <Toggle field={form.$('reloadAfterResume')} />
                 <Toggle field={form.$('startMinimized')} />

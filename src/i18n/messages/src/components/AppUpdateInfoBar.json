@@ -4,11 +4,11 @@
     "defaultMessage": "!!!A new update for Ferdi is available.",
     "file": "src/components/AppUpdateInfoBar.js",
     "start": {
-      "line": 9,
+      "line": 10,
       "column": 19
     },
     "end": {
-      "line": 12,
+      "line": 13,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Changelog",
     "file": "src/components/AppUpdateInfoBar.js",
     "start": {
-      "line": 13,
+      "line": 14,
       "column": 13
     },
     "end": {
-      "line": 16,
+      "line": 17,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Restart & install update",
     "file": "src/components/AppUpdateInfoBar.js",
     "start": {
-      "line": 17,
+      "line": 18,
       "column": 23
     },
     "end": {
-      "line": 20,
+      "line": 21,
       "column": 3
     }
   }

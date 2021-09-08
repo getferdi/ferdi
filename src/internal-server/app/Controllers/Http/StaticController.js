@@ -2,36 +2,19 @@
  * Controller for routes with static responses
  */
 
+import { DEFAULT_FEATURES_CONFIG } from '../../../../config';
+
+// TODO: This endpoint and associated code needs to be remoeved as cleanup
 class StaticController {
   // Enable all features
-  features({
-    response,
-  }) {
-    return response.send({
-      isServiceProxyEnabled: true,
-      isWorkspaceEnabled: true,
-      isAnnouncementsEnabled: true,
-      isSettingsWSEnabled: false,
-      isMagicBarEnabled: true,
-      isTodosEnabled: true,
-      subscribeURL: 'https://getferdi.com',
-      hasInlineCheckout: true,
-    });
+  features({ response }) {
+    return response.send(DEFAULT_FEATURES_CONFIG);
   }
 
   // Return an empty array
-  emptyArray({
-    response,
-  }) {
+  emptyArray({ response }) {
     return response.send([]);
-  }
-
-  // Show announcements
-  announcement({
-    response,
-  }) {
-    return response.send({});
   }
 }
 
-module.exports = StaticController;
+export default StaticController;

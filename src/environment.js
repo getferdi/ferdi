@@ -124,6 +124,7 @@ export const DEFAULT_APP_SETTINGS = {
   reloadAfterResume: true,
   enableSystemTray: true,
   startMinimized: false,
+  confirmOnQuit: false,
   minimizeToSystemTray: false,
   closeToSystemTray: false,
   privateNotifications: false,

@@ -20,7 +20,7 @@ const messages = defineMessages({
   },
   noServicesAdded: {
     id: 'settings.workspaces.noWorkspacesAdded',
-    defaultMessage: '!!!You haven\'t created any workspaces yet.',
+    defaultMessage: "!!!You haven't created any workspaces yet.",
   },
   workspacesRequestFailed: {
     id: 'settings.workspaces.workspacesRequestFailed',
@@ -61,9 +61,6 @@ const styles = () => ({
   appear: {
     height: 'auto',
   },
-  announcementHeadline: {
-    marginBottom: 0,
-  },
   teaserImage: {
     width: 250,
     margin: [-8, 0, 0, 20],
@@ -71,7 +68,9 @@ const styles = () => ({
   },
 });
 
-@inject('stores') @injectSheet(styles) @observer
+@inject('stores')
+@injectSheet(styles)
+@observer
 class WorkspacesDashboard extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -108,7 +107,6 @@ class WorkspacesDashboard extends Component {
           <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body">
-
           {/* ===== Workspace updated info ===== */}
           {updateWorkspaceRequest.wasExecuted && updateWorkspaceRequest.result && (
             <Appear className={classes.appear}>
@@ -175,11 +173,11 @@ class WorkspacesDashboard extends Component {
                     <table className={classes.table}>
                       {/* ===== Workspaces list ===== */}
                       <tbody>
-                        {workspaces.map((workspace) => (
+                        {workspaces.map(workspace => (
                           <WorkspaceItem
                             key={workspace.id}
                             workspace={workspace}
-                            onItemClick={(w) => onWorkspaceClick(w)}
+                            onItemClick={w => onWorkspaceClick(w)}
                           />
                         ))}
                       </tbody>

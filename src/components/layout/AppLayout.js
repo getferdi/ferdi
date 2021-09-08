@@ -76,7 +76,6 @@ class AppLayout extends Component {
     news: MobxPropTypes.arrayOrObservableArray.isRequired,
     showServicesUpdatedInfoBar: PropTypes.bool.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
-    nextAppReleaseVersion: PropTypes.string,
     authRequestFailed: PropTypes.bool.isRequired,
     removeNewsItem: PropTypes.func.isRequired,
     reloadServicesAfterUpdate: PropTypes.func.isRequired,
@@ -93,7 +92,6 @@ class AppLayout extends Component {
 
   static defaultProps = {
     children: [],
-    nextAppReleaseVersion: null,
   };
 
   static contextTypes = {
@@ -111,7 +109,6 @@ class AppLayout extends Component {
       news,
       showServicesUpdatedInfoBar,
       appUpdateIsDownloaded,
-      nextAppReleaseVersion,
       authRequestFailed,
       removeNewsItem,
       reloadServicesAfterUpdate,
@@ -195,7 +192,6 @@ class AppLayout extends Component {
               )}
               {appUpdateIsDownloaded && this.state.shouldShowAppUpdateInfoBar && (
                 <AppUpdateInfoBar
-                  nextAppReleaseVersion={nextAppReleaseVersion}
                   onInstallUpdate={installAppUpdate}
                   onHide={() => {
                     this.setState({ shouldShowAppUpdateInfoBar: false });

@@ -38,7 +38,7 @@
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [Ferdi Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [stefan@adlk.io](mailto:stefan@adlk.io).
+This project and everyone participating in it is governed by the [Ferdi Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [hello@getferdi.com](mailto:hello@getferdi.com).
 
 ## What should I know before I get started?
 
@@ -60,10 +60,12 @@ Currently, these are the combinations of system dependencies that work for MacOS
 
 ```bash
 node -v
-v14.17.3
+v14.17.6
 pnpm -v
 6.14.2
 ```
+
+_Note:_ You can choose any package manager to manage multiple versions of `node` and `npm`. For eg, [nvm](https://github.com/nvm-sh/nvm) or [asdf](https://github.com/asdf-vm/asdf).
 
 #### Git
 
@@ -132,12 +134,12 @@ Run the following command to install all dependencies, and link sibling modules 
 pnpx lerna bootstrap
 ```
 
-If you previously ran `pnpm install`, it sometimes is necessary to delete your `node_modules` folder before running `pnpx lerna bootstrap`. If you encounter the `gyp: No Xcode or CLT version` error on macOS at this step, please have a look [here](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d).
+If you previously ran `pnpm install`, it is sometimes necessary to delete your `node_modules` folder before running `pnpx lerna bootstrap`. If you encounter the `gyp: No Xcode or CLT version` error on macOS at this step, please have a look [here](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d).
 
 ### Fix native modules to match current electron node version
 
 ```bash
-pnpm run rebuild
+pnpm run build
 ```
 
 ### Package recipe repository
@@ -195,10 +197,10 @@ pnpm run dev
 DEBUG=Ferdi:* pnpm run start
 ```
 
-- Optionally, you can run both commands in one terminal with [misty](https://github.com/adlk/misty) (see [misty.yml](https://github.com/getferdi/ferdi/blob/develop/misty.yml)):
+- Optionally, you can run both commands in one terminal with [concurrently](https://www.npmjs.com/package/concurrently):
 
 ```bash
-DEBUG=Ferdi:* pnpx misty
+DEBUG=Ferdi:* pnpm run start:all-dev
 ```
 
 Note: please prefer [`debug()`](https://github.com/visionmedia/debug) over `console.log()`.
@@ -235,3 +237,21 @@ git push
 ```
 
 This will automatically trigger the build, as part of which, a new, draft release will be created [here](https://github.com/getferdi/ferdi/releases/). Once all the assets are uploaded (19 assets in total), publish the release (you will need elevated permissions in GitHub for doing this). The last commit of the `release` branch will be tagged.
+
+## Update
+
+### Update the code
+
+```bash
+git pull
+```
+
+### Update Node.js and npm
+
+If node.js and/or npm version have changed, don't forget to update them by running the appropriate command of your chosen package manager.
+
+### Update dependences
+
+```bash
+npx lerna bootstrap
+```
