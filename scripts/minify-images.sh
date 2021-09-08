@@ -6,7 +6,7 @@ FILES=`find . -name "*.jpg" -o -name "*.jpeg" -o -name "*.bmp" -o -name "*.png" 
 for file in $FILES; do
   echo "Minifying file: $file"
   size_before=`/usr/bin/du $file | cut -f1`
-  pnpx imagemin $file > $file.tmp && mv $file.tmp $file
+  npx imagemin $file > $file.tmp && mv $file.tmp $file
   size_after=`/usr/bin/du $file | cut -f1`
   echo "$size_before  ->  $size_after"
 done

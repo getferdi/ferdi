@@ -45,7 +45,7 @@ jobs:
         with:
           node-version: 14.17.6
           cache: 'pnpm'
-      - name: Uninstall locally and reinstall global npm modules
+      - name: Uninstall locally and reinstall global pnpm modules
         run: |
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0

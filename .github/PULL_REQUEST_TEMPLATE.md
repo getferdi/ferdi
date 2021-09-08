@@ -35,7 +35,7 @@
 
 - [ ] My pull request is properly named
 - [ ] The changes respect the code style of the project (`pnpm run prepare-code`)
-- [ ] `nppm test` passes
+- [ ] `pnpm test` passes
 - [ ] I tested/previewed my changes locally
 
 #### Release Notes
