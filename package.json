@@ -29,7 +29,7 @@
     "lint": "eslint \"{src,scripts,packages,uidev}/**/*.{js,jsx,ts,tsx}\" --quiet --fix",
     "manage-translations": "node ./src/i18n/manage-translations.js",
     "prebuild": "preval-build-info-cli && gulp build",
-    "build": "electron-builder",
+    "build": "pnpm run prebuild && electron-builder",
     "commit": "git-cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -u",
     "contributors": "all-contributors",
