@@ -1,3 +1,10 @@
+# [v5.6.1-nightly.55](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.54...v5.6.1-nightly.55) (2021-09-10)
+
+### Bug fixes
+
+- Fix sidebar dimension when used in horizontal style (#1896) 💖 @CSY54
+- Partially reverted the cookie-handling for outlook since it caused crashes 💖 @vraravam
+
 # [v5.6.1-nightly.54](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.53...v5.6.1-nightly.54) (2021-09-09)
 
 ### Bug fixes
