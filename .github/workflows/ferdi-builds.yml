@@ -137,14 +137,14 @@ jobs:
         with:
           key: ${{ runner.os }}-${{ env.cache-name }}
           path: ${{ env.ELECTRON_BUILDER_CACHE }}
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.14.7
       - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.6
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.14.7
       - name: Upgrade Xcode version on the macOS 10.15 default runners provided by GH Actions
         run: |
           sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
@@ -247,10 +247,6 @@ jobs:
         with:
           key: ${{ runner.os }}-${{ env.cache-name }}
           path: ${{ env.ELECTRON_BUILDER_CACHE }}
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.14.7
       - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
@@ -374,10 +370,6 @@ jobs:
         with:
           key: ${{ runner.os }}-${{ env.cache-name }}
           path: ${{ env.ELECTRON_BUILDER_CACHE }}
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.14.7
       - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
