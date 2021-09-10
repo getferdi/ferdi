@@ -33,6 +33,10 @@
       - [Javascript Coding style-checker](#javascript-coding-style-checker)
   - [Packaging](#packaging)
   - [Release](#release)
+  - [Update](#update)
+    - [Update the code](#update-the-code)
+    - [Update Node.js and npm](#update-nodejs-and-npm)
+    - [Update dependences](#update-dependences)
 
 <!-- /TOC -->
 
@@ -62,7 +66,7 @@ Currently, these are the combinations of system dependencies that work for MacOS
 node -v
 v14.17.6
 pnpm -v
-6.14.2
+6.14.7
 ```
 
 _Note:_ You can choose any package manager to manage multiple versions of `node` and `npm`. For eg, [nvm](https://github.com/nvm-sh/nvm) or [asdf](https://github.com/asdf-vm/asdf).

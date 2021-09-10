@@ -87,7 +87,7 @@ jobs:
     steps:
       - name: Set env vars
         run: |
-          echo "PNPM_CACHE=~/.pnpm-store" >> $GITHUB_ENV
+          echo "PNPM_CACHE=$HOME/.pnpm-store" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$HOME/.cache/electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
           echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
@@ -116,6 +116,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
+      - name: Cache .pnpm-store
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pnpm-store
+        with:
+          path: ${{ env.PNPM_CACHE }}
+          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Cache electron modules
         uses: actions/cache@v2
         env:
@@ -133,7 +140,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.14.2
+          version: 6.14.7
       - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
@@ -143,6 +150,11 @@ jobs:
         run: |
           sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
           sudo xcode-select -s "/Applications/Xcode_12.4.app"
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.14.7
+          run_install: true
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
@@ -187,7 +199,7 @@ jobs:
     steps:
       - name: Set env vars
         run: |
-          echo "PNPM_CACHE=~/.pnpm-store" >> $GITHUB_ENV
+          echo "PNPM_CACHE=$HOME/.pnpm-store" >> $GITHUB_ENV
           echo "ELECTRON_CACHE=$HOME/.cache/electron" >> $GITHUB_ENV
           echo "ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder" >> $GITHUB_ENV
           echo "MANUAL_REBUILD_ON_NIGHTLY=${{ github.event_name == 'workflow_dispatch' && contains(github.event.inputs.message, '[nightly branch]') }}" >> $GITHUB_ENV
@@ -216,6 +228,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
+      - name: Cache .pnpm-store
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pnpm-store
+        with:
+          path: ${{ env.PNPM_CACHE }}
+          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Cache electron modules
         uses: actions/cache@v2
         env:
@@ -233,12 +252,16 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.14.2
+          version: 6.14.7
       - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.6
-          cache: 'pnpm'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.14.7
+          run_install: true
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
@@ -330,6 +353,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
+      - name: Cache .pnpm-store
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pnpm-store
+        with:
+          path: ${{ env.PNPM_CACHE }}
+          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Cache electron modules
         uses: actions/cache@v2
         env:
@@ -347,12 +377,16 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.14.2
+          version: 6.14.7
       - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.6
-          cache: 'pnpm'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.14.7
+          run_install: true
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
