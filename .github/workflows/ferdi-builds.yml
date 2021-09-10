@@ -145,7 +145,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.6
-          cache: 'pnpm'
       - name: Upgrade Xcode version on the macOS 10.15 default runners provided by GH Actions
         run: |
           sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
