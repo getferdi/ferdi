@@ -17,7 +17,7 @@
   },
   "engine-strict": true,
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "node scripts/prepare.js",
     "start": "electron ./build",
     "start:local": "cross-env USE_LOCAL_API=1 npm start",
     "start:live": "cross-env USE_LIVE_API=1 npm start",
@@ -35,7 +35,7 @@
     "reformat-files": "./node_modules/.bin/prettier --ignore-path .eslintignore --write --require-pragma \"**/*.{js,jsx,scss}\"",
     "packages": "npx lerna publish --no-git-tag-version",
     "uidev": "cd uidev && webpack-dev-server",
-    "postinstall": "npx lerna run prepare",
+    "postinstall": "node scripts/postinstall.js",
     "apply-branding": "node ./src/i18n/apply-branding.js",
     "update-submodules": "git submodule update --remote --force",
     "prepare-code": "npm run lint && npm run reformat-files && npm run manage-translations && npm run apply-branding",
