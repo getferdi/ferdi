@@ -23,6 +23,7 @@ import RecipeWebview from './lib/RecipeWebview';
 import Userscript from './lib/Userscript';
 
 import { BadgeHandler } from './badge';
+import { SessionHandler } from './sessionHandler';
 import contextMenu from './contextMenu';
 import {
   injectDarkModeStyle,
@@ -49,6 +50,8 @@ import { DEFAULT_APP_SETTINGS } from '../environment';
 const debug = require('debug')('Ferdi:Plugin');
 
 const badgeHandler = new BadgeHandler();
+
+const sessionHandler = new SessionHandler();
 
 const notificationsHandler = new NotificationsHandler();
 
@@ -107,6 +110,10 @@ contextBridge.exposeInMainWorld('ferdi', {
     badgeHandler.safeParseInt(text),
   displayNotification: (title, options) =>
     notificationsHandler.displayNotification(title, options),
+  clearStorageData: (storageLocations) =>
+    sessionHandler.clearStorageData(storageLocations),
+  releaseServiceWorkers: () =>
+    sessionHandler.releaseServiceWorkers(),
   getDisplayMediaSelector,
   getCurrentWebContents,
   BrowserWindow,

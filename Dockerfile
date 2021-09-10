@@ -2,8 +2,6 @@
 
 FROM docker.io/library/node:14.17.6-buster as builder
 
-# TODO: Need to setup a non-root user for security purposes
-
 ENV PATH="/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/usr/local/lib:/usr/include:/usr/share"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -18,28 +16,27 @@ RUN apt-get update -y \
 
 WORKDIR /usr/src/ferdi
 
-RUN npm i pnpm@6.14.7 -g
-
-RUN pnpm i -g node-gyp@8.1.0 \
-  && pnpm i -g lerna@4.0.0
+RUN npm i -g pnpm@6.14.7 \
+  && npm i -g node-gyp@8.1.0 \
+  && npm i -g lerna@4.0.0
 
 COPY . .
 
 # Note: Ideally this needs to be done before the COPY step - BUT moving this here resolves the issue with `preval-build-info-cli` not being found
 RUN npx lerna bootstrap
 
-RUN cd recipes \
-  && pnpm i \
-  && pnpm run package \
-  && cd ..
+WORKDIR /usr/src/ferdi/recipes
+
+RUN pnpm i \
+  && pnpm run package
+
+WORKDIR /usr/src/ferdi
 
 RUN pnpm run build
 
 # --------------------------------------------------------------------------------------------
 
-FROM docker.io/library/busybox
-
-# TODO: Need to setup a non-root user for security purposes
+FROM docker.io/library/busybox:latest
 
 WORKDIR /ferdi
 
