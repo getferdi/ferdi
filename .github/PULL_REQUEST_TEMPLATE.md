@@ -9,8 +9,8 @@
 2. If you are requesting support for a **new service** in Ferdi, please log it [here](https://github.com/getferdi/recipes/pulls)
 3. Please remember to read the [self-help documentation](https://github.com/getferdi/ferdi#troubleshooting-recipes-self-help) - in case it helps you unblock yourself for issues related to older versions of recipes that were installed on your machine. (These will get automatically upgraded when you upgrade to the newer versions of Ferdi, but to get new recipes between Ferdi releases, this documentation is quite useful.)
 4. Please consider supporting Ferdi!
-   👉 https://github.com/sponsors/getferdi
-   👉 https://opencollective.com/getferdi/donate
+  👉 https://github.com/sponsors/getferdi
+  👉 https://opencollective.com/getferdi/donate
 5. Please ensure you've completed all of the following.
 
 - [ ] I have read the [Contributing Guidelines](https://github.com/getferdi/ferdi/blob/develop/CONTRIBUTING.md) for this project.

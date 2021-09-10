@@ -17,13 +17,13 @@
     "dev": "tsc -w",
     "build": "tsc",
     "preprepare": "pnpm run test",
-    "test": "npx mocha"
+    "test": "ts-mocha 'test/**/*.test.ts'"
   },
   "bugs": {
     "url": "https://github.com/meetfranz/franz/issues"
   },
   "dependencies": {
-    "color": "3.1.2"
+    "color": "4.0.1"
   },
   "gitHead": "9f2ab40b7602bc3df26ebb093b484b9917768f69"
 }

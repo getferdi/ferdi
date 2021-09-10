@@ -149,6 +149,12 @@ export function mvLernaPackages() {
   return gulp.src(['packages/**']).pipe(gulp.dest(`${paths.dest}/packages`));
 }
 
+export function mvPostinstallScript() {
+  return gulp
+    .src(['./scripts/postinstall.js'])
+    .pipe(gulp.dest(`${paths.dest}/scripts`));
+}
+
 export function exportBuildInfo() {
   const buildInfoData = {
     timestamp: buildInfo.timestamp,
@@ -208,12 +214,7 @@ export function styles() {
 
 export function processJavascripts() {
   return gulp
-    .src(
-      [
-        paths.javascripts.src,
-      ],
-      { since: gulp.lastRun(processJavascripts) },
-    )
+    .src([paths.javascripts.src], { since: gulp.lastRun(processJavascripts) })
     .pipe(
       babel({
         comments: false,
@@ -226,15 +227,9 @@ export function processJavascripts() {
 
 export function processTypescripts() {
   return gulp
-    .src(
-      [
-        paths.typescripts.src,
-      ],
-      { since: gulp.lastRun(processTypescripts) },
-    )
+    .src([paths.typescripts.src], { since: gulp.lastRun(processTypescripts) })
     .pipe(tsProject())
-    .js
-    .pipe(
+    .js.pipe(
       babel({
         comments: false,
       }),
@@ -275,8 +270,21 @@ export function recipeInfo() {
 
 const build = gulp.series(
   clean,
-  gulp.parallel(mvSrc, mvPackageJson, mvLernaPackages, exportBuildInfo),
-  gulp.parallel(html, processJavascripts, processTypescripts, styles, recipes, recipeInfo),
+  gulp.parallel(
+    mvSrc,
+    mvPackageJson,
+    mvLernaPackages,
+    mvPostinstallScript,
+    exportBuildInfo,
+  ),
+  gulp.parallel(
+    html,
+    processJavascripts,
+    processTypescripts,
+    styles,
+    recipes,
+    recipeInfo,
+  ),
 );
 export { build };
 

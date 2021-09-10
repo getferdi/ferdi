@@ -4,4 +4,5 @@
     "outDir": "lib",
     "rootDir": "src"
   },
+  "exclude": ["node_modules", "lib", "test"]
 }

@@ -40,7 +40,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
-      - name: Cache .pnpm-store
+      - name: Cache pnpm modules
         uses: actions/cache@v2
         env:
           cache-name: cache-pnpm-store
@@ -55,7 +55,6 @@ jobs:
         uses: pnpm/action-setup@v2.0.1
         with:
           version: 6.14.7
-          run_install: true
       - name: Uninstall locally and reinstall global pnpm modules
         run: |
           pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0

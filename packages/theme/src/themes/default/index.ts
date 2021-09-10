@@ -2,7 +2,7 @@ import color from 'color';
 import { cloneDeep } from 'lodash';
 
 import * as legacyStyles from '../legacy';
-import IStyleTypes from '../IStyleTypes';
+import type { IStyleTypes } from '../IStyleTypes';
 
 export default (brandPrimary: string) => {
   const brandSuccess = '#5cb85c';
