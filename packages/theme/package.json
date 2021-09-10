@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc",
-    "preprepare": "npm run test",
+    "preprepare": "pnpm run test",
     "test": "ts-mocha 'test/**/*.test.ts'"
   },
   "bugs": {

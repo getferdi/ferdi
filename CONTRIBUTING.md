@@ -13,7 +13,7 @@
   - [How Can I Contribute?](#how-can-i-contribute)
   - [Setting up your Development machine](#setting-up-your-development-machine)
     - [Install System-level dependencies](#install-system-level-dependencies)
-      - [Node.js, npm, node-gyp](#nodejs-npm-node-gyp)
+      - [Node.js, pnpm, node-gyp](#nodejs-pnpm-node-gyp)
       - [Git](#git)
       - [Debian/Ubuntu](#debianubuntu)
       - [Fedora](#fedora)
@@ -56,7 +56,7 @@ As a basic rule, before filing issues, feature requests or anything else. Take a
 
 ### Install System-level dependencies
 
-#### Node.js, npm, node-gyp
+#### Node.js, pnpm, node-gyp
 
 Please make sure you are conforming to the `engines` requirements used by the developers/contributors as specified in the [package.json file](./package.json#engines).
 
@@ -65,8 +65,8 @@ Currently, these are the combinations of system dependencies that work for MacOS
 ```bash
 node -v
 v14.17.6
-npm -v
-6.14.13
+pnpm -v
+6.14.7
 ```
 
 _Note:_ You can choose any package manager to manage multiple versions of `node` and `npm`. For eg, [nvm](https://github.com/nvm-sh/nvm) or [asdf](https://github.com/asdf-vm/asdf).
@@ -94,7 +94,7 @@ dnf install libX11-devel libXext-devel libXScrnSaver-devel libxkbfile-devel rpm
 Please make sure you run this command as an administrator:
 
 ```bash
-npm i -g windows-build-tools --vs2015
+pnpm i -g windows-build-tools --vs2015
 ```
 
 #### node-gyp
@@ -102,13 +102,13 @@ npm i -g windows-build-tools --vs2015
 We need `node-gyp` to be able to compile any native dependencies
 
 ```bash
-npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
+pnpm ls -g node-gyp@8.1.0 || pnpm i -g node-gyp@8.1.0
 ```
 
 #### Lerna
 
 ```bash
-npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
+pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
 ```
 
 ### Clone repository with submodule
@@ -138,12 +138,12 @@ Run the following command to install all dependencies, and link sibling modules 
 npx lerna bootstrap
 ```
 
-If you previously ran `npm install`, it is sometimes necessary to delete your `node_modules` folder before running `npx lerna bootstrap`. If you encounter the `gyp: No Xcode or CLT version` error on macOS at this step, please have a look [here](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d).
+If you previously ran `pnpm install`, it is sometimes necessary to delete your `node_modules` folder before running `npx lerna bootstrap`. If you encounter the `gyp: No Xcode or CLT version` error on macOS at this step, please have a look [here](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d).
 
 ### Fix native modules to match current electron node version
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### Package recipe repository
@@ -180,7 +180,7 @@ mv /ferdi/latest-linux.yml /ferdi-out/latest-linux-$GIT_SHA.yml
 
 ### Code Signing on a mac
 
-If you are building the packaged app (on a mac) for local testing, you can set this environment variable to bypass the code signing step during the packaging process (`npm run build`):
+If you are building the packaged app (on a mac) for local testing, you can set this environment variable to bypass the code signing step during the packaging process (`pnpm run build`):
 
 ```bash
 export CSC_IDENTITY_AUTO_DISCOVERY=false
@@ -197,14 +197,14 @@ codesign --deep --force --verbose --sign - node_modules/electron/dist/Electron.a
 Run these two commands **simultaneously** in different terminals:
 
 ```bash
-npm run dev
-DEBUG=Ferdi:* npm run start
+pnpm run dev
+DEBUG=Ferdi:* pnpm run start
 ```
 
 - Optionally, you can run both commands in one terminal with [concurrently](https://www.npmjs.com/package/concurrently):
 
 ```bash
-DEBUG=Ferdi:* npm run start:all-dev
+DEBUG=Ferdi:* pnpm run start:all-dev
 ```
 
 Note: please prefer [`debug()`](https://github.com/visionmedia/debug) over `console.log()`.
@@ -226,7 +226,7 @@ Note: please prefer [`debug()`](https://github.com/visionmedia/debug) over `cons
 ## Packaging
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Assets will be available in the `out` folder.
