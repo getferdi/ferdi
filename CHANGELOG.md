@@ -2,7 +2,7 @@
 
 ### Internal
 
-- 'recipes' (using 'pnpm') will coexist with 'ferdi' (using 'npm') (#1905) 💖 @mhatvan, @vraravam
+- Switched over to using `pnpm` for the main repo as well as the `recipes` submodule(#1826, #1905) 💖 @mhatvan, @vraravam
 
 # [v5.6.1-nightly.55](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.54...v5.6.1-nightly.55) (2021-09-10)
 
