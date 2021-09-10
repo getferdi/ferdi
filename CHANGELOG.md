@@ -1,9 +1,3 @@
-# [v5.6.1-nightly.56](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.55...v5.6.1-nightly.56) (2021-09-11)
-
-### Internal
-
-- 'recipes' (using 'pnpm') will coexist with 'ferdi' (using 'npm') (#1905) 💖 @mhatvan, @vraravam
-
 # [v5.6.1-nightly.55](https://github.com/getferdi/ferdi/compare/v5.6.1-nightly.54...v5.6.1-nightly.55) (2021-09-10)
 
 ### Bug fixes

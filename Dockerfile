@@ -17,8 +17,8 @@ RUN apt-get update -y \
 WORKDIR /usr/src/ferdi
 
 RUN npm i -g pnpm@6.14.7 \
-  && npm i -g node-gyp@8.1.0 \
-  && npm i -g lerna@4.0.0
+  && pnpm i -g node-gyp@8.1.0 \
+  && pnpm i -g lerna@4.0.0
 
 COPY . .
 
@@ -32,7 +32,7 @@ RUN pnpm i \
 
 WORKDIR /usr/src/ferdi
 
-RUN npm run build
+RUN pnpm run build
 
 # --------------------------------------------------------------------------------------------
 

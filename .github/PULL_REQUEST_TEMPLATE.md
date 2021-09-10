@@ -18,20 +18,26 @@
 - [ ] I have searched the [issue tracker](https://github.com/getferdi/ferdi/issues) for a feature request that matches the one I want to file, without success.
 
 #### Description of Change
+
 <!-- Describe your changes in detail. -->
 
 #### Motivation and Context
+
 <!-- Why is this change required? What problem does it solve?  If it fixes an open issue, please link to the issue here. -->
 
 #### Screenshots
+
 <!-- Remove the section if this does not apply. -->
 
 #### Checklist
+
 <!-- Remove items that do not apply. For completed items, change [ ] to [x]. -->
+
 - [ ] My pull request is properly named
-- [ ] The changes respect the code style of the project (`npm run prepare-code`)
-- [ ] `npm test` passes
+- [ ] The changes respect the code style of the project (`pnpm run prepare-code`)
+- [ ] `pnpm test` passes
 - [ ] I tested/previewed my changes locally
 
 #### Release Notes
+
 <!-- Please add a one-line description for users of Ferdi to read in the release notes, or 'none' if no notes relevant to such users. Examples and help on special cases: https://github.com/electron/clerk/blob/master/README.md#examples -->
