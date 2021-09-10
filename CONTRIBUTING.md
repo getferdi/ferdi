@@ -37,6 +37,7 @@
     - [Update the code](#update-the-code)
     - [Update Node.js and npm](#update-nodejs-and-npm)
     - [Update dependences](#update-dependences)
+
 <!-- /TOC -->
 
 ## Code of Conduct
@@ -150,7 +151,7 @@ npm run build
 Ferdi requires its recipes to be packaged before it can use it. When running Ferdi as a development instance, you'll need to package the local recipes before you can create any services inside Ferdi.
 
 ```bash
-cd recipes && npm i && npm run package
+cd recipes && pnpm i && pnpm run package
 ```
 
 ### Using Docker to build a linux-targetted packaged app
