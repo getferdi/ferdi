@@ -265,6 +265,9 @@ jobs:
           pnpm ls -g lerna@4.0.0 || pnpm i -g lerna@4.0.0
       - name: Install node dependencies recursively
         run: npx lerna bootstrap
+      - name: Figure out used package.json version
+        run: echo "PACKAGE_VERSION=$(node -p 'require("./package.json").version')" >> $GITHUB_ENV
+        shell: bash
       - name: Package recipes
         run: pnpm i && pnpm run package
         working-directory: ./recipes
