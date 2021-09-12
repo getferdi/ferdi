@@ -601,7 +601,10 @@ export default class FranzMenu {
           type: 'question',
           message: intl.formatMessage(globalMessages.quit),
           detail: intl.formatMessage(globalMessages.quitConfirmation),
-          buttons: [intl.formatMessage(globalMessages.yes), intl.formatMessage(globalMessages.no)],
+          buttons: [
+            intl.formatMessage(globalMessages.yes),
+            intl.formatMessage(globalMessages.no),
+          ],
         });
       }
       if (selection === yesButtonIndex) {
@@ -857,7 +860,7 @@ export default class FranzMenu {
     } else {
       tpl[0].submenu = [
         {
-          label: intl.formatMessage(menuItems.settings),
+          label: intl.formatMessage(globalMessages.settings),
           accelerator: `${settingsShortcutKey()}`,
           click: () => {
             this.actions.ui.openSettings({ path: 'app' });
