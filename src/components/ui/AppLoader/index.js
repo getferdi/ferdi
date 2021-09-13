@@ -19,7 +19,9 @@ const textList = shuffleArray([
   'Fixing bugs',
 ]);
 
-export default @injectSheet(styles) @withTheme class AppLoader extends Component {
+@injectSheet(styles)
+@withTheme
+class AppLoader extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
@@ -28,7 +30,7 @@ export default @injectSheet(styles) @withTheme class AppLoader extends Component
 
   static defaultProps = {
     texts: textList,
-  }
+  };
 
   state = {
     step: 0,
@@ -38,7 +40,7 @@ export default @injectSheet(styles) @withTheme class AppLoader extends Component
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         step: prevState.step === textList.length - 1 ? 0 : prevState.step + 1,
       }));
     }, 2500);
@@ -73,3 +75,5 @@ export default @injectSheet(styles) @withTheme class AppLoader extends Component
     );
   }
 }
+
+export default AppLoader;

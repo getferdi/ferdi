@@ -14,7 +14,6 @@ import ServicesStore from '../../stores/ServicesStore';
 import RecipesStore from '../../stores/RecipesStore';
 import UserStore from '../../stores/UserStore';
 
-export default
 @inject('stores', 'actions')
 @observer
 class SetupAssistantScreen extends Component {
@@ -134,3 +133,5 @@ SetupAssistantScreen.wrappedComponent.propTypes = {
     recipe: PropTypes.instanceOf(RecipesStore).isRequired,
   }).isRequired,
 };
+
+export default SetupAssistantScreen;

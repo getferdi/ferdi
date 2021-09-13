@@ -30,7 +30,6 @@ import { WORKSPACES_ROUTES } from './features/workspaces/constants';
 
 import SettingsStore from './stores/SettingsStore';
 
-export default
 @inject('stores', 'actions')
 @observer
 class Routes extends Component {
@@ -95,3 +94,5 @@ Routes.wrappedComponent.propTypes = {
   }).isRequired,
   history: PropTypes.any.isRequired,
 };
+
+export default Routes;

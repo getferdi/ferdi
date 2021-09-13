@@ -9,7 +9,9 @@ import { matchRoute } from '../../helpers/routing-helpers';
 import { openExternalUrl } from '../../helpers/url-helpers';
 
 // TODO: create container component for this component
-export default @inject('stores') @observer class Link extends Component {
+@inject('stores')
+@observer
+class Link extends Component {
   onClick(e) {
     if (this.props.disabled) {
       e.preventDefault();
@@ -50,7 +52,7 @@ export default @inject('stores') @observer class Link extends Component {
         href={router.history.createHref(to)}
         className={linkClasses}
         style={style}
-        onClick={(e) => this.onClick(e)}
+        onClick={e => this.onClick(e)}
       >
         {children}
       </a>
@@ -62,10 +64,8 @@ Link.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     router: PropTypes.instanceOf(RouterStore).isRequired,
   }).isRequired,
-  children: PropTypes.oneOfType([
-    oneOrManyChildElements,
-    PropTypes.string,
-  ]).isRequired,
+  children: PropTypes.oneOfType([oneOrManyChildElements, PropTypes.string])
+    .isRequired,
   to: PropTypes.string.isRequired,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
@@ -83,3 +83,5 @@ Link.wrappedComponent.defaultProps = {
   target: '',
   style: {},
 };
+
+export default Link;

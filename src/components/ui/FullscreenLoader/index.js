@@ -8,7 +8,10 @@ import Loader from '../Loader';
 
 import styles from './styles';
 
-export default @withTheme @injectSheet(styles) @observer class FullscreenLoader extends Component {
+@withTheme
+@injectSheet(styles)
+@observer
+class FullscreenLoader extends Component {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
@@ -25,14 +28,8 @@ export default @withTheme @injectSheet(styles) @observer class FullscreenLoader 
   };
 
   render() {
-    const {
-      classes,
-      title,
-      children,
-      spinnerColor,
-      className,
-      theme,
-    } = this.props;
+    const { classes, title, children, spinnerColor, className, theme } =
+      this.props;
 
     return (
       <div className={classes.wrapper}>
@@ -44,13 +41,11 @@ export default @withTheme @injectSheet(styles) @observer class FullscreenLoader 
         >
           <h1 className={classes.title}>{title}</h1>
           <Loader color={spinnerColor || theme.colorFullscreenLoaderSpinner} />
-          {children && (
-            <div className={classes.content}>
-              {children}
-            </div>
-          )}
+          {children && <div className={classes.content}>{children}</div>}
         </div>
       </div>
     );
   }
 }
+
+export default FullscreenLoader;

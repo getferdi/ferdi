@@ -6,7 +6,9 @@ import UserStore from '../../stores/UserStore';
 
 import { globalError as globalErrorPropType } from '../../prop-types';
 
-export default @inject('stores', 'actions') @observer class LoginScreen extends Component {
+@inject('stores', 'actions')
+@observer
+class LoginScreen extends Component {
   static propTypes = {
     error: globalErrorPropType.isRequired,
   };
@@ -18,7 +20,9 @@ export default @inject('stores', 'actions') @observer class LoginScreen extends 
         onSubmit={actions.user.login}
         isSubmitting={stores.user.loginRequest.isExecuting}
         isTokenExpired={stores.user.isTokenExpired}
-        isServerLogout={stores.user.logoutReason === stores.user.logoutReasonTypes.SERVER}
+        isServerLogout={
+          stores.user.logoutReason === stores.user.logoutReasonTypes.SERVER
+        }
         signupRoute={stores.user.signupRoute}
         passwordRoute={stores.user.passwordRoute}
         changeServerRoute={stores.user.changeServerRoute}

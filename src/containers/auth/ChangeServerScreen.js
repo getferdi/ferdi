@@ -5,7 +5,9 @@ import { RouterStore } from 'mobx-react-router';
 import ChangeServer from '../../components/auth/ChangeServer';
 import SettingsStore from '../../stores/SettingsStore';
 
-export default @inject('stores', 'actions') @observer class ChangeServerScreen extends Component {
+@inject('stores', 'actions')
+@observer
+class ChangeServerScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -28,12 +30,7 @@ export default @inject('stores', 'actions') @observer class ChangeServerScreen e
     const { stores } = this.props;
     const { server } = stores.settings.all.app;
 
-    return (
-      <ChangeServer
-        onSubmit={this.onSubmit}
-        server={server}
-      />
-    );
+    return <ChangeServer onSubmit={this.onSubmit} server={server} />;
   }
 }
 

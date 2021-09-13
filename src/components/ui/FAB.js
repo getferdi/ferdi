@@ -8,7 +8,8 @@ import classnames from 'classnames';
 
 import { oneOrManyChildElements } from '../../prop-types';
 
-export default @observer class Button extends Component {
+@observer
+class Button extends Component {
   static propTypes = {
     className: PropTypes.string,
     disabled: PropTypes.bool,
@@ -21,7 +22,7 @@ export default @observer class Button extends Component {
   static defaultProps = {
     className: null,
     disabled: false,
-    onClick: () => { },
+    onClick: () => {},
     type: 'button',
     htmlForm: '',
   };
@@ -29,14 +30,8 @@ export default @observer class Button extends Component {
   element = null;
 
   render() {
-    const {
-      className,
-      disabled,
-      onClick,
-      type,
-      children,
-      htmlForm,
-    } = this.props;
+    const { className, disabled, onClick, type, children, htmlForm } =
+      this.props;
 
     const buttonProps = {
       className: classnames({
@@ -66,3 +61,5 @@ export default @observer class Button extends Component {
     );
   }
 }
+
+export default Button;

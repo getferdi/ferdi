@@ -15,7 +15,9 @@ import SettingsStore from '../../../stores/SettingsStore';
 import WebControlsScreen from '../../../features/webControls/containers/WebControlsScreen';
 import { CUSTOM_WEBSITE_RECIPE_ID } from '../../../config';
 
-export default @inject('stores', 'actions') @observer class ServiceView extends Component {
+@inject('stores', 'actions')
+@observer
+class ServiceView extends Component {
   static propTypes = {
     service: PropTypes.instanceOf(ServiceModel).isRequired,
     setWebviewReference: PropTypes.func.isRequired,
@@ -63,7 +65,7 @@ export default @inject('stores', 'actions') @observer class ServiceView extends 
     clearTimeout(this.hibernationTimer);
   }
 
-  updateTargetUrl = (event) => {
+  updateTargetUrl = event => {
     let visible = true;
     if (event.url === '' || event.url === '#') {
       visible = false;
@@ -86,11 +88,12 @@ export default @inject('stores', 'actions') @observer class ServiceView extends 
       isSpellcheckerEnabled,
     } = this.props;
 
-    const {
-      navigationBarBehaviour,
-    } = stores.settings.app;
+    const { navigationBarBehaviour } = stores.settings.app;
 
-    const showNavBar = navigationBarBehaviour === 'always' || (navigationBarBehaviour === 'custom' && service.recipe.id === CUSTOM_WEBSITE_RECIPE_ID);
+    const showNavBar =
+      navigationBarBehaviour === 'always' ||
+      (navigationBarBehaviour === 'custom' &&
+        service.recipe.id === CUSTOM_WEBSITE_RECIPE_ID);
 
     const webviewClasses = classnames({
       services__webview: true,
@@ -101,9 +104,7 @@ export default @inject('stores', 'actions') @observer class ServiceView extends 
 
     let statusBar = null;
     if (this.state.statusBarVisible) {
-      statusBar = (
-        <StatusBarTargetUrl text={this.state.targetUrl} />
-      );
+      statusBar = <StatusBarTargetUrl text={this.state.targetUrl} />;
     }
 
     return (
@@ -117,12 +118,12 @@ export default @inject('stores', 'actions') @observer class ServiceView extends 
                 reload={reload}
               />
             )}
-            {service.isEnabled && service.isLoading && service.isFirstLoad && !service.isServiceAccessRestricted && (
-              <WebviewLoader
-                loaded={false}
-                name={service.name}
-              />
-            )}
+            {service.isEnabled &&
+              service.isLoading &&
+              service.isFirstLoad &&
+              !service.isServiceAccessRestricted && (
+                <WebviewLoader loaded={false} name={service.name} />
+              )}
             {service.isError && (
               <WebviewErrorHandler
                 name={service.recipe.name}
@@ -147,9 +148,7 @@ export default @inject('stores', 'actions') @observer class ServiceView extends 
           <>
             {!service.isHibernating ? (
               <>
-                {showNavBar && (
-                  <WebControlsScreen service={service} />
-                )}
+                {showNavBar && <WebControlsScreen service={service} />}
                 <ServiceWebview
                   service={service}
                   setWebviewReference={setWebviewReference}
@@ -159,9 +158,11 @@ export default @inject('stores', 'actions') @observer class ServiceView extends 
               </>
             ) : (
               <div>
-                <span role="img" aria-label="Sleeping Emoji">😴</span>
-                {' '}
-                This service is currently hibernating. If this page doesn&#x27;t close soon, please try reloading Ferdi.
+                <span role="img" aria-label="Sleeping Emoji">
+                  😴
+                </span>{' '}
+                This service is currently hibernating. If this page doesn&#x27;t
+                close soon, please try reloading Ferdi.
               </div>
             )}
           </>
@@ -171,3 +172,5 @@ export default @inject('stores', 'actions') @observer class ServiceView extends 
     );
   }
 }
+
+export default ServiceView;

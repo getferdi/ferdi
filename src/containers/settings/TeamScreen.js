@@ -10,7 +10,9 @@ import TeamDashboard from '../../components/settings/team/TeamDashboard';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { DEV_API_FRANZ_WEBSITE } from '../../config';
 
-export default @inject('stores', 'actions') @observer class TeamScreen extends Component {
+@inject('stores', 'actions')
+@observer
+class TeamScreen extends Component {
   handleWebsiteLink(route) {
     const { actions, stores } = this.props;
 
@@ -29,7 +31,10 @@ export default @inject('stores', 'actions') @observer class TeamScreen extends C
       <ErrorBoundary>
         <TeamDashboard
           isLoading={isLoadingUserInfo}
-          userInfoRequestFailed={user.getUserInfoRequest.wasExecuted && user.getUserInfoRequest.isError}
+          userInfoRequestFailed={
+            user.getUserInfoRequest.wasExecuted &&
+            user.getUserInfoRequest.isError
+          }
           retryUserInfoRequest={() => this.reloadData()}
           openTeamManagement={() => this.handleWebsiteLink('/user/team')}
           server={server}
@@ -50,3 +55,5 @@ TeamScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
   }).isRequired,
 };
+
+export default TeamScreen;

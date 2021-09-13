@@ -6,7 +6,9 @@ import Invite from '../../components/auth/Invite';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 import UserStore from '../../stores/UserStore';
 
-export default @inject('stores', 'actions') @observer class InviteScreen extends Component {
+@inject('stores', 'actions')
+@observer
+class InviteScreen extends Component {
   componentWillUnmount() {
     this.props.stores.user.inviteRequest.reset();
   }
@@ -20,7 +22,9 @@ export default @inject('stores', 'actions') @observer class InviteScreen extends
         <Invite
           onSubmit={actions.user.invite}
           isLoadingInvite={user.inviteRequest.isExecuting}
-          isInviteSuccessful={user.inviteRequest.wasExecuted && !user.inviteRequest.isError}
+          isInviteSuccessful={
+            user.inviteRequest.wasExecuted && !user.inviteRequest.isError
+          }
           embed
         />
       </ErrorBoundary>

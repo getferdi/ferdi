@@ -6,7 +6,9 @@ import Welcome from '../../components/auth/Welcome';
 import UserStore from '../../stores/UserStore';
 import RecipePreviewsStore from '../../stores/RecipePreviewsStore';
 
-export default @inject('stores', 'actions') @observer class LoginScreen extends Component {
+@inject('stores', 'actions')
+@observer
+class LoginScreen extends Component {
   render() {
     const { user, recipePreviews } = this.props.stores;
 
@@ -27,3 +29,5 @@ LoginScreen.wrappedComponent.propTypes = {
     recipePreviews: PropTypes.instanceOf(RecipePreviewsStore).isRequired,
   }).isRequired,
 };
+
+export default LoginScreen;

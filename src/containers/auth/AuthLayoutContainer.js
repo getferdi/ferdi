@@ -14,7 +14,6 @@ import AppLoader from '../../components/ui/AppLoader';
 import { oneOrManyChildElements } from '../../prop-types';
 import FeaturesStore from '../../stores/FeaturesStore';
 
-export default
 @inject('stores', 'actions')
 @observer
 class AuthLayoutContainer extends Component {
@@ -85,3 +84,5 @@ AuthLayoutContainer.wrappedComponent.propTypes = {
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
   }).isRequired,
 };
+
+export default AuthLayoutContainer;

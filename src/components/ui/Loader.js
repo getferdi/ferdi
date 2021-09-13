@@ -5,7 +5,9 @@ import Loader from 'react-loader';
 
 import { oneOrManyChildElements } from '../../prop-types';
 
-export default @inject('stores') @observer class LoaderComponent extends Component {
+@inject('stores')
+@observer
+class LoaderComponent extends Component {
   static propTypes = {
     children: oneOrManyChildElements,
     loaded: PropTypes.bool,
@@ -28,13 +30,12 @@ export default @inject('stores') @observer class LoaderComponent extends Compone
   };
 
   render() {
-    const {
-      children,
-      loaded,
-      className,
-    } = this.props;
+    const { children, loaded, className } = this.props;
 
-    const color = this.props.color !== 'ACCENT' ? this.props.color : this.props.stores.settings.app.accentColor;
+    const color =
+      this.props.color !== 'ACCENT'
+        ? this.props.color
+        : this.props.stores.settings.app.accentColor;
 
     return (
       <Loader
@@ -51,3 +52,5 @@ export default @inject('stores') @observer class LoaderComponent extends Compone
     );
   }
 }
+
+export default LoaderComponent;

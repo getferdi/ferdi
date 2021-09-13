@@ -10,7 +10,8 @@ import styles from './styles';
 
 // ReactModal.setAppElement('#root');
 
-export default @injectCSS(styles) class Modal extends Component {
+@injectCSS(styles)
+class Modal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
@@ -20,14 +21,14 @@ export default @injectCSS(styles) class Modal extends Component {
     close: PropTypes.func.isRequired,
     shouldCloseOnOverlayClick: PropTypes.bool,
     showClose: PropTypes.bool,
-  }
+  };
 
   static defaultProps = {
     className: null,
     portal: 'modal-portal',
     shouldCloseOnOverlayClick: false,
     showClose: true,
-  }
+  };
 
   render() {
     const {
@@ -56,18 +57,14 @@ export default @injectCSS(styles) class Modal extends Component {
         appElement={document.getElementById('root')}
       >
         {showClose && close && (
-          <button
-            type="button"
-            className={classes.close}
-            onClick={close}
-          >
+          <button type="button" className={classes.close} onClick={close}>
             <Icon icon={mdiClose} size={1.5} />
           </button>
         )}
-        <div className={classes.content}>
-          {children}
-        </div>
+        <div className={classes.content}>{children}</div>
       </ReactModal>
     );
   }
 }
+
+export default Modal;

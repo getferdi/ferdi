@@ -5,7 +5,6 @@ import classnames from 'classnames';
 
 import { oneOrManyChildElements } from '../../../prop-types';
 
-export default
 @observer
 class Tab extends Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class Tab extends Component {
 
   render() {
     const { children: childElements } = this.props;
-    const children = childElements.filter((c) => !!c);
+    const children = childElements.filter(c => !!c);
 
     if (children.length === 1) {
       return <div>{children}</div>;
@@ -69,3 +68,5 @@ class Tab extends Component {
     );
   }
 }
+
+export default Tab;

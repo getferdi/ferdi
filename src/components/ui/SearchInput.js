@@ -4,7 +4,8 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { debounce } from 'lodash';
 
-export default @observer class SearchInput extends Component {
+@observer
+class SearchInput extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
@@ -27,7 +28,7 @@ export default @observer class SearchInput extends Component {
     onChange: () => null,
     onReset: () => null,
     autoFocus: false,
-  }
+  };
 
   input = null;
 
@@ -38,7 +39,10 @@ export default @observer class SearchInput extends Component {
       value: props.value,
     };
 
-    this.throttledOnChange = debounce(this.throttledOnChange, this.props.throttleDelay);
+    this.throttledOnChange = debounce(
+      this.throttledOnChange,
+      this.props.throttleDelay,
+    );
   }
 
   componentDidMount() {
@@ -80,24 +84,18 @@ export default @observer class SearchInput extends Component {
     const { value } = this.state;
 
     return (
-      <div
-        className={classnames([
-          className,
-          'search-input',
-        ])}
-      >
-        <label
-          htmlFor={name}
-          className="mdi mdi-magnify"
-        >
+      <div className={classnames([className, 'search-input'])}>
+        <label htmlFor={name} className="mdi mdi-magnify">
           <input
             name={name}
             id={name}
             type="text"
             placeholder={placeholder}
             value={value}
-            onChange={(e) => this.onChange(e)}
-            ref={(ref) => { this.input = ref; }}
+            onChange={e => this.onChange(e)}
+            ref={ref => {
+              this.input = ref;
+            }}
           />
         </label>
         {value.length > 0 && (
@@ -110,3 +108,5 @@ export default @observer class SearchInput extends Component {
     );
   }
 }
+
+export default SearchInput;

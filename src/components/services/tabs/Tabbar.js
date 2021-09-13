@@ -4,7 +4,8 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 
 import TabBarSortableList from './TabBarSortableList';
 
-export default @observer class TabBar extends Component {
+@observer
+class TabBar extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
     setActive: PropTypes.func.isRequired,
@@ -26,16 +27,13 @@ export default @observer class TabBar extends Component {
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const {
-      enableToolTip,
-      reorder,
-    } = this.props;
+    const { enableToolTip, reorder } = this.props;
 
     enableToolTip();
     reorder({ oldIndex, newIndex });
   };
 
-  shouldPreventSorting = (event) => event.target.tagName !== 'LI';
+  shouldPreventSorting = event => event.target.tagName !== 'LI';
 
   toggleService = ({ serviceId, isEnabled }) => {
     const { updateService } = this.props;
@@ -102,10 +100,10 @@ export default @observer class TabBar extends Component {
           toggleAudio={toggleAudio}
           toggleDarkMode={toggleDarkMode}
           deleteService={deleteService}
-          disableService={(args) => this.disableService(args)}
-          enableService={(args) => this.enableService(args)}
-          hibernateService={(args) => this.hibernateService(args)}
-          wakeUpService={(args) => this.wakeUpService(args)}
+          disableService={args => this.disableService(args)}
+          enableService={args => this.enableService(args)}
+          hibernateService={args => this.hibernateService(args)}
+          wakeUpService={args => this.wakeUpService(args)}
           openSettings={openSettings}
           distance={20}
           axis={axis}
@@ -118,3 +116,5 @@ export default @observer class TabBar extends Component {
     );
   }
 }
+
+export default TabBar;

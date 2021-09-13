@@ -18,7 +18,9 @@ import RecipePreview from '../../models/RecipePreview';
 import AppStore from '../../stores/AppStore';
 import { openPath } from '../../helpers/url-helpers';
 
-export default @inject('stores', 'actions') @observer class RecipesScreen extends Component {
+@inject('stores', 'actions')
+@observer
+class RecipesScreen extends Component {
   static propTypes = {
     params: PropTypes.shape({
       filter: PropTypes.string,
@@ -75,25 +77,32 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   }
 
   _sortByName(recipe1, recipe2) {
-    if (recipe1.name.toLowerCase() < recipe2.name.toLowerCase()) { return -1; }
-    if (recipe1.name.toLowerCase() > recipe2.name.toLowerCase()) { return 1; }
+    if (recipe1.name.toLowerCase() < recipe2.name.toLowerCase()) {
+      return -1;
+    }
+    if (recipe1.name.toLowerCase() > recipe2.name.toLowerCase()) {
+      return 1;
+    }
     return 0;
   }
 
   prepareRecipes(recipes) {
-    return recipes
-    // Filter out duplicate recipes
-      .filter((recipe, index, self) => {
-        const ids = self.map((rec) => rec.id);
-        return ids.indexOf(recipe.id) === index;
+    return (
+      recipes
+        // Filter out duplicate recipes
+        .filter((recipe, index, self) => {
+          const ids = self.map(rec => rec.id);
+          return ids.indexOf(recipe.id) === index;
 
-        // Sort alphabetically
-      }).sort(this._sortByName);
+          // Sort alphabetically
+        })
+        .sort(this._sortByName)
+    );
   }
 
   // Create an array of RecipePreviews from an array of recipe objects
   createPreviews(recipes) {
-    return recipes.map((recipe) => new RecipePreview(recipe));
+    return recipes.map(recipe => new RecipePreview(recipe));
   }
 
   resetSearch() {
@@ -101,16 +110,9 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
   }
 
   render() {
-    const {
-      recipePreviews,
-      recipes,
-      services,
-    } = this.props.stores;
+    const { recipePreviews, recipes, services } = this.props.stores;
 
-    const {
-      app: appActions,
-      service: serviceActions,
-    } = this.props.actions;
+    const { app: appActions, service: serviceActions } = this.props.actions;
 
     const { filter } = { filter: 'all', ...this.props.params };
     let recipeFilter;
@@ -125,21 +127,33 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
     }
     recipeFilter = recipeFilter.sort(this._sortByName);
 
-    const allRecipes = this.state.needle ? this.prepareRecipes([
-      // All search recipes from server
-      ...recipePreviews.searchResults,
-      // All search recipes from local recipes
-      ...this.createPreviews(
-        this.customRecipes
-          .filter((service) => service.name.toLowerCase().includes(this.state.needle.toLowerCase()) || (service.aliases || []).some(alias => alias.toLowerCase().includes(this.state.needle.toLowerCase()))),
-      ),
-    ]).sort(this._sortByName) : recipeFilter;
+    const allRecipes = this.state.needle
+      ? this.prepareRecipes([
+        // All search recipes from server
+        ...recipePreviews.searchResults,
+        // All search recipes from local recipes
+        ...this.createPreviews(
+          this.customRecipes.filter(
+            service =>
+              service.name
+                .toLowerCase()
+                .includes(this.state.needle.toLowerCase()) ||
+                (service.aliases || []).some(alias =>
+                  alias.toLowerCase().includes(this.state.needle.toLowerCase()),
+                ),
+          ),
+        ),
+      ]).sort(this._sortByName)
+      : recipeFilter;
 
-    const customWebsiteRecipe = recipePreviews.all.find((service) => service.id === CUSTOM_WEBSITE_RECIPE_ID);
+    const customWebsiteRecipe = recipePreviews.all.find(
+      service => service.id === CUSTOM_WEBSITE_RECIPE_ID,
+    );
 
-    const isLoading = recipePreviews.allRecipePreviewsRequest.isExecuting
-      || recipes.installRecipeRequest.isExecuting
-      || recipePreviews.searchRecipePreviewsRequest.isExecuting;
+    const isLoading =
+      recipePreviews.allRecipePreviewsRequest.isExecuting ||
+      recipes.installRecipeRequest.isExecuting ||
+      recipePreviews.searchRecipePreviewsRequest.isExecuting;
 
     const recipeDirectory = userDataRecipesPath('dev');
 
@@ -151,14 +165,16 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
           isLoading={isLoading}
           addedServiceCount={services.all.length}
           showAddServiceInterface={serviceActions.showAddServiceInterface}
-          searchRecipes={(e) => this.searchRecipes(e)}
+          searchRecipes={e => this.searchRecipes(e)}
           resetSearch={() => this.resetSearch()}
           searchNeedle={this.state.needle}
           serviceStatus={services.actionStatus}
           recipeFilter={filter}
           recipeDirectory={recipeDirectory}
           openRecipeDirectory={() => openPath(recipeDirectory)}
-          openDevDocs={() => appActions.openExternalUrl({ url: FRANZ_DEV_DOCS })}
+          openDevDocs={() =>
+            appActions.openExternalUrl({ url: FRANZ_DEV_DOCS })
+          }
         />
       </ErrorBoundary>
     );
@@ -180,3 +196,5 @@ RecipesScreen.wrappedComponent.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
+export default RecipesScreen;

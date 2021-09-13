@@ -4,7 +4,8 @@ import { observer } from 'mobx-react';
 import { Field } from 'mobx-react-form';
 import classnames from 'classnames';
 
-export default @observer class Select extends Component {
+@observer
+class Select extends Component {
   static propTypes = {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
@@ -43,13 +44,7 @@ export default @observer class Select extends Component {
   }
 
   render() {
-    const {
-      field,
-      className,
-      showLabel,
-      disabled,
-      multiple,
-    } = this.props;
+    const { field, className, showLabel, disabled, multiple } = this.props;
 
     let selected = field.value;
 
@@ -74,15 +69,12 @@ export default @observer class Select extends Component {
         })}
       >
         {field.label && showLabel && (
-          <label
-            className="franz-form__label"
-            htmlFor={field.name}
-          >
+          <label className="franz-form__label" htmlFor={field.name}>
             {field.label}
           </label>
         )}
         <select
-          onChange={multiple ? (e) => this.multipleChange(e) : field.onChange}
+          onChange={multiple ? e => this.multipleChange(e) : field.onChange}
           id={field.id}
           defaultValue={selected}
           className="franz-form__select"
@@ -90,7 +82,7 @@ export default @observer class Select extends Component {
           multiple={multiple}
           ref={this.element}
         >
-          {field.options.map((type) => (
+          {field.options.map(type => (
             <option
               key={type.value}
               value={type.value}
@@ -100,14 +92,10 @@ export default @observer class Select extends Component {
             </option>
           ))}
         </select>
-        {field.error && (
-          <div
-            className="franz-form__error"
-          >
-            {field.error}
-          </div>
-        )}
+        {field.error && <div className="franz-form__error">{field.error}</div>}
       </div>
     );
   }
 }
+
+export default Select;

@@ -25,7 +25,6 @@ import WorkspaceDrawer from '../../features/workspaces/components/WorkspaceDrawe
 import { workspaceStore } from '../../features/workspaces';
 import WorkspacesStore from '../../features/workspaces/store';
 
-export default
 @inject('stores', 'actions')
 @observer
 class AppLayoutContainer extends Component {
@@ -199,3 +198,5 @@ AppLayoutContainer.wrappedComponent.propTypes = {
   }).isRequired,
   children: oneOrManyChildElements,
 };
+
+export default AppLayoutContainer;

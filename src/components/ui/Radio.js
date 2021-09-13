@@ -4,7 +4,8 @@ import { observer } from 'mobx-react';
 import { Field } from 'mobx-react-form';
 import classnames from 'classnames';
 
-export default @observer class Radio extends Component {
+@observer
+class Radio extends Component {
   static propTypes = {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
@@ -31,11 +32,7 @@ export default @observer class Radio extends Component {
   }
 
   render() {
-    const {
-      field,
-      className,
-      showLabel,
-    } = this.props;
+    const { field, className, showLabel } = this.props;
 
     return (
       <div
@@ -46,15 +43,12 @@ export default @observer class Radio extends Component {
         })}
       >
         {field.label && showLabel && (
-          <label
-            className="franz-form__label"
-            htmlFor={field.name}
-          >
+          <label className="franz-form__label" htmlFor={field.name}>
             {field.label}
           </label>
         )}
         <div className="franz-form__radio-wrapper">
-          {field.options.map((type) => (
+          {field.options.map(type => (
             <label
               key={type.value}
               htmlFor={`${field.id}-${type.value}`}
@@ -75,14 +69,10 @@ export default @observer class Radio extends Component {
             </label>
           ))}
         </div>
-        {field.error && (
-          <div
-            className="franz-form__error"
-          >
-            {field.error}
-          </div>
-        )}
+        {field.error && <div className="franz-form__error">{field.error}</div>}
       </div>
     );
   }
 }
+
+export default Radio;

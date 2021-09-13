@@ -6,7 +6,8 @@ import SupportFerdi from '../../components/settings/supportFerdi/SupportFerdiDas
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 import AppStore from '../../stores/AppStore';
 
-export default @inject('actions') class SupportScreen extends Component {
+@inject('actions')
+class SupportScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -20,9 +21,7 @@ export default @inject('actions') class SupportScreen extends Component {
   render() {
     return (
       <ErrorBoundary>
-        <SupportFerdi
-          openLink={this.openLink}
-        />
+        <SupportFerdi openLink={this.openLink} />
       </ErrorBoundary>
     );
   }
@@ -33,3 +32,5 @@ SupportScreen.wrappedComponent.propTypes = {
     app: PropTypes.instanceOf(AppStore).isRequired,
   }).isRequired,
 };
+
+export default SupportScreen;

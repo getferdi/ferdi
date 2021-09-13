@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-export default @observer class ToggleRaw extends Component {
+@observer
+class ToggleRaw extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     field: PropTypes.shape({
@@ -34,12 +35,7 @@ export default @observer class ToggleRaw extends Component {
   }
 
   render() {
-    const {
-      field,
-      className,
-      showLabel,
-      disabled,
-    } = this.props;
+    const { field, className, showLabel, disabled } = this.props;
 
     return (
       <div
@@ -64,12 +60,18 @@ export default @observer class ToggleRaw extends Component {
             name={field.name}
             value={field.name}
             checked={field.value}
-            onChange={(e) => (!disabled ? this.onChange(e) : null)}
+            onChange={e => (!disabled ? this.onChange(e) : null)}
           />
         </label>
         {field.error && <div className={field.error}>{field.error}</div>}
-        {field.label && showLabel && <label className="franz-form__label" htmlFor={field.id}>{field.label}</label>}
+        {field.label && showLabel && (
+          <label className="franz-form__label" htmlFor={field.id}>
+            {field.label}
+          </label>
+        )}
       </div>
     );
   }
 }
+
+export default ToggleRaw;

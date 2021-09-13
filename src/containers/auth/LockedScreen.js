@@ -7,10 +7,12 @@ import SettingsStore from '../../stores/SettingsStore';
 import { hash } from '../../helpers/password-helpers';
 import UserStore from '../../stores/UserStore';
 
-export default @inject('stores', 'actions') @observer class LockedScreen extends Component {
+@inject('stores', 'actions')
+@observer
+class LockedScreen extends Component {
   state = {
     error: false,
-  }
+  };
 
   constructor(props) {
     super(props);

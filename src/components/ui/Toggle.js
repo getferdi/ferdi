@@ -4,7 +4,8 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { Field } from 'mobx-react-form';
 
-export default @observer class Toggle extends Component {
+@observer
+class Toggle extends Component {
   static propTypes = {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
@@ -25,12 +26,7 @@ export default @observer class Toggle extends Component {
   }
 
   render() {
-    const {
-      field,
-      className,
-      showLabel,
-      disabled,
-    } = this.props;
+    const { field, className, showLabel, disabled } = this.props;
 
     if (field.value === '' && field.default !== '') {
       field.value = field.default;
@@ -59,12 +55,18 @@ export default @observer class Toggle extends Component {
             name={field.name}
             value={field.name}
             checked={field.value}
-            onChange={(e) => (!disabled ? this.onChange(e) : null)}
+            onChange={e => (!disabled ? this.onChange(e) : null)}
           />
         </label>
         {field.error && <div className={field.error}>{field.error}</div>}
-        {field.label && showLabel && <label className="franz-form__label" htmlFor={field.id}>{field.label}</label>}
+        {field.label && showLabel && (
+          <label className="franz-form__label" htmlFor={field.id}>
+            {field.label}
+          </label>
+        )}
       </div>
     );
   }
 }
+
+export default Toggle;

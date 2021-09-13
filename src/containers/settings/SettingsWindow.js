@@ -11,7 +11,9 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { workspaceStore } from '../../features/workspaces';
 import UIStore from '../../stores/UIStore';
 
-export default @inject('stores', 'actions') @observer class SettingsContainer extends Component {
+@inject('stores', 'actions')
+@observer
+class SettingsContainer extends Component {
   portalRoot = document.querySelector('#portalContainer');
 
   el = document.createElement('div');
@@ -36,16 +38,11 @@ export default @inject('stores', 'actions') @observer class SettingsContainer ex
     );
 
     return ReactDOM.createPortal(
-      (
-        <ErrorBoundary>
-          <Layout
-            navigation={navigation}
-            closeSettings={closeSettings}
-          >
-            {children}
-          </Layout>
-        </ErrorBoundary>
-      ),
+      <ErrorBoundary>
+        <Layout navigation={navigation} closeSettings={closeSettings}>
+          {children}
+        </Layout>
+      </ErrorBoundary>,
       this.el,
     );
   }
@@ -60,3 +57,5 @@ SettingsContainer.wrappedComponent.propTypes = {
     ui: PropTypes.instanceOf(UIStore).isRequired,
   }).isRequired,
 };
+
+export default SettingsContainer;

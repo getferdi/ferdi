@@ -10,7 +10,9 @@ import ServiceStore from '../../stores/ServicesStore';
 import ServicesDashboard from '../../components/settings/services/ServicesDashboard';
 import ErrorBoundary from '../../components/util/ErrorBoundary';
 
-export default @inject('stores', 'actions') @observer class ServicesScreen extends Component {
+@inject('stores', 'actions')
+@observer
+class ServicesScreen extends Component {
   componentWillUnmount() {
     this.props.actions.service.resetFilter();
     this.props.actions.service.resetStatus();
@@ -23,11 +25,7 @@ export default @inject('stores', 'actions') @observer class ServicesScreen exten
 
   render() {
     const { user, services, router } = this.props.stores;
-    const {
-      toggleService,
-      filter,
-      resetFilter,
-    } = this.props.actions.service;
+    const { toggleService, filter, resetFilter } = this.props.actions.service;
     const isLoading = services.allServicesRequest.isExecuting;
 
     let allServices = services.all;
@@ -47,7 +45,10 @@ export default @inject('stores', 'actions') @observer class ServicesScreen exten
           filterServices={filter}
           resetFilter={resetFilter}
           goTo={router.push}
-          servicesRequestFailed={services.allServicesRequest.wasExecuted && services.allServicesRequest.isError}
+          servicesRequestFailed={
+            services.allServicesRequest.wasExecuted &&
+            services.allServicesRequest.isError
+          }
           retryServicesRequest={() => services.allServicesRequest.reload()}
           searchNeedle={services.filterNeedle}
         />
@@ -66,3 +67,5 @@ ServicesScreen.wrappedComponent.propTypes = {
     service: PropTypes.instanceOf(ServiceStore).isRequired,
   }).isRequired,
 };
+
+export default ServicesScreen;

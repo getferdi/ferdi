@@ -6,7 +6,8 @@ import classnames from 'classnames';
 import Dropzone from 'react-dropzone';
 import { isWindows } from '../../environment';
 
-export default @observer class ImageUpload extends Component {
+@observer
+class ImageUpload extends Component {
   static propTypes = {
     field: PropTypes.instanceOf(Field).isRequired,
     className: PropTypes.string,
@@ -29,7 +30,7 @@ export default @observer class ImageUpload extends Component {
   onDrop(acceptedFiles) {
     const { field } = this.props;
 
-    acceptedFiles.forEach((file) => {
+    acceptedFiles.forEach(file => {
       const imgPath = isWindows ? file.path.replace(/\\/g, '/') : file.path;
       this.setState({
         path: imgPath,
@@ -42,9 +43,7 @@ export default @observer class ImageUpload extends Component {
   }
 
   render() {
-    const {
-      field, className, multiple, textDelete, textUpload,
-    } = this.props;
+    const { field, className, multiple, textDelete, textUpload } = this.props;
 
     const cssClasses = classnames({
       'image-upload__dropzone': true,
@@ -86,7 +85,7 @@ export default @observer class ImageUpload extends Component {
             </>
           ) : (
             <Dropzone
-              ref={(node) => {
+              ref={node => {
                 this.dropzoneRef = node;
               }}
               onDrop={this.onDrop.bind(this)}
@@ -107,3 +106,5 @@ export default @observer class ImageUpload extends Component {
     );
   }
 }
+
+export default ImageUpload;
