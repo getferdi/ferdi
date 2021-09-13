@@ -6,8 +6,6 @@ import { Provider } from 'mobx-react';
 import { syncHistoryWithStore, RouterStore } from 'mobx-react-router';
 import { hashHistory } from 'react-router';
 
-import smoothScroll from 'smoothscroll-polyfill';
-
 import ServerApi from './api/server/ServerApi';
 import LocalApi from './api/server/LocalApi';
 import storeFactory from './stores';
@@ -18,9 +16,6 @@ import TouchBarFactory from './lib/TouchBar';
 
 import I18N from './I18n';
 import Routes from './routes';
-
-// Add Polyfills
-smoothScroll.polyfill();
 
 // Basic electron Setup
 webFrame.setVisualZoomLevelLimits(1, 1);

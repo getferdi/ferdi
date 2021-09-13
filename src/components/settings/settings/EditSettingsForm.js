@@ -12,18 +12,12 @@ import ToggleRaw from '../../ui/ToggleRaw';
 import Select from '../../ui/Select';
 import Input from '../../ui/Input';
 
-import {
-  FRANZ_TRANSLATION,
-  GITHUB_FRANZ_URL,
-} from '../../../config';
-import { DEFAULT_APP_SETTINGS, ferdiVersion, isMac, isWindows, lockFerdiShortcutKey } from '../../../environment';
+import { FRANZ_TRANSLATION, GITHUB_FRANZ_URL } from '../../../config';
+import { DEFAULT_APP_SETTINGS, ferdiVersion, isMac, isWindows, lockFerdiShortcutKey, userDataPath, userDataRecipesPath } from '../../../environment';
+import { openPath } from '../../../helpers/url-helpers';
 import globalMessages from '../../../i18n/globalMessages';
 
 const messages = defineMessages({
-  headline: {
-    id: 'settings.app.headline',
-    defaultMessage: '!!!Settings',
-  },
   headlineGeneral: {
     id: 'settings.app.headlineGeneral',
     defaultMessage: '!!!General',
@@ -115,6 +109,18 @@ const messages = defineMessages({
   buttonClearAllCache: {
     id: 'settings.app.buttonClearAllCache',
     defaultMessage: '!!!Clear cache',
+  },
+  subheadlineFerdiProfile: {
+    id: 'settings.app.subheadlineFerdiProfile',
+    defaultMessage: '!!!Ferdi Profile',
+  },
+  buttonOpenFerdiProfileFolder: {
+    id: 'settings.app.buttonOpenFerdiProfileFolder',
+    defaultMessage: '!!!Open Profile folder',
+  },
+  buttonOpenFerdiServiceRecipesFolder: {
+    id: 'settings.app.buttonOpenFerdiServiceRecipesFolder',
+    defaultMessage: '!!!Open Service Recipes folder',
   },
   buttonSearchForUpdate: {
     id: 'settings.app.buttonSearchForUpdate',
@@ -259,10 +265,13 @@ export default @observer class EditSettingsForm extends Component {
       }
     }
 
+    const profileFolder = userDataPath();
+    const recipeFolder = userDataRecipesPath();
+
     return (
       <div className="settings__main">
         <div className="settings__header">
-          <h1>{intl.formatMessage(messages.headline)}</h1>
+          <h1>{intl.formatMessage(globalMessages.settings)}</h1>
         </div>
         <div className="settings__body">
           <form
@@ -321,6 +330,7 @@ export default @observer class EditSettingsForm extends Component {
               <div>
                 <Toggle field={form.$('autoLaunchOnStart')} />
                 <Toggle field={form.$('runInBackground')} />
+                <Toggle field={form.$('confirmOnQuit')} />
                 <Toggle field={form.$('enableSystemTray')} />
                 <Toggle field={form.$('reloadAfterResume')} />
                 <Toggle field={form.$('startMinimized')} />
@@ -629,6 +639,30 @@ export default @observer class EditSettingsForm extends Component {
                       disabled={isClearingAllCache}
                       loaded={!isClearingAllCache}
                     />
+                  </p>
+                </div>
+
+                <Hr />
+
+                <div className="settings__settings-group">
+                  <h3>
+                    {intl.formatMessage(messages.subheadlineFerdiProfile)}
+                  </h3>
+                  <p>
+                    <div className="settings__open-settings-file-container">
+                      <Button
+                        buttonType="secondary"
+                        label={intl.formatMessage(messages.buttonOpenFerdiProfileFolder)}
+                        className="settings__open-settings-file-button"
+                        onClick={() => openPath(profileFolder)}
+                      />
+                      <Button
+                        buttonType="secondary"
+                        label={intl.formatMessage(messages.buttonOpenFerdiServiceRecipesFolder)}
+                        className="settings__open-settings-file-button"
+                        onClick={() => openPath(recipeFolder)}
+                      />
+                    </div>
                   </p>
                 </div>
               </div>

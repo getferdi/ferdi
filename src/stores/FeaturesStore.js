@@ -1,8 +1,4 @@
-import {
-  computed,
-  observable,
-  runInAction,
-} from 'mobx';
+import { computed, observable, runInAction } from 'mobx';
 
 import Store from './lib/Store';
 import CachedRequest from './lib/CachedRequest';
@@ -13,8 +9,6 @@ import workspaces from '../features/workspaces';
 import quickSwitch from '../features/quickSwitch';
 import nightlyBuilds from '../features/nightlyBuilds';
 import publishDebugInfo from '../features/publishDebugInfo';
-import shareFranz from '../features/shareFranz';
-import announcements from '../features/announcements';
 import settingsWS from '../features/settingsWS';
 import communityRecipes from '../features/communityRecipes';
 import todos from '../features/todos';
@@ -23,11 +17,17 @@ import appearance from '../features/appearance';
 import { DEFAULT_FEATURES_CONFIG } from '../config';
 
 export default class FeaturesStore extends Store {
-  @observable defaultFeaturesRequest = new CachedRequest(this.api.features, 'default');
+  @observable defaultFeaturesRequest = new CachedRequest(
+    this.api.features,
+    'default',
+  );
 
-  @observable featuresRequest = new CachedRequest(this.api.features, 'features');
+  @observable featuresRequest = new CachedRequest(
+    this.api.features,
+    'features',
+  );
 
-  @observable features = ({ ...DEFAULT_FEATURES_CONFIG });
+  @observable features = { ...DEFAULT_FEATURES_CONFIG };
 
   async setup() {
     this.registerReactions([
@@ -40,7 +40,9 @@ export default class FeaturesStore extends Store {
   }
 
   @computed get anonymousFeatures() {
-    return this.defaultFeaturesRequest.execute().result || DEFAULT_FEATURES_CONFIG;
+    return (
+      this.defaultFeaturesRequest.execute().result || DEFAULT_FEATURES_CONFIG
+    );
   }
 
   _updateFeatures = () => {
@@ -73,8 +75,6 @@ export default class FeaturesStore extends Store {
     quickSwitch(this.stores, this.actions);
     nightlyBuilds(this.stores, this.actions);
     publishDebugInfo(this.stores, this.actions);
-    shareFranz(this.stores, this.actions);
-    announcements(this.stores, this.actions);
     settingsWS(this.stores, this.actions);
     communityRecipes(this.stores, this.actions);
     todos(this.stores, this.actions);

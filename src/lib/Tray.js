@@ -10,6 +10,7 @@ const INDICATOR_TRAY_PLAIN = 'tray';
 const INDICATOR_TRAY_UNREAD = 'tray-unread';
 const INDICATOR_TRAY_INDIRECT = 'tray-indirect';
 
+// TODO: Need to support i18n for a lot of the hard-coded strings in this file
 export default class TrayIcon {
   trayIcon = null;
 

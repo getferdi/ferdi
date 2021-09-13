@@ -6,8 +6,11 @@ const {
 const Env = use('Env');
 
 const fetch = require('node-fetch');
+const debug = require('debug')('Ferdi:internalServer:RecipeController');
+const { LIVE_FERDI_API } = require('../../../../config');
+const { API_VERSION } = require('../../../../environment');
 
-const RECIPES_URL = 'https://api.getferdi.com/v1/recipes';
+const RECIPES_URL = `${LIVE_FERDI_API}/${API_VERSION}/recipes`;
 
 class RecipeController {
   // List official and custom recipes
@@ -64,12 +67,17 @@ class RecipeController {
       if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
         remoteResults = JSON.parse(await (await fetch(`${RECIPES_URL}/search?needle=${encodeURIComponent(needle)}`)).text());
       }
+
+      debug('remoteResults:', remoteResults);
+
       const localResultsArray = (await Recipe.query().where('name', 'LIKE', `%${needle}%`).fetch()).toJSON();
       const localResults = localResultsArray.map(recipe => ({
         id: recipe.recipeId,
         name: recipe.name,
         ...JSON.parse(recipe.data),
       }));
+
+      debug('localResults:', localResults);
 
       results = [
         ...localResults,

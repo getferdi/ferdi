@@ -6,13 +6,12 @@
  *
  * Source: https://github.com/electron-userland/electron-spellchecker/blob/master/src/context-menu-builder.js
  */
-import {
-  clipboard, ipcRenderer, nativeImage, shell,
-} from 'electron';
+import { clipboard, ipcRenderer, nativeImage } from 'electron';
 import { Menu, MenuItem } from '@electron/remote';
-import { shortcutKey, isMac } from '../environment';
+import { cmdOrCtrlShortcutKey, isMac } from '../environment';
 
 import { SEARCH_ENGINE_NAMES, SEARCH_ENGINE_URLS } from '../config';
+import { openExternalUrl } from '../helpers/url-helpers';
 
 const { URL } = require('url');
 
@@ -170,7 +169,7 @@ module.exports = class ContextMenuBuilder {
     const openLink = new MenuItem({
       label: this.stringTable.openLinkUrl(),
       click: () => {
-        shell.openExternal(menuInfo.linkURL);
+        openExternalUrl(menuInfo.linkURL, true);
       },
     });
 
@@ -299,7 +298,7 @@ module.exports = class ContextMenuBuilder {
       label: this.stringTable.searchWith({ searchEngine: SEARCH_ENGINE_NAMES[menuInfo.searchEngine] }),
       click: () => {
         const url = SEARCH_ENGINE_URLS[menuInfo.searchEngine]({ searchTerm: encodeURIComponent(menuInfo.selectionText) });
-        shell.openExternal(url);
+        openExternalUrl(url, true);
       },
     });
 
@@ -376,7 +375,7 @@ module.exports = class ContextMenuBuilder {
     const webContents = this.getWebContents();
     menu.append(new MenuItem({
       label: this.stringTable.cut(),
-      accelerator: `${shortcutKey()}+X`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+X`,
       enabled: menuInfo.editFlags.canCut,
       click: () => webContents.cut(),
     }));
@@ -391,7 +390,7 @@ module.exports = class ContextMenuBuilder {
     const webContents = this.getWebContents();
     menu.append(new MenuItem({
       label: this.stringTable.copy(),
-      accelerator: `${shortcutKey()}+C`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+C`,
       enabled: menuInfo.editFlags.canCopy,
       click: () => webContents.copy(),
     }));
@@ -406,7 +405,7 @@ module.exports = class ContextMenuBuilder {
     const webContents = this.getWebContents();
     menu.append(new MenuItem({
       label: this.stringTable.paste(),
-      accelerator: `${shortcutKey()}+V`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+V`,
       enabled: menuInfo.editFlags.canPaste,
       click: () => webContents.paste(),
     }));
@@ -424,7 +423,7 @@ module.exports = class ContextMenuBuilder {
       menu.append(
         new MenuItem({
           label: this.stringTable.pasteAndMatchStyle(),
-          accelerator: `${shortcutKey()}+Shift+V`,
+          accelerator: `${cmdOrCtrlShortcutKey()}+Shift+V`,
           click: () => webContents.pasteAndMatchStyle(),
         }),
       );
@@ -490,7 +489,7 @@ module.exports = class ContextMenuBuilder {
     const webContents = this.getWebContents();
     menu.append(new MenuItem({
       label: this.stringTable.goBack(),
-      accelerator: `${shortcutKey()}+left`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+left`,
       enabled: webContents.canGoBack(),
       click: () => webContents.goBack(),
     }));
@@ -505,7 +504,7 @@ module.exports = class ContextMenuBuilder {
     const webContents = this.getWebContents();
     menu.append(new MenuItem({
       label: this.stringTable.goForward(),
-      accelerator: `${shortcutKey()}+right`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+right`,
       enabled: webContents.canGoForward(),
       click: () => webContents.goForward(),
     }));
@@ -536,7 +535,7 @@ module.exports = class ContextMenuBuilder {
     const baseURL = new URL(menuInfo.pageURL);
     menu.append(new MenuItem({
       label: this.stringTable.goToHomePage(),
-      accelerator: `${shortcutKey()}+Home`,
+      accelerator: `${cmdOrCtrlShortcutKey()}+Home`,
       enabled: true,
       click: () => {
         // webContents.loadURL(baseURL.origin);
@@ -555,7 +554,7 @@ module.exports = class ContextMenuBuilder {
       label: this.stringTable.openInBrowser(),
       enabled: true,
       click: () => {
-        shell.openExternal(menuInfo.pageURL);
+        openExternalUrl(menuInfo.pageURL, true);
       },
     }));
 

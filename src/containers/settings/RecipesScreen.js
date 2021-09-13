@@ -1,5 +1,4 @@
-import { shell } from 'electron';
-import { ensureDirSync, readJsonSync } from 'fs-extra';
+import { readJsonSync } from 'fs-extra';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autorun } from 'mobx';
@@ -17,6 +16,7 @@ import { asarRecipesPath, userDataRecipesPath } from '../../environment';
 import { communityRecipesStore } from '../../features/communityRecipes';
 import RecipePreview from '../../models/RecipePreview';
 import AppStore from '../../stores/AppStore';
+import { openPath } from '../../helpers/url-helpers';
 
 export default @inject('stores', 'actions') @observer class RecipesScreen extends Component {
   static propTypes = {
@@ -74,6 +74,12 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
     }
   }
 
+  _sortByName(recipe1, recipe2) {
+    if (recipe1.name.toLowerCase() < recipe2.name.toLowerCase()) { return -1; }
+    if (recipe1.name.toLowerCase() > recipe2.name.toLowerCase()) { return 1; }
+    return 0;
+  }
+
   prepareRecipes(recipes) {
     return recipes
     // Filter out duplicate recipes
@@ -82,11 +88,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
         return ids.indexOf(recipe.id) === index;
 
         // Sort alphabetically
-      }).sort((a, b) => {
-        if (a.id < b.id) { return -1; }
-        if (a.id > b.id) { return 1; }
-        return 0;
-      });
+      }).sort(this._sortByName);
   }
 
   // Create an array of RecipePreviews from an array of recipe objects
@@ -121,6 +123,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
     } else if (filter === 'dev') {
       recipeFilter = communityRecipesStore.communityRecipes;
     }
+    recipeFilter = recipeFilter.sort(this._sortByName);
 
     const allRecipes = this.state.needle ? this.prepareRecipes([
       // All search recipes from server
@@ -130,7 +133,7 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
         this.customRecipes
           .filter((service) => service.name.toLowerCase().includes(this.state.needle.toLowerCase()) || (service.aliases || []).some(alias => alias.toLowerCase().includes(this.state.needle.toLowerCase()))),
       ),
-    ]) : recipeFilter;
+    ]).sort(this._sortByName) : recipeFilter;
 
     const customWebsiteRecipe = recipePreviews.all.find((service) => service.id === CUSTOM_WEBSITE_RECIPE_ID);
 
@@ -154,13 +157,8 @@ export default @inject('stores', 'actions') @observer class RecipesScreen extend
           serviceStatus={services.actionStatus}
           recipeFilter={filter}
           recipeDirectory={recipeDirectory}
-          openRecipeDirectory={async () => {
-            ensureDirSync(recipeDirectory);
-            shell.openExternal(`file://${recipeDirectory}`);
-          }}
-          openDevDocs={() => {
-            appActions.openExternalUrl({ url: FRANZ_DEV_DOCS });
-          }}
+          openRecipeDirectory={() => openPath(recipeDirectory)}
+          openDevDocs={() => appActions.openExternalUrl({ url: FRANZ_DEV_DOCS })}
         />
       </ErrorBoundary>
     );

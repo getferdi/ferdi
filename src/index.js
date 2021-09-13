@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 
-import { app, BrowserWindow, shell, ipcMain, session } from 'electron';
+import { app, BrowserWindow, ipcMain, session, dialog } from 'electron';
 
 import { emptyDirSync, ensureFileSync } from 'fs-extra';
 import { join } from 'path';
@@ -22,6 +22,7 @@ import {
   userDataRecipesPath,
   userDataPath,
 } from './environment';
+import { ifUndefinedBoolean } from './jsUtils';
 
 import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 import ipcApi from './electron/ipc-api';
@@ -34,7 +35,7 @@ import { appId } from './package.json'; // eslint-disable-line import/no-unresol
 import './electron/exception';
 
 import { asarPath } from './helpers/asar-helpers';
-import { isValidExternalURL } from './helpers/url-helpers';
+import { openExternalUrl } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
 
 const debug = require('debug')('Ferdi:App');
@@ -77,13 +78,14 @@ if (isWindows) {
 const settings = new Settings('app', DEFAULT_APP_SETTINGS);
 const proxySettings = new Settings('proxy');
 
-if (settings.get('sentry')) {
+const retrieveSettingValue = (key, defaultValue = true) => ifUndefinedBoolean(settings.get(key), defaultValue);
+
+if (retrieveSettingValue('sentry')) {
   // eslint-disable-next-line global-require
   require('./sentry');
 }
 
-// add `liftSingleInstanceLock` to settings.json to override the single instance lock
-const liftSingleInstanceLock = settings.get('liftSingleInstanceLock') || false;
+const liftSingleInstanceLock = retrieveSettingValue('liftSingleInstanceLock', false);
 
 // Force single window
 const gotTheLock = liftSingleInstanceLock
@@ -147,7 +149,7 @@ if (
 }
 
 // Disable GPU acceleration
-if (!settings.get('enableGPUAcceleration')) {
+if (!retrieveSettingValue('enableGPUAcceleration', false)) {
   debug('Disable GPU Acceleration');
   app.disableHardwareAcceleration();
 }
@@ -176,7 +178,7 @@ const createWindow = () => {
   }
 
   // Create the browser window.
-  const backgroundColor = settings.get('darkMode')
+  const backgroundColor = retrieveSettingValue('darkMode', false)
     ? '#1E1E1E'
     : settings.get('accentColor');
 
@@ -190,7 +192,7 @@ const createWindow = () => {
     show: false,
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
-    spellcheck: settings.get('enableSpellchecking'),
+    spellcheck: retrieveSettingValue('enableSpellchecking'),
     backgroundColor,
     webPreferences: {
       nodeIntegration: true,
@@ -268,18 +270,22 @@ const createWindow = () => {
     // when you should delete the corresponding element.
     if (
       !willQuitApp &&
-      (settings.get('runInBackground') === undefined ||
-        settings.get('runInBackground'))
+      retrieveSettingValue('runInBackground')
     ) {
       e.preventDefault();
       if (isWindows) {
         debug('Window: minimize');
         mainWindow.minimize();
 
-        if (settings.get('closeToSystemTray')) {
+        if (retrieveSettingValue('closeToSystemTray')) {
           debug('Skip taskbar: true');
           mainWindow.setSkipTaskbar(true);
         }
+      } else if (isMac && mainWindow.isFullScreen()) {
+        debug('Window: leaveFullScreen and hide');
+        mainWindow.once('show', () => mainWindow.setFullScreen(true));
+        mainWindow.once('leave-full-screen', () => mainWindow.hide());
+        mainWindow.setFullScreen(false);
       } else {
         debug('Window: hide');
         mainWindow.hide();
@@ -295,7 +301,7 @@ const createWindow = () => {
   mainWindow.on('minimize', () => {
     app.wasMaximized = app.isMaximized;
 
-    if (settings.get('minimizeToSystemTray')) {
+    if (retrieveSettingValue('minimizeToSystemTray')) {
       debug('Skip taskbar: true');
       mainWindow.setSkipTaskbar(true);
       trayIcon.show();
@@ -321,7 +327,7 @@ const createWindow = () => {
       mainWindow.maximize();
     }
 
-    if (!settings.get('enableSystemTray')) {
+    if (!retrieveSettingValue('enableSystemTray')) {
       debug('Tray: hiding tray icon');
       trayIcon.hide();
     }
@@ -329,7 +335,7 @@ const createWindow = () => {
 
   if (isMac) {
     // eslint-disable-next-line global-require
-    const { default: askFormacOSPermissions } = require('./electron/macOSPermissions');
+    const { askFormacOSPermissions } = require('./electron/macOSPermissions');
     setTimeout(() => askFormacOSPermissions(mainWindow), ms('30s'));
   }
 
@@ -342,15 +348,11 @@ const createWindow = () => {
   app.isMaximized = mainWindow.isMaximized();
 
   mainWindow.webContents.on('new-window', (e, url) => {
-    debug('Open url', url);
     e.preventDefault();
-
-    if (isValidExternalURL(url)) {
-      shell.openExternal(url);
-    }
+    openExternalUrl(url);
   });
 
-  if (settings.get('startMinimized')) {
+  if (retrieveSettingValue('startMinimized', false)) {
     mainWindow.hide();
   } else {
     mainWindow.show();
@@ -392,10 +394,9 @@ app.on('ready', () => {
   enforceMacOSAppLocation();
 
   // Register App URL
-  if (isDevMode) {
-    app.setAsDefaultProtocolClient('ferdi-dev');
-  } else {
-    app.setAsDefaultProtocolClient('ferdi');
+  const protocolClient = isDevMode ? 'ferdi-dev' : 'ferdi';
+  if (!app.isDefaultProtocolClient(protocolClient)) {
+    app.setAsDefaultProtocolClient(protocolClient);
   }
 
   if (isWindows) {
@@ -470,7 +471,7 @@ ipcMain.on('open-browser-window', (e, { url, serviceId }) => {
 ipcMain.on(
   'modifyRequestHeaders',
   (e, { modifiedRequestHeaders, serviceId }) => {
-    debug('Received modifyRequestHeaders', modifiedRequestHeaders, serviceId);
+    debug(`Received modifyRequestHeaders ${modifiedRequestHeaders} for serviceId ${serviceId}`);
     modifiedRequestHeaders.forEach(headerFilterSet => {
       const { headers, requestFilters } = headerFilterSet;
       session
@@ -485,6 +486,24 @@ ipcMain.on(
           callback({ requestHeaders: details.requestHeaders });
         });
     });
+  },
+);
+
+ipcMain.on(
+  'knownCertificateHosts',
+  (e, { knownHosts, serviceId }) => {
+    debug(`Received knownCertificateHosts ${knownHosts} for serviceId ${serviceId}`);
+    session
+      .fromPartition(`persist:service-${serviceId}`)
+      .setCertificateVerifyProc((request, callback) => {
+        // To know more about these callbacks: https://www.electronjs.org/docs/api/session#sessetcertificateverifyprocproc
+        const { hostname } = request;
+        if (knownHosts.find(item => item.includes(hostname)).length > 0) {
+          callback(0);
+        } else {
+          callback(-2);
+        }
+      });
   },
 );
 
@@ -533,10 +552,7 @@ ipcMain.on('stop-find-in-page', (e, action) => {
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (
-    settings.get('runInBackground') === undefined ||
-    settings.get('runInBackground')
-  ) {
+  if (retrieveSettingValue('runInBackground')) {
     debug('Window: all windows closed, quit app');
     app.quit();
   } else {
@@ -544,8 +560,25 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('before-quit', () => {
-  willQuitApp = true;
+app.on('before-quit', (event) => {
+  const yesButtonIndex = 0;
+  let selection = yesButtonIndex;
+  if (retrieveSettingValue('confirmOnQuit')) {
+    selection = dialog.showMessageBoxSync(app.mainWindow, {
+      type: 'question',
+      message: 'Quit',
+      detail: 'Do you really want to quit Ferdi?',
+      buttons: [
+        'Yes',
+        'No',
+      ],
+    });
+  }
+  if (selection === yesButtonIndex) {
+    willQuitApp = true;
+  } else {
+    event.preventDefault();
+  }
 });
 
 app.on('activate', () => {

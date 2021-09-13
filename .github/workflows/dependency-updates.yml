@@ -22,6 +22,7 @@ jobs:
       - name: Set env vars
         run: |
           echo "NPM_CACHE=$HOME/.npm" >> $GITHUB_ENV
+          echo "PNPM_CACHE=$HOME/.pnpm-store" >> $GITHUB_ENV
       - name: Checkout code along with submodules
         uses: actions/checkout@v2
         with:
@@ -40,10 +41,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-14.17-build-${{ env.cache-name }}-
             ${{ runner.os }}-14.17-build-
-      - name: Use Node.js 14.17.3
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pnpm-store
+        with:
+          path: ${{ env.PNPM_CACHE }}
+          key: ${{ runner.os }}-14.17-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: Use Node.js 14.17.6
         uses: actions/setup-node@v2
         with:
-          node-version: 14.17.3
+          node-version: 14.17.6
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.14.7
       - name: Uninstall locally and reinstall global npm modules
         run: |
           npm uninstall node-gyp

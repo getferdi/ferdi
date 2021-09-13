@@ -23,7 +23,7 @@ export default class Workspace {
     this.order = data.order;
 
     let { services } = data;
-    if (data.saving && data.keepLoaded) {
+    if (data.saving && Boolean(data.keepLoaded)) {
       // Keep workspaces loaded
       services.push(KEEP_WS_LOADED_USID);
     } else if (data.saving && data.services.includes(KEEP_WS_LOADED_USID)) {

@@ -79,17 +79,17 @@ export const is64Bit = osArch.match(/64/);
 const ctrlKey = isMac ? '⌘' : 'Ctrl';
 const cmdKey = isMac ? 'Cmd' : 'Ctrl';
 
-export const altKey = isMac ? '⌥' : 'Alt';
-export const shiftKey = isMac ? '⇧' : 'Shift';
+export const altKey = (isAccelerator = true) => (!isAccelerator && isMac ? '⌥' : 'Alt');
+export const shiftKey = (isAccelerator = true) => (!isAccelerator && isMac ? '⇧' : 'Shift');
 
 // Platform specific shortcut keys
-export const shortcutKey = (isAccelerator = true) => (isAccelerator ? cmdKey : ctrlKey);
-export const lockFerdiShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+${shiftKey}+L`;
-export const todosToggleShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+T`;
-export const workspaceToggleShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+D`;
-export const muteFerdiShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+${shiftKey}+M`;
-export const addNewServiceShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+N`;
-export const settingsShortcutKey = (isAccelerator = true) => `${shortcutKey(isAccelerator)}+${isMac ? ',' : 'P'}`;
+export const cmdOrCtrlShortcutKey = (isAccelerator = true) => (isAccelerator ? cmdKey : ctrlKey);
+export const lockFerdiShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+${shiftKey(isAccelerator)}+L`;
+export const todosToggleShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+T`;
+export const workspaceToggleShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+D`;
+export const muteFerdiShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+${shiftKey(isAccelerator)}+M`;
+export const addNewServiceShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+N`;
+export const settingsShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+${isMac ? ',' : 'P'}`;
 
 let api;
 let wsApi;
@@ -124,6 +124,7 @@ export const DEFAULT_APP_SETTINGS = {
   reloadAfterResume: true,
   enableSystemTray: true,
   startMinimized: false,
+  confirmOnQuit: false,
   minimizeToSystemTray: false,
   closeToSystemTray: false,
   privateNotifications: false,
@@ -170,6 +171,7 @@ export const DEFAULT_APP_SETTINGS = {
   searchEngine: SEARCH_ENGINE_DDG,
   useVerticalStyle: false,
   alwaysShowWorkspaces: false,
+  liftSingleInstanceLock: false,
 };
 
 export function aboutAppDetails() {

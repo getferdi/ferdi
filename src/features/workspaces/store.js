@@ -155,38 +155,26 @@ export default class WorkspacesStore extends FeatureStore {
   };
 
   @action _create = async ({ name }) => {
-    // eslint-disable-next-line no-useless-catch
-    try {
-      const workspace = await createWorkspaceRequest.execute(name);
-      await getUserWorkspacesRequest.result.push(workspace);
-      this._edit({ workspace });
-    } catch (error) {
-      throw error;
-    }
+    const workspace = await createWorkspaceRequest.execute(name);
+    await getUserWorkspacesRequest.result.push(workspace);
+    this._edit({ workspace });
   };
 
   @action _delete = async ({ workspace }) => {
-    // eslint-disable-next-line no-useless-catch
-    try {
-      await deleteWorkspaceRequest.execute(workspace);
-      await getUserWorkspacesRequest.result.remove(workspace);
-      this.stores.router.push('/settings/workspaces');
-    } catch (error) {
-      throw error;
+    await deleteWorkspaceRequest.execute(workspace);
+    await getUserWorkspacesRequest.result.remove(workspace);
+    this.stores.router.push('/settings/workspaces');
+    if (this.activeWorkspace === workspace) {
+      this._deactivateActiveWorkspace();
     }
   };
 
   @action _update = async ({ workspace }) => {
-    // eslint-disable-next-line no-useless-catch
-    try {
-      await updateWorkspaceRequest.execute(workspace);
-      // Path local result optimistically
-      const localWorkspace = this._getWorkspaceById(workspace.id);
-      Object.assign(localWorkspace, workspace);
-      this.stores.router.push('/settings/workspaces');
-    } catch (error) {
-      throw error;
-    }
+    await updateWorkspaceRequest.execute(workspace);
+    // Path local result optimistically
+    const localWorkspace = this._getWorkspaceById(workspace.id);
+    Object.assign(localWorkspace, workspace);
+    this.stores.router.push('/settings/workspaces');
   };
 
   @action _setActiveWorkspace = ({ workspace }) => {

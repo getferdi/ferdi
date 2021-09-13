@@ -6,5 +6,5 @@ FILE_NAME="$(dirname "$0")/_/husky.sh"
 if [ -f $FILE_NAME ]; then
   . $FILE_NAME
 
-  exec < /dev/tty && git cz --hook || true
+  ( exec < /dev/tty && git cz --hook ) || true
 fi

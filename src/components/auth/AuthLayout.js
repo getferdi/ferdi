@@ -28,17 +28,12 @@ class AuthLayout extends Component {
     retryHealthCheck: PropTypes.func.isRequired,
     isHealthCheckLoading: PropTypes.bool.isRequired,
     isFullScreen: PropTypes.bool.isRequired,
-    nextAppReleaseVersion: PropTypes.string,
     installAppUpdate: PropTypes.func.isRequired,
     appUpdateIsDownloaded: PropTypes.bool.isRequired,
   };
 
   state = {
     shouldShowAppUpdateInfoBar: true,
-  };
-
-  static defaultProps = {
-    nextAppReleaseVersion: null,
   };
 
   static contextTypes = {
@@ -54,7 +49,6 @@ class AuthLayout extends Component {
       retryHealthCheck,
       isHealthCheckLoading,
       isFullScreen,
-      nextAppReleaseVersion,
       installAppUpdate,
       appUpdateIsDownloaded,
     } = this.props;
@@ -77,7 +71,6 @@ class AuthLayout extends Component {
           )}
           {appUpdateIsDownloaded && this.state.shouldShowAppUpdateInfoBar && (
             <AppUpdateInfoBar
-              nextAppReleaseVersion={nextAppReleaseVersion}
               onInstallUpdate={installAppUpdate}
               onHide={() => {
                 this.setState({ shouldShowAppUpdateInfoBar: false });

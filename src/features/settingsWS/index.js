@@ -22,8 +22,6 @@ export default function initSettingsWebSocket(stores, actions) {
         settingsStore.stop();
       }
     },
-    {
-      fireImmediately: true,
-    },
+    { fireImmediately: true },
   );
 }

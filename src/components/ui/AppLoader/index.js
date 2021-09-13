@@ -8,6 +8,7 @@ import { shuffleArray } from '../../../helpers/array-helpers';
 
 import styles from './styles';
 
+// TODO: Need to externalize for i18n
 const textList = shuffleArray([
   'Adding free features',
   'Making application usable',

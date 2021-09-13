@@ -153,13 +153,6 @@ export default (brandPrimary: string) => {
       },
     }),
 
-    // Announcements
-    announcements: merge({}, defaultStyles.announcements, {
-      spotlight: {
-        background: legacyStyles.darkThemeGrayDark,
-      },
-    }),
-
     // Todos
     todos: merge({}, defaultStyles.todos, {
       todosLayer: {

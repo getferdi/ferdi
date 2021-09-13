@@ -12,7 +12,9 @@ export default function initWorkspaces(stores, actions) {
 
   // Toggle workspace feature
   reaction(
-    () => features.features.isWorkspaceEnabled,
+    () => (
+      features.features.isWorkspaceEnabled
+    ),
     (isEnabled) => {
       if (isEnabled && !workspaceStore.isFeatureActive) {
         debug('Initializing `workspaces` feature');
@@ -23,8 +25,6 @@ export default function initWorkspaces(stores, actions) {
         resetApiRequests();
       }
     },
-    {
-      fireImmediately: true,
-    },
+    { fireImmediately: true },
   );
 }

@@ -18,8 +18,12 @@ export class ExampleFeatureStore extends Store {
 
     // Update the name on the state when the request resolved
     reaction(
-      () => this.getNameRequest.result,
-      name => this._setName(name),
+      () => (
+        this.getNameRequest.result
+      ),
+      (name) => {
+        this._setName(name);
+      },
     );
   }
 

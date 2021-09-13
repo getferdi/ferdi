@@ -9,6 +9,7 @@ import Button from '../ui/Button';
 import Infobox from '../ui/Infobox';
 import { url, required } from '../../helpers/validation-helpers';
 import { LIVE_FERDI_API, LIVE_FRANZ_API } from '../../config';
+import globalMessages from '../../i18n/globalMessages';
 
 const messages = defineMessages({
   headline: {
@@ -31,11 +32,6 @@ const messages = defineMessages({
     id: 'changeserver.urlError',
     defaultMessage: '!!!Enter a valid URL',
   },
-  submit: {
-    id: 'changeserver.submit',
-    defaultMessage: '!!!Submit',
-  },
-
 });
 
 export default @observer class ChangeServer extends Component {
@@ -120,7 +116,7 @@ export default @observer class ChangeServer extends Component {
           <Button
             type="submit"
             className="auth__button"
-            label={intl.formatMessage(messages.submit)}
+            label={intl.formatMessage(globalMessages.submit)}
           />
         </form>
       </div>

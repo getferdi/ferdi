@@ -10,7 +10,8 @@ import ms from 'ms';
 
 import { observable, autorun } from 'mobx';
 import ServiceModel from '../../../models/Service';
-import { shortcutKey } from '../../../environment';
+import { cmdOrCtrlShortcutKey } from '../../../environment';
+import globalMessages from '../../../i18n/globalMessages';
 
 const IS_SERVICE_DEBUGGING_ENABLED = (
   localStorage.getItem('debug') || ''
@@ -20,10 +21,6 @@ const messages = defineMessages({
   reload: {
     id: 'tabs.item.reload',
     defaultMessage: '!!!Reload',
-  },
-  edit: {
-    id: 'tabs.item.edit',
-    defaultMessage: '!!!Edit',
   },
   disableNotifications: {
     id: 'tabs.item.disableNotifications',
@@ -201,10 +198,10 @@ class TabItem extends Component {
       {
         label: intl.formatMessage(messages.reload),
         click: reload,
-        accelerator: `${shortcutKey()}+R`,
+        accelerator: `${cmdOrCtrlShortcutKey()}+R`,
       },
       {
-        label: intl.formatMessage(messages.edit),
+        label: intl.formatMessage(globalMessages.edit),
         click: () =>
           openSettings({
             path: `services/edit/${service.id}`,
@@ -227,8 +224,8 @@ class TabItem extends Component {
       },
       {
         label: service.isDarkModeEnabled
-          ? intl.formatMessage(messages.enableDarkMode)
-          : intl.formatMessage(messages.disableDarkMode),
+          ? intl.formatMessage(messages.disableDarkMode)
+          : intl.formatMessage(messages.enableDarkMode),
         click: () => toggleDarkMode(),
       },
       {
@@ -259,7 +256,7 @@ class TabItem extends Component {
             detail: intl.formatMessage(messages.confirmDeleteService, {
               serviceName: service.name || service.recipe.name,
             }),
-            buttons: ['Yes', 'No'],
+            buttons: [intl.formatMessage(globalMessages.yes), intl.formatMessage(globalMessages.no)],
           });
           if (selection === 0) {
             deleteService();
@@ -307,7 +304,7 @@ class TabItem extends Component {
         onClick={clickHandler}
         onContextMenu={() => menu.popup(getCurrentWindow())}
         data-tip={`${service.name} ${
-          shortcutIndex <= 9 ? `(${shortcutKey(false)}+${shortcutIndex})` : ''
+          shortcutIndex <= 9 ? `(${cmdOrCtrlShortcutKey(false)}+${shortcutIndex})` : ''
         }`}
       >
         <img src={service.icon} className="tab-item__icon" alt="" />

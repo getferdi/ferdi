@@ -4,11 +4,11 @@
     "defaultMessage": "!!!Let's get started",
     "file": "src/components/auth/SetupAssistant.js",
     "start": {
-      "line": 19,
+      "line": 20,
       "column": 12
     },
     "end": {
-      "line": 22,
+      "line": 23,
       "column": 3
     }
   },
@@ -17,11 +17,11 @@
     "defaultMessage": "!!!Choose from our most used services and get back on top of your messaging now.",
     "file": "src/components/auth/SetupAssistant.js",
     "start": {
-      "line": 23,
+      "line": 24,
       "column": 15
     },
     "end": {
-      "line": 27,
+      "line": 28,
       "column": 3
     }
   },
@@ -30,11 +30,11 @@
     "defaultMessage": "!!!Let's go",
     "file": "src/components/auth/SetupAssistant.js",
     "start": {
-      "line": 28,
+      "line": 29,
       "column": 21
     },
     "end": {
-      "line": 31,
+      "line": 32,
       "column": 3
     }
   },
@@ -43,11 +43,11 @@
     "defaultMessage": "!!!Invitations sent successfully",
     "file": "src/components/auth/SetupAssistant.js",
     "start": {
-      "line": 32,
+      "line": 33,
       "column": 21
     },
     "end": {
-      "line": 35,
+      "line": 36,
       "column": 3
     }
   }

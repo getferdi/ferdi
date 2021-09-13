@@ -224,6 +224,7 @@ class EditWorkspaceForm extends Component {
             busy={isSaving}
             buttonType={isSaving ? 'secondary' : 'primary'}
             onClick={this.save.bind(this, form)}
+            // TODO: Need to disable if no services have been added to this workspace
             disabled={isSaving}
           />
         </div>

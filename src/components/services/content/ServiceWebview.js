@@ -24,7 +24,9 @@ class ServiceWebview extends Component {
     super(props);
 
     reaction(
-      () => this.webview,
+      () => (
+        this.webview
+      ),
       () => {
         if (this.webview && this.webview.view) {
           this.webview.view.addEventListener('console-message', (e) => {

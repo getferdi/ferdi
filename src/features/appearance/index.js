@@ -122,7 +122,7 @@ function generateShowDragAreaStyle(accentColor) {
       background-color: ${accentColor};
     }
     #root {
-      /** Remove 22px from app height, otherwise the page will be to high */
+      /** Remove 22px from app height, otherwise the page will be too high */
       height: calc(100% - 22px);
     }
   `;
@@ -139,11 +139,12 @@ function generateVerticalStyle(widthStr, alwaysShowWorkspaces) {
     document.head.appendChild(link);
   }
   const width = Number(widthStr);
-  const sidebarWidthStr = `${width - 4}px`;
+  const sidebarWidth = width - 4;
+  const verticalStyleOffset = 23;
 
   return `
   .sidebar {
-    height: ${sidebarWidthStr} !important;
+    height: ${sidebarWidth + verticalStyleOffset + 1}px !important;
   ${alwaysShowWorkspaces ? `
     width: calc(100% - 300px) !important;
   ` : ''}
@@ -154,11 +155,11 @@ function generateVerticalStyle(widthStr, alwaysShowWorkspaces) {
   }
 
   .app .app__content {
-    padding-top: ${sidebarWidthStr} !important;
+    padding-top: ${sidebarWidth + verticalStyleOffset + 1}px !important;
   }
 
   .workspaces-drawer {
-    maring-top: -${sidebarWidthStr} !important;
+    margin-top: -${sidebarWidth - verticalStyleOffset - 1}px !important;
   }
 
   .todos__todos-panel--expanded {
@@ -235,8 +236,6 @@ export default function initAppearance(stores) {
     () => {
       updateStyle(settings.all.app);
     },
-    {
-      fireImmediately: true,
-    },
+    { fireImmediately: true },
   );
 }

@@ -47,6 +47,15 @@ class RecipeWebview {
   }
 
   /**
+   * Safely parse the given text into an integer
+   *
+   * @param  {string | number | undefined | null} text to be parsed
+   */
+  safeParseInt(text) {
+    return this.badgeHandler.safeParseInt(text);
+  }
+
+  /**
    * Injects the contents of a CSS file into the current webview
    *
    * @param {Array} files     CSS files that should be injected. This must

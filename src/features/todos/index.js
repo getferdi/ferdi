@@ -3,8 +3,6 @@ import TodoStore from './store';
 
 const debug = require('debug')('Ferdi:feature:todos');
 
-export const GA_CATEGORY_TODOS = 'Todos';
-
 export const todosStore = new TodoStore();
 
 export default function initTodos(stores, actions) {
@@ -13,7 +11,9 @@ export default function initTodos(stores, actions) {
 
   // Toggle todos feature
   reaction(
-    () => features.features.isTodosEnabled,
+    () => (
+      features.features.isTodosEnabled
+    ),
     (isEnabled) => {
       if (isEnabled) {
         debug('Initializing `todos` feature');
@@ -23,8 +23,6 @@ export default function initTodos(stores, actions) {
         todosStore.stop();
       }
     },
-    {
-      fireImmediately: true,
-    },
+    { fireImmediately: true },
   );
 }

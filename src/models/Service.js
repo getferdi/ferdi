@@ -7,13 +7,15 @@ import { join } from 'path';
 import { todosStore } from '../features/todos';
 import { isValidExternalURL } from '../helpers/url-helpers';
 import UserAgent from './UserAgent';
+import { DEFAULT_SERVICE_ORDER } from '../config';
+import { ifUndefinedString, ifUndefinedBoolean, ifUndefinedNumber } from '../jsUtils';
 
 const debug = require('debug')('Ferdi:Service');
 
 export default class Service {
   id = '';
 
-  recipe = '';
+  recipe = null;
 
   _webview = null;
 
@@ -31,7 +33,7 @@ export default class Service {
 
   @observable unreadIndirectMessageCount = 0;
 
-  @observable order = 99;
+  @observable order = DEFAULT_SERVICE_ORDER;
 
   @observable isEnabled = true;
 
@@ -93,56 +95,37 @@ export default class Service {
 
   constructor(data, recipe) {
     if (!data) {
-      console.error('Service config not valid');
-      return null;
+      throw Error('Service config not valid');
     }
 
     if (!recipe) {
-      console.error('Service recipe not valid');
-      return null;
+      throw Error('Service recipe not valid');
     }
+
+    this.recipe = recipe;
 
     this.userAgentModel = new UserAgent(recipe.overrideUserAgent);
 
-    this.id = data.id || this.id;
-    this.name = data.name || this.name;
-    this.team = data.team || this.team;
-    this.customUrl = data.customUrl || this.customUrl;
-    // this.customIconUrl = data.customIconUrl || this.customIconUrl;
-    this.iconUrl = data.iconUrl || this.iconUrl;
+    this.id = ifUndefinedString(data.id, this.id);
+    this.name = ifUndefinedString(data.name, this.name);
+    this.team = ifUndefinedString(data.team, this.team);
+    this.customUrl = ifUndefinedString(data.customUrl, this.customUrl);
+    // this.customIconUrl = ifUndefinedString(data.customIconUrl, this.customIconUrl);
+    this.iconUrl = ifUndefinedString(data.iconUrl, this.iconUrl);
 
-    this.order = data.order !== undefined
-      ? data.order : this.order;
-
-    this.isEnabled = data.isEnabled !== undefined
-      ? data.isEnabled : this.isEnabled;
-
-    this.isNotificationEnabled = data.isNotificationEnabled !== undefined
-      ? data.isNotificationEnabled : this.isNotificationEnabled;
-
-    this.isBadgeEnabled = data.isBadgeEnabled !== undefined
-      ? data.isBadgeEnabled : this.isBadgeEnabled;
-
-    this.isIndirectMessageBadgeEnabled = data.isIndirectMessageBadgeEnabled !== undefined
-      ? data.isIndirectMessageBadgeEnabled : this.isIndirectMessageBadgeEnabled;
-
-    this.isMuted = data.isMuted !== undefined ? data.isMuted : this.isMuted;
-
-    this.isDarkModeEnabled = data.isDarkModeEnabled !== undefined ? data.isDarkModeEnabled : this.isDarkModeEnabled;
-
-    this.darkReaderSettings = data.darkReaderSettings !== undefined ? data.darkReaderSettings : this.darkReaderSettings;
-
-    this.hasCustomUploadedIcon = data.hasCustomIcon !== undefined ? data.hasCustomIcon : this.hasCustomUploadedIcon;
-
-    this.proxy = data.proxy !== undefined ? data.proxy : this.proxy;
-
-    this.spellcheckerLanguage = data.spellcheckerLanguage !== undefined ? data.spellcheckerLanguage : this.spellcheckerLanguage;
-
-    this.userAgentPref = data.userAgentPref !== undefined ? data.userAgentPref : this.userAgentPref;
-
-    this.isHibernationEnabled = data.isHibernationEnabled !== undefined ? data.isHibernationEnabled : this.isHibernationEnabled;
-
-    this.recipe = recipe;
+    this.order = ifUndefinedNumber(data.order, this.order);
+    this.isEnabled = ifUndefinedBoolean(data.isEnabled, this.isEnabled);
+    this.isNotificationEnabled = ifUndefinedBoolean(data.isNotificationEnabled, this.isNotificationEnabled);
+    this.isBadgeEnabled = ifUndefinedBoolean(data.isBadgeEnabled, this.isBadgeEnabled);
+    this.isIndirectMessageBadgeEnabled = ifUndefinedBoolean(data.isIndirectMessageBadgeEnabled, this.isIndirectMessageBadgeEnabled);
+    this.isMuted = ifUndefinedBoolean(data.isMuted, this.isMuted);
+    this.isDarkModeEnabled = ifUndefinedBoolean(data.isDarkModeEnabled, this.isDarkModeEnabled);
+    this.darkReaderSettings = ifUndefinedString(data.darkReaderSettings, this.darkReaderSettings);
+    this.hasCustomUploadedIcon = ifUndefinedBoolean(data.hasCustomIcon, this.hasCustomUploadedIcon);
+    this.proxy = ifUndefinedString(data.proxy, this.proxy);
+    this.spellcheckerLanguage = ifUndefinedString(data.spellcheckerLanguage, this.spellcheckerLanguage);
+    this.userAgentPref = ifUndefinedString(data.userAgentPref, this.userAgentPref);
+    this.isHibernationEnabled = ifUndefinedBoolean(data.isHibernationEnabled, this.isHibernationEnabled);
 
     // Check if "Hibernate on Startup" is enabled and hibernate all services except active one
     const { hibernateOnStartup } = window.ferdi.stores.settings.app;
@@ -262,7 +245,7 @@ export default class Service {
 
     this.userAgentModel.setWebviewReference(this.webview);
 
-    // If the recipe has implemented modifyRequestHeaders,
+    // If the recipe has implemented 'modifyRequestHeaders',
     // Send those headers to ipcMain so that it can be set in session
     if (typeof this.recipe.modifyRequestHeaders === 'function') {
       const modifiedRequestHeaders = this.recipe.modifyRequestHeaders();
@@ -273,6 +256,18 @@ export default class Service {
       });
     } else {
       debug(this.name, 'modifyRequestHeaders is not defined in the recipe');
+    }
+
+    // if the recipe has implemented 'knownCertificateHosts'
+    if (typeof this.recipe.knownCertificateHosts === 'function') {
+      const knownHosts = this.recipe.knownCertificateHosts();
+      debug(this.name, 'knownCertificateHosts', knownHosts);
+      ipcRenderer.send('knownCertificateHosts', {
+        knownHosts,
+        serviceId: this.id,
+      });
+    } else {
+      debug(this.name, 'knownCertificateHosts is not defined in the recipe');
     }
 
     this.webview.addEventListener('ipc-message', async (e) => {

@@ -14,11 +14,12 @@ import sassVariables from 'gulp-sass-variables';
 import { removeSync, outputJson } from 'fs-extra';
 import kebabCase from 'kebab-case';
 import hexRgb from 'hex-rgb';
+import ts from 'gulp-typescript';
 
 import * as buildInfo from 'preval-build-info';
 import config from './package.json';
 
-import * as rawStyleConfig from './src/theme/default/legacy';
+import * as rawStyleConfig from './scripts/theme/default/legacy';
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ const uglify = composer(terser, console);
 const isDevBuild = process.env.NODE_ENV === 'development';
 
 const getTargetEnv = isDevBuild ? 'development' : 'production';
+
+const tsProject = ts.createProject('tsconfig.json');
 
 const styleConfig = Object.keys(rawStyleConfig).map(key => {
   const isHex = /^#[0-9A-F]{6}$/i.test(rawStyleConfig[key]);
@@ -59,28 +62,36 @@ const paths = {
     watch: 'src/**/*.html',
   },
   styles: {
-    src: 'src/styles/main.scss',
+    src: [
+      'src/styles/main.scss',
+      'src/styles/vertical.scss',
+      'src/styles/animations.scss',
+    ],
     dest: 'build/styles',
     watch: 'src/styles/**/*.scss',
   },
-  verticalStyle: {
-    src: 'src/styles/vertical.scss',
-    dest: 'build/styles',
-  },
-  scripts: {
+  javascripts: {
     src: 'src/**/*.js',
     dest: 'build/',
     watch: [
-      // 'packages/**/*.js',
       'src/**/*.js',
+      // 'packages/**/*.js',
+    ],
+  },
+  typescripts: {
+    src: 'src/**/*.ts',
+    dest: 'build/',
+    watch: [
+      'src/**/*.ts',
+      // 'packages/**/*.ts',
     ],
   },
   packages: {
     watch: 'packages/**/*',
     // dest: 'build/',
     // watch: [
-    //   // 'packages/**/*.js',
     //   'src/**/*.js',
+    //   // 'packages/**/*.js',
     // ],
   },
 };
@@ -121,9 +132,9 @@ export function mvSrc() {
       [
         `${paths.src}/*`,
         `${paths.src}/*/**`,
-        `!${paths.scripts.watch[1]}`,
+        `!${paths.javascripts.watch[0]}`,
+        `!${paths.typescripts.watch[0]}`,
         `!${paths.src}/styles/**`,
-        `!${paths.src}/**/*.js`,
       ],
       { since: gulp.lastRun(mvSrc) },
     )
@@ -136,6 +147,12 @@ export function mvPackageJson() {
 
 export function mvLernaPackages() {
   return gulp.src(['packages/**']).pipe(gulp.dest(`${paths.dest}/packages`));
+}
+
+export function mvPostinstallScript() {
+  return gulp
+    .src(['./scripts/postinstall.js'])
+    .pipe(gulp.dest(`${paths.dest}/scripts`));
 }
 
 export function exportBuildInfo() {
@@ -195,58 +212,41 @@ export function styles() {
     .pipe(connect.reload());
 }
 
-export function verticalStyle() {
+export function processJavascripts() {
   return gulp
-    .src(paths.verticalStyle.src)
-    .pipe(
-      sassVariables(
-        Object.assign(
-          {
-            $env: getTargetEnv,
-          },
-          ...styleConfig,
-        ),
-      ),
-    )
-    .pipe(
-      sass({
-        includePaths: ['./node_modules', '../node_modules'],
-      }).on('error', sass.logError),
-    )
-    .pipe(
-      gulpIf(
-        !isDevBuild,
-        csso({
-          // Only minify in production to speed up dev builds
-          restructure: false, // Don't restructure CSS, otherwise it will break the styles
-        }),
-      ),
-    )
-    .pipe(gulp.dest(paths.verticalStyle.dest))
-    .pipe(connect.reload());
-}
-
-export function scripts() {
-  return gulp
-    .src(paths.scripts.src, { since: gulp.lastRun(scripts) })
+    .src([paths.javascripts.src], { since: gulp.lastRun(processJavascripts) })
     .pipe(
       babel({
         comments: false,
       }),
     )
     .pipe(gulpIf(!isDevBuild, uglify())) // Only uglify in production to speed up dev builds
-    .pipe(gulp.dest(paths.scripts.dest))
+    .pipe(gulp.dest(paths.javascripts.dest))
+    .pipe(connect.reload());
+}
+
+export function processTypescripts() {
+  return gulp
+    .src([paths.typescripts.src], { since: gulp.lastRun(processTypescripts) })
+    .pipe(tsProject())
+    .js.pipe(
+      babel({
+        comments: false,
+      }),
+    )
+    .pipe(gulpIf(!isDevBuild, uglify())) // Only uglify in production to speed up dev builds
+    .pipe(gulp.dest(paths.typescripts.dest))
     .pipe(connect.reload());
 }
 
 export function watch() {
   gulp.watch(paths.packages.watch, mvLernaPackages);
   gulp.watch(paths.styles.watch, styles);
-  gulp.watch(paths.verticalStyle.src, verticalStyle);
 
-  gulp.watch([paths.src, `${paths.scripts.src}`, `${paths.styles.src}`], mvSrc);
+  gulp.watch([paths.src], mvSrc);
 
-  gulp.watch(paths.scripts.watch, scripts);
+  gulp.watch(paths.javascripts.watch, processJavascripts);
+  gulp.watch(paths.typescripts.watch, processTypescripts);
 }
 
 export function webserver() {
@@ -261,6 +261,7 @@ export function recipes() {
     .src(paths.recipes.src, { since: gulp.lastRun(recipes) })
     .pipe(gulp.dest(paths.recipes.dest));
 }
+
 export function recipeInfo() {
   return gulp
     .src(paths.recipeInfo.src, { since: gulp.lastRun(recipeInfo) })
@@ -269,8 +270,21 @@ export function recipeInfo() {
 
 const build = gulp.series(
   clean,
-  gulp.parallel(mvSrc, mvPackageJson, mvLernaPackages, exportBuildInfo),
-  gulp.parallel(html, scripts, styles, verticalStyle, recipes, recipeInfo),
+  gulp.parallel(
+    mvSrc,
+    mvPackageJson,
+    mvLernaPackages,
+    mvPostinstallScript,
+    exportBuildInfo,
+  ),
+  gulp.parallel(
+    html,
+    processJavascripts,
+    processTypescripts,
+    styles,
+    recipes,
+    recipeInfo,
+  ),
 );
 export { build };
 

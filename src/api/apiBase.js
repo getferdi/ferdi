@@ -12,6 +12,7 @@ import {
   SERVER_NOT_LOADED,
 } from '../config';
 
+// Note: This cannot be used from the internal-server since we are not running within the context of a browser window
 const apiBase = (withVersion = true) => {
   let url;
 

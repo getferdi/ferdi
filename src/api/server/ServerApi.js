@@ -8,7 +8,6 @@ import RecipePreviewModel from '../../models/RecipePreview';
 import RecipeModel from '../../models/Recipe';
 import NewsModel from '../../models/News';
 import UserModel from '../../models/User';
-import OrderModel from '../../models/Order';
 
 import { sleep } from '../../helpers/async-helpers';
 
@@ -587,19 +586,6 @@ export default class ServerApi {
         }
       })
       .filter(newsItem => newsItem !== null);
-  }
-
-  _mapOrderModels(orders) {
-    return orders
-      .map(orderItem => {
-        try {
-          return new OrderModel(orderItem);
-        } catch (e) {
-          console.error(e);
-          return null;
-        }
-      })
-      .filter(orderItem => orderItem !== null);
   }
 
   _getDevRecipes() {

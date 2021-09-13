@@ -32,10 +32,12 @@ class WorkspaceController {
     } while ((await Workspace.query().where('workspaceId', workspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
 
     const order = (await Workspace.all()).rows.length;
+    const name = data.name;
+    delete data.name;
 
     await Workspace.create({
       workspaceId,
-      name: data.name,
+      name,
       order,
       services: JSON.stringify([]),
       data: JSON.stringify(data),
@@ -43,7 +45,7 @@ class WorkspaceController {
 
     return response.send({
       userId: 1,
-      name: data.name,
+      name,
       id: workspaceId,
       order,
       workspaces: [],

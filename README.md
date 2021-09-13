@@ -14,7 +14,7 @@
 <p align="center">
 <img alt="GitHub Releases" src="https://img.shields.io/github/downloads/getferdi/ferdi/latest/total?label=Downloads&logo=iCloud&logoColor=%23FFFFFF">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-97-default.svg?logo=github' alt='Contributors'/></a>
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-99-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="#backers-via-opencollective"><img alt="Open Collective backers" src="https://img.shields.io/opencollective/backers/getferdi?logo=open-collective"></a>
 <a href="#sponsors-via-opencollective"><img alt="Open Collective sponsors" src="https://img.shields.io/opencollective/sponsors/getferdi?logo=open-collective"></a>
@@ -39,6 +39,7 @@
     - [Or use Chocolatey (Windows only)](#or-use-chocolatey-windows-only)
     - [Or use Windows Package Manager (Windows only)](#or-use-windows-package-manager-windows-only)
     - [Or use homebrew (macOS or Linux)](#or-use-homebrew-macos-or-linux)
+    - [Or use snap (Linux only)](#or-use-snap-linux-only)
     - [Or use AUR (Arch Linux)](#or-use-aur-arch-linux)
   - [What makes Ferdi different from Franz?](#what-makes-ferdi-different-from-franz)
     - [Removes unproductive paywalls and other other interruptions](#removes-unproductive-paywalls-and-other-other-interruptions)
@@ -55,7 +56,7 @@
   - [Backers via OpenCollective](#backers-via-opencollective)
   - [Sponsors via OpenCollective](#sponsors-via-opencollective)
   - [Other Sponsors](#other-sponsors)
-</details>
+  </details>
 
 ## What is Ferdi?
 
@@ -64,7 +65,7 @@ Ferdi is a desktop app that helps you organize how you use your favourite apps b
 ## Features
 
 - [x] Ferdi puts all your web apps into one place
-- [x] Native support for 100+ services
+- [x] Native support for 189 services
 - [x] Workspaces to keep your personal and work life separated
 - [x] Support for multiple accounts on any service
 - [x] Dark Mode support for all of your services
@@ -76,7 +77,7 @@ Ferdi is a desktop app that helps you organize how you use your favourite apps b
 
 ...and best of all:
 
-- [x] Its completely free! There are no restrictions on features, no paywalls
+- [x] Its completely free! There are no restrictions on features, no paywalls, no ads
 
 ## What does Ferdi look like?
 
@@ -117,6 +118,14 @@ You can download Ferdi for Windows, Mac and Linux on [Ferdi's download page](htt
 `$ brew install --cask ferdi`
 
 (Don't know homebrew? [brew.sh](https://brew.sh/))
+
+### Or use snap (Linux only)
+
+`$ snap install ferdi`
+
+You can find published releases as `stable`, `beta` and `nightly` channels on [snapcraft.io](https://snapcraft.io/ferdi).
+
+(Don't know snap? [snapcraft.io](https://snapcraft.io/))
 
 ### Or use AUR (Arch Linux)
 
@@ -217,7 +226,7 @@ If you use an AUR Helper e.g. yay, simply install it via `yay -S ferdi`.
 
 ### Adds internal changes
 
-- [x] Upgrades to Electron 13.1.9
+- [x] Upgrades to Electron 13.3.0
 - [x] Switches to [`electron-spellchecker`](https://github.com/electron-userland/electron-spellchecker) to improve application size
 - [x] Minifies build files to improve app size
 - [x] Adds "npm run prepare-code" command for development to lint and beautify code
@@ -262,6 +271,7 @@ Since we (the contributors to Ferdi) also eat our own dog food, we use Ferdi as 
 ## Contributors ✨
 
 Thanks goes to these awesome people:
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -376,6 +386,8 @@ Thanks goes to these awesome people:
   </tr>
   <tr>
     <td align="center"><a href='https://github.com/graves501' title='graves501: doc'><img src='https://avatars.githubusercontent.com/u/11211125?v=4' alt='graves501' style='border-radius:42px;width:42px;height:42px;'/></a></td>
+    <td align="center"><a href='https://www.ekino.com' title='Sadetdin EYILI: code, bug'><img src='https://avatars.githubusercontent.com/u/5607440?v=4' alt='sad270' style='border-radius:42px;width:42px;height:42px;'/></a></td>
+    <td align="center"><a href='https://github.com/Tsakatac' title='Tsakatac: bug'><img src='https://avatars.githubusercontent.com/u/89021195?v=4' alt='Tsakatac' style='border-radius:42px;width:42px;height:42px;'/></a></td>
   </tr>
 </table>
 

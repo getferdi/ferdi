@@ -16,6 +16,7 @@
 **/lerna-debug.log
 **/node_modules
 **/npm-debug.log*
+**/.pnpm-debug.log
 **/server*.log
 **/yarn-error.log
 Dockerfile

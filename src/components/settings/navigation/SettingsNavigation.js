@@ -10,6 +10,7 @@ import { workspaceStore } from '../../../features/workspaces';
 import UIStore from '../../../stores/UIStore';
 import SettingsStore from '../../../stores/SettingsStore';
 import UserStore from '../../../stores/UserStore';
+import globalMessages from '../../../i18n/globalMessages';
 
 const messages = defineMessages({
   availableServices: {
@@ -31,10 +32,6 @@ const messages = defineMessages({
   team: {
     id: 'settings.navigation.team',
     defaultMessage: '!!!Manage Team',
-  },
-  settings: {
-    id: 'settings.navigation.settings',
-    defaultMessage: '!!!Settings',
   },
   supportFerdi: {
     id: 'settings.navigation.supportFerdi',
@@ -159,7 +156,7 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
           className="settings-navigation__link"
           activeClassName="is-active"
         >
-          {intl.formatMessage(messages.settings)}
+          {intl.formatMessage(globalMessages.settings)}
         </Link>
         <Link
           to="/settings/support"

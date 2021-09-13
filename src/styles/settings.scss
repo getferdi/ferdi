@@ -361,11 +361,11 @@
   .settings__delete-button {
     right: 0;
   }
-  .settings__open-recipe-file-button {
+  .settings__open-recipe-file-button, .settings__open-settings-file-button {
     cursor: pointer;
     margin-right: 10px;
   }
-  .settings__open-recipe-file-container {
+  .settings__open-recipe-file-container, .settings__open-settings-file-container {
     margin-top: 20px;
     display: flex;
     height: auto !important;

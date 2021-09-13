@@ -12,12 +12,9 @@ import { todosStore } from '../../features/todos';
 import { todoActions } from '../../features/todos/actions';
 import AppStore from '../../stores/AppStore';
 import SettingsStore from '../../stores/SettingsStore';
+import globalMessages from '../../i18n/globalMessages';
 
 const messages = defineMessages({
-  settings: {
-    id: 'sidebar.settings',
-    defaultMessage: '!!!Settings',
-  },
   addNewService: {
     id: 'sidebar.addNewService',
     defaultMessage: '!!!Add new service',
@@ -40,11 +37,11 @@ const messages = defineMessages({
   },
   openTodosDrawer: {
     id: 'sidebar.openTodosDrawer',
-    defaultMessage: '!!!Open Franz Todos',
+    defaultMessage: '!!!Open Ferdi Todos',
   },
   closeTodosDrawer: {
     id: 'sidebar.closeTodosDrawer',
-    defaultMessage: '!!!Close Franz Todos',
+    defaultMessage: '!!!Close Ferdi Todos',
   },
   lockFerdi: {
     id: 'sidebar.lockFerdi',
@@ -134,6 +131,7 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
           {...this.props}
           enableToolTip={() => this.enableToolTip()}
           disableToolTip={() => this.disableToolTip()}
+          useVerticalStyle={stores.settings.all.app.useVerticalStyle}
         />
         { isLoggedIn ? (
           <>
@@ -214,10 +212,9 @@ export default @inject('stores', 'actions') @observer class Sidebar extends Comp
           type="button"
           onClick={() => openSettings({ path: 'app' })}
           className="sidebar__button sidebar__button--settings"
-          data-tip={`${intl.formatMessage(messages.settings)} (${settingsShortcutKey(false)})`}
+          data-tip={`${intl.formatMessage(globalMessages.settings)} (${settingsShortcutKey(false)})`}
         >
-          {/* TODO: Because of https://github.com/Templarian/MaterialDesign-Webfont/issues/81 bug in @mdi/font in 5.9.55, added `mdi-memory` as a fallback */}
-          <i className="mdi mdi-settings mdi-memory" />
+          <i className="mdi mdi-cog" />
           { (this.props.stores.app.updateStatus === this.props.stores.app.updateStatusTypes.AVAILABLE
             || this.props.stores.app.updateStatus === this.props.stores.app.updateStatusTypes.DOWNLOADED) && (
             <span className="update-available">

@@ -40,7 +40,9 @@ export default class SettingsStore extends Store {
     await this._migrate();
 
     reaction(
-      () => this.all.app.autohideMenuBar,
+      () => (
+        this.all.app.autohideMenuBar
+      ),
       () => {
         const currentWindow = getCurrentWindow();
         currentWindow.setMenuBarVisibility(!this.all.app.autohideMenuBar);
@@ -49,21 +51,21 @@ export default class SettingsStore extends Store {
     );
 
     reaction(
-      () => this.all.app.server,
+      () => (
+        this.all.app.server
+      ),
       (server) => {
         if (server === LOCAL_SERVER) {
           ipcRenderer.send('startLocalServer');
         }
       },
-      {
-        fireImmediately: true,
-      },
+      { fireImmediately: true },
     );
 
     // Inactivity lock timer
     let inactivityTimer;
     getCurrentWindow().on('blur', () => {
-      if (this.all.app.inactivityLock !== 0) {
+      if (this.all.app.lockingFeatureEnabled && this.all.app.inactivityLock !== 0) {
         inactivityTimer = setTimeout(() => {
           this.actions.settings.update({
             type: 'app',

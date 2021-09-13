@@ -43,8 +43,12 @@ export default class UIStore extends Store {
 
   setup() {
     reaction(
-      () => this.isDarkThemeActive,
-      () => this._setupThemeInDOM(),
+      () => (
+        this.isDarkThemeActive
+      ),
+      () => {
+        this._setupThemeInDOM();
+      },
       { fireImmediately: true },
     );
   }

@@ -10,10 +10,7 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { isInTimeframe } from '../helpers/schedule-helpers';
-import {
-  getRecipeDirectory,
-  getDevRecipeDirectory,
-} from '../helpers/recipe-helpers';
+import { getRecipeDirectory, getDevRecipeDirectory } from '../helpers/recipe-helpers';
 import { workspaceStore } from '../features/workspaces';
 import { KEEP_WS_LOADED_USID } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
@@ -128,38 +125,66 @@ export default class ServicesStore extends Store {
   setup() {
     // Single key reactions for the sake of your CPU
     reaction(
-      () => this.stores.settings.app.enableSpellchecking,
-      () => this._shareSettingsWithServiceProcess(),
+      () => (
+        this.stores.settings.app.enableSpellchecking
+      ),
+      () => {
+        this._shareSettingsWithServiceProcess();
+      },
     );
 
     reaction(
-      () => this.stores.settings.app.spellcheckerLanguage,
-      () => this._shareSettingsWithServiceProcess(),
+      () => (
+        this.stores.settings.app.spellcheckerLanguage
+      ),
+      () => {
+        this._shareSettingsWithServiceProcess();
+      },
     );
 
     reaction(
-      () => this.stores.settings.app.darkMode,
-      () => this._shareSettingsWithServiceProcess(),
+      () => (
+        this.stores.settings.app.darkMode
+      ),
+      () => {
+        this._shareSettingsWithServiceProcess();
+      },
     );
 
     reaction(
-      () => this.stores.settings.app.adaptableDarkMode,
-      () => this._shareSettingsWithServiceProcess(),
+      () => (
+        this.stores.settings.app.adaptableDarkMode
+      ),
+      () => {
+        this._shareSettingsWithServiceProcess();
+      },
     );
 
     reaction(
-      () => this.stores.settings.app.universalDarkMode,
-      () => this._shareSettingsWithServiceProcess(),
+      () => (
+        this.stores.settings.app.universalDarkMode
+      ),
+      () => {
+        this._shareSettingsWithServiceProcess();
+      },
     );
 
     reaction(
-      () => this.stores.settings.app.searchEngine,
-      () => this._shareSettingsWithServiceProcess(),
+      () => (
+        this.stores.settings.app.searchEngine
+      ),
+      () => {
+        this._shareSettingsWithServiceProcess();
+      },
     );
 
     reaction(
-      () => this.stores.settings.app.clipboardNotifications,
-      () => this._shareSettingsWithServiceProcess(),
+      () => (
+        this.stores.settings.app.clipboardNotifications
+      ),
+      () => {
+        this._shareSettingsWithServiceProcess();
+      },
     );
   }
 
@@ -190,12 +215,12 @@ export default class ServicesStore extends Store {
    * Run various maintenance tasks on services
    */
   _serviceMaintenance() {
-    this.all.forEach(service => {
+    this.enabled.forEach(service => {
       // Defines which services should be hibernated or woken up
       if (!service.isActive) {
         if (
           !service.lastHibernated &&
-          Date.now() - service.lastUsed >
+          (Date.now() - service.lastUsed) >
             ms(`${this.stores.settings.all.app.hibernationStrategy}s`)
         ) {
           // If service is stale, hibernate it.
@@ -204,21 +229,18 @@ export default class ServicesStore extends Store {
 
         if (
           service.lastHibernated &&
-          Number(this.stores.settings.all.app.wakeUpStrategy) > 0
+          Number(this.stores.settings.all.app.wakeUpStrategy) > 0 &&
+          (Date.now() - service.lastHibernated) >
+          ms(`${this.stores.settings.all.app.wakeUpStrategy}s`)
         ) {
           // If service is in hibernation and the wakeup time has elapsed, wake it.
-          if (
-            Date.now() - service.lastHibernated >
-            ms(`${this.stores.settings.all.app.wakeUpStrategy}s`)
-          ) {
-            this._awake({ serviceId: service.id });
-          }
+          this._awake({ serviceId: service.id });
         }
       }
 
       if (
         service.lastPoll &&
-        service.lastPoll - service.lastPollAnswer > ms('1m')
+        (service.lastPoll - service.lastPollAnswer) > ms('1m')
       ) {
         // If service did not reply for more than 1m try to reload.
         if (!service.isActive) {
@@ -378,27 +400,22 @@ export default class ServicesStore extends Store {
 
     // set default values for serviceData
     // eslint-disable-next-line prefer-object-spread
-    Object.assign(
-      {
-        isEnabled: true,
-        isHibernationEnabled: false,
-        isNotificationEnabled: true,
-        isBadgeEnabled: true,
-        isMuted: false,
-        customIcon: false,
-        isDarkModeEnabled: false,
-        spellcheckerLanguage:
+    // TODO: How is this different from the defaults of the recipe in 'src/models/Recipe' file?
+    serviceData = {
+      isEnabled: true,
+      isHibernationEnabled: false,
+      isNotificationEnabled: true,
+      isBadgeEnabled: true,
+      isMuted: false,
+      customIcon: false,
+      isDarkModeEnabled: false,
+      spellcheckerLanguage:
           SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
-        userAgentPref: '',
-      },
-      serviceData,
-    );
+      userAgentPref: '',
+      ...serviceData,
+    };
 
-    let data = serviceData;
-
-    if (!skipCleanup) {
-      data = this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
-    }
+    const data = skipCleanup ? serviceData : this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
 
     const response = await this.createServiceRequest.execute(recipeId, data)
       ._promise;
@@ -430,12 +447,13 @@ export default class ServicesStore extends Store {
       serviceData.name = data.name;
     }
 
-    if (data.team && !data.customURL) {
-      serviceData.team = data.team;
-    }
-
-    if (data.team && data.customURL) {
-      serviceData.customUrl = data.team;
+    if (data.team) {
+      if (!data.customURL) {
+        serviceData.team = data.team;
+      } else {
+        // TODO: Is this correct?
+        serviceData.customUrl = data.team;
+      }
     }
 
     this.actions.service.createService({
@@ -585,8 +603,12 @@ export default class ServicesStore extends Store {
   }
 
   @action _blurActive() {
-    if (!this.active) return;
-    this.active.isActive = false;
+    const service = this.active;
+    if (service) {
+      service.isActive = false;
+    } else {
+      debug('No service is active');
+    }
   }
 
   @action _setActiveNext() {
@@ -596,9 +618,8 @@ export default class ServicesStore extends Store {
       this.allDisplayed.length,
     );
 
-    // TODO: simplify this;
-    this.all.forEach((s, index) => {
-      this.all[index].isActive = false;
+    this.all.forEach(s => {
+      s.isActive = false;
     });
     this.allDisplayed[nextIndex].isActive = true;
   }
@@ -610,9 +631,8 @@ export default class ServicesStore extends Store {
       this.allDisplayed.length,
     );
 
-    // TODO: simplify this;
-    this.all.forEach((s, index) => {
-      this.all[index].isActive = false;
+    this.all.forEach(s => {
+      s.isActive = false;
     });
     this.allDisplayed[prevIndex].isActive = true;
   }
@@ -662,6 +682,8 @@ export default class ServicesStore extends Store {
       const service = this.active;
       if (service) {
         this._focusService({ serviceId: service.id });
+      } else {
+        debug('No service is active');
       }
     } else {
       this.allServicesRequest.invalidate();
@@ -830,12 +852,13 @@ export default class ServicesStore extends Store {
   }
 
   @action _reloadActive() {
-    if (this.active) {
-      const service = this.one(this.active.id);
-
+    const service = this.active;
+    if (service) {
       this._reload({
         serviceId: service.id,
       });
+    } else {
+      debug('No service is active');
     }
   }
 
@@ -877,6 +900,7 @@ export default class ServicesStore extends Store {
     );
 
     const services = {};
+    // TODO: simplify this
     this.all.forEach((s, index) => {
       services[this.all[index].id] = index;
     });
@@ -905,8 +929,6 @@ export default class ServicesStore extends Store {
 
   @action _toggleAudio({ serviceId }) {
     const service = this.one(serviceId);
-
-    service.isNotificationEnabled = !service.isNotificationEnabled;
 
     this.actions.service.updateService({
       serviceId,
@@ -1000,12 +1022,13 @@ export default class ServicesStore extends Store {
     if (service) {
       this.actions.service.focusService({ serviceId: service.id });
       document.title = `Ferdi - ${service.name}`;
+    } else {
+      debug('No service is active');
     }
   }
 
   _saveActiveService() {
     const service = this.active;
-
     if (service) {
       this.actions.settings.update({
         type: 'service',
@@ -1013,6 +1036,8 @@ export default class ServicesStore extends Store {
           activeService: service.id,
         },
       });
+    } else {
+      debug('No service is active');
     }
   }
 

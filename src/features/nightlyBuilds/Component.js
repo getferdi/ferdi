@@ -11,6 +11,7 @@ import { state as ModalState } from './store';
 import SettingsStore from '../../stores/SettingsStore';
 import UIStore from '../../stores/UIStore';
 import UserStore from '../../stores/UserStore';
+import globalMessages from '../../i18n/globalMessages';
 
 const messages = defineMessages({
   title: {
@@ -24,10 +25,6 @@ const messages = defineMessages({
   activate: {
     id: 'feature.nightlyBuilds.activate',
     defaultMessage: '!!!Activate',
-  },
-  cancel: {
-    id: 'feature.nightlyBuilds.cancel',
-    defaultMessage: '!!!Cancel',
   },
 });
 
@@ -55,7 +52,7 @@ const styles = () => ({
   },
 });
 
-export default @injectSheet(styles) @inject('stores', 'actions') @observer class nightlyBuildsModal extends Component {
+export default @injectSheet(styles) @inject('stores', 'actions') @observer class NightlyBuildsModal extends Component {
   static contextTypes = {
     intl: intlShape,
   };
@@ -114,7 +111,7 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
           />
           <Button
             type="button"
-            label={intl.formatMessage(messages.cancel)}
+            label={intl.formatMessage(globalMessages.cancel)}
             className={classes.button}
             onClick={() => this.close()}
           />
@@ -124,7 +121,7 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
   }
 }
 
-nightlyBuildsModal.wrappedComponent.propTypes = {
+NightlyBuildsModal.wrappedComponent.propTypes = {
   stores: PropTypes.shape({
     settings: PropTypes.instanceOf(SettingsStore).isRequired,
   }).isRequired,

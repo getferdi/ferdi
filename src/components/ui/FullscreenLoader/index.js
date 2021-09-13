@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import injectSheet, { withTheme } from 'react-jss';
 import classnames from 'classnames';
 
@@ -8,7 +8,7 @@ import Loader from '../Loader';
 
 import styles from './styles';
 
-export default @inject('stores') @withTheme @injectSheet(styles) @observer class FullscreenLoader extends Component {
+export default @withTheme @injectSheet(styles) @observer class FullscreenLoader extends Component {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
@@ -16,16 +16,6 @@ export default @inject('stores') @withTheme @injectSheet(styles) @observer class
     theme: PropTypes.object.isRequired,
     spinnerColor: PropTypes.string,
     children: PropTypes.node,
-    stores: PropTypes.shape({
-      app: PropTypes.shape({
-        accentColor: PropTypes.string.isRequired,
-      }).isRequired,
-      settings: PropTypes.shape({
-        app: PropTypes.shape({
-          accentColor: PropTypes.string.isRequired,
-        }).isRequired,
-      }).isRequired,
-    }).isRequired,
   };
 
   static defaultProps = {
@@ -42,16 +32,10 @@ export default @inject('stores') @withTheme @injectSheet(styles) @observer class
       spinnerColor,
       className,
       theme,
-      stores,
     } = this.props;
 
     return (
-      <div
-        className={classes.wrapper}
-        style={{
-          background: stores.app.accentColor,
-        }}
-      >
+      <div className={classes.wrapper}>
         <div
           className={classnames({
             [`${classes.component}`]: true,

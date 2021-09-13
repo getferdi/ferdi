@@ -118,8 +118,12 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
     this.openService = this.openService.bind(this);
 
     reaction(
-      () => ModalState.isModalVisible,
-      this._handleVisibilityChange,
+      () => (
+        ModalState.isModalVisible
+      ),
+      () => {
+        this._handleVisibilityChange();
+      },
     );
   }
 

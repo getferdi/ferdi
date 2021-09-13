@@ -9,6 +9,7 @@ import Input from '../ui/Input';
 import Button from '../ui/Button';
 import Link from '../ui/Link';
 import Infobox from '../ui/Infobox';
+import globalMessages from '../../i18n/globalMessages';
 
 const messages = defineMessages({
   headline: {
@@ -18,10 +19,6 @@ const messages = defineMessages({
   emailLabel: {
     id: 'password.email.label',
     defaultMessage: '!!!Email address',
-  },
-  submitButtonLabel: {
-    id: 'password.submit.label',
-    defaultMessage: '!!!Submit',
   },
   successInfo: {
     id: 'password.successInfo',
@@ -112,7 +109,7 @@ export default @observer class Password extends Component {
             <Button
               className="auth__button is-loading"
               buttonType="secondary"
-              label={`${intl.formatMessage(messages.submitButtonLabel)} ...`}
+              label={`${intl.formatMessage(globalMessages.submit)} ...`}
               loaded={false}
               disabled
             />
@@ -120,7 +117,7 @@ export default @observer class Password extends Component {
             <Button
               type="submit"
               className="auth__button"
-              label={intl.formatMessage(messages.submitButtonLabel)}
+              label={intl.formatMessage(globalMessages.submit)}
             />
           )}
         </form>

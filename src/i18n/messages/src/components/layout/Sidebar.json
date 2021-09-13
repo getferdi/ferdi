@@ -1,27 +1,14 @@
 [
   {
-    "id": "sidebar.settings",
-    "defaultMessage": "!!!Settings",
-    "file": "src/components/layout/Sidebar.js",
-    "start": {
-      "line": 17,
-      "column": 12
-    },
-    "end": {
-      "line": 20,
-      "column": 3
-    }
-  },
-  {
     "id": "sidebar.addNewService",
     "defaultMessage": "!!!Add new service",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 21,
+      "line": 18,
       "column": 17
     },
     "end": {
-      "line": 24,
+      "line": 21,
       "column": 3
     }
   },
@@ -30,11 +17,11 @@
     "defaultMessage": "!!!Disable notifications & audio",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 25,
+      "line": 22,
       "column": 8
     },
     "end": {
-      "line": 28,
+      "line": 25,
       "column": 3
     }
   },
@@ -43,11 +30,11 @@
     "defaultMessage": "!!!Enable notifications & audio",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 29,
+      "line": 26,
       "column": 10
     },
     "end": {
-      "line": 32,
+      "line": 29,
       "column": 3
     }
   },
@@ -56,11 +43,11 @@
     "defaultMessage": "!!!Open workspace drawer",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 33,
+      "line": 30,
       "column": 23
     },
     "end": {
-      "line": 36,
+      "line": 33,
       "column": 3
     }
   },
@@ -69,37 +56,37 @@
     "defaultMessage": "!!!Close workspace drawer",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 37,
+      "line": 34,
       "column": 24
     },
     "end": {
-      "line": 40,
+      "line": 37,
       "column": 3
     }
   },
   {
     "id": "sidebar.openTodosDrawer",
-    "defaultMessage": "!!!Open Franz Todos",
+    "defaultMessage": "!!!Open Ferdi Todos",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 41,
+      "line": 38,
       "column": 19
     },
     "end": {
-      "line": 44,
+      "line": 41,
       "column": 3
     }
   },
   {
     "id": "sidebar.closeTodosDrawer",
-    "defaultMessage": "!!!Close Franz Todos",
+    "defaultMessage": "!!!Close Ferdi Todos",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 45,
+      "line": 42,
       "column": 20
     },
     "end": {
-      "line": 48,
+      "line": 45,
       "column": 3
     }
   },
@@ -108,11 +95,11 @@
     "defaultMessage": "!!!Lock Ferdi",
     "file": "src/components/layout/Sidebar.js",
     "start": {
-      "line": 49,
+      "line": 46,
       "column": 13
     },
     "end": {
-      "line": 52,
+      "line": 49,
       "column": 3
     }
   }
