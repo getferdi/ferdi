@@ -17,7 +17,8 @@
         "node": true
       },
       "extends": [
-        "airbnb-typescript"
+        "airbnb-typescript",
+        "plugin:react-hooks/recommended"
       ],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
@@ -69,7 +70,10 @@
         "react/jsx-props-no-spreading": 0,
         "react/no-deprecated": 1,
         "react/no-array-index-key": 0,
-        "react/prefer-stateless-function": 0,
+        "react/no-unused-prop-types": 1,
+        "react/prefer-stateless-function": 1,
+        "react/prop-types": 1,
+        "react/require-default-props": 0,
         "react/sort-comp": 0,
         "react/state-in-constructor": 0,
         "react/static-property-placement": 0,
@@ -117,7 +121,7 @@
   "rules": {
     // eslint
     "arrow-parens": 0,
-    "class-methods-use-this": 0,
+    "class-methods-use-this": 1,
     "consistent-return": 1,
     "implicit-arrow-linebreak": 0,
     "function-paren-newline": 0,
@@ -151,7 +155,10 @@
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-no-bind": 1,
     "react/jsx-props-no-spreading": 0,
+    "react/no-unused-prop-types": 1,
     "react/prefer-stateless-function": 1,
+    "react/prop-types": 1,
+    "react/require-default-props": 1,
     "react/static-property-placement": 0,
     "react/state-in-constructor": 1,
     "react/sort-comp": 0,

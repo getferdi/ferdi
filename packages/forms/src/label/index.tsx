@@ -1,7 +1,6 @@
 import classnames from 'classnames';
-import { Classes } from 'jss';
-import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { IFormField } from '../typings/generic';
 
@@ -10,45 +9,37 @@ import styles from './styles';
 interface ILabel
   extends IFormField,
     React.LabelHTMLAttributes<HTMLLabelElement> {
-  classes: Classes;
-  isRequired: boolean;
+  isRequired?: boolean;
 }
 
-class LabelComponent extends Component<ILabel> {
-  static defaultProps = {
-    showLabel: true,
-  };
+const useStyles = createUseStyles(styles);
 
-  render() {
-    const {
-      title,
-      showLabel,
-      classes,
-      className,
-      children,
-      htmlFor,
-      isRequired,
-    } = this.props;
+export const Label = ({
+  title,
+  showLabel = true,
+  className,
+  children,
+  htmlFor,
+  isRequired = false,
+}: ILabel) => {
+  const classes = useStyles();
 
-    if (!showLabel) return children;
+  if (!showLabel) return <>{children}</>;
 
-    return (
-      <label
-        className={classnames({
-          [`${className}`]: className,
-        })}
-        htmlFor={htmlFor}
-      >
-        {showLabel && (
-          <span className={classes.label}>
-            {title}
-            {isRequired && ' *'}
-          </span>
-        )}
-        <div className={classes.content}>{children}</div>
-      </label>
-    );
-  }
-}
-
-export const Label = injectSheet(styles)(LabelComponent);
+  return (
+    <label
+      className={classnames({
+        [`${className}`]: className,
+      })}
+      htmlFor={htmlFor}
+    >
+      {showLabel && (
+        <span className={classes.label}>
+          {title}
+          {isRequired && ' *'}
+        </span>
+      )}
+      <div className={classes.content}>{children}</div>
+    </label>
+  );
+};

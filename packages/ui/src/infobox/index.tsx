@@ -1,13 +1,12 @@
 import { mdiClose } from '@mdi/js';
 import classnames from 'classnames';
-import React, { Component } from 'react';
-import injectStyle from 'react-jss';
+import React, { useEffect, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { Icon } from '..';
 import { Theme } from '../../../theme';
-import { IWithStyle } from '../typings/generic';
 
-interface IProps extends IWithStyle {
+interface IProps {
   icon?: string;
   type?: string;
   dismissable?: boolean;
@@ -15,14 +14,8 @@ interface IProps extends IWithStyle {
   onUnmount?: () => void;
   ctaOnClick?: () => void;
   ctaLabel?: string;
-  ctaLoading?: boolean;
   children: React.ReactNode;
   className: string;
-}
-
-interface IState {
-  isDismissing: boolean;
-  dismissed: boolean;
 }
 
 const buttonStyles = (theme: Theme) => {
@@ -43,17 +36,7 @@ const buttonStyles = (theme: Theme) => {
 
   return styles;
 };
-
-const infoBoxTransition: string = 'none';
-const ctaTransition: string = 'none';
-
-// TODO: Not sure why, but this location alone, the `dinwo` is not defined - and it throws an error thus aborting the startup sequence of ferdi
-// if (window && window.matchMedia('(prefers-reduced-motion: no-preference)')) {
-//   infoBoxTransition = 'all 0.5s';
-//   ctaTransition = 'opacity 0.3s';
-// }
-
-const styles = (theme: Theme) => ({
+const useStyles = createUseStyles((theme: Theme) => ({
   wrapper: {
     position: 'relative',
     overflow: 'hidden',
@@ -67,7 +50,7 @@ const styles = (theme: Theme) => ({
     height: 'auto',
     padding: '15px 20px',
     top: 0,
-    transition: infoBoxTransition,
+    transition: 'all 0.5s',
     opacity: 1,
   },
   dismissing: {
@@ -100,106 +83,84 @@ const styles = (theme: Theme) => ({
     marginLeft: 15,
     padding: [4, 10],
     fontSize: theme.uiFontSize,
-    transition: ctaTransition,
+    transition: 'opacity 0.3s',
 
     '&:hover': {
       opacity: 0.6,
     },
   },
   ...buttonStyles(theme),
-});
+}));
 
-class InfoboxComponent extends Component<IProps, IState> {
-  public static defaultProps = {
-    type: 'primary',
-    dismissable: false,
-    ctaOnClick: () => {},
-    onDismiss: () => {},
-    ctaLabel: '',
-    ctaLoading: false,
-  };
+export const Infobox = ({
+  icon,
+  type = 'primary',
+  dismissable = false,
+  onDismiss = () => {},
+  onUnmount = () => {},
+  ctaOnClick = () => {},
+  ctaLabel = '',
+  children,
+  className,
+}: IProps) => {
+  const [isDismissing, setIsDismissing] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
-  state = {
-    isDismissing: false,
-    dismissed: false,
-  };
+  const classes = useStyles();
 
-  dismiss() {
-    const { onDismiss } = this.props;
-
-    this.setState({
-      isDismissing: true,
-    });
+  const dismiss = () => {
+    setIsDismissing(true);
 
     if (onDismiss) {
       onDismiss();
     }
 
     setTimeout(() => {
-      this.setState({
-        dismissed: true,
-      });
+      setDismissed(true);
     }, 3000);
+  };
+
+  // eslint-disable-next-line arrow-body-style
+  useEffect(() => {
+    return () => {
+      if (onUnmount) {
+        onUnmount();
+      }
+    };
+  }, [onUnmount]);
+
+  if (dismissed) {
+    return null;
   }
 
-  componentWillUnmount(): void {
-    const { onUnmount } = this.props;
-    if (onUnmount) onUnmount();
-  }
-
-  render() {
-    const {
-      classes,
-      children,
-      icon,
-      type,
-      ctaLabel,
-      ctaOnClick,
-      dismissable,
-      className,
-    } = this.props;
-
-    const { isDismissing, dismissed } = this.state;
-
-    if (dismissed) {
-      return null;
-    }
-
-    return (
+  return (
+    <div
+      className={classnames({
+        [classes.wrapper]: true,
+        [`${className}`]: className,
+      })}
+    >
       <div
         className={classnames({
-          [classes.wrapper]: true,
-          [`${className}`]: className,
+          [classes.infobox]: true,
+          [classes[`${type}`]]: type,
+          [classes.dismissing]: isDismissing,
         })}
+        data-type="franz-infobox"
       >
-        <div
-          className={classnames({
-            [classes.infobox]: true,
-            [classes[`${type}`]]: type,
-            [classes.dismissing]: isDismissing,
-          })}
-          data-type="franz-infobox"
-        >
-          {icon && <Icon icon={icon} className={classes.icon} />}
-          <div className={classes.content}>{children}</div>
-          {ctaLabel && (
-            <button className={classes.cta} onClick={ctaOnClick} type="button">
-              {ctaLabel}
-            </button>
-          )}
-          {dismissable && (
-            <button
-              type="button"
-              onClick={this.dismiss.bind(this)}
-              className={classes.close}
-            >
-              <Icon icon={mdiClose} />
-            </button>
-          )}
-        </div>
+        {icon && <Icon icon={icon} className={classes.icon} />}
+        <div className={classes.content}>{children}</div>
+        {ctaLabel && (
+          <button className={classes.cta} onClick={ctaOnClick} type="button">
+            {ctaLabel}
+          </button>
+        )}
+        {dismissable && (
+          <button type="button" onClick={dismiss} className={classes.close}>
+            <Icon icon={mdiClose} />
+          </button>
+        )}
       </div>
-    );
-  }
-}
-
-export const Infobox = injectStyle(styles)(InfoboxComponent);
+    </div>
+  );
+};

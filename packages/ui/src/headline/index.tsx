@@ -1,18 +1,17 @@
 import classnames from 'classnames';
-import React, { Component } from 'react';
-import injectStyle from 'react-jss';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { Theme } from '../../../theme';
-import { IWithStyle, Omit } from '../typings/generic';
 
-interface IProps extends IWithStyle {
+interface IProps {
   level?: number;
   className?: string;
   children: string | React.ReactNode;
   id?: string;
 }
 
-const styles = (theme: Theme) => ({
+const useStyles = createUseStyles((theme: Theme) => ({
   headline: {
     fontWeight: 'lighter',
     color: theme.colorText,
@@ -33,31 +32,27 @@ const styles = (theme: Theme) => ({
   h4: {
     fontSize: theme.uiFontSize,
   },
-});
+}));
 
-class HeadlineComponent extends Component<IProps> {
-  render() {
-    const { classes, level, className, children, id } = this.props;
+export const Headline = ({ level, className, children, id }: IProps) => {
+  const classes = useStyles();
 
-    return React.createElement(
-      `h${level}`,
-      {
-        id,
-        className: classnames({
-          [classes.headline]: true,
-          [classes[level ? `h${level}` : 'h1']]: true,
-          [`${className}`]: className,
-        }),
-        'data-type': 'franz-headline',
-      },
-      children,
-    );
-  }
-}
+  return React.createElement(
+    `h${level}`,
+    {
+      id,
+      className: classnames({
+        [classes.headline]: true,
+        [classes[level ? `h${level}` : 'h1']]: true,
+        [`${className}`]: className,
+      }),
+      'data-type': 'franz-headline',
+    },
+    children,
+  );
+};
 
-const Headline = injectStyle(styles)(HeadlineComponent);
-
-const createH = (level: number) => (props: Omit<IProps, 'classes' | 'theme'>) =>
+const createH = (level: number) => (props: IProps) =>
   (
     <Headline level={level} {...props}>
       {props.children}

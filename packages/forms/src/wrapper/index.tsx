@@ -1,37 +1,34 @@
 import classnames from 'classnames';
-import React, { Component } from 'react';
-import injectStyle from 'react-jss';
-import { IWithStyle } from '../typings/generic';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 
-interface IProps extends IWithStyle {
+interface IProps {
   children: React.ReactNode;
   className?: string;
   identifier: string;
   noMargin?: boolean;
 }
 
-const styles = {
+const useStyles = createUseStyles({
   container: {
     marginBottom: (props: IProps) => (props.noMargin ? 0 : 20),
   },
+});
+
+export const Wrapper = (props: IProps) => {
+  const { children, className, identifier } = props;
+
+  const classes = useStyles();
+
+  return (
+    <div
+      className={classnames({
+        [`${classes.container}`]: true,
+        [`${className}`]: className,
+      })}
+      data-type={identifier}
+    >
+      {children}
+    </div>
+  );
 };
-
-class WrapperComponent extends Component<IProps> {
-  render() {
-    const { children, classes, className, identifier } = this.props;
-
-    return (
-      <div
-        className={classnames({
-          [`${classes.container}`]: true,
-          [`${className}`]: className,
-        })}
-        data-type={identifier}
-      >
-        {children}
-      </div>
-    );
-  }
-}
-
-export const Wrapper = injectStyle(styles)(WrapperComponent);

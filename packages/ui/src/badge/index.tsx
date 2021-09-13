@@ -1,11 +1,10 @@
 import classnames from 'classnames';
-import React, { Component } from 'react';
-import injectStyle from 'react-jss';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
 
 import { Theme } from '../../../theme';
-import { IWithStyle } from '../typings/generic';
 
-interface IProps extends IWithStyle {
+interface IProps {
   type: string;
   className?: string;
   children: React.ReactNode;
@@ -26,7 +25,7 @@ const badgeStyles = (theme: Theme) => {
   return styles;
 };
 
-const styles = (theme: Theme) => ({
+const useStyles = createUseStyles((theme: Theme) => ({
   badge: {
     display: 'inline-block',
     padding: [3, 8, 4],
@@ -43,29 +42,23 @@ const styles = (theme: Theme) => ({
     },
   },
   ...badgeStyles(theme),
-});
+}));
 
-class BadgeComponent extends Component<IProps> {
-  public static defaultProps = {
-    type: 'primary',
-  };
+export const Badge = (props: IProps) => {
+  const { children, type = 'primary', className } = props;
 
-  render() {
-    const { classes, children, type, className } = this.props;
+  const classes = useStyles();
 
-    return (
-      <div
-        className={classnames({
-          [classes.badge]: true,
-          [classes[type]]: true,
-          [`${className}`]: className,
-        })}
-        data-type="franz-badge"
-      >
-        {children}
-      </div>
-    );
-  }
-}
-
-export const Badge = injectStyle(styles)(BadgeComponent);
+  return (
+    <div
+      className={classnames({
+        [classes.badge]: true,
+        [classes[type]]: true,
+        [`${className}`]: className,
+      })}
+      data-type="franz-badge"
+    >
+      {children}
+    </div>
+  );
+};
