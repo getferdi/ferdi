@@ -17,7 +17,7 @@ const messages = defineMessages({
   },
   headlineDangerZone: {
     id: 'settings.account.headlineDangerZone',
-    defaultMessage: '!!Danger Zone',
+    defaultMessage: 'Danger Zone',
   },
   accountEditButton: {
     id: 'settings.account.account.editButton',
@@ -25,7 +25,7 @@ const messages = defineMessages({
   },
   invoicesButton: {
     id: 'settings.account.headlineInvoices',
-    defaultMessage: '!!Invoices',
+    defaultMessage: 'Invoices',
   },
   userInfoRequestFailed: {
     id: 'settings.account.userInfoRequestFailed',

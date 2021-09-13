@@ -30,7 +30,7 @@ const messages = defineMessages({
   },
   addNewWorkspaceLabel: {
     id: 'workspaceDrawer.addNewWorkspaceLabel',
-    defaultMessage: 'add new workspace',
+    defaultMessage: 'Add new workspace',
   },
 });
 

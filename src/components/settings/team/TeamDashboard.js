@@ -23,7 +23,7 @@ const messages = defineMessages({
   intro: {
     id: 'settings.team.intro',
     defaultMessage:
-      'Your are currently using Franz Servers, which is why you have access to Team Management.',
+      'You are currently using Franz Servers, which is why you have access to Team Management.',
   },
   copy: {
     id: 'settings.team.copy',

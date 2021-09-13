@@ -47,8 +47,7 @@ const messages = defineMessages({
   },
   todoServerInfo: {
     id: 'settings.app.todoServerInfo',
-    defaultMessage:
-      'This server will be used for the "Franz Todo" feature. (default: https://app.franztodos.com)',
+    defaultMessage: 'This server will be used for the "Ferdi Todo" feature.',
   },
   lockedPassword: {
     id: 'settings.app.lockedPassword',

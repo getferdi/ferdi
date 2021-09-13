@@ -19,7 +19,7 @@ const messages = defineMessages({
   },
   textListContributors: {
     id: 'settings.supportFerdi.textListContributors',
-    defaultMessage: 'Full list of contributor',
+    defaultMessage: 'Full list of contributors',
   },
   textListContributorsHere: {
     id: 'settings.supportFerdi.textListContributorsHere',
