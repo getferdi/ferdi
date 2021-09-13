@@ -1,3 +1,9 @@
+# [v5.6.2-nightly.3](https://github.com/getferdi/ferdi/compare/v5.6.2-nightly.2...v5.6.2-nightly.3) (2021-09-14)
+
+### Bug Fixes
+
+- Better implementation of prompting before quitting Ferdi (#1919) 💖 @vraravam
+
 # [v5.6.2-nightly.2](https://github.com/getferdi/ferdi/compare/v5.6.2-nightly.1...v5.6.2-nightly.2) (2021-09-13)
 
 ### Services

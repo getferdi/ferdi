@@ -352,7 +352,7 @@ const createWindow = () => {
     openExternalUrl(url);
   });
 
-  if (retrieveSettingValue('startMinimized')) {
+  if (retrieveSettingValue('startMinimized', false)) {
     mainWindow.hide();
   } else {
     mainWindow.show();
