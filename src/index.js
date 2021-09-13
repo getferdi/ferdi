@@ -83,14 +83,18 @@ if (isWindows) {
 const settings = new Settings('app', DEFAULT_APP_SETTINGS);
 const proxySettings = new Settings('proxy');
 
-const retrieveSettingValue = (key, defaultValue = true) => ifUndefinedBoolean(settings.get(key), defaultValue);
+const retrieveSettingValue = (key, defaultValue = true) =>
+  ifUndefinedBoolean(settings.get(key), defaultValue);
 
 if (retrieveSettingValue('sentry')) {
   // eslint-disable-next-line global-require
   require('./sentry');
 }
 
-const liftSingleInstanceLock = retrieveSettingValue('liftSingleInstanceLock', false);
+const liftSingleInstanceLock = retrieveSettingValue(
+  'liftSingleInstanceLock',
+  false,
+);
 
 // Force single window
 const gotTheLock = liftSingleInstanceLock
@@ -205,9 +209,8 @@ const createWindow = () => {
     minWidth: 600,
     minHeight: 500,
     show: false,
-    titleBarStyle: isMac ? 'hidden' : '',
+    titleBarStyle: isMac ? 'hidden' : 'default',
     frame: isLinux,
-    spellcheck: retrieveSettingValue('enableSpellchecking'),
     backgroundColor,
     webPreferences: {
       nodeIntegration: true,
@@ -283,10 +286,7 @@ const createWindow = () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    if (
-      !willQuitApp &&
-      retrieveSettingValue('runInBackground')
-    ) {
+    if (!willQuitApp && retrieveSettingValue('runInBackground')) {
       e.preventDefault();
       if (isWindows) {
         debug('Window: minimize');
@@ -486,7 +486,9 @@ ipcMain.on('open-browser-window', (e, { url, serviceId }) => {
 ipcMain.on(
   'modifyRequestHeaders',
   (e, { modifiedRequestHeaders, serviceId }) => {
-    debug(`Received modifyRequestHeaders ${modifiedRequestHeaders} for serviceId ${serviceId}`);
+    debug(
+      `Received modifyRequestHeaders ${modifiedRequestHeaders} for serviceId ${serviceId}`,
+    );
     modifiedRequestHeaders.forEach(headerFilterSet => {
       const { headers, requestFilters } = headerFilterSet;
       session
@@ -504,23 +506,22 @@ ipcMain.on(
   },
 );
 
-ipcMain.on(
-  'knownCertificateHosts',
-  (e, { knownHosts, serviceId }) => {
-    debug(`Received knownCertificateHosts ${knownHosts} for serviceId ${serviceId}`);
-    session
-      .fromPartition(`persist:service-${serviceId}`)
-      .setCertificateVerifyProc((request, callback) => {
-        // To know more about these callbacks: https://www.electronjs.org/docs/api/session#sessetcertificateverifyprocproc
-        const { hostname } = request;
-        if (knownHosts.find(item => item.includes(hostname)).length > 0) {
-          callback(0);
-        } else {
-          callback(-2);
-        }
-      });
-  },
-);
+ipcMain.on('knownCertificateHosts', (e, { knownHosts, serviceId }) => {
+  debug(
+    `Received knownCertificateHosts ${knownHosts} for serviceId ${serviceId}`,
+  );
+  session
+    .fromPartition(`persist:service-${serviceId}`)
+    .setCertificateVerifyProc((request, callback) => {
+      // To know more about these callbacks: https://www.electronjs.org/docs/api/session#sessetcertificateverifyprocproc
+      const { hostname } = request;
+      if (knownHosts.find(item => item.includes(hostname)).length > 0) {
+        callback(0);
+      } else {
+        callback(-2);
+      }
+    });
+});
 
 ipcMain.on('feature-basic-auth-cancel', () => {
   debug('Cancel basic auth');
@@ -575,7 +576,7 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('before-quit', (event) => {
+app.on('before-quit', event => {
   const yesButtonIndex = 0;
   let selection = yesButtonIndex;
   if (retrieveSettingValue('confirmOnQuit')) {
@@ -583,10 +584,7 @@ app.on('before-quit', (event) => {
       type: 'question',
       message: 'Quit',
       detail: 'Do you really want to quit Ferdi?',
-      buttons: [
-        'Yes',
-        'No',
-      ],
+      buttons: ['Yes', 'No'],
     });
   }
   if (selection === yesButtonIndex) {

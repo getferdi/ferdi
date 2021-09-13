@@ -1,13 +1,15 @@
-import {
-  action, observable, computed, reaction,
-} from 'mobx';
-import { theme } from '@meetfranz/theme';
+import { action, observable, computed, reaction } from 'mobx';
+import { theme, ThemeType } from '@meetfranz/theme';
 import { nativeTheme, systemPreferences } from '@electron/remote';
 
 import Store from './lib/Store';
 import { isMac, isWindows } from '../environment';
 
 export default class UIStore extends Store {
+  actions: any;
+
+  stores: any;
+
   @observable showServicesUpdatedInfoBar = false;
 
   @observable isOsDarkThemeActive = nativeTheme.shouldUseDarkColors;
@@ -43,9 +45,7 @@ export default class UIStore extends Store {
 
   setup() {
     reaction(
-      () => (
-        this.isDarkThemeActive
-      ),
+      () => this.isDarkThemeActive,
       () => {
         this._setupThemeInDOM();
       },
@@ -57,24 +57,31 @@ export default class UIStore extends Store {
     const settings = this.stores.settings.all;
 
     return (
-      (settings.app.isAppMuted && settings.app.showMessageBadgeWhenMuted)
-      || !settings.app.isAppMuted
+      (settings.app.isAppMuted && settings.app.showMessageBadgeWhenMuted) ||
+      !settings.app.isAppMuted
     );
   }
 
   @computed get isDarkThemeActive() {
-    const isWithAdaptableInDarkMode = this.stores.settings.all.app.adaptableDarkMode
-      && this.isOsDarkThemeActive;
-    const isWithoutAdaptableInDarkMode = this.stores.settings.all.app.darkMode
-      && !this.stores.settings.all.app.adaptableDarkMode;
+    const isWithAdaptableInDarkMode =
+      this.stores.settings.all.app.adaptableDarkMode &&
+      this.isOsDarkThemeActive;
+    const isWithoutAdaptableInDarkMode =
+      this.stores.settings.all.app.darkMode &&
+      !this.stores.settings.all.app.adaptableDarkMode;
     const isInDarkMode = this.stores.settings.all.app.darkMode;
-    return !!(isWithAdaptableInDarkMode
-      || isWithoutAdaptableInDarkMode
-      || isInDarkMode);
+    return !!(
+      isWithAdaptableInDarkMode ||
+      isWithoutAdaptableInDarkMode ||
+      isInDarkMode
+    );
   }
 
   @computed get theme() {
-    const themeId = (this.isDarkThemeActive || this.stores.settings.app.darkMode) ? 'dark' : 'default';
+    const themeId =
+      this.isDarkThemeActive || this.stores.settings.app.darkMode
+        ? ThemeType.dark
+        : ThemeType.default;
     const { accentColor } = this.stores.settings.app;
     return theme(themeId, accentColor);
   }
@@ -102,9 +109,9 @@ export default class UIStore extends Store {
     const body = document.querySelector('body');
 
     if (!this.isDarkThemeActive) {
-      body.classList.remove('theme__dark');
+      body?.classList.remove('theme__dark');
     } else {
-      body.classList.add('theme__dark');
+      body?.classList.add('theme__dark');
     }
   }
 }

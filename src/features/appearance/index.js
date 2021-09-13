@@ -10,13 +10,15 @@ function createStyleElement() {
   const styles = document.createElement('style');
   styles.id = STYLE_ELEMENT_ID;
 
-  document.querySelector('head').appendChild(styles);
+  document.querySelector('head')?.appendChild(styles);
 }
 
 function setAppearance(style) {
   const styleElement = document.getElementById(STYLE_ELEMENT_ID);
 
-  styleElement.innerHTML = style;
+  if (styleElement) {
+    styleElement.innerHTML = style;
+  }
 }
 
 // See https://github.com/Qix-/color/issues/53#issuecomment-656590710
@@ -28,7 +30,7 @@ function darkenAbsolute(originalColor, absoluteChange) {
 function generateAccentStyle(accentColorStr) {
   let style = '';
 
-  Object.keys(themeInfo).forEach((property) => {
+  Object.keys(themeInfo).forEach(property => {
     style += `
       ${themeInfo[property]} {
         ${property}: ${accentColorStr};
@@ -80,19 +82,21 @@ function generateServiceRibbonWidthStyle(widthStr, iconSizeStr, vertical) {
   const width = Number(widthStr);
   const iconSize = Number(iconSizeStr) - iconSizeBias;
 
-  return vertical ? `
+  return vertical
+    ? `
     .tab-item {
       width: ${width - 2}px !important;
       height: ${width - 5 + iconSize}px !important;
       min-height: unset;
     }
     .tab-item .tab-item__icon {
-      width: ${(width / 2) + iconSize}px !important;
+      width: ${width / 2 + iconSize}px !important;
     }
     .sidebar__button {
       font-size: ${width / 3}px !important;
     }
-  ` : `
+  `
+    : `
     .sidebar {
       width: ${width}px !important;
     }
@@ -101,7 +105,7 @@ function generateServiceRibbonWidthStyle(widthStr, iconSizeStr, vertical) {
       height: ${width - 5 + iconSize}px !important;
     }
     .tab-item .tab-item__icon {
-      width: ${(width / 2) + iconSize}px !important;
+      width: ${width / 2 + iconSize}px !important;
     }
     .sidebar__button {
       font-size: ${width / 3}px !important;
@@ -145,9 +149,13 @@ function generateVerticalStyle(widthStr, alwaysShowWorkspaces) {
   return `
   .sidebar {
     height: ${sidebarWidth + verticalStyleOffset + 1}px !important;
-  ${alwaysShowWorkspaces ? `
+  ${
+  alwaysShowWorkspaces
+    ? `
     width: calc(100% - 300px) !important;
-  ` : ''}
+  `
+    : ''
+}
   }
 
   .sidebar .sidebar__button {
@@ -192,12 +200,20 @@ function generateStyle(settings) {
     alwaysShowWorkspaces,
   } = settings;
 
-  if (accentColor.toLowerCase() !== DEFAULT_APP_SETTINGS.accentColor.toLowerCase()) {
+  if (
+    accentColor.toLowerCase() !== DEFAULT_APP_SETTINGS.accentColor.toLowerCase()
+  ) {
     style += generateAccentStyle(accentColor);
   }
-  if (serviceRibbonWidth !== DEFAULT_APP_SETTINGS.serviceRibbonWidth
-      || iconSize !== DEFAULT_APP_SETTINGS.iconSize) {
-    style += generateServiceRibbonWidthStyle(serviceRibbonWidth, iconSize, useVerticalStyle);
+  if (
+    serviceRibbonWidth !== DEFAULT_APP_SETTINGS.serviceRibbonWidth ||
+    iconSize !== DEFAULT_APP_SETTINGS.iconSize
+  ) {
+    style += generateServiceRibbonWidthStyle(
+      serviceRibbonWidth,
+      iconSize,
+      useVerticalStyle,
+    );
   }
   if (showDragArea) {
     style += generateShowDragAreaStyle(accentColor);
@@ -206,7 +222,9 @@ function generateStyle(settings) {
     style += generateVerticalStyle(serviceRibbonWidth, alwaysShowWorkspaces);
   } else if (document.getElementById('vertical-style')) {
     const link = document.getElementById('vertical-style');
-    document.head.removeChild(link);
+    if (link) {
+      document.head.removeChild(link);
+    }
   }
   if (alwaysShowWorkspaces) {
     style += generateOpenWorkspaceStyle();
@@ -225,14 +243,14 @@ export default function initAppearance(stores) {
 
   // Update style when settings change
   reaction(
-    () => ([
+    () => [
       settings.all.app.accentColor,
       settings.all.app.serviceRibbonWidth,
       settings.all.app.iconSize,
       settings.all.app.showDragArea,
       settings.all.app.useVerticalStyle,
       settings.all.app.alwaysShowWorkspaces,
-    ]),
+    ],
     () => {
       updateStyle(settings.all.app);
     },

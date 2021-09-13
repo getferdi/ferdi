@@ -42,7 +42,7 @@ class Input extends Component {
     passwordScore: 0,
   };
 
-  inputElement = null;
+  inputElement;
 
   componentDidMount() {
     if (this.props.focus) {
@@ -133,10 +133,10 @@ class Input extends Component {
               {/* <progress value={this.state.passwordScore} max="100" /> */}
               <meter
                 value={passwordScore < 5 ? 5 : passwordScore}
-                low="30"
-                high="75"
-                optimum="100"
-                max="100"
+                low={30}
+                high={75}
+                optimum={100}
+                max={100}
               />
             </div>
           )}
