@@ -671,6 +671,10 @@ export default class ServicesStore extends Store {
     if (service.webview) {
       service.webview.blur();
       service.webview.focus();
+
+      if (this.stores.settings.all.app.splitMode) {
+        document.querySelector('.services__webview-wrapper.is-active').scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'});
+      }
     }
   }
 
