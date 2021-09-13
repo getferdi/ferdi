@@ -10,6 +10,7 @@ import ms from 'ms';
 
 require('@electron/remote/main').initialize();
 
+import osName from 'os-name';
 import { DEFAULT_WINDOW_OPTIONS } from './config';
 
 import {
@@ -18,9 +19,12 @@ import {
   isMac,
   isWindows,
   isLinux,
-  aboutAppDetails,
   userDataRecipesPath,
   userDataPath,
+  ferdiVersion,
+  electronVersion,
+  chromeVersion,
+  nodeVersion,
 } from './environment';
 import { ifUndefinedBoolean } from './jsUtils';
 
@@ -37,6 +41,7 @@ import './electron/exception';
 import { asarPath } from './helpers/asar-helpers';
 import { openExternalUrl } from './helpers/url-helpers';
 import userAgent from './helpers/userAgent-helpers';
+import * as buildInfo from './buildInfo.json'; // eslint-disable-line import/no-unresolved
 
 const debug = require('debug')('Ferdi:App');
 
@@ -155,7 +160,17 @@ if (!retrieveSettingValue('enableGPUAcceleration', false)) {
 }
 
 app.setAboutPanelOptions({
-  applicationVersion: aboutAppDetails(),
+  applicationVersion: [
+    `Version: ${ferdiVersion}`,
+    `Electron: ${electronVersion}`,
+    `Chrome: ${chromeVersion}`,
+    `Node.js: ${nodeVersion}`,
+    `Platform: ${osName()}`,
+    `Arch: ${process.arch}`,
+    `Build date: ${new Date(Number(buildInfo.timestamp))}`,
+    `Git SHA: ${buildInfo.gitHashShort}`,
+    `Git branch: ${buildInfo.gitBranch}`,
+  ].join('\n'),
   version: '',
 });
 
