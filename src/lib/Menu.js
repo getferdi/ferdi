@@ -592,26 +592,6 @@ export default class FranzMenu {
     const tpl = _titleBarTemplateFactory(intl, this.stores.settings.app.locked);
     const { actions } = this;
 
-    // TODO: Extract this into a reusable component and remove the duplications
-    const quitApp = () => {
-      const yesButtonIndex = 0;
-      let selection = yesButtonIndex;
-      if (window.ferdi.stores.settings.app.confirmOnQuit) {
-        selection = dialog.showMessageBoxSync(app.mainWindow, {
-          type: 'question',
-          message: intl.formatMessage(globalMessages.quit),
-          detail: intl.formatMessage(globalMessages.quitConfirmation),
-          buttons: [
-            intl.formatMessage(globalMessages.yes),
-            intl.formatMessage(globalMessages.no),
-          ],
-        });
-      }
-      if (selection === yesButtonIndex) {
-        app.quit();
-      }
-    };
-
     if (!isMac) {
       tpl[1].submenu.push({
         label: intl.formatMessage(menuItems.autohideMenuBar),
@@ -816,7 +796,9 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(globalMessages.quit),
           accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
-          click: quitApp,
+          click() {
+            app.quit();
+          },
         },
       ],
     });
@@ -874,7 +856,9 @@ export default class FranzMenu {
         {
           label: intl.formatMessage(globalMessages.quit),
           accelerator: `${cmdOrCtrlShortcutKey()}+Q`,
-          click: quitApp,
+          click() {
+            app.quit();
+          },
         },
       ];
 

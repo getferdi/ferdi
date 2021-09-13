@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 
-import { app, BrowserWindow, ipcMain, session } from 'electron';
+import { app, BrowserWindow, ipcMain, session, dialog } from 'electron';
 
 import { emptyDirSync, ensureFileSync } from 'fs-extra';
 import { join } from 'path';
@@ -562,8 +562,28 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('before-quit', () => {
-  willQuitApp = true;
+app.on('before-quit', (event) => {
+  const yesButtonIndex = 0;
+  let selection = yesButtonIndex;
+  if (
+    settings.get('confirmOnQuit') === undefined ||
+    settings.get('confirmOnQuit')
+  ) {
+    selection = dialog.showMessageBoxSync(app.mainWindow, {
+      type: 'question',
+      message: 'Quit',
+      detail: 'Do you really want to quit Ferdi?',
+      buttons: [
+        'Yes',
+        'No',
+      ],
+    });
+  }
+  if (selection === yesButtonIndex) {
+    willQuitApp = true;
+  } else {
+    event.preventDefault();
+  }
 });
 
 app.on('activate', () => {
