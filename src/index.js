@@ -22,6 +22,7 @@ import {
   userDataRecipesPath,
   userDataPath,
 } from './environment';
+import { ifUndefinedBoolean } from './jsUtils';
 
 import { mainIpcHandler as basicAuthHandler } from './features/basicAuth';
 import ipcApi from './electron/ipc-api';
@@ -77,13 +78,14 @@ if (isWindows) {
 const settings = new Settings('app', DEFAULT_APP_SETTINGS);
 const proxySettings = new Settings('proxy');
 
-if (settings.get('sentry')) {
+const retrieveSettingValue = (key, defaultValue = true) => ifUndefinedBoolean(settings.get(key), defaultValue);
+
+if (retrieveSettingValue('sentry')) {
   // eslint-disable-next-line global-require
   require('./sentry');
 }
 
-// add `liftSingleInstanceLock` to settings.json to override the single instance lock
-const liftSingleInstanceLock = settings.get('liftSingleInstanceLock') || false;
+const liftSingleInstanceLock = retrieveSettingValue('liftSingleInstanceLock', false);
 
 // Force single window
 const gotTheLock = liftSingleInstanceLock
@@ -147,7 +149,7 @@ if (
 }
 
 // Disable GPU acceleration
-if (!settings.get('enableGPUAcceleration')) {
+if (!retrieveSettingValue('enableGPUAcceleration', false)) {
   debug('Disable GPU Acceleration');
   app.disableHardwareAcceleration();
 }
@@ -176,7 +178,7 @@ const createWindow = () => {
   }
 
   // Create the browser window.
-  const backgroundColor = settings.get('darkMode')
+  const backgroundColor = retrieveSettingValue('darkMode', false)
     ? '#1E1E1E'
     : settings.get('accentColor');
 
@@ -190,7 +192,7 @@ const createWindow = () => {
     show: false,
     titleBarStyle: isMac ? 'hidden' : '',
     frame: isLinux,
-    spellcheck: settings.get('enableSpellchecking'),
+    spellcheck: retrieveSettingValue('enableSpellchecking'),
     backgroundColor,
     webPreferences: {
       nodeIntegration: true,
@@ -268,15 +270,14 @@ const createWindow = () => {
     // when you should delete the corresponding element.
     if (
       !willQuitApp &&
-      (settings.get('runInBackground') === undefined ||
-        settings.get('runInBackground'))
+      retrieveSettingValue('runInBackground')
     ) {
       e.preventDefault();
       if (isWindows) {
         debug('Window: minimize');
         mainWindow.minimize();
 
-        if (settings.get('closeToSystemTray')) {
+        if (retrieveSettingValue('closeToSystemTray')) {
           debug('Skip taskbar: true');
           mainWindow.setSkipTaskbar(true);
         }
@@ -300,7 +301,7 @@ const createWindow = () => {
   mainWindow.on('minimize', () => {
     app.wasMaximized = app.isMaximized;
 
-    if (settings.get('minimizeToSystemTray')) {
+    if (retrieveSettingValue('minimizeToSystemTray')) {
       debug('Skip taskbar: true');
       mainWindow.setSkipTaskbar(true);
       trayIcon.show();
@@ -326,7 +327,7 @@ const createWindow = () => {
       mainWindow.maximize();
     }
 
-    if (!settings.get('enableSystemTray')) {
+    if (!retrieveSettingValue('enableSystemTray')) {
       debug('Tray: hiding tray icon');
       trayIcon.hide();
     }
@@ -351,7 +352,7 @@ const createWindow = () => {
     openExternalUrl(url);
   });
 
-  if (settings.get('startMinimized')) {
+  if (retrieveSettingValue('startMinimized')) {
     mainWindow.hide();
   } else {
     mainWindow.show();
@@ -551,10 +552,7 @@ ipcMain.on('stop-find-in-page', (e, action) => {
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (
-    settings.get('runInBackground') === undefined ||
-    settings.get('runInBackground')
-  ) {
+  if (retrieveSettingValue('runInBackground')) {
     debug('Window: all windows closed, quit app');
     app.quit();
   } else {
@@ -565,10 +563,7 @@ app.on('window-all-closed', () => {
 app.on('before-quit', (event) => {
   const yesButtonIndex = 0;
   let selection = yesButtonIndex;
-  if (
-    settings.get('confirmOnQuit') === undefined ||
-    settings.get('confirmOnQuit')
-  ) {
+  if (retrieveSettingValue('confirmOnQuit')) {
     selection = dialog.showMessageBoxSync(app.mainWindow, {
       type: 'question',
       message: 'Quit',

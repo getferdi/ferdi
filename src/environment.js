@@ -171,6 +171,7 @@ export const DEFAULT_APP_SETTINGS = {
   searchEngine: SEARCH_ENGINE_DDG,
   useVerticalStyle: false,
   alwaysShowWorkspaces: false,
+  liftSingleInstanceLock: false,
 };
 
 export function aboutAppDetails() {
