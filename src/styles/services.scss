@@ -18,6 +18,16 @@
   }
 }
 
+.mode__split .services {
+  display: flex;
+  overflow: visible;
+
+  .services__webview {
+    position: relative;
+    flex: 1 0 488px;
+  }
+}
+
 .services {
   background: #FFF;
   flex: 1;
@@ -71,7 +81,7 @@
   }
 
   .services__info-layer {
-    position: absolut;
+    position: absolute;
     z-index: 110;
   }
 

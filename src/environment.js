@@ -136,6 +136,7 @@ export const DEFAULT_APP_SETTINGS = {
   enableSpellchecking: true,
   spellcheckerLanguage: 'en-us',
   darkMode: isMac && electronApi.nativeTheme.shouldUseDarkColors,
+  splitMode: false,
   locale: '',
   fallbackLocale: 'en-US',
   beta: false,

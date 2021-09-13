@@ -163,6 +163,13 @@ export default class ServicesStore extends Store {
     );
 
     reaction(
+      () => this.stores.settings.app.splitMode,
+      () => {
+        this._shareSettingsWithServiceProcess();
+      },
+    );
+
+    reaction(
       () => this.stores.settings.app.searchEngine,
       () => {
         this._shareSettingsWithServiceProcess();
@@ -664,6 +671,10 @@ export default class ServicesStore extends Store {
     if (service.webview) {
       service.webview.blur();
       service.webview.focus();
+
+      if (this.stores.settings.app.splitMode) {
+        document.querySelector('.services__webview-wrapper.is-active').scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'});
+      }
     }
   }
 

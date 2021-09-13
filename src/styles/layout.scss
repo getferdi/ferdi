@@ -82,6 +82,10 @@ body.win32:not(.isFullScreen) .app .app__content {
   height: calc(100% - 28px);
 }
 
+.mode__split .app .app__service {
+  overflow-x: auto;
+}
+
 .app {
   .app__content {
     display: flex;
