@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import UserStore from '../../stores/UserStore';
 import Form from '../../lib/Form';
@@ -49,11 +49,9 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('stores', 'actions') @observer class EditUserScreen extends Component {
-  static contextTypes = {
-    intl: intlShape,
-  };
-
+@inject('stores', 'actions')
+@observer
+class EditUserScreen extends Component {
   componentWillUnmount() {
     this.props.actions.user.resetStatus();
   }
@@ -67,7 +65,7 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
   }
 
   prepareForm(user) {
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     const config = {
       fields: {
@@ -93,16 +91,20 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
           value: user.accountType,
           validators: [required],
           label: intl.formatMessage(messages.accountTypeLabel),
-          options: [{
-            value: 'individual',
-            label: intl.formatMessage(messages.accountTypeIndividual),
-          }, {
-            value: 'non-profit',
-            label: intl.formatMessage(messages.accountTypeNonProfit),
-          }, {
-            value: 'company',
-            label: intl.formatMessage(messages.accountTypeCompany),
-          }],
+          options: [
+            {
+              value: 'individual',
+              label: intl.formatMessage(messages.accountTypeIndividual),
+            },
+            {
+              value: 'non-profit',
+              label: intl.formatMessage(messages.accountTypeNonProfit),
+            },
+            {
+              value: 'company',
+              label: intl.formatMessage(messages.accountTypeCompany),
+            },
+          ],
         },
         organization: {
           label: intl.formatMessage(messages.accountTypeCompany),
@@ -129,7 +131,7 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
     const { user } = this.props.stores;
 
     if (user.getUserInfoRequest.isExecuting) {
-      return (<div>Loading...</div>);
+      return <div>Loading...</div>;
     }
 
     const form = this.prepareForm(user.data);
@@ -141,7 +143,7 @@ export default @inject('stores', 'actions') @observer class EditUserScreen exten
           status={user.actionStatus}
           form={form}
           isSaving={user.updateUserInfoRequest.isExecuting}
-          onSubmit={(d) => this.onSubmit(d)}
+          onSubmit={d => this.onSubmit(d)}
         />
       </ErrorBoundary>
     );
@@ -156,3 +158,5 @@ EditUserScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
   }).isRequired,
 };
+
+export default injectIntl(EditUserScreen);

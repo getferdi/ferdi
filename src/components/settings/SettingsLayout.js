@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import ErrorBoundary from '../util/ErrorBoundary';
 import { oneOrManyChildElements } from '../../prop-types';
@@ -14,17 +14,12 @@ const messages = defineMessages({
   },
 });
 
-export default
 @observer
 class SettingsLayout extends Component {
   static propTypes = {
     navigation: PropTypes.element.isRequired,
     children: oneOrManyChildElements.isRequired,
     closeSettings: PropTypes.func.isRequired,
-  };
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   componentDidMount() {
@@ -49,7 +44,7 @@ class SettingsLayout extends Component {
   render() {
     const { navigation, children, closeSettings } = this.props;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <Appear transitionName="fadeIn-fast">
@@ -77,3 +72,5 @@ class SettingsLayout extends Component {
     );
   }
 }
+
+export default injectIntl(SettingsLayout);

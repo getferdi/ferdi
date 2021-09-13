@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { Link } from 'react-router';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import SearchInput from '../../ui/SearchInput';
 import Infobox from '../../ui/Infobox';
@@ -26,7 +26,8 @@ const messages = defineMessages({
   },
   noServiceFound: {
     id: 'settings.recipes.nothingFound',
-    defaultMessage: '!!!Sorry, but no service matched your search term. Please note that the website might show more services that have been added to Ferdi since the version that you are currently on. To get those new services, please consider upgrading to a newer version of Ferdi.',
+    defaultMessage:
+      '!!!Sorry, but no service matched your search term. Please note that the website might show more services that have been added to Ferdi since the version that you are currently on. To get those new services, please consider upgrading to a newer version of Ferdi.',
   },
   discoverServices: {
     id: 'settings.services.discoverServices',
@@ -50,7 +51,8 @@ const messages = defineMessages({
   },
 });
 
-export default @observer class ServicesDashboard extends Component {
+@observer
+class ServicesDashboard extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray.isRequired,
     isLoading: PropTypes.bool.isRequired,
@@ -68,10 +70,6 @@ export default @observer class ServicesDashboard extends Component {
     searchNeedle: '',
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const {
       services,
@@ -85,7 +83,7 @@ export default @observer class ServicesDashboard extends Component {
       status,
       searchNeedle,
     } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <div className="settings__main">
@@ -96,7 +94,7 @@ export default @observer class ServicesDashboard extends Component {
           {(services.length !== 0 || searchNeedle) && !isLoading && (
             <SearchInput
               placeholder={intl.formatMessage(messages.searchService)}
-              onChange={(needle) => filterServices({ needle })}
+              onChange={needle => filterServices({ needle })}
               onReset={() => resetFilter()}
               autoFocus
             />
@@ -145,7 +143,9 @@ export default @observer class ServicesDashboard extends Component {
                 </span>
                 {intl.formatMessage(messages.noServicesAdded)}
               </p>
-              <Link to="/settings/recipes" className="button">{intl.formatMessage(messages.discoverServices)}</Link>
+              <Link to="/settings/recipes" className="button">
+                {intl.formatMessage(messages.discoverServices)}
+              </Link>
             </div>
           )}
           {!isLoading && services.length === 0 && searchNeedle && (
@@ -163,12 +163,16 @@ export default @observer class ServicesDashboard extends Component {
           ) : (
             <table className="service-table">
               <tbody>
-                {services.map((service) => (
+                {services.map(service => (
                   <ServiceItem
                     key={service.id}
                     service={service}
-                    toggleAction={() => toggleService({ serviceId: service.id })}
-                    goToServiceForm={() => goTo(`/settings/services/edit/${service.id}`)}
+                    toggleAction={() =>
+                      toggleService({ serviceId: service.id })
+                    }
+                    goToServiceForm={() =>
+                      goTo(`/settings/services/edit/${service.id}`)
+                    }
                   />
                 ))}
               </tbody>
@@ -176,12 +180,12 @@ export default @observer class ServicesDashboard extends Component {
           )}
 
           <FAB>
-            <Link to="/settings/recipes">
-              +
-            </Link>
+            <Link to="/settings/recipes">+</Link>
           </FAB>
         </div>
       </div>
     );
   }
 }
+
+export default injectIntl(ServicesDashboard);

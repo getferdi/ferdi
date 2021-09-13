@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import normalizeUrl from 'normalize-url';
 
 import Form from '../../../lib/Form';
@@ -42,7 +42,8 @@ const messages = defineMessages({
   },
   recipeFileInfo: {
     id: 'settings.service.form.recipeFileInfo',
-    defaultMessage: '!!!Your user files will be inserted into the webpage so you can customize services in any way you like. User files are only stored locally and are not transferred to other computers using the same account.',
+    defaultMessage:
+      '!!!Your user files will be inserted into the webpage so you can customize services in any way you like. User files are only stored locally and are not transferred to other computers using the same account.',
   },
   availableServices: {
     id: 'settings.service.form.availableServices',
@@ -78,15 +79,18 @@ const messages = defineMessages({
   },
   indirectMessageInfo: {
     id: 'settings.service.form.indirectMessageInfo',
-    defaultMessage: '!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...',
+    defaultMessage:
+      '!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...',
   },
   isMutedInfo: {
     id: 'settings.service.form.isMutedInfo',
-    defaultMessage: '!!!When disabled, all notification sounds and audio playback are muted',
+    defaultMessage:
+      '!!!When disabled, all notification sounds and audio playback are muted',
   },
   isHibernationEnabledInfo: {
     id: 'settings.service.form.isHibernatedEnabledInfo',
-    defaultMessage: '!!!When enabled, a service will be shut down after a period of time to save system resources.',
+    defaultMessage:
+      '!!!When enabled, a service will be shut down after a period of time to save system resources.',
   },
   headlineNotifications: {
     id: 'settings.service.form.headlineNotifications',
@@ -122,11 +126,13 @@ const messages = defineMessages({
   },
   proxyInfo: {
     id: 'settings.service.form.proxy.info',
-    defaultMessage: '!!!Proxy settings will not be synchronized with the Ferdi servers.',
+    defaultMessage:
+      '!!!Proxy settings will not be synchronized with the Ferdi servers.',
   },
 });
 
-export default @observer class EditServiceForm extends Component {
+@observer
+class EditServiceForm extends Component {
   static propTypes = {
     recipe: PropTypes.instanceOf(Recipe).isRequired,
     service(props, propName) {
@@ -151,20 +157,16 @@ export default @observer class EditServiceForm extends Component {
     service: {},
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   state = {
     isValidatingCustomUrl: false,
-  }
+  };
 
   submit(e) {
     const { recipe } = this.props;
 
     e.preventDefault();
     this.props.form.submit({
-      onSuccess: async (form) => {
+      onSuccess: async form => {
         const values = form.values();
         let isValid = true;
 
@@ -176,7 +178,10 @@ export default @observer class EditServiceForm extends Component {
         if (recipe.validateUrl && values.customUrl) {
           this.setState({ isValidatingCustomUrl: true });
           try {
-            values.customUrl = normalizeUrl(values.customUrl, { stripWWW: false, removeTrailingSlash: false });
+            values.customUrl = normalizeUrl(values.customUrl, {
+              stripWWW: false,
+              removeTrailingSlash: false,
+            });
             isValid = await recipe.validateUrl(values.customUrl);
           } catch (err) {
             console.warn('ValidateURL', err);
@@ -208,7 +213,7 @@ export default @observer class EditServiceForm extends Component {
       openRecipeFile,
       isProxyFeatureEnabled,
     } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     const { isValidatingCustomUrl } = this.state;
 
@@ -236,7 +241,8 @@ export default @observer class EditServiceForm extends Component {
       activeTabIndex = 2;
     }
 
-    const requiresUserInput = !recipe.hasHostedOption && (recipe.hasTeamId || recipe.hasCustomUrl);
+    const requiresUserInput =
+      !recipe.hasHostedOption && (recipe.hasTeamId || recipe.hasCustomUrl);
 
     return (
       <div className="settings__main">
@@ -254,29 +260,27 @@ export default @observer class EditServiceForm extends Component {
           </span>
           <span className="separator" />
           <span className="settings__header-item">
-            {action === 'add' ? (
-              intl.formatMessage(messages.addServiceHeadline, {
+            {action === 'add'
+              ? intl.formatMessage(messages.addServiceHeadline, {
                 name: recipe.name,
               })
-            ) : (
-              intl.formatMessage(messages.editServiceHeadline, {
+              : intl.formatMessage(messages.editServiceHeadline, {
                 name: service.name !== '' ? service.name : recipe.name,
-              })
-            )}
+              })}
           </span>
         </div>
         <div className="settings__body">
-          <form onSubmit={(e) => this.submit(e)} id="form">
+          <form onSubmit={e => this.submit(e)} id="form">
             <div className="service-name">
               <Input field={form.$('name')} focus />
             </div>
             {(recipe.hasTeamId || recipe.hasCustomUrl) && (
-              <Tabs
-                active={activeTabIndex}
-              >
+              <Tabs active={activeTabIndex}>
                 {recipe.hasHostedOption && (
                   <TabItem title={recipe.name}>
-                    {intl.formatMessage(messages.useHostedService, { name: recipe.name })}
+                    {intl.formatMessage(messages.useHostedService, {
+                      name: recipe.name,
+                    })}
                   </TabItem>
                 )}
                 {recipe.hasTeamId && (
@@ -293,7 +297,9 @@ export default @observer class EditServiceForm extends Component {
                     <Input field={form.$('customUrl')} />
                     {form.error === 'url-validation-error' && (
                       <p className="franz-form__error">
-                        {intl.formatMessage(messages.customUrlValidationError, { name: recipe.name })}
+                        {intl.formatMessage(messages.customUrlValidationError, {
+                          name: recipe.name,
+                        })}
                       </p>
                     )}
                   </TabItem>
@@ -326,13 +332,16 @@ export default @observer class EditServiceForm extends Component {
                 <div className="settings__settings-group">
                   <h3>{intl.formatMessage(messages.headlineBadges)}</h3>
                   <Toggle field={form.$('isBadgeEnabled')} />
-                  {recipe.hasIndirectMessages && form.$('isBadgeEnabled').value && (
-                    <>
-                      <Toggle field={form.$('isIndirectMessageBadgeEnabled')} />
-                      <p className="settings__help indented__help">
-                        {intl.formatMessage(messages.indirectMessageInfo)}
-                      </p>
-                    </>
+                  {recipe.hasIndirectMessages &&
+                    form.$('isBadgeEnabled').value && (
+                      <>
+                        <Toggle
+                          field={form.$('isIndirectMessageBadgeEnabled')}
+                        />
+                        <p className="settings__help indented__help">
+                          {intl.formatMessage(messages.indirectMessageInfo)}
+                        </p>
+                      </>
                   )}
                 </div>
 
@@ -344,15 +353,18 @@ export default @observer class EditServiceForm extends Component {
                     {intl.formatMessage(messages.isHibernationEnabledInfo)}
                   </p>
                   <Toggle field={form.$('isDarkModeEnabled')} />
-                  {form.$('isDarkModeEnabled').value
-                    && (
-                      <>
-                        <h3>{intl.formatMessage(messages.headlineDarkReaderSettings)}</h3>
-                        <Slider field={form.$('darkReaderBrightness')} />
-                        <Slider field={form.$('darkReaderContrast')} />
-                        <Slider field={form.$('darkReaderSepia')} />
-                      </>
-                    )}
+                  {form.$('isDarkModeEnabled').value && (
+                    <>
+                      <h3>
+                        {intl.formatMessage(
+                          messages.headlineDarkReaderSettings,
+                        )}
+                      </h3>
+                      <Slider field={form.$('darkReaderBrightness')} />
+                      <Slider field={form.$('darkReaderContrast')} />
+                      <Slider field={form.$('darkReaderSepia')} />
+                    </>
+                  )}
                 </div>
               </div>
               <div className="service-icon">
@@ -381,7 +393,10 @@ export default @observer class EditServiceForm extends Component {
                   <>
                     <div className="grid">
                       <div className="grid__row">
-                        <Input field={form.$('proxy.host')} className="proxyHost" />
+                        <Input
+                          field={form.$('proxy.host')}
+                          className="proxyHost"
+                        />
                         <Input field={form.$('proxy.port')} />
                       </div>
                     </div>
@@ -409,7 +424,9 @@ export default @observer class EditServiceForm extends Component {
 
             <div className="user-agent">
               <Input field={form.$('userAgentPref')} />
-              <p className="settings__help">{intl.formatMessage(globalMessages.userAgentHelp)}</p>
+              <p className="settings__help">
+                {intl.formatMessage(globalMessages.userAgentHelp)}
+              </p>
             </div>
           </form>
 
@@ -464,7 +481,9 @@ export default @observer class EditServiceForm extends Component {
               type="submit"
               label={intl.formatMessage(messages.saveService)}
               htmlForm="form"
-              disabled={action !== 'edit' && (form.isPristine && requiresUserInput)}
+              disabled={
+                action !== 'edit' && form.isPristine && requiresUserInput
+              }
             />
           )}
         </div>
@@ -472,3 +491,5 @@ export default @observer class EditServiceForm extends Component {
     );
   }
 }
+
+export default injectIntl(EditServiceForm);

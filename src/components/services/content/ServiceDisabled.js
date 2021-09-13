@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import Button from '../../ui/Button';
 
@@ -16,14 +16,11 @@ const messages = defineMessages({
   },
 });
 
-export default @observer class ServiceDisabled extends Component {
+@observer
+class ServiceDisabled extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     enable: PropTypes.func.isRequired,
-  };
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   countdownInterval = null;
@@ -32,7 +29,7 @@ export default @observer class ServiceDisabled extends Component {
 
   render() {
     const { name, enable } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <div className="services__info-layer">
@@ -46,3 +43,5 @@ export default @observer class ServiceDisabled extends Component {
     );
   }
 }
+
+export default injectIntl(ServiceDisabled);

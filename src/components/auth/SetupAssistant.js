@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
 
@@ -145,10 +145,6 @@ class SetupAssistant extends Component {
     isInviteSuccessful: false,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   state = {
     services: [
       {
@@ -189,7 +185,7 @@ class SetupAssistant extends Component {
   }
 
   render() {
-    const { intl } = this.context;
+    const { intl } = this.props;
     const {
       classes,
       isInviteSuccessful,
@@ -330,4 +326,4 @@ class SetupAssistant extends Component {
   }
 }
 
-export default SetupAssistant;
+export default injectIntl(SetupAssistant);

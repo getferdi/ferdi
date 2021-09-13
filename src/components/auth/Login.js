@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import { LIVE_FRANZ_API } from '../../config';
 import { API_VERSION, isDevMode, useLiveAPI } from '../../environment';
@@ -71,7 +71,9 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('actions') @observer class Login extends Component {
+@inject('actions')
+@observer
+class Login extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
@@ -84,35 +86,34 @@ export default @inject('actions') @observer class Login extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
-  form = new Form({
-    fields: {
-      email: {
-        label: this.context.intl.formatMessage(messages.emailLabel),
-        value: '',
-        validators: [required, email],
-      },
-      password: {
-        label: this.context.intl.formatMessage(messages.passwordLabel),
-        value: '',
-        validators: [required],
-        type: 'password',
+  form = new Form(
+    {
+      fields: {
+        email: {
+          label: this.props.intl.formatMessage(messages.emailLabel),
+          value: '',
+          validators: [required, email],
+        },
+        password: {
+          label: this.props.intl.formatMessage(messages.passwordLabel),
+          value: '',
+          validators: [required],
+          type: 'password',
+        },
       },
     },
-  }, this.context.intl);
+    this.props.intl,
+  );
 
   emailField = null;
 
   submit(e) {
     e.preventDefault();
     this.form.submit({
-      onSuccess: (form) => {
+      onSuccess: form => {
         this.props.onSubmit(form.values());
       },
-      onError: () => { },
+      onError: () => {},
     });
   }
 
@@ -122,7 +123,7 @@ export default @inject('actions') @observer class Login extends Component {
 
   render() {
     const { form } = this;
-    const { intl } = this.context;
+    const { intl } = this.props;
     const {
       isSubmitting,
       isTokenExpired,
@@ -135,42 +136,47 @@ export default @inject('actions') @observer class Login extends Component {
 
     return (
       <div className="auth__container">
-        <form className="franz-form auth__form" onSubmit={(e) => this.submit(e)}>
-          <img
-            src="./assets/images/logo.svg"
-            className="auth__logo"
-            alt=""
-          />
+        <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
+          <img src="./assets/images/logo.svg" className="auth__logo" alt="" />
           <h1>{intl.formatMessage(messages.headline)}</h1>
           {isDevMode && !useLiveAPI && (
             <Infobox type="warning">
-              In Dev Mode your data is not persistent. Please use the live app for accessing the production API.
+              In Dev Mode your data is not persistent. Please use the live app
+              for accessing the production API.
             </Infobox>
           )}
           {isTokenExpired && (
-            <p className="error-message center">{intl.formatMessage(messages.tokenExpired)}</p>
+            <p className="error-message center">
+              {intl.formatMessage(messages.tokenExpired)}
+            </p>
           )}
           {isServerLogout && (
-            <p className="error-message center">{intl.formatMessage(messages.serverLogout)}</p>
+            <p className="error-message center">
+              {intl.formatMessage(messages.serverLogout)}
+            </p>
           )}
           <Input
             field={form.$('email')}
-            ref={(element) => { this.emailField = element; }}
+            ref={element => {
+              this.emailField = element;
+            }}
             focus
           />
-          <Input
-            field={form.$('password')}
-            showPasswordToggle
-          />
+          <Input field={form.$('password')} showPasswordToggle />
           {error.code === 'invalid-credentials' && (
             <>
-              <p className="error-message center">{intl.formatMessage(messages.invalidCredentials)}</p>
-              { window.ferdi.stores.settings.all.app.server !== LIVE_FRANZ_API && (
+              <p className="error-message center">
+                {intl.formatMessage(messages.invalidCredentials)}
+              </p>
+              {window.ferdi.stores.settings.all.app.server !==
+                LIVE_FRANZ_API && (
                 <p className="error-message center">
-                    {intl.formatMessage(messages.customServerQuestion)}
-                  {' '}
+                  {intl.formatMessage(messages.customServerQuestion)}{' '}
                   <Link
-                    to={`${window.ferdi.stores.settings.all.app.server.replace(API_VERSION, '')}/import`}
+                    to={`${window.ferdi.stores.settings.all.app.server.replace(
+                      API_VERSION,
+                      '',
+                    )}/import`}
                     target="_blank"
                     style={{ cursor: 'pointer', textDecoration: 'underline' }}
                   >
@@ -197,12 +203,22 @@ export default @inject('actions') @observer class Login extends Component {
           )}
         </form>
         <div className="auth__links">
-          <Link to={changeServerRoute}>{intl.formatMessage(messages.changeServer)}</Link>
-          <a onClick={this.useLocalServer.bind(this)}>{intl.formatMessage(messages.serverless)}</a>
-          <Link to={signupRoute}>{intl.formatMessage(messages.signupLink)}</Link>
-          <Link to={passwordRoute}>{intl.formatMessage(messages.passwordLink)}</Link>
+          <Link to={changeServerRoute}>
+            {intl.formatMessage(messages.changeServer)}
+          </Link>
+          <a onClick={this.useLocalServer.bind(this)}>
+            {intl.formatMessage(messages.serverless)}
+          </a>
+          <Link to={signupRoute}>
+            {intl.formatMessage(messages.signupLink)}
+          </Link>
+          <Link to={passwordRoute}>
+            {intl.formatMessage(messages.passwordLink)}
+          </Link>
         </div>
       </div>
     );
   }
 }
+
+export default injectIntl(Login);

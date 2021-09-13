@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import { FeatureItem } from './FeatureItem';
 
@@ -60,18 +60,11 @@ export class FeatureList extends Component {
   static defaultProps = {
     className: '',
     featureClassName: '',
-  }
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   render() {
-    const {
-      className,
-      featureClassName,
-    } = this.props;
-    const { intl } = this.context;
+    const { className, featureClassName } = this.props;
+    const { intl } = this.props;
 
     const features = [
       messages.availableRecipes,
@@ -92,10 +85,15 @@ export class FeatureList extends Component {
 
     return (
       <ul className={className}>
-        {features.map((feature) => <FeatureItem name={intl.formatMessage(feature)} className={featureClassName} />)}
+        {features.map(feature => (
+          <FeatureItem
+            name={intl.formatMessage(feature)}
+            className={featureClassName}
+          />
+        ))}
       </ul>
     );
   }
 }
 
-export default FeatureList;
+export default injectIntl(FeatureList);

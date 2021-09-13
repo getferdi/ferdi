@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import { RouterStore } from 'mobx-react-router';
 import UserStore from '../../stores/UserStore';
@@ -103,11 +103,9 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('stores', 'actions') @observer class EditServiceScreen extends Component {
-  static contextTypes = {
-    intl: intlShape,
-  };
-
+@inject('stores', 'actions')
+@observer
+class EditServiceScreen extends Component {
   onSubmit(data) {
     const { action } = this.props.router.params;
     const { recipes, services } = this.props.stores;
@@ -132,27 +130,31 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
   }
 
   prepareForm(recipe, service, proxy) {
-    const {
-      intl,
-    } = this.context;
+    const { intl } = this.props;
 
-    const {
-      stores,
-      router,
-    } = this.props;
+    const { stores, router } = this.props;
 
     const { action } = router.params;
 
-    let defaultSpellcheckerLanguage = SPELLCHECKER_LOCALES[stores.settings.app.spellcheckerLanguage];
+    let defaultSpellcheckerLanguage =
+      SPELLCHECKER_LOCALES[stores.settings.app.spellcheckerLanguage];
 
     if (stores.settings.app.spellcheckerLanguage === 'automatic') {
-      defaultSpellcheckerLanguage = intl.formatMessage(globalMessages.spellcheckerAutomaticDetectionShort);
+      defaultSpellcheckerLanguage = intl.formatMessage(
+        globalMessages.spellcheckerAutomaticDetectionShort,
+      );
     }
 
     const spellcheckerLanguage = getSelectOptions({
       locales: SPELLCHECKER_LOCALES,
-      resetToDefaultText: intl.formatMessage(globalMessages.spellcheckerSystemDefault, { default: defaultSpellcheckerLanguage }),
-      automaticDetectionText: stores.settings.app.spellcheckerLanguage !== 'automatic' ? intl.formatMessage(globalMessages.spellcheckerAutomaticDetection) : '',
+      resetToDefaultText: intl.formatMessage(
+        globalMessages.spellcheckerSystemDefault,
+        { default: defaultSpellcheckerLanguage },
+      ),
+      automaticDetectionText:
+        stores.settings.app.spellcheckerLanguage !== 'automatic'
+          ? intl.formatMessage(globalMessages.spellcheckerAutomaticDetection)
+          : '',
     });
 
     const config = {
@@ -169,7 +171,10 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
         },
         isHibernationEnabled: {
           label: intl.formatMessage(messages.enableHibernation),
-          value: action !== 'edit' ? recipe.autoHibernate : service.isHibernationEnabled,
+          value:
+            action !== 'edit'
+              ? recipe.autoHibernate
+              : service.isHibernationEnabled,
           default: true,
         },
         isNotificationEnabled: {
@@ -200,17 +205,23 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
         },
         darkReaderBrightness: {
           label: intl.formatMessage(messages.darkReaderBrightness),
-          value: service.darkReaderSettings ? service.darkReaderSettings.brightness : undefined,
+          value: service.darkReaderSettings
+            ? service.darkReaderSettings.brightness
+            : undefined,
           default: 100,
         },
         darkReaderContrast: {
           label: intl.formatMessage(messages.darkReaderContrast),
-          value: service.darkReaderSettings ? service.darkReaderSettings.contrast : undefined,
+          value: service.darkReaderSettings
+            ? service.darkReaderSettings.contrast
+            : undefined,
           default: 90,
         },
         darkReaderSepia: {
           label: intl.formatMessage(messages.darkReaderSepia),
-          value: service.darkReaderSettings ? service.darkReaderSettings.sepia : undefined,
+          value: service.darkReaderSettings
+            ? service.darkReaderSettings.sepia
+            : undefined,
           default: 10,
         },
         spellcheckerLanguage: {
@@ -252,7 +263,10 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
     // More fine grained and use case specific validation rules
     if (recipe.hasTeamId && recipe.hasCustomUrl) {
       config.fields.team.validators = [oneRequired(['team', 'customUrl'])];
-      config.fields.customUrl.validators = [url, oneRequired(['team', 'customUrl'])];
+      config.fields.customUrl.validators = [
+        url,
+        oneRequired(['team', 'customUrl']),
+      ];
     }
 
     // If a service can be hosted and has a teamId or customUrl
@@ -344,9 +358,7 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
   }
 
   render() {
-    const {
-      recipes, services, user,
-    } = this.props.stores;
+    const { recipes, services, user } = this.props.stores;
     const { action } = this.props.router.params;
 
     let recipe;
@@ -358,9 +370,7 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
 
       // TODO: render error message when recipe is `null`
       if (!recipe) {
-        return (
-          <ServiceError />
-        );
+        return <ServiceError />;
       }
     } else {
       service = services.activeSettings;
@@ -372,13 +382,11 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
     }
 
     if (isLoading) {
-      return (<div>Loading...</div>);
+      return <div>Loading...</div>;
     }
 
     if (!recipe) {
-      return (
-        <div>something went wrong</div>
-      );
+      return <div>something went wrong</div>;
     }
 
     const form = this.prepareForm(recipe, service, proxyFeature);
@@ -392,11 +400,14 @@ export default @inject('stores', 'actions') @observer class EditServiceScreen ex
           user={user.data}
           form={form}
           status={services.actionStatus}
-          isSaving={services.updateServiceRequest.isExecuting || services.createServiceRequest.isExecuting}
+          isSaving={
+            services.updateServiceRequest.isExecuting ||
+            services.createServiceRequest.isExecuting
+          }
           isDeleting={services.deleteServiceRequest.isExecuting}
-          onSubmit={(d) => this.onSubmit(d)}
+          onSubmit={d => this.onSubmit(d)}
           onDelete={() => this.deleteService()}
-          openRecipeFile={(file) => this.openRecipeFile(file)}
+          openRecipeFile={file => this.openRecipeFile(file)}
           isProxyFeatureEnabled={proxyFeature.isEnabled}
         />
       </ErrorBoundary>
@@ -417,3 +428,5 @@ EditServiceScreen.wrappedComponent.propTypes = {
     service: PropTypes.instanceOf(ServicesStore).isRequired,
   }).isRequired,
 };
+
+export default injectIntl(EditServiceScreen);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import injectSheet from 'react-jss';
 
 import Button from '../../../ui/Button';
@@ -31,7 +31,9 @@ const messages = defineMessages({
   },
 });
 
-export default @injectSheet(styles) @observer class WebviewErrorHandler extends Component {
+@injectSheet(styles)
+@observer
+class WebviewErrorHandler extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     reload: PropTypes.func.isRequired,
@@ -40,30 +42,16 @@ export default @injectSheet(styles) @observer class WebviewErrorHandler extends 
     classes: PropTypes.object.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
-    const {
-      name,
-      reload,
-      edit,
-      errorMessage,
-      classes,
-    } = this.props;
-    const { intl } = this.context;
+    const { name, reload, edit, errorMessage, classes } = this.props;
+    const { intl } = this.props;
 
     return (
       <div className={classes.component}>
         <h1>{intl.formatMessage(messages.headline)}</h1>
         <p>{intl.formatMessage(messages.text, { name })}</p>
         <p>
-          <strong>
-            {intl.formatMessage(messages.errorMessage)}
-            :
-          </strong>
-          {' '}
+          <strong>{intl.formatMessage(messages.errorMessage)}:</strong>{' '}
           {errorMessage}
         </p>
         <div className={classes.buttonContainer}>
@@ -82,3 +70,5 @@ export default @injectSheet(styles) @observer class WebviewErrorHandler extends 
     );
   }
 }
+
+export default injectIntl(WebviewErrorHandler);

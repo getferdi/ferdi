@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { inject, observer } from 'mobx-react';
 import { RouterStore } from 'mobx-react-router';
 
@@ -43,7 +43,9 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('stores', 'actions') @observer class SettingsNavigation extends Component {
+@inject('stores', 'actions')
+@observer
+class SettingsNavigation extends Component {
   static propTypes = {
     stores: PropTypes.shape({
       ui: PropTypes.instanceOf(UIStore).isRequired,
@@ -58,13 +60,10 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
     workspaceCount: PropTypes.number.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   handleLoginLogout() {
     const isLoggedIn = Boolean(localStorage.getItem('authToken'));
-    const isUsingWithoutAccount = this.props.stores.settings.app.server === LOCAL_SERVER;
+    const isUsingWithoutAccount =
+      this.props.stores.settings.app.server === LOCAL_SERVER;
 
     if (isLoggedIn) {
       // Remove current auth token
@@ -82,7 +81,9 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
       this.props.stores.user.isLoggingOut = true;
     }
 
-    this.props.stores.router.push(isLoggedIn ? '/auth/logout' : '/auth/welcome');
+    this.props.stores.router.push(
+      isLoggedIn ? '/auth/logout' : '/auth/welcome',
+    );
 
     if (isLoggedIn) {
       // Reload Ferdi, otherwise many settings won't sync correctly with the server
@@ -93,7 +94,7 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
 
   render() {
     const { serviceCount, workspaceCount, stores } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
     const isLoggedIn = Boolean(localStorage.getItem('authToken'));
     const isUsingWithoutAccount = stores.settings.app.server === LOCAL_SERVER;
     const isUsingFranzServer = stores.settings.app.server === LIVE_FRANZ_API;
@@ -113,11 +114,8 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
           activeClassName="is-active"
           disabled={!isLoggedIn}
         >
-          {intl.formatMessage(messages.yourServices)}
-          {' '}
-          <span className="badge">
-            {serviceCount}
-          </span>
+          {intl.formatMessage(messages.yourServices)}{' '}
+          <span className="badge">{serviceCount}</span>
         </Link>
         {workspaceStore.isFeatureEnabled ? (
           <Link
@@ -126,8 +124,7 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
             activeClassName="is-active"
             disabled={!isLoggedIn}
           >
-            {intl.formatMessage(messages.yourWorkspaces)}
-            {' '}
+            {intl.formatMessage(messages.yourWorkspaces)}{' '}
             <span className="badge">{workspaceCount}</span>
           </Link>
         ) : null}
@@ -172,9 +169,13 @@ export default @inject('stores', 'actions') @observer class SettingsNavigation e
           className="settings-navigation__link"
           onClick={this.handleLoginLogout.bind(this)}
         >
-          { isLoggedIn && !isUsingWithoutAccount ? intl.formatMessage(messages.logout) : 'Login'}
+          {isLoggedIn && !isUsingWithoutAccount
+            ? intl.formatMessage(messages.logout)
+            : 'Login'}
         </button>
       </div>
     );
   }
 }
+
+export default injectIntl(SettingsNavigation);

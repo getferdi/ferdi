@@ -1,7 +1,7 @@
 import { clipboard } from 'electron';
 import { app, Menu, dialog, systemPreferences } from '@electron/remote';
 import { autorun, observable } from 'mobx';
-import { defineMessages } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import {
   CUSTOM_WEBSITE_RECIPE_ID,
   GITHUB_FERDI_URL,
@@ -558,7 +558,7 @@ const _titleBarTemplateFactory = (intl, locked) => [
   },
 ];
 
-export default class FranzMenu {
+class FranzMenu {
   @observable currentTemplate = [];
 
   constructor(stores, actions) {
@@ -1132,3 +1132,5 @@ export default class FranzMenu {
     return name;
   }
 }
+
+export default injectIntl(FranzMenu);

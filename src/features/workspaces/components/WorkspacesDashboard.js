@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes, inject } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import injectSheet from 'react-jss';
 import { Infobox } from '@meetfranz/ui';
 
@@ -83,10 +83,6 @@ class WorkspacesDashboard extends Component {
     workspaces: MobxPropTypes.arrayOrObservableArray.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const {
       classes,
@@ -99,7 +95,7 @@ class WorkspacesDashboard extends Component {
       workspaces,
     } = this.props;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <div className="settings__main">
@@ -193,7 +189,7 @@ class WorkspacesDashboard extends Component {
   }
 }
 
-export default WorkspacesDashboard;
+export default injectIntl(WorkspacesDashboard);
 
 WorkspacesDashboard.wrappedComponent.propTypes = {
   stores: PropTypes.shape({

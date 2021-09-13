@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import { isDevMode, useLiveAPI } from '../../environment';
 import Form from '../../lib/Form';
@@ -75,7 +75,9 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('actions') @observer class Signup extends Component {
+@inject('actions')
+@observer
+class Signup extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
@@ -85,40 +87,39 @@ export default @inject('actions') @observer class Signup extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
-  form = new Form({
-    fields: {
-      firstname: {
-        label: this.context.intl.formatMessage(messages.firstnameLabel),
-        value: '',
-        validators: [required],
-      },
-      lastname: {
-        label: this.context.intl.formatMessage(messages.lastnameLabel),
-        value: '',
-        validators: [required],
-      },
-      email: {
-        label: this.context.intl.formatMessage(messages.emailLabel),
-        value: '',
-        validators: [required, email],
-      },
-      password: {
-        label: this.context.intl.formatMessage(messages.passwordLabel),
-        value: '',
-        validators: [required, minLength(6)],
-        type: 'password',
+  form = new Form(
+    {
+      fields: {
+        firstname: {
+          label: this.props.intl.formatMessage(messages.firstnameLabel),
+          value: '',
+          validators: [required],
+        },
+        lastname: {
+          label: this.props.intl.formatMessage(messages.lastnameLabel),
+          value: '',
+          validators: [required],
+        },
+        email: {
+          label: this.props.intl.formatMessage(messages.emailLabel),
+          value: '',
+          validators: [required, email],
+        },
+        password: {
+          label: this.props.intl.formatMessage(messages.passwordLabel),
+          value: '',
+          validators: [required, minLength(6)],
+          type: 'password',
+        },
       },
     },
-  }, this.context.intl);
+    this.props.intl,
+  );
 
   submit(e) {
     e.preventDefault();
     this.form.submit({
-      onSuccess: (form) => {
+      onSuccess: form => {
         this.props.onSubmit(form.values());
       },
       onError: () => {},
@@ -131,24 +132,22 @@ export default @inject('actions') @observer class Signup extends Component {
 
   render() {
     const { form } = this;
-    const { intl } = this.context;
-    const {
-      isSubmitting, loginRoute, error, changeServerRoute,
-    } = this.props;
+    const { intl } = this.props;
+    const { isSubmitting, loginRoute, error, changeServerRoute } = this.props;
 
     return (
       <div className="auth__scroll-container">
         <div className="auth__container auth__container--signup">
-          <form className="franz-form auth__form" onSubmit={(e) => this.submit(e)}>
-            <img
-              src="./assets/images/logo.svg"
-              className="auth__logo"
-              alt=""
-            />
+          <form
+            className="franz-form auth__form"
+            onSubmit={e => this.submit(e)}
+          >
+            <img src="./assets/images/logo.svg" className="auth__logo" alt="" />
             <h1>{intl.formatMessage(messages.headline)}</h1>
             {isDevMode && !useLiveAPI && (
               <Infobox type="warning">
-                In Dev Mode your data is not persistent. Please use the live app for accesing the production API.
+                In Dev Mode your data is not persistent. Please use the live app
+                for accesing the production API.
               </Infobox>
             )}
             <div className="grid__row">
@@ -162,7 +161,9 @@ export default @inject('actions') @observer class Signup extends Component {
               scorePassword
             />
             {error.code === 'email-duplicate' && (
-              <p className="error-message center">{intl.formatMessage(messages.emailDuplicate)}</p>
+              <p className="error-message center">
+                {intl.formatMessage(messages.emailDuplicate)}
+              </p>
             )}
             {isSubmitting ? (
               <Button
@@ -200,12 +201,20 @@ export default @inject('actions') @observer class Signup extends Component {
             </p>
           </form>
           <div className="auth__links">
-            <Link to={changeServerRoute}>{intl.formatMessage(messages.changeServer)}</Link>
-            <a onClick={this.useLocalServer.bind(this)}>{intl.formatMessage(messages.serverless)}</a>
-            <Link to={loginRoute}>{intl.formatMessage(messages.loginLink)}</Link>
+            <Link to={changeServerRoute}>
+              {intl.formatMessage(messages.changeServer)}
+            </Link>
+            <a onClick={this.useLocalServer.bind(this)}>
+              {intl.formatMessage(messages.serverless)}
+            </a>
+            <Link to={loginRoute}>
+              {intl.formatMessage(messages.loginLink)}
+            </Link>
           </div>
         </div>
       </div>
     );
   }
 }
+
+export default injectIntl(Signup);

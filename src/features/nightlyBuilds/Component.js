@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import injectSheet from 'react-jss';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { H1 } from '@meetfranz/ui';
 
 import Modal from '../../components/ui/Modal';
@@ -20,7 +20,8 @@ const messages = defineMessages({
   },
   info: {
     id: 'feature.nightlyBuilds.info',
-    defaultMessage: '!!!Nightly builds are highly experimental versions of Ferdi that may contain unpolished or uncompleted features. These nightly builds are mainly used by developers to test their newly developed features and how they will perform in the final build. If you don\'t know what you are doing, we suggest not activating nightly builds.',
+    defaultMessage:
+      "!!!Nightly builds are highly experimental versions of Ferdi that may contain unpolished or uncompleted features. These nightly builds are mainly used by developers to test their newly developed features and how they will perform in the final build. If you don't know what you are doing, we suggest not activating nightly builds.",
   },
   activate: {
     id: 'feature.nightlyBuilds.activate',
@@ -52,11 +53,10 @@ const styles = () => ({
   },
 });
 
-export default @injectSheet(styles) @inject('stores', 'actions') @observer class NightlyBuildsModal extends Component {
-  static contextTypes = {
-    intl: intlShape,
-  };
-
+@injectSheet(styles)
+@inject('stores', 'actions')
+@observer
+class NightlyBuildsModal extends Component {
   close() {
     ModalState.isModalVisible = false;
 
@@ -84,11 +84,9 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
   render() {
     const { isModalVisible } = ModalState;
 
-    const {
-      classes,
-    } = this.props;
+    const { classes } = this.props;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <Modal
@@ -132,3 +130,5 @@ NightlyBuildsModal.wrappedComponent.propTypes = {
   }).isRequired,
   classes: PropTypes.object.isRequired,
 };
+
+export default injectIntl(NightlyBuildsModal);

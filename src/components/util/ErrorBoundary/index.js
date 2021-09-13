@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import Button from '../../ui/Button';
 
@@ -18,18 +18,15 @@ const messages = defineMessages({
   },
 });
 
-export default @injectSheet(styles) class ErrorBoundary extends Component {
+@injectSheet(styles)
+class ErrorBoundary extends Component {
   state = {
     hasError: false,
-  }
+  };
 
   static propTypes = {
     classes: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
-  }
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   componentDidCatch() {
@@ -38,7 +35,7 @@ export default @injectSheet(styles) class ErrorBoundary extends Component {
 
   render() {
     const { classes } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     if (this.state.hasError) {
       return (
@@ -58,3 +55,5 @@ export default @injectSheet(styles) class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
+
+export default injectIntl(ErrorBoundary);

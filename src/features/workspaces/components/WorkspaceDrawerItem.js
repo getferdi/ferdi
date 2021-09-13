@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { altKey, cmdOrCtrlShortcutKey } from '../../../environment';
 
 const messages = defineMessages({
@@ -82,10 +82,6 @@ class WorkspaceDrawerItem extends Component {
     onContextMenuEditClick: null,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const {
       classes,
@@ -96,7 +92,8 @@ class WorkspaceDrawerItem extends Component {
       services,
       shortcutIndex,
     } = this.props;
-    const { intl } = this.context;
+
+    const { intl } = this.props;
 
     const contextMenuTemplate = [
       {
@@ -125,7 +122,11 @@ class WorkspaceDrawerItem extends Component {
           onContextMenuEditClick && contextMenu.popup(getCurrentWindow())
         }
         data-tip={`${
-          shortcutIndex <= 9 ? `(${cmdOrCtrlShortcutKey(false)}+${altKey(false)}+${shortcutIndex})` : ''
+          shortcutIndex <= 9
+            ? `(${cmdOrCtrlShortcutKey(false)}+${altKey(
+              false,
+            )}+${shortcutIndex})`
+            : ''
         }`}
       >
         <span
@@ -151,4 +152,4 @@ class WorkspaceDrawerItem extends Component {
   }
 }
 
-export default WorkspaceDrawerItem;
+export default injectIntl(WorkspaceDrawerItem);

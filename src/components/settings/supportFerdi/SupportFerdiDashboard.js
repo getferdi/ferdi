@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { defineMessages, FormattedHTMLMessage, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { BrowserWindow } from '@electron/remote';
 import InfoBar from '../../ui/InfoBar';
 
@@ -14,7 +14,8 @@ const messages = defineMessages({
   },
   aboutIntro: {
     id: 'settings.supportFerdi.aboutIntro',
-    defaultMessage: '!!!<p>Ferdi is an open-source and a community-lead application.</p><p>Thanks to the people who make this possbile:</p>',
+    defaultMessage:
+      '!!!<p>Ferdi is an open-source and a community-lead application.</p><p>Thanks to the people who make this possbile:</p>',
   },
   textListContributors: {
     id: 'settings.supportFerdi.textListContributors',
@@ -26,11 +27,13 @@ const messages = defineMessages({
   },
   textVolunteers: {
     id: 'settings.supportFerdi.textVolunteers',
-    defaultMessage: '!!!The development of Ferdi is done by volunteers. People who use Ferdi like you. They maintain, fix, and improve Ferdi in their spare time.',
+    defaultMessage:
+      '!!!The development of Ferdi is done by volunteers. People who use Ferdi like you. They maintain, fix, and improve Ferdi in their spare time.',
   },
   textSupportWelcome: {
     id: 'settings.supportFerdi.textSupportWelcome',
-    defaultMessage: '!!!Support is always welcome. You can find a list of the help we need',
+    defaultMessage:
+      '!!!Support is always welcome. You can find a list of the help we need',
   },
   textSupportWelcomeHere: {
     id: 'settings.supportFerdi.textSupportWelcomeHere',
@@ -38,7 +41,8 @@ const messages = defineMessages({
   },
   textExpenses: {
     id: 'settings.supportFerdi.textExpenses',
-    defaultMessage: '!!!While volunteers do most of the work, we still need to pay for servers and certificates. As a community, we are fully transparent on funds we collect and spend - see our',
+    defaultMessage:
+      '!!!While volunteers do most of the work, we still need to pay for servers and certificates. As a community, we are fully transparent on funds we collect and spend - see our',
   },
   textOpenCollective: {
     id: 'settings.supportFerdi.textOpenCollective',
@@ -46,7 +50,8 @@ const messages = defineMessages({
   },
   textDonation: {
     id: 'settings.supportFerdi.textDonation',
-    defaultMessage: '!!!If you feel like supporting Ferdi development with a donation, you can do so on both,',
+    defaultMessage:
+      '!!!If you feel like supporting Ferdi development with a donation, you can do so on both,',
   },
   textDonationAnd: {
     id: 'settings.supportFerdi.textDonationAnd',
@@ -67,10 +72,6 @@ const messages = defineMessages({
 });
 
 class SupportFerdiDashboard extends Component {
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   openSurveyWindow() {
     let win = new BrowserWindow({ width: 670, height: 400 });
     win.on('closed', () => {
@@ -81,7 +82,9 @@ class SupportFerdiDashboard extends Component {
   }
 
   render() {
-    const { intl } = this.context;
+    const { intl } = this.props;
+
+    const aboutIntro = intl.formatMessage(messages.aboutIntro);
 
     return (
       <div className="settings__main">
@@ -94,22 +97,67 @@ class SupportFerdiDashboard extends Component {
           <h1>{intl.formatMessage(messages.title)}</h1>
           <div>
             <p className="settings__support-badges">
-              <a href="https://github.com/getferdi/ferdi" target="_blank" rel="noreferrer"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/getferdi/ferdi?style=social" /></a>
-              <a href="https://twitter.com/getferdi/" target="_blank" rel="noreferrer"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/getferdi?label=Follow&style=social" /></a>
-              <a href="https://opencollective.com/getferdi#section-contributors" target="_blank" rel="noreferrer"><img alt="Open Collective backers" src="https://img.shields.io/opencollective/backers/getferdi?logo=open-collective" /></a>
-              <a href="https://opencollective.com/getferdi#section-contributors" target="_blank" rel="noreferrer"><img alt="Open Collective sponsors" src="https://img.shields.io/opencollective/sponsors/getferdi?logo=open-collective" /></a>
+              <a
+                href="https://github.com/getferdi/ferdi"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  alt="GitHub Stars"
+                  src="https://img.shields.io/github/stars/getferdi/ferdi?style=social"
+                />
+              </a>
+              <a
+                href="https://twitter.com/getferdi/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  alt="Twitter Follow"
+                  src="https://img.shields.io/twitter/follow/getferdi?label=Follow&style=social"
+                />
+              </a>
+              <a
+                href="https://opencollective.com/getferdi#section-contributors"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  alt="Open Collective backers"
+                  src="https://img.shields.io/opencollective/backers/getferdi?logo=open-collective"
+                />
+              </a>
+              <a
+                href="https://opencollective.com/getferdi#section-contributors"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  alt="Open Collective sponsors"
+                  src="https://img.shields.io/opencollective/sponsors/getferdi?logo=open-collective"
+                />
+              </a>
             </p>
-            <FormattedHTMLMessage {...messages.aboutIntro} />
+            <span dangerouslySetInnerHTML={{ __html: aboutIntro }} />
             <br />
             <br />
             <p>
               <a href="#contributors-via-opencollective">
-                <img alt="GitHub contributors (non-exhaustive)" width="100%" src="https://opencollective.com/getferdi/contributors.svg?width=642&button=false" />
+                <img
+                  alt="GitHub contributors (non-exhaustive)"
+                  width="100%"
+                  src="https://opencollective.com/getferdi/contributors.svg?width=642&button=false"
+                />
               </a>
             </p>
             <p>
               {intl.formatMessage(messages.textListContributors)}
-              <a href="https://github.com/getferdi/ferdi#contributors-" target="_blank" className="link" rel="noreferrer">
+              <a
+                href="https://github.com/getferdi/ferdi#contributors-"
+                target="_blank"
+                className="link"
+                rel="noreferrer"
+              >
                 {' '}
                 {intl.formatMessage(messages.textListContributorsHere)}
                 <i className="mdi mdi-open-in-new" />
@@ -117,12 +165,15 @@ class SupportFerdiDashboard extends Component {
               <br />
               <br />
             </p>
-            <p>
-              {intl.formatMessage(messages.textVolunteers)}
-            </p>
+            <p>{intl.formatMessage(messages.textVolunteers)}</p>
             <p>
               {intl.formatMessage(messages.textSupportWelcome)}
-              <a href="https://help.getferdi.com/general/support" target="_blank" className="link" rel="noreferrer">
+              <a
+                href="https://help.getferdi.com/general/support"
+                target="_blank"
+                className="link"
+                rel="noreferrer"
+              >
                 {' '}
                 {intl.formatMessage(messages.textSupportWelcomeHere)}
                 <i className="mdi mdi-open-in-new" />
@@ -130,7 +181,12 @@ class SupportFerdiDashboard extends Component {
             </p>
             <p>
               {intl.formatMessage(messages.textExpenses)}
-              <a href="https://opencollective.com/getferdi#section-budget" target="_blank" className="link" rel="noreferrer">
+              <a
+                href="https://opencollective.com/getferdi#section-budget"
+                target="_blank"
+                className="link"
+                rel="noreferrer"
+              >
                 {' '}
                 {intl.formatMessage(messages.textOpenCollective)}
                 <i className="mdi mdi-open-in-new" />
@@ -138,14 +194,23 @@ class SupportFerdiDashboard extends Component {
             </p>
             <p>
               {intl.formatMessage(messages.textDonation)}
-              <a href="https://opencollective.com/getferdi#section-contribute" target="_blank" className="link" rel="noreferrer">
+              <a
+                href="https://opencollective.com/getferdi#section-contribute"
+                target="_blank"
+                className="link"
+                rel="noreferrer"
+              >
                 {' '}
                 {intl.formatMessage(messages.textOpenCollective)}
                 <i className="mdi mdi-open-in-new" />
-              </a>
-              {' '}
+              </a>{' '}
               {intl.formatMessage(messages.textDonationAnd)}
-              <a href="https://github.com/sponsors/getferdi" target="_blank" className="link" rel="noreferrer">
+              <a
+                href="https://github.com/sponsors/getferdi"
+                target="_blank"
+                className="link"
+                rel="noreferrer"
+              >
                 {' '}
                 {intl.formatMessage(messages.textGitHubSponsors)}
                 <i className="mdi mdi-open-in-new" />
@@ -166,4 +231,4 @@ class SupportFerdiDashboard extends Component {
   }
 }
 
-export default SupportFerdiDashboard;
+export default injectIntl(SupportFerdiDashboard);

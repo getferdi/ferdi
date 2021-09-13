@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 
 import { Button, Input } from '@meetfranz/forms';
@@ -34,7 +34,8 @@ const messages = defineMessages({
   },
   nothingFound: {
     id: 'settings.recipes.nothingFound',
-    defaultMessage: '!!!Sorry, but no service matched your search term - but you can still probably add it using the "Custom Website" option. Please note that the website might show more services that have been added to Ferdi since the version that you are currently on. To get those new services, please consider upgrading to a newer version of Ferdi.',
+    defaultMessage:
+      '!!!Sorry, but no service matched your search term - but you can still probably add it using the "Custom Website" option. Please note that the website might show more services that have been added to Ferdi since the version that you are currently on. To get those new services, please consider upgrading to a newer version of Ferdi.',
   },
   servicesSuccessfulAddedInfo: {
     id: 'settings.recipes.servicesSuccessfulAddedInfo',
@@ -81,7 +82,8 @@ const styles = {
     marginTop: 20,
 
     '& > div': {
-      fontFamily: 'SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace',
+      fontFamily:
+        'SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace',
     },
   },
   actionContainer: {
@@ -98,7 +100,9 @@ const styles = {
   },
 };
 
-export default @injectSheet(styles) @observer class RecipesDashboard extends Component {
+@injectSheet(styles)
+@observer
+class RecipesDashboard extends Component {
   static propTypes = {
     recipes: MobxPropTypes.arrayOrObservableArray.isRequired,
     customWebsiteRecipe: PropTypes.instanceOf(RecipePreview).isRequired,
@@ -118,10 +122,6 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
   static defaultProps = {
     searchNeedle: '',
     recipeFilter: 'all',
-  }
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   render() {
@@ -140,7 +140,7 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
       openDevDocs,
       classes,
     } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     const communityRecipes = recipes.filter(r => !r.isDevRecipe);
     const devRecipes = recipes.filter(r => r.isDevRecipe);
@@ -188,9 +188,13 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
             >
               {intl.formatMessage(messages.customRecipes)}
             </Link>
-            <a href={FRANZ_SERVICE_REQUEST} target="_blank" className="link recipes__service-request" rel="noreferrer">
-              {intl.formatMessage(messages.missingService)}
-              {' '}
+            <a
+              href={FRANZ_SERVICE_REQUEST}
+              target="_blank"
+              className="link recipes__service-request"
+              rel="noreferrer"
+            >
+              {intl.formatMessage(messages.missingService)}{' '}
               <i className="mdi mdi-open-in-new" />
             </a>
           </div>
@@ -201,13 +205,9 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
             <>
               {recipeFilter === 'dev' && (
                 <>
-                  <H2>
-                    {intl.formatMessage(messages.headlineCustomRecipes)}
-                  </H2>
+                  <H2>{intl.formatMessage(messages.headlineCustomRecipes)}</H2>
                   <div className={classes.devRecipeIntroContainer}>
-                    <p>
-                      {intl.formatMessage(messages.customRecipeIntro)}
-                    </p>
+                    <p>{intl.formatMessage(messages.customRecipeIntro)}</p>
                     <Input
                       value={recipeDirectory}
                       className={classes.path}
@@ -238,12 +238,19 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                       <img src="./assets/images/emoji/dontknow.png" alt="" />
                     </span>
 
-                    <p className="settings__empty-state-text">{intl.formatMessage(messages.nothingFound)}</p>
+                    <p className="settings__empty-state-text">
+                      {intl.formatMessage(messages.nothingFound)}
+                    </p>
 
                     <RecipeItem
                       key={customWebsiteRecipe.id}
                       recipe={customWebsiteRecipe}
-                      onClick={() => isLoggedIn && showAddServiceInterface({ recipeId: customWebsiteRecipe.id })}
+                      onClick={() =>
+                        isLoggedIn &&
+                        showAddServiceInterface({
+                          recipeId: customWebsiteRecipe.id,
+                        })
+                      }
                     />
                   </div>
                 )}
@@ -251,7 +258,10 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                   <RecipeItem
                     key={recipe.id}
                     recipe={recipe}
-                    onClick={() => isLoggedIn && showAddServiceInterface({ recipeId: recipe.id })}
+                    onClick={() =>
+                      isLoggedIn &&
+                      showAddServiceInterface({ recipeId: recipe.id })
+                    }
                   />
                 ))}
               </div>
@@ -263,7 +273,10 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
                       <RecipeItem
                         key={recipe.id}
                         recipe={recipe}
-                        onClick={() => isLoggedIn && showAddServiceInterface({ recipeId: recipe.id })}
+                        onClick={() =>
+                          isLoggedIn &&
+                          showAddServiceInterface({ recipeId: recipe.id })
+                        }
                       />
                     ))}
                   </div>
@@ -276,3 +289,5 @@ export default @injectSheet(styles) @observer class RecipesDashboard extends Com
     );
   }
 }
+
+export default injectIntl(RecipesDashboard);

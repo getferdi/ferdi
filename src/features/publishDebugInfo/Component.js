@@ -2,7 +2,7 @@ import { H1 } from '@meetfranz/ui';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import injectSheet from 'react-jss';
 import { state as ModalState } from './store';
 import { sendAuthRequest } from '../../api/utils/auth';
@@ -22,11 +22,13 @@ const messages = defineMessages({
   },
   info: {
     id: 'feature.publishDebugInfo.info',
-    defaultMessage: '!!!Publishing your debug information helps us find issues and errors in Ferdi. By publishing your debug information you accept Ferdi Debugger\'s privacy policy and terms of service',
+    defaultMessage:
+      "!!!Publishing your debug information helps us find issues and errors in Ferdi. By publishing your debug information you accept Ferdi Debugger's privacy policy and terms of service",
   },
   error: {
     id: 'feature.publishDebugInfo.error',
-    defaultMessage: '!!!There was an error while trying to publish the debug information. Please try again later or view the console for more information.',
+    defaultMessage:
+      '!!!There was an error while trying to publish the debug information. Please try again later or view the console for more information.',
   },
   privacy: {
     id: 'feature.publishDebugInfo.privacy',
@@ -46,7 +48,7 @@ const messages = defineMessages({
   },
 });
 
-const styles = (theme) => ({
+const styles = theme => ({
   container: {
     minWidth: '70vw',
   },
@@ -69,7 +71,8 @@ const styles = (theme) => ({
     width: '100%',
 
     '& div': {
-      fontFamily: 'SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace',
+      fontFamily:
+        'SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace',
     },
 
     '& input': {
@@ -81,20 +84,19 @@ const styles = (theme) => ({
   },
 });
 
-export default @injectSheet(styles) @inject('stores', 'actions') @observer class PublishDebugLogModal extends Component {
+@injectSheet(styles)
+@inject('stores', 'actions')
+@observer
+class PublishDebugLogModal extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-  };
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   state = {
     log: null,
     error: false,
     isSendingLog: false,
-  }
+  };
 
   // Close this modal
   close() {
@@ -109,12 +111,16 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
 
     const debugInfo = JSON.stringify(this.props.stores.app.debugInfo);
 
-    const request = await sendAuthRequest(`${DEBUG_API}/create`, {
-      method: 'POST',
-      body: JSON.stringify({
-        log: debugInfo,
-      }),
-    }, false);
+    const request = await sendAuthRequest(
+      `${DEBUG_API}/create`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          log: debugInfo,
+        }),
+      },
+      false,
+    );
 
     debug(`debugInfo: publishing status: ${request.status}`);
     if (request.status === 200) {
@@ -140,17 +146,11 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
   render() {
     const { isModalVisible } = ModalState;
 
-    const {
-      classes,
-    } = this.props;
+    const { classes } = this.props;
 
-    const {
-      log,
-      error,
-      isSendingLog,
-    } = this.state;
+    const { log, error, isSendingLog } = this.state;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <Modal
@@ -159,12 +159,12 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
         close={() => this.close()}
       >
         <div className={classes.container}>
-          <H1>
-            {intl.formatMessage(messages.title)}
-          </H1>
-          { log && (
+          <H1>{intl.formatMessage(messages.title)}</H1>
+          {log && (
             <>
-              <p className={classes.info}>{intl.formatMessage(messages.published)}</p>
+              <p className={classes.info}>
+                {intl.formatMessage(messages.published)}
+              </p>
               <Input
                 className={classes.url}
                 showLabel={false}
@@ -184,12 +184,24 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
 
           {!log && !error && (
             <>
-              <p className={classes.info}>{intl.formatMessage(messages.info)}</p>
+              <p className={classes.info}>
+                {intl.formatMessage(messages.info)}
+              </p>
 
-              <a href={`${DEBUG_API}/privacy.html`} target="_blank" className={classes.link} rel="noreferrer">
+              <a
+                href={`${DEBUG_API}/privacy.html`}
+                target="_blank"
+                className={classes.link}
+                rel="noreferrer"
+              >
                 {intl.formatMessage(messages.privacy)}
               </a>
-              <a href={`${DEBUG_API}/terms.html`} target="_blank" className={classes.link} rel="noreferrer">
+              <a
+                href={`${DEBUG_API}/terms.html`}
+                target="_blank"
+                className={classes.link}
+                rel="noreferrer"
+              >
                 {intl.formatMessage(messages.terms)}
               </a>
 
@@ -216,3 +228,5 @@ PublishDebugLogModal.wrappedComponent.propTypes = {
     service: PropTypes.instanceOf(ServicesStore).isRequired,
   }).isRequired,
 };
+
+export default injectIntl(PublishDebugLogModal);

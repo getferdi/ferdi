@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
@@ -22,11 +22,13 @@ const messages = defineMessages({
   },
   intro: {
     id: 'settings.team.intro',
-    defaultMessage: '!!!Your are currently using Franz Servers, which is why you have access to Team Management.',
+    defaultMessage:
+      '!!!Your are currently using Franz Servers, which is why you have access to Team Management.',
   },
   copy: {
     id: 'settings.team.copy',
-    defaultMessage: '!!!Franz\'s Team Management allows you to manage Franz Subscriptions for multiple users. Please keep in mind that having a Franz Premium subscription will give you no advantages in using Ferdi: The only reason you still have access to Team Management is so you can manage your legacy Franz Teams and so that you don\'t loose any functionality in managing your account.',
+    defaultMessage:
+      "!!!Franz's Team Management allows you to manage Franz Subscriptions for multiple users. Please keep in mind that having a Franz Premium subscription will give you no advantages in using Ferdi: The only reason you still have access to Team Management is so you can manage your legacy Franz Teams and so that you don't loose any functionality in managing your account.",
   },
   manageButton: {
     id: 'settings.team.manageAction',
@@ -38,7 +40,8 @@ const messages = defineMessages({
   },
   teamsUnavailableInfo: {
     id: 'settings.team.teamsUnavailableInfo',
-    defaultMessage: '!!!Teams are currently only available when using the Franz Server and after paying for Franz Professional. Please change your server to https://api.franzinfra.com to use teams.',
+    defaultMessage:
+      '!!!Teams are currently only available when using the Franz Server and after paying for Franz Professional. Please change your server to https://api.franzinfra.com to use teams.',
   },
 });
 
@@ -87,7 +90,9 @@ const styles = {
   },
 };
 
-export default @injectSheet(styles) @observer class TeamDashboard extends Component {
+@injectSheet(styles)
+@observer
+class TeamDashboard extends Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
     userInfoRequestFailed: PropTypes.bool.isRequired,
@@ -95,10 +100,6 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
     openTeamManagement: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired,
     server: PropTypes.string.isRequired,
-  };
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   render() {
@@ -110,7 +111,7 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
       classes,
       server,
     } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     if (server === LIVE_FRANZ_API) {
       return (
@@ -121,9 +122,7 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
             </span>
           </div>
           <div className="settings__body">
-            {isLoading && (
-              <Loader />
-            )}
+            {isLoading && <Loader />}
 
             {!isLoading && userInfoRequestFailed && (
               <Infobox
@@ -142,20 +141,24 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
                 {!isLoading && (
                   <>
                     <>
-                      <h1 className={classnames({
-                        [classes.headline]: true,
-                        [classes.headlineWithSpacing]: true,
-                      })}
+                      <h1
+                        className={classnames({
+                          [classes.headline]: true,
+                          [classes.headlineWithSpacing]: true,
+                        })}
                       >
                         {intl.formatMessage(messages.contentHeadline)}
-
                       </h1>
                       <div className={classes.container}>
                         <div className={classes.content}>
                           <p>{intl.formatMessage(messages.intro)}</p>
                           <p>{intl.formatMessage(messages.copy)}</p>
                         </div>
-                        <img className={classes.image} src="https://cdn.franzinfra.com/announcements/assets/teams.png" alt="Ferdi for Teams" />
+                        <img
+                          className={classes.image}
+                          src="https://cdn.franzinfra.com/announcements/assets/teams.png"
+                          alt="Ferdi for Teams"
+                        />
                       </div>
                       <div className={classes.buttonContainer}>
                         <Button
@@ -188,7 +191,8 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
           <p
             className="settings__message"
             style={{
-              borderTop: 0, marginTop: 0,
+              borderTop: 0,
+              marginTop: 0,
             }}
           >
             {intl.formatMessage(messages.teamsUnavailableInfo)}
@@ -198,3 +202,5 @@ export default @injectSheet(styles) @observer class TeamDashboard extends Compon
     );
   }
 }
+
+export default injectIntl(TeamDashboard);

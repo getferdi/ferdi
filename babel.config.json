@@ -1,8 +1,5 @@
 {
-  "babelrcRoots": [
-    ".",
-    "packages/*"
-  ],
+  "babelrcRoots": [".", "packages/*"],
   "presets": [
     [
       "@babel/preset-env",
@@ -31,11 +28,10 @@
     "@babel/proposal-throw-expressions",
     "@babel/syntax-dynamic-import",
     [
-      "react-intl",
+      "formatjs",
       {
-        "messagesDir": "./src/i18n/messages/",
-        "enforceDescriptions": false,
-        "extractSourceLocation": true
+        "idInterpolationPattern": "[sha512:contenthash:base64:6]",
+        "ast": true
       }
     ],
     [

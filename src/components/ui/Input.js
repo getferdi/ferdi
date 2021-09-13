@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Field } from 'mobx-react-form';
 import classnames from 'classnames';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import { scorePassword as scorePasswordFunc } from '../../helpers/password-helpers';
 
@@ -14,7 +14,6 @@ const messages = defineMessages({
   },
 });
 
-export default
 @observer
 class Input extends Component {
   static propTypes = {
@@ -36,10 +35,6 @@ class Input extends Component {
     scorePassword: false,
     prefix: '',
     suffix: '',
-  };
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   state = {
@@ -82,7 +77,7 @@ class Input extends Component {
 
     const { passwordScore } = this.state;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     let { type } = field;
     if (type === 'password' && this.state.showPassword) {
@@ -106,10 +101,10 @@ class Input extends Component {
             name={field.name}
             value={field.value}
             placeholder={field.placeholder}
-            onChange={(e) => this.onChange(e)}
+            onChange={e => this.onChange(e)}
             onBlur={field.onBlur}
             onFocus={field.onFocus}
-            ref={(element) => {
+            ref={element => {
               this.inputElement = element;
             }}
             disabled={field.disabled}
@@ -124,9 +119,11 @@ class Input extends Component {
                 'mdi-eye': !this.state.showPassword,
                 'mdi-eye-off': this.state.showPassword,
               })}
-              onClick={() => this.setState((prevState) => ({
-                showPassword: !prevState.showPassword,
-              }))}
+              onClick={() =>
+                this.setState(prevState => ({
+                  showPassword: !prevState.showPassword,
+                }))
+              }
               tabIndex={-1}
               aria-label={intl.formatMessage(messages.passwordToggle)}
             />
@@ -154,3 +151,5 @@ class Input extends Component {
     );
   }
 }
+
+export default injectIntl(Input);

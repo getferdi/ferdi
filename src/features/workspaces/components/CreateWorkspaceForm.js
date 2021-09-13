@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Input, Button } from '@meetfranz/forms';
 import injectSheet from 'react-jss';
 import Form from '../../../lib/Form';
@@ -32,12 +32,9 @@ const styles = () => ({
   },
 });
 
-@injectSheet(styles) @observer
+@injectSheet(styles)
+@observer
 class CreateWorkspaceForm extends Component {
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   static propTypes = {
     classes: PropTypes.object.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
@@ -45,7 +42,7 @@ class CreateWorkspaceForm extends Component {
   };
 
   form = (() => {
-    const { intl } = this.context;
+    const { intl } = this.props;
     return new Form({
       fields: {
         name: {
@@ -61,7 +58,7 @@ class CreateWorkspaceForm extends Component {
   submitForm() {
     const { form } = this;
     form.submit({
-      onSuccess: async (f) => {
+      onSuccess: async f => {
         const { onSubmit } = this.props;
         const values = f.values();
         onSubmit(values);
@@ -70,7 +67,7 @@ class CreateWorkspaceForm extends Component {
   }
 
   render() {
-    const { intl } = this.context;
+    const { intl } = this.props;
     const { classes, isSubmitting } = this.props;
     const { form } = this;
     return (
@@ -95,4 +92,4 @@ class CreateWorkspaceForm extends Component {
   }
 }
 
-export default CreateWorkspaceForm;
+export default injectIntl(CreateWorkspaceForm);

@@ -2,19 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import classnames from 'classnames';
 
 import Modal from '../../components/ui/Modal';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 
-import {
-  state,
-  resetState,
-  sendCredentials,
-  cancelLogin,
-} from './store';
+import { state, resetState, sendCredentials, cancelLogin } from './store';
 import Form from './Form';
 
 import styles from './styles';
@@ -27,13 +22,11 @@ const messages = defineMessages({
   },
 });
 
-export default @injectSheet(styles) @observer class BasicAuthModal extends Component {
+@injectSheet(styles)
+@observer
+class BasicAuthModal extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-  }
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   submit(e) {
@@ -56,20 +49,15 @@ export default @injectSheet(styles) @observer class BasicAuthModal extends Compo
   }
 
   render() {
-    const {
-      classes,
-    } = this.props;
+    const { classes } = this.props;
 
-    const {
-      isModalVisible,
-      authInfo,
-    } = state;
+    const { isModalVisible, authInfo } = state;
 
     if (!authInfo) {
       return null;
     }
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <Modal
@@ -89,10 +77,7 @@ export default @injectSheet(styles) @observer class BasicAuthModal extends Compo
           onSubmit={this.submit.bind(this)}
           className={classnames('franz-form', classes.form)}
         >
-          <Input
-            field={Form.$('user')}
-            showLabel={false}
-          />
+          <Input field={Form.$('user')} showLabel={false} />
           <Input
             field={Form.$('password')}
             showLabel={false}
@@ -105,13 +90,11 @@ export default @injectSheet(styles) @observer class BasicAuthModal extends Compo
               buttonType="secondary"
               onClick={this.cancel.bind(this)}
             />
-            <Button
-              type="submit"
-              label={intl.formatMessage(messages.signIn)}
-            />
+            <Button type="submit" label={intl.formatMessage(messages.signIn)} />
           </div>
         </form>
       </Modal>
     );
   }
 }
+export default injectIntl(BasicAuthModal);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import ms from 'ms';
 
 import Button from '../../ui/Button';
@@ -21,23 +21,21 @@ const messages = defineMessages({
   },
   autoReload: {
     id: 'service.crashHandler.autoReload',
-    defaultMessage: '!!!Trying to automatically restore {name} in {seconds} seconds',
+    defaultMessage:
+      '!!!Trying to automatically restore {name} in {seconds} seconds',
   },
 });
 
-export default @observer class WebviewCrashHandler extends Component {
+@observer
+class WebviewCrashHandler extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     reload: PropTypes.func.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   state = {
     countdown: ms('10s'),
-  }
+  };
 
   countdownInterval = null;
 
@@ -47,7 +45,7 @@ export default @observer class WebviewCrashHandler extends Component {
     const { reload } = this.props;
 
     this.countdownInterval = setInterval(() => {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         countdown: prevState.countdown - this.countdownIntervalTimeout,
       }));
 
@@ -60,7 +58,7 @@ export default @observer class WebviewCrashHandler extends Component {
 
   render() {
     const { name, reload } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <div className="services__info-layer">
@@ -82,3 +80,5 @@ export default @observer class WebviewCrashHandler extends Component {
     );
   }
 }
+
+export default injectIntl(WebviewCrashHandler);

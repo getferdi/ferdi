@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Loader from 'react-loader';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 const messages = defineMessages({
   dismiss: {
@@ -12,7 +12,6 @@ const messages = defineMessages({
   },
 });
 
-export default
 @observer
 class Infobox extends Component {
   static propTypes = {
@@ -38,10 +37,6 @@ class Infobox extends Component {
     onSeen: () => null,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   state = {
     dismissed: false,
   };
@@ -63,7 +58,7 @@ class Infobox extends Component {
       onDismiss,
     } = this.props;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     if (this.state.dismissed) {
       return null;
@@ -106,3 +101,5 @@ class Infobox extends Component {
     );
   }
 }
+
+export default injectIntl(Infobox);

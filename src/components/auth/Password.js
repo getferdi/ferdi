@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import Form from '../../lib/Form';
 import { required, email } from '../../helpers/validation-helpers';
@@ -38,7 +38,8 @@ const messages = defineMessages({
   },
 });
 
-export default @observer class Password extends Component {
+@observer
+class Password extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
@@ -47,24 +48,23 @@ export default @observer class Password extends Component {
     status: MobxPropTypes.arrayOrObservableArray.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
-  form = new Form({
-    fields: {
-      email: {
-        label: this.context.intl.formatMessage(messages.emailLabel),
-        value: '',
-        validators: [required, email],
+  form = new Form(
+    {
+      fields: {
+        email: {
+          label: this.props.intl.formatMessage(messages.emailLabel),
+          value: '',
+          validators: [required, email],
+        },
       },
     },
-  }, this.context.intl);
+    this.props.intl,
+  );
 
   submit(e) {
     e.preventDefault();
     this.form.submit({
-      onSuccess: (form) => {
+      onSuccess: form => {
         this.props.onSubmit(form.values());
       },
       onError: () => {},
@@ -73,37 +73,24 @@ export default @observer class Password extends Component {
 
   render() {
     const { form } = this;
-    const { intl } = this.context;
-    const {
-      isSubmitting,
-      signupRoute,
-      loginRoute,
-      status,
-    } = this.props;
+    const { intl } = this.props;
+    const { isSubmitting, signupRoute, loginRoute, status } = this.props;
 
     return (
       <div className="auth__container">
-        <form className="franz-form auth__form" onSubmit={(e) => this.submit(e)}>
-          <img
-            src="./assets/images/logo.svg"
-            className="auth__logo"
-            alt=""
-          />
+        <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
+          <img src="./assets/images/logo.svg" className="auth__logo" alt="" />
           <h1>{intl.formatMessage(messages.headline)}</h1>
           {status.length > 0 && status.includes('sent') && (
-            <Infobox
-              type="success"
-              icon="checkbox-marked-circle-outline"
-            >
+            <Infobox type="success" icon="checkbox-marked-circle-outline">
               {intl.formatMessage(messages.successInfo)}
             </Infobox>
           )}
-          <Input
-            field={form.$('email')}
-            focus
-          />
+          <Input field={form.$('email')} focus />
           {status.length > 0 && status.includes('no-user') && (
-            <p className="error-message center">{intl.formatMessage(messages.noUser)}</p>
+            <p className="error-message center">
+              {intl.formatMessage(messages.noUser)}
+            </p>
           )}
           {isSubmitting ? (
             <Button
@@ -123,9 +110,13 @@ export default @observer class Password extends Component {
         </form>
         <div className="auth__links">
           <Link to={loginRoute}>{intl.formatMessage(messages.loginLink)}</Link>
-          <Link to={signupRoute}>{intl.formatMessage(messages.signupLink)}</Link>
+          <Link to={signupRoute}>
+            {intl.formatMessage(messages.signupLink)}
+          </Link>
         </div>
       </div>
     );
   }
 }
+
+export default injectIntl(Password);

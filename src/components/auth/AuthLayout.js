@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { intlShape } from 'react-intl';
 import { TitleBar } from 'electron-react-titlebar';
 
+import { injectIntl } from 'react-intl';
 import Link from '../ui/Link';
 import InfoBar from '../ui/InfoBar';
 
@@ -17,7 +17,6 @@ import { isWindows } from '../../environment';
 import AppUpdateInfoBar from '../AppUpdateInfoBar';
 import { GITHUB_FERDI_URL } from '../../config';
 
-export default
 @observer
 class AuthLayout extends Component {
   static propTypes = {
@@ -36,10 +35,6 @@ class AuthLayout extends Component {
     shouldShowAppUpdateInfoBar: true,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const {
       children,
@@ -52,7 +47,8 @@ class AuthLayout extends Component {
       installAppUpdate,
       appUpdateIsDownloaded,
     } = this.props;
-    const { intl } = this.context;
+
+    const { intl } = this.props;
 
     return (
       <>
@@ -108,3 +104,5 @@ class AuthLayout extends Component {
     );
   }
 }
+
+export default injectIntl(AuthLayout);

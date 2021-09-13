@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Loader from 'react-loader';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 // import { oneOrManyChildElements } from '../../prop-types';
 import Appear from './effects/Appear';
@@ -15,7 +15,6 @@ const messages = defineMessages({
   },
 });
 
-export default
 @observer
 class InfoBar extends Component {
   static propTypes = {
@@ -42,10 +41,6 @@ class InfoBar extends Component {
     onHide: () => null,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const {
       children,
@@ -59,7 +54,7 @@ class InfoBar extends Component {
       onHide,
     } = this.props;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     let transitionName = 'slideUp';
     if (position === 'top') {
@@ -103,3 +98,5 @@ class InfoBar extends Component {
     );
   }
 }
+
+export default injectIntl(InfoBar);

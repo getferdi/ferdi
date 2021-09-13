@@ -8,7 +8,9 @@ import translations from './i18n/translations';
 import UserStore from './stores/UserStore';
 import AppStore from './stores/AppStore';
 
-export default @inject('stores') @observer class I18N extends Component {
+@inject('stores')
+@observer
+class I18N extends Component {
   componentDidUpdate() {
     window.ferdi.menu.rebuild();
   }
@@ -19,7 +21,9 @@ export default @inject('stores') @observer class I18N extends Component {
     return (
       <IntlProvider
         {...{ locale, key: locale, messages: translations[locale] }}
-        ref={(intlProvider) => { window.ferdi.intl = intlProvider ? intlProvider.getChildContext().intl : null; }}
+        ref={intlProvider => {
+          window.ferdi.intl = intlProvider ? intlProvider.state.intl : null;
+        }}
       >
         {children}
       </IntlProvider>
@@ -34,3 +38,5 @@ I18N.wrappedComponent.propTypes = {
   }).isRequired,
   children: oneOrManyChildElements.isRequired,
 };
+
+export default I18N;

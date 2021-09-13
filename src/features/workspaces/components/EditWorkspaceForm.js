@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import { Input, Button } from '@meetfranz/forms';
 import injectSheet from 'react-jss';
@@ -72,10 +72,6 @@ const styles = () => ({
 @injectSheet(styles)
 @observer
 class EditWorkspaceForm extends Component {
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   static propTypes = {
     classes: PropTypes.object.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -97,7 +93,7 @@ class EditWorkspaceForm extends Component {
   }
 
   prepareWorkspaceForm(workspace) {
-    const { intl } = this.context;
+    const { intl } = this.props;
     return new Form({
       fields: {
         name: {
@@ -120,7 +116,7 @@ class EditWorkspaceForm extends Component {
 
   save(form) {
     form.submit({
-      onSuccess: async (f) => {
+      onSuccess: async f => {
         const { onSave } = this.props;
         const values = f.values();
         onSave(values);
@@ -146,7 +142,7 @@ class EditWorkspaceForm extends Component {
   }
 
   render() {
-    const { intl } = this.context;
+    const { intl } = this.props;
     const {
       classes,
       workspace,
@@ -194,7 +190,7 @@ class EditWorkspaceForm extends Component {
               </div>
             ) : (
               <>
-                {services.map((s) => (
+                {services.map(s => (
                   <WorkspaceServiceListItem
                     key={s.id}
                     service={s}
@@ -233,4 +229,4 @@ class EditWorkspaceForm extends Component {
   }
 }
 
-export default EditWorkspaceForm;
+export default injectIntl(EditWorkspaceForm);

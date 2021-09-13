@@ -1,6 +1,6 @@
 import { Menu, dialog, app, getCurrentWindow } from '@electron/remote';
 import React, { Component } from 'react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
@@ -134,10 +134,6 @@ class TabItem extends Component {
     showMessageBadgesEvenWhenMuted: PropTypes.bool.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   @observable isPolled = false;
 
   @observable isPollAnswered = false;
@@ -185,7 +181,7 @@ class TabItem extends Component {
       showMessageBadgeWhenMutedSetting,
       showMessageBadgesEvenWhenMuted,
     } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     const menuTemplate = [
       {
@@ -256,7 +252,10 @@ class TabItem extends Component {
             detail: intl.formatMessage(messages.confirmDeleteService, {
               serviceName: service.name || service.recipe.name,
             }),
-            buttons: [intl.formatMessage(globalMessages.yes), intl.formatMessage(globalMessages.no)],
+            buttons: [
+              intl.formatMessage(globalMessages.yes),
+              intl.formatMessage(globalMessages.no),
+            ],
           });
           if (selection === 0) {
             deleteService();
@@ -304,7 +303,9 @@ class TabItem extends Component {
         onClick={clickHandler}
         onContextMenu={() => menu.popup(getCurrentWindow())}
         data-tip={`${service.name} ${
-          shortcutIndex <= 9 ? `(${cmdOrCtrlShortcutKey(false)}+${shortcutIndex})` : ''
+          shortcutIndex <= 9
+            ? `(${cmdOrCtrlShortcutKey(false)}+${shortcutIndex})`
+            : ''
         }`}
       >
         <img src={service.icon} className="tab-item__icon" alt="" />
@@ -332,4 +333,4 @@ class TabItem extends Component {
   }
 }
 
-export default SortableElement(TabItem);
+export default injectIntl(SortableElement(TabItem));

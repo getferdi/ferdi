@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { Icon } from '@meetfranz/ui';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import {
   mdiReload,
@@ -109,10 +109,6 @@ class WebControls extends Component {
     navigate: PropTypes.func.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   static getDerivedStateFromProps(props, state) {
     const { url } = props;
     const { editUrl } = state;
@@ -148,7 +144,7 @@ class WebControls extends Component {
 
     const { inputUrl, editUrl } = this.state;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <div className={classes.root}>
@@ -241,4 +237,4 @@ class WebControls extends Component {
   }
 }
 
-export default WebControls;
+export default injectIntl(WebControls);

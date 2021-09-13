@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes, inject } from 'mobx-react';
 import { Link } from 'react-router';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import Confetti from 'react-confetti';
 import ms from 'ms';
 import injectSheet from 'react-jss';
@@ -30,7 +30,8 @@ const messages = defineMessages({
   },
   serverInfo: {
     id: 'services.serverInfo',
-    defaultMessage: '!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner. If you are switching over (from one of the hosted servers) to using Ferdi without an account, please be informed that you can export your data from that server and subsequently import it using the Help menu to resurrect all your workspaces and configured services!',
+    defaultMessage:
+      '!!!Optionally, you can change your Ferdi server by clicking the cog in the bottom left corner. If you are switching over (from one of the hosted servers) to using Ferdi without an account, please be informed that you can export your data from that server and subsequently import it using the Help menu to resurrect all your workspaces and configured services!',
   },
 });
 
@@ -43,7 +44,10 @@ const styles = {
   },
 };
 
-export default @injectSheet(styles) @inject('actions') @observer class Services extends Component {
+@injectSheet(styles)
+@inject('actions')
+@observer
+class Services extends Component {
   static propTypes = {
     services: MobxPropTypes.arrayOrObservableArray,
     setWebviewReference: PropTypes.func.isRequired,
@@ -61,10 +65,6 @@ export default @injectSheet(styles) @inject('actions') @observer class Services 
 
   static defaultProps = {
     services: [],
-  };
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   state = {
@@ -112,11 +112,9 @@ export default @injectSheet(styles) @inject('actions') @observer class Services 
       isSpellcheckerEnabled,
     } = this.props;
 
-    const {
-      showConfetti,
-    } = this.state;
+    const { showConfetti } = this.state;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
     const isLoggedIn = Boolean(localStorage.getItem('authToken'));
 
     return (
@@ -131,25 +129,28 @@ export default @injectSheet(styles) @inject('actions') @observer class Services 
           </div>
         )}
         {services.length === 0 && (
-          <Appear
-            timeout={1500}
-            transitionName="slideUp"
-          >
+          <Appear timeout={1500} transitionName="slideUp">
             <div className="services__no-service">
-              <img src="./assets/images/logo.svg" alt="Logo" style={{ maxHeight: '50vh' }} />
+              <img
+                src="./assets/images/logo.svg"
+                alt="Logo"
+                style={{ maxHeight: '50vh' }}
+              />
               <h1>{intl.formatMessage(messages.welcome)}</h1>
-              { !isLoggedIn && (
+              {!isLoggedIn && (
                 <>
                   <p>{intl.formatMessage(messages.login)}</p>
                   <p>{intl.formatMessage(messages.serverInfo)}</p>
                 </>
-              ) }
-              <Appear
-                timeout={300}
-                transitionName="slideUp"
-              >
-                <Link to={isLoggedIn ? '/settings/recipes' : '/auth/welcome'} className="button">
-                  { isLoggedIn ? intl.formatMessage(messages.getStarted) : 'Login' }
+              )}
+              <Appear timeout={300} transitionName="slideUp">
+                <Link
+                  to={isLoggedIn ? '/settings/recipes' : '/auth/welcome'}
+                  className="button"
+                >
+                  {isLoggedIn
+                    ? intl.formatMessage(messages.getStarted)
+                    : 'Login'}
                 </Link>
                 {!isLoggedIn && (
                   <button
@@ -167,27 +168,33 @@ export default @injectSheet(styles) @inject('actions') @observer class Services 
             </div>
           </Appear>
         )}
-        {services.filter((service) => !service.isTodosService).map((service) => (
-          <ServiceView
-            key={service.id}
-            service={service}
-            handleIPCMessage={handleIPCMessage}
-            setWebviewReference={setWebviewReference}
-            detachService={detachService}
-            openWindow={openWindow}
-            reload={() => reload({ serviceId: service.id })}
-            edit={() => openSettings({ path: `services/edit/${service.id}` })}
-            enable={() => update({
-              serviceId: service.id,
-              serviceData: {
-                isEnabled: true,
-              },
-              redirect: false,
-            })}
-            isSpellcheckerEnabled={isSpellcheckerEnabled}
-          />
-        ))}
+        {services
+          .filter(service => !service.isTodosService)
+          .map(service => (
+            <ServiceView
+              key={service.id}
+              service={service}
+              handleIPCMessage={handleIPCMessage}
+              setWebviewReference={setWebviewReference}
+              detachService={detachService}
+              openWindow={openWindow}
+              reload={() => reload({ serviceId: service.id })}
+              edit={() => openSettings({ path: `services/edit/${service.id}` })}
+              enable={() =>
+                update({
+                  serviceId: service.id,
+                  serviceData: {
+                    isEnabled: true,
+                  },
+                  redirect: false,
+                })
+              }
+              isSpellcheckerEnabled={isSpellcheckerEnabled}
+            />
+          ))}
       </div>
     );
   }
 }
+
+export default injectIntl(Services);

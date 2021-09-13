@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 
@@ -43,7 +43,6 @@ const messages = defineMessages({
   },
 });
 
-export default
 @observer
 class Invite extends Component {
   static propTypes = {
@@ -59,10 +58,6 @@ class Invite extends Component {
     isLoadingInvite: false,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   state = { showSuccessInfo: false };
 
   componentDidMount() {
@@ -73,8 +68,8 @@ class Invite extends Component {
             ...Array(3).fill({
               fields: {
                 name: {
-                  label: this.context.intl.formatMessage(messages.nameLabel),
-                  placeholder: this.context.intl.formatMessage(
+                  label: this.props.intl.formatMessage(messages.nameLabel),
+                  placeholder: this.props.intl.formatMessage(
                     messages.nameLabel,
                   ),
                   onChange: () => {
@@ -83,8 +78,8 @@ class Invite extends Component {
                   // related: ['invite.0.email'], // path accepted but does not work
                 },
                 email: {
-                  label: this.context.intl.formatMessage(messages.emailLabel),
-                  placeholder: this.context.intl.formatMessage(
+                  label: this.props.intl.formatMessage(messages.emailLabel),
+                  placeholder: this.props.intl.formatMessage(
                     messages.emailLabel,
                   ),
                   onChange: () => {
@@ -97,7 +92,7 @@ class Invite extends Component {
           ],
         },
       },
-      this.context.intl,
+      this.props.intl,
     );
 
     document.querySelector('input:first-child').focus();
@@ -107,7 +102,7 @@ class Invite extends Component {
     e.preventDefault();
 
     this.form.submit({
-      onSuccess: (form) => {
+      onSuccess: form => {
         this.props.onSubmit({ invites: form.values().invite });
 
         this.form.clear();
@@ -121,13 +116,13 @@ class Invite extends Component {
 
   render() {
     const { form } = this;
-    const { intl } = this.context;
+    const { intl } = this.props;
     const { embed, isInviteSuccessful, isLoadingInvite } = this.props;
 
     const atLeastOneEmailAddress = form
       .$('invite')
-      .map((invite) => invite.$('email').value)
-      .some((emailValue) => emailValue.trim() !== '');
+      .map(invite => invite.$('email').value)
+      .some(emailValue => emailValue.trim() !== '');
 
     const sendButtonClassName = classnames({
       auth__button: true,
@@ -148,17 +143,14 @@ class Invite extends Component {
           </Appear>
         )}
 
-        <form
-          className="franz-form auth__form"
-          onSubmit={(e) => this.submit(e)}
-        >
+        <form className="franz-form auth__form" onSubmit={e => this.submit(e)}>
           {!embed && (
             <img src="./assets/images/logo.svg" className="auth__logo" alt="" />
           )}
           <h1 className={embed && 'invite__embed'}>
             {intl.formatMessage(messages.headline)}
           </h1>
-          {form.$('invite').map((invite) => (
+          {form.$('invite').map(invite => (
             <div className="grid" key={invite.key}>
               <div className="grid__row">
                 <Input field={invite.$('name')} showLabel={false} />
@@ -193,9 +185,7 @@ class Invite extends Component {
       >
         {embed && (
           <div className="settings__header">
-            <h1>
-              {this.context.intl.formatMessage(messages.settingsHeadline)}
-            </h1>
+            <h1>{this.props.intl.formatMessage(messages.settingsHeadline)}</h1>
           </div>
         )}
         {!embed ? (
@@ -207,3 +197,5 @@ class Invite extends Component {
     );
   }
 }
+
+export default injectIntl(Invite);

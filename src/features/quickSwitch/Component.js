@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { reaction } from 'mobx';
 import injectSheet from 'react-jss';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Input } from '@meetfranz/forms';
 import { H1 } from '@meetfranz/ui';
 
@@ -24,11 +24,12 @@ const messages = defineMessages({
   },
   info: {
     id: 'feature.quickSwitch.info',
-    defaultMessage: '!!!Select a service with TAB, ↑ and ↓. Open a service with ENTER.',
+    defaultMessage:
+      '!!!Select a service with TAB, ↑ and ↓. Open a service with ENTER.',
   },
 });
 
-const styles = (theme) => ({
+const styles = theme => ({
   modal: {
     width: '80%',
     maxWidth: 600,
@@ -80,20 +81,19 @@ const styles = (theme) => ({
   },
 });
 
-export default @injectSheet(styles) @inject('stores', 'actions') @observer class QuickSwitchModal extends Component {
+@injectSheet(styles)
+@inject('stores', 'actions')
+@observer
+class QuickSwitchModal extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-  };
-
-  static contextTypes = {
-    intl: intlShape,
   };
 
   state = {
     selected: 0,
     search: '',
     wasPrevVisible: false,
-  }
+  };
 
   ARROW_DOWN = 40;
 
@@ -118,9 +118,7 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
     this.openService = this.openService.bind(this);
 
     reaction(
-      () => (
-        ModalState.isModalVisible
-      ),
+      () => ModalState.isModalVisible,
       () => {
         this._handleVisibilityChange();
       },
@@ -140,10 +138,17 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
   // Get currently shown services
   services() {
     let services = [];
-    if (this.state.search && compact(invoke(this.state.search, 'match', /^[a-z0-9]/i)).length > 0) {
+    if (
+      this.state.search &&
+      compact(invoke(this.state.search, 'match', /^[a-z0-9]/i)).length > 0
+    ) {
       // Apply simple search algorythm to list of all services
       services = this.props.stores.services.allDisplayed;
-      services = services.filter((service) => service.name.toLowerCase().search(this.state.search.toLowerCase()) !== -1);
+      services = services.filter(
+        service =>
+          service.name.toLowerCase().search(this.state.search.toLowerCase()) !==
+          -1,
+      );
     } else {
       // Add the currently active service first
       const currentService = this.props.stores.services.active;
@@ -186,14 +191,14 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
   // Change the selected service
   // factor should be -1 or 1
   changeSelected(factor) {
-    this.setState((state) => {
+    this.setState(state => {
       let newSelected = state.selected + factor;
       const services = this.services().length;
 
       // Roll around when on edge of list
       if (state.selected < 1 && factor === -1) {
         newSelected = services - 1;
-      } else if ((state.selected >= (services - 1)) && factor === 1) {
+      } else if (state.selected >= services - 1 && factor === 1) {
         newSelected = 0;
       }
 
@@ -286,17 +291,13 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
   render() {
     const { isModalVisible } = ModalState;
 
-    const {
-      openService,
-    } = this;
+    const { openService } = this;
 
-    const {
-      classes,
-    } = this.props;
+    const { classes } = this.props;
 
     const services = this.services();
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <Modal
@@ -318,12 +319,16 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
         </div>
 
         <div className={classes.services}>
-          { services.map((service, index) => (
+          {services.map((service, index) => (
             <div
-              className={`${classes.service} ${this.state.selected === index ? `${classes.activeService} active` : ''} service`}
+              className={`${classes.service} ${
+                this.state.selected === index
+                  ? `${classes.activeService} active`
+                  : ''
+              } service`}
               onClick={() => openService(index)}
               key={service.id}
-              ref={(el) => {
+              ref={el => {
                 this.serviceElements[index] = el;
               }}
             >
@@ -332,9 +337,7 @@ export default @injectSheet(styles) @inject('stores', 'actions') @observer class
                 className={classes.serviceIcon}
                 alt={service.recipe.name}
               />
-              <div>
-                { service.name }
-              </div>
+              <div>{service.name}</div>
             </div>
           ))}
         </div>
@@ -356,3 +359,5 @@ QuickSwitchModal.wrappedComponent.propTypes = {
     service: PropTypes.instanceOf(ServicesStore).isRequired,
   }).isRequired,
 };
+
+export default injectIntl(QuickSwitchModal);

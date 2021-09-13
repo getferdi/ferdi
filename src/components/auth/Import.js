@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 
@@ -28,7 +28,6 @@ const messages = defineMessages({
   },
 });
 
-export default
 @observer
 class Import extends Component {
   static propTypes = {
@@ -38,17 +37,13 @@ class Import extends Component {
     inviteRoute: PropTypes.string.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   componentDidMount() {
     const config = {
       fields: {
         import: [
           ...this.props.services
-            .filter((s) => s.recipe)
-            .map((s) => ({
+            .filter(s => s.recipe)
+            .map(s => ({
               fields: {
                 add: {
                   default: true,
@@ -60,20 +55,20 @@ class Import extends Component {
       },
     };
 
-    this.form = new Form(config, this.context.intl);
+    this.form = new Form(config, this.props.intl);
   }
 
   submit(e) {
     const { services } = this.props;
     e.preventDefault();
     this.form.submit({
-      onSuccess: (form) => {
+      onSuccess: form => {
         const servicesImport = form
           .values()
           .import.map(
-            (value, i) => !value.add || services.filter((s) => s.recipe)[i],
+            (value, i) => !value.add || services.filter(s => s.recipe)[i],
           )
-          .filter((s) => typeof s !== 'boolean');
+          .filter(s => typeof s !== 'boolean');
 
         this.props.onSubmit({ services: servicesImport });
       },
@@ -82,18 +77,18 @@ class Import extends Component {
   }
 
   render() {
-    const { intl } = this.context;
+    const { intl } = this.props;
     const { services, isSubmitting, inviteRoute } = this.props;
 
-    const availableServices = services.filter((s) => s.recipe);
-    const unavailableServices = services.filter((s) => !s.recipe);
+    const availableServices = services.filter(s => s.recipe);
+    const unavailableServices = services.filter(s => !s.recipe);
 
     return (
       <div className="auth__scroll-container">
         <div className="auth__container auth__container--signup">
           <form
             className="franz-form auth__form"
-            onSubmit={(e) => this.submit(e)}
+            onSubmit={e => this.submit(e)}
           >
             <img src="./assets/images/logo.svg" className="auth__logo" alt="" />
             <h1>{intl.formatMessage(messages.headline)}</h1>
@@ -107,8 +102,8 @@ class Import extends Component {
                     <td className="service-table__column-icon">
                       <img
                         src={
-                          availableServices[i].custom_icon
-                          || availableServices[i].recipe.icons.svg
+                          availableServices[i].custom_icon ||
+                          availableServices[i].recipe.icons.svg
                         }
                         className={classnames({
                           'service-table__icon': true,
@@ -133,7 +128,7 @@ class Import extends Component {
                 </strong>
                 <p>
                   {services
-                    .filter((s) => !s.recipe)
+                    .filter(s => !s.recipe)
                     .map((service, i) => (
                       <span key={service.id}>
                         {service.name !== '' ? service.name : service.service}
@@ -170,3 +165,5 @@ class Import extends Component {
     );
   }
 }
+
+export default injectIntl(Import);

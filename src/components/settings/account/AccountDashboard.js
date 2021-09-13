@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import ReactTooltip from 'react-tooltip';
 import { H1, H2 } from '@meetfranz/ui';
 
@@ -59,7 +59,8 @@ const messages = defineMessages({
   },
   accountUnavailableInfo: {
     id: 'settings.account.accountUnavailableInfo',
-    defaultMessage: 'You are using Ferdi without an account. If you want to use Ferdi with an account and keep your services synchronized across installations, please select a server in the Settings tab then login.',
+    defaultMessage:
+      'You are using Ferdi without an account. If you want to use Ferdi with an account and keep your services synchronized across installations, please select a server in the Settings tab then login.',
   },
 });
 
@@ -78,10 +79,6 @@ class AccountDashboard extends Component {
     server: PropTypes.string.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const {
       user,
@@ -95,7 +92,7 @@ class AccountDashboard extends Component {
       openInvoices,
       server,
     } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     const isUsingWithoutAccount = server === LOCAL_SERVER;
     const isUsingFranzServer = server === LIVE_FRANZ_API;
@@ -182,9 +179,7 @@ class AccountDashboard extends Component {
                         <div className="account">
                           <div className="account__box">
                             <H2>{intl.formatMessage(messages.yourLicense)}</H2>
-                            <p>
-                              Franz
-                            </p>
+                            <p>Franz</p>
                             <div className="manage-user-links">
                               <Button
                                 label={intl.formatMessage(
@@ -203,7 +198,9 @@ class AccountDashboard extends Component {
                   {isUsingFranzServer && (
                     <div className="account franz-form">
                       <div className="account__box">
-                        <H2>{intl.formatMessage(messages.headlineDangerZone)}</H2>
+                        <H2>
+                          {intl.formatMessage(messages.headlineDangerZone)}
+                        </H2>
                         {!isDeleteAccountSuccessful && (
                           <div className="account__subscription">
                             <p>{intl.formatMessage(messages.deleteInfo)}</p>
@@ -232,4 +229,4 @@ class AccountDashboard extends Component {
   }
 }
 
-export default AccountDashboard;
+export default injectIntl(AccountDashboard);

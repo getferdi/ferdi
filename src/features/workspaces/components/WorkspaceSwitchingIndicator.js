@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import classnames from 'classnames';
 import { Loader } from '@meetfranz/ui';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import { workspaceStore } from '../index';
 
@@ -61,13 +61,9 @@ class WorkspaceSwitchingIndicator extends Component {
     theme: PropTypes.object.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const { classes, theme } = this.props;
-    const { intl } = this.context;
+    const { intl } = this.props;
     const { isSwitchingWorkspace, nextWorkspace } = workspaceStore;
     if (!isSwitchingWorkspace) return null;
     const nextWorkspaceName = nextWorkspace
@@ -89,4 +85,4 @@ class WorkspaceSwitchingIndicator extends Component {
   }
 }
 
-export default WorkspaceSwitchingIndicator;
+export default injectIntl(WorkspaceSwitchingIndicator);

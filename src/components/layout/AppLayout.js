@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { TitleBar } from 'electron-react-titlebar';
 import injectSheet from 'react-jss';
 
@@ -94,10 +94,6 @@ class AppLayout extends Component {
     children: [],
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   render() {
     const {
       classes,
@@ -119,7 +115,7 @@ class AppLayout extends Component {
       areRequiredRequestsLoading,
     } = this.props;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <ErrorBoundary>
@@ -213,4 +209,4 @@ class AppLayout extends Component {
   }
 }
 
-export default AppLayout;
+export default injectIntl(AppLayout);

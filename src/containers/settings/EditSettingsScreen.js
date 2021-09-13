@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { defineMessages, intlShape } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import AppStore from '../../stores/AppStore';
 import SettingsStore from '../../stores/SettingsStore';
@@ -10,8 +10,15 @@ import TodosStore from '../../features/todos/store';
 import Form from '../../lib/Form';
 import { APP_LOCALES, SPELLCHECKER_LOCALES } from '../../i18n/languages';
 import {
-  HIBERNATION_STRATEGIES, SIDEBAR_WIDTH, ICON_SIZES, NAVIGATION_BAR_BEHAVIOURS, SEARCH_ENGINE_NAMES, TODO_APPS,
-  DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED, DEFAULT_IS_FEATURE_ENABLED_BY_USER, WAKE_UP_STRATEGIES,
+  HIBERNATION_STRATEGIES,
+  SIDEBAR_WIDTH,
+  ICON_SIZES,
+  NAVIGATION_BAR_BEHAVIOURS,
+  SEARCH_ENGINE_NAMES,
+  TODO_APPS,
+  DEFAULT_SETTING_KEEP_ALL_WORKSPACES_LOADED,
+  DEFAULT_IS_FEATURE_ENABLED_BY_USER,
+  WAKE_UP_STRATEGIES,
 } from '../../config';
 import { DEFAULT_APP_SETTINGS, isMac } from '../../environment';
 
@@ -71,11 +78,11 @@ const messages = defineMessages({
   },
   privateNotifications: {
     id: 'settings.app.form.privateNotifications',
-    defaultMessage: '!!!Don\'t show message content in notifications',
+    defaultMessage: "!!!Don't show message content in notifications",
   },
   clipboardNotifications: {
     id: 'settings.app.form.clipboardNotifications',
-    defaultMessage: '!!!Don\'t show notifications for clipboard events',
+    defaultMessage: "!!!Don't show notifications for clipboard events",
   },
   notifyTaskBarOnMessage: {
     id: 'settings.app.form.notifyTaskBarOnMessage',
@@ -151,7 +158,7 @@ const messages = defineMessages({
   },
   adaptableDarkMode: {
     id: 'settings.app.form.adaptableDarkMode',
-    defaultMessage: '!!!Synchronize dark mode with my OS\'s dark mode setting',
+    defaultMessage: "!!!Synchronize dark mode with my OS's dark mode setting",
   },
   universalDarkMode: {
     id: 'settings.app.form.universalDarkMode',
@@ -183,7 +190,8 @@ const messages = defineMessages({
   },
   showMessageBadgeWhenMuted: {
     id: 'settings.app.form.showMessagesBadgesWhenMuted',
-    defaultMessage: '!!!Show unread message badge when notifications are disabled',
+    defaultMessage:
+      '!!!Show unread message badge when notifications are disabled',
   },
   showDragArea: {
     id: 'settings.app.form.showDragArea',
@@ -215,11 +223,9 @@ const messages = defineMessages({
   },
 });
 
-export default @inject('stores', 'actions') @observer class EditSettingsScreen extends Component {
-  static contextTypes = {
-    intl: intlShape,
-  };
-
+@inject('stores', 'actions')
+@observer
+class EditSettingsScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -288,7 +294,9 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
         useVerticalStyle: Boolean(settingsData.useVerticalStyle),
         alwaysShowWorkspaces: Boolean(settingsData.alwaysShowWorkspaces),
         accentColor: settingsData.accentColor,
-        showMessageBadgeWhenMuted: Boolean(settingsData.showMessageBadgeWhenMuted),
+        showMessageBadgeWhenMuted: Boolean(
+          settingsData.showMessageBadgeWhenMuted,
+        ),
         showDragArea: Boolean(settingsData.showDragArea),
         enableSpellchecking: Boolean(settingsData.enableSpellchecking),
         spellcheckerLanguage: settingsData.spellcheckerLanguage,
@@ -309,24 +317,27 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
 
     if (workspaces.isFeatureActive) {
       const { keepAllWorkspacesLoaded } = workspaces.settings;
-      if (Boolean(keepAllWorkspacesLoaded) !== Boolean(settingsData.keepAllWorkspacesLoaded)) {
+      if (
+        Boolean(keepAllWorkspacesLoaded) !==
+        Boolean(settingsData.keepAllWorkspacesLoaded)
+      ) {
         workspaceActions.toggleKeepAllWorkspacesLoadedSetting();
       }
     }
 
     if (todos.isFeatureActive) {
       const { isFeatureEnabledByUser } = todos.settings;
-      if (Boolean(isFeatureEnabledByUser) !== Boolean(settingsData.enableTodos)) {
+      if (
+        Boolean(isFeatureEnabledByUser) !== Boolean(settingsData.enableTodos)
+      ) {
         todosActions.toggleTodosFeatureVisibility();
       }
     }
   }
 
   prepareForm() {
-    const {
-      app, settings, user, todos, workspaces,
-    } = this.props.stores;
-    const { intl } = this.context;
+    const { app, settings, user, todos, workspaces } = this.props.stores;
+    const { intl } = this.props;
     const { lockedPassword } = this.state;
 
     const locales = getSelectOptions({
@@ -370,7 +381,9 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
 
     const spellcheckingLanguages = getSelectOptions({
       locales: SPELLCHECKER_LOCALES,
-      automaticDetectionText: this.context.intl.formatMessage(globalMessages.spellcheckerAutomaticDetection),
+      automaticDetectionText: intl.formatMessage(
+        globalMessages.spellcheckerAutomaticDetection,
+      ),
     });
 
     const config = {
@@ -401,7 +414,9 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           default: DEFAULT_APP_SETTINGS.confirmOnQuit,
         },
         enableSystemTray: {
-          label: intl.formatMessage(isMac ? messages.enableMenuBar : messages.enableSystemTray),
+          label: intl.formatMessage(
+            isMac ? messages.enableMenuBar : messages.enableSystemTray,
+          ),
           value: settings.all.app.enableSystemTray,
           default: DEFAULT_APP_SETTINGS.enableSystemTray,
         },
@@ -637,23 +652,15 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
   }
 
   render() {
-    const {
-      app,
-      todos,
-      workspaces,
-      services,
-    } = this.props.stores;
+    const { app, todos, workspaces, services } = this.props.stores;
     const {
       updateStatus,
       updateStatusTypes,
       isClearingAllCache,
       lockingFeatureEnabled,
     } = app;
-    const {
-      checkForUpdates,
-      installUpdate,
-      clearAllCache,
-    } = this.props.actions.app;
+    const { checkForUpdates, installUpdate, clearAllCache } =
+      this.props.actions.app;
     const form = this.prepareForm();
 
     return (
@@ -666,7 +673,7 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           isUpdateAvailable={updateStatus === updateStatusTypes.AVAILABLE}
           noUpdateAvailable={updateStatus === updateStatusTypes.NOT_AVAILABLE}
           updateIsReadyToInstall={updateStatus === updateStatusTypes.DOWNLOADED}
-          onSubmit={(d) => this.onSubmit(d)}
+          onSubmit={d => this.onSubmit(d)}
           getCacheSize={() => app.cacheSize}
           isClearingAllCache={isClearingAllCache}
           onClearAllCache={clearAllCache}
@@ -675,9 +682,13 @@ export default @inject('stores', 'actions') @observer class EditSettingsScreen e
           lockingFeatureEnabled={lockingFeatureEnabled}
           automaticUpdates={this.props.stores.settings.app.automaticUpdates}
           isDarkmodeEnabled={this.props.stores.settings.app.darkMode}
-          isAdaptableDarkModeEnabled={this.props.stores.settings.app.adaptableDarkMode}
+          isAdaptableDarkModeEnabled={
+            this.props.stores.settings.app.adaptableDarkMode
+          }
           isTodosActivated={this.props.stores.todos.isFeatureEnabledByUser}
-          isUsingCustomTodoService={this.props.stores.todos.isUsingCustomTodoService}
+          isUsingCustomTodoService={
+            this.props.stores.todos.isUsingCustomTodoService
+          }
           isNightlyEnabled={this.props.stores.settings.app.nightly}
           hasAddedTodosAsService={services.isTodosServiceAdded}
           isOnline={app.isOnline}
@@ -704,3 +715,5 @@ EditSettingsScreen.wrappedComponent.propTypes = {
     workspaces: PropTypes.instanceOf(WorkspacesStore).isRequired,
   }).isRequired,
 };
+
+export default injectIntl(EditSettingsScreen);

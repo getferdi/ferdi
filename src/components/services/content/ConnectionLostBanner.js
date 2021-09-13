@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { Icon } from '@meetfranz/ui';
-import { intlShape, defineMessages } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 
 import { mdiAlert } from '@mdi/js';
 import { LIVE_API_FERDI_WEBSITE } from '../../../config';
@@ -78,16 +78,12 @@ class ConnectionLostBanner extends Component {
     reload: PropTypes.func.isRequired,
   };
 
-  static contextTypes = {
-    intl: intlShape,
-  };
-
   inputRef = React.createRef();
 
   render() {
     const { classes, name, reload } = this.props;
 
-    const { intl } = this.context;
+    const { intl } = this.props;
 
     return (
       <div className={classes.root}>
@@ -110,4 +106,4 @@ class ConnectionLostBanner extends Component {
   }
 }
 
-export default ConnectionLostBanner;
+export default injectIntl(ConnectionLostBanner);
