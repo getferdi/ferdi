@@ -20,56 +20,55 @@ const IS_SERVICE_DEBUGGING_ENABLED = (
 const messages = defineMessages({
   reload: {
     id: 'tabs.item.reload',
-    defaultMessage: '!!!Reload',
+    defaultMessage: 'Reload',
   },
   disableNotifications: {
     id: 'tabs.item.disableNotifications',
-    defaultMessage: '!!!Disable notifications',
+    defaultMessage: 'Disable notifications',
   },
   enableNotifications: {
     id: 'tabs.item.enableNotification',
-    defaultMessage: '!!!Enable notifications',
+    defaultMessage: 'Enable notifications',
   },
   disableAudio: {
     id: 'tabs.item.disableAudio',
-    defaultMessage: '!!!Disable audio',
+    defaultMessage: 'Disable audio',
   },
   enableAudio: {
     id: 'tabs.item.enableAudio',
-    defaultMessage: '!!!Enable audio',
+    defaultMessage: 'Enable audio',
   },
   enableDarkMode: {
     id: 'tabs.item.enableDarkMode',
-    defaultMessage: '!!!Enable Dark mode',
+    defaultMessage: 'Enable Dark mode',
   },
   disableDarkMode: {
     id: 'tabs.item.disableDarkMode',
-    defaultMessage: '!!!Disable Dark mode',
+    defaultMessage: 'Disable Dark mode',
   },
   disableService: {
     id: 'tabs.item.disableService',
-    defaultMessage: '!!!Disable Service',
+    defaultMessage: 'Disable Service',
   },
   enableService: {
     id: 'tabs.item.enableService',
-    defaultMessage: '!!!Enable Service',
+    defaultMessage: 'Enable Service',
   },
   hibernateService: {
     id: 'tabs.item.hibernateService',
-    defaultMessage: '!!!Hibernate Service',
+    defaultMessage: 'Hibernate Service',
   },
   wakeUpService: {
     id: 'tabs.item.wakeUpService',
-    defaultMessage: '!!!Wake Up Service',
+    defaultMessage: 'Wake Up Service',
   },
   deleteService: {
     id: 'tabs.item.deleteService',
-    defaultMessage: '!!!Delete Service',
+    defaultMessage: 'Delete Service',
   },
   confirmDeleteService: {
     id: 'tabs.item.confirmDeleteService',
-    defaultMessage:
-      '!!!Do you really want to delete the {serviceName} service?',
+    defaultMessage: 'Do you really want to delete the {serviceName} service?',
   },
 });
 

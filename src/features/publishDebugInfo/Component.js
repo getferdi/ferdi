@@ -18,33 +18,33 @@ const debug = require('debug')('Ferdi:feature:publishDebugInfo');
 const messages = defineMessages({
   title: {
     id: 'feature.publishDebugInfo.title',
-    defaultMessage: '!!!Publish debug information',
+    defaultMessage: 'Publish debug information',
   },
   info: {
     id: 'feature.publishDebugInfo.info',
     defaultMessage:
-      "!!!Publishing your debug information helps us find issues and errors in Ferdi. By publishing your debug information you accept Ferdi Debugger's privacy policy and terms of service",
+      "Publishing your debug information helps us find issues and errors in Ferdi. By publishing your debug information you accept Ferdi Debugger's privacy policy and terms of service",
   },
   error: {
     id: 'feature.publishDebugInfo.error',
     defaultMessage:
-      '!!!There was an error while trying to publish the debug information. Please try again later or view the console for more information.',
+      'There was an error while trying to publish the debug information. Please try again later or view the console for more information.',
   },
   privacy: {
     id: 'feature.publishDebugInfo.privacy',
-    defaultMessage: '!!!Privacy policy',
+    defaultMessage: 'Privacy policy',
   },
   terms: {
     id: 'feature.publishDebugInfo.terms',
-    defaultMessage: '!!!Terms of service',
+    defaultMessage: 'Terms of service',
   },
   publish: {
     id: 'feature.publishDebugInfo.publish',
-    defaultMessage: '!!!Accept and publish',
+    defaultMessage: 'Accept and publish',
   },
   published: {
     id: 'feature.publishDebugInfo.published',
-    defaultMessage: '!!!Your debug log was published and is now availible at',
+    defaultMessage: 'Your debug log was published and is now availible at',
   },
 });
 

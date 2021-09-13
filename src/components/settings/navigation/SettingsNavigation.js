@@ -15,31 +15,31 @@ import globalMessages from '../../../i18n/globalMessages';
 const messages = defineMessages({
   availableServices: {
     id: 'settings.navigation.availableServices',
-    defaultMessage: '!!!Available services',
+    defaultMessage: 'Available services',
   },
   yourServices: {
     id: 'settings.navigation.yourServices',
-    defaultMessage: '!!!Your services',
+    defaultMessage: 'Your services',
   },
   yourWorkspaces: {
     id: 'settings.navigation.yourWorkspaces',
-    defaultMessage: '!!!Your workspaces',
+    defaultMessage: 'Your workspaces',
   },
   account: {
     id: 'settings.navigation.account',
-    defaultMessage: '!!!Account',
+    defaultMessage: 'Account',
   },
   team: {
     id: 'settings.navigation.team',
-    defaultMessage: '!!!Manage Team',
+    defaultMessage: 'Manage Team',
   },
   supportFerdi: {
     id: 'settings.navigation.supportFerdi',
-    defaultMessage: '!!!About Ferdi',
+    defaultMessage: 'About Ferdi',
   },
   logout: {
     id: 'settings.navigation.logout',
-    defaultMessage: '!!!Logout',
+    defaultMessage: 'Logout',
   },
 });
 

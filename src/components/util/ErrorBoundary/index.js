@@ -10,11 +10,11 @@ import styles from './styles';
 const messages = defineMessages({
   headline: {
     id: 'app.errorHandler.headline',
-    defaultMessage: '!!!Something went wrong.',
+    defaultMessage: 'Something went wrong.',
   },
   action: {
     id: 'app.errorHandler.action',
-    defaultMessage: '!!!Reload',
+    defaultMessage: 'Reload',
   },
 });
 

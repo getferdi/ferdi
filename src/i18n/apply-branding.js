@@ -21,12 +21,7 @@ const ignore = [
 ];
 
 // Files to ignore when applying branding
-const ignoreFiles = [
-  'defaultMessages.json',
-  '.DS_Store',
-  '.',
-  '..',
-];
+const ignoreFiles = ['.DS_Store', '.', '..'];
 
 // What to replace
 const replace = {
@@ -49,7 +44,7 @@ const replaceStr = (str, find, replaceWith) => {
   return str;
 };
 
-files.forEach(async (file) => {
+files.forEach(async file => {
   if (ignoreFiles.includes(file)) return;
 
   // Read locale data

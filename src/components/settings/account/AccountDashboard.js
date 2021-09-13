@@ -13,7 +13,7 @@ import { LOCAL_SERVER, LIVE_FRANZ_API } from '../../../config';
 const messages = defineMessages({
   headline: {
     id: 'settings.account.headline',
-    defaultMessage: '!!!Account',
+    defaultMessage: 'Account',
   },
   headlineDangerZone: {
     id: 'settings.account.headlineDangerZone',
@@ -21,7 +21,7 @@ const messages = defineMessages({
   },
   accountEditButton: {
     id: 'settings.account.account.editButton',
-    defaultMessage: '!!!Edit Account',
+    defaultMessage: 'Edit Account',
   },
   invoicesButton: {
     id: 'settings.account.headlineInvoices',
@@ -29,29 +29,29 @@ const messages = defineMessages({
   },
   userInfoRequestFailed: {
     id: 'settings.account.userInfoRequestFailed',
-    defaultMessage: '!!!Could not load user information',
+    defaultMessage: 'Could not load user information',
   },
   tryReloadUserInfoRequest: {
     id: 'settings.account.tryReloadUserInfoRequest',
-    defaultMessage: '!!!Try again',
+    defaultMessage: 'Try again',
   },
   deleteAccount: {
     id: 'settings.account.deleteAccount',
-    defaultMessage: '!!!Delete account',
+    defaultMessage: 'Delete account',
   },
   deleteInfo: {
     id: 'settings.account.deleteInfo',
     defaultMessage:
-      "!!!If you don't need your Ferdi account any longer, you can delete your account and all related data here.",
+      "If you don't need your Ferdi account any longer, you can delete your account and all related data here.",
   },
   deleteEmailSent: {
     id: 'settings.account.deleteEmailSent',
     defaultMessage:
-      '!!!You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!',
+      'You have received an email with a link to confirm your account deletion. Your account and data cannot be restored!',
   },
   yourLicense: {
     id: 'settings.account.yourLicense',
-    defaultMessage: '!!!Your Franz License:',
+    defaultMessage: 'Your Franz License:',
   },
   accountUnavailable: {
     id: 'settings.account.accountUnavailable',

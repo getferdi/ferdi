@@ -27,79 +27,79 @@ import globalMessages from '../../i18n/globalMessages';
 const messages = defineMessages({
   name: {
     id: 'settings.service.form.name',
-    defaultMessage: '!!!Name',
+    defaultMessage: 'Name',
   },
   enableService: {
     id: 'settings.service.form.enableService',
-    defaultMessage: '!!!Enable service',
+    defaultMessage: 'Enable service',
   },
   enableHibernation: {
     id: 'settings.service.form.enableHibernation',
-    defaultMessage: '!!!Enable hibernation',
+    defaultMessage: 'Enable hibernation',
   },
   enableNotification: {
     id: 'settings.service.form.enableNotification',
-    defaultMessage: '!!!Enable Notifications',
+    defaultMessage: 'Enable Notifications',
   },
   enableBadge: {
     id: 'settings.service.form.enableBadge',
-    defaultMessage: '!!!Show unread message badges',
+    defaultMessage: 'Show unread message badges',
   },
   enableAudio: {
     id: 'settings.service.form.enableAudio',
-    defaultMessage: '!!!Enable audio',
+    defaultMessage: 'Enable audio',
   },
   team: {
     id: 'settings.service.form.team',
-    defaultMessage: '!!!Team',
+    defaultMessage: 'Team',
   },
   customUrl: {
     id: 'settings.service.form.customUrl',
-    defaultMessage: '!!!Service URL',
+    defaultMessage: 'Service URL',
   },
   indirectMessages: {
     id: 'settings.service.form.indirectMessages',
-    defaultMessage: '!!!Show message badge for all new messages',
+    defaultMessage: 'Show message badge for all new messages',
   },
   icon: {
     id: 'settings.service.form.icon',
-    defaultMessage: '!!!Custom icon',
+    defaultMessage: 'Custom icon',
   },
   enableDarkMode: {
     id: 'settings.service.form.enableDarkMode',
-    defaultMessage: '!!!Enable Dark Mode',
+    defaultMessage: 'Enable Dark Mode',
   },
   darkReaderBrightness: {
     id: 'settings.service.form.darkReaderBrightness',
-    defaultMessage: '!!!Dark Reader Brightness',
+    defaultMessage: 'Dark Reader Brightness',
   },
   darkReaderContrast: {
     id: 'settings.service.form.darkReaderContrast',
-    defaultMessage: '!!!Dark Reader Contrast',
+    defaultMessage: 'Dark Reader Contrast',
   },
   darkReaderSepia: {
     id: 'settings.service.form.darkReaderSepia',
-    defaultMessage: '!!!Dark Reader Sepia',
+    defaultMessage: 'Dark Reader Sepia',
   },
   enableProxy: {
     id: 'settings.service.form.proxy.isEnabled',
-    defaultMessage: '!!!Use Proxy',
+    defaultMessage: 'Use Proxy',
   },
   proxyHost: {
     id: 'settings.service.form.proxy.host',
-    defaultMessage: '!!!Proxy Host/IP',
+    defaultMessage: 'Proxy Host/IP',
   },
   proxyPort: {
     id: 'settings.service.form.proxy.port',
-    defaultMessage: '!!!Port',
+    defaultMessage: 'Port',
   },
   proxyUser: {
     id: 'settings.service.form.proxy.user',
-    defaultMessage: '!!!User',
+    defaultMessage: 'User',
   },
   proxyPassword: {
     id: 'settings.service.form.proxy.password',
-    defaultMessage: '!!!Password',
+    defaultMessage: 'Password',
   },
 });
 

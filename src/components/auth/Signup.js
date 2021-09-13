@@ -19,59 +19,59 @@ import { termsBase } from '../../api/apiBase';
 const messages = defineMessages({
   headline: {
     id: 'signup.headline',
-    defaultMessage: '!!!Sign up',
+    defaultMessage: 'Sign up',
   },
   firstnameLabel: {
     id: 'signup.firstname.label',
-    defaultMessage: '!!!Firstname',
+    defaultMessage: 'Firstname',
   },
   lastnameLabel: {
     id: 'signup.lastname.label',
-    defaultMessage: '!!!Lastname',
+    defaultMessage: 'Lastname',
   },
   emailLabel: {
     id: 'signup.email.label',
-    defaultMessage: '!!!Email address',
+    defaultMessage: 'Email address',
   },
   // companyLabel: {
   //   id: 'signup.company.label',
-  //   defaultMessage: '!!!Company',
+  //   defaultMessage: 'Company',
   // },
   passwordLabel: {
     id: 'signup.password.label',
-    defaultMessage: '!!!Password',
+    defaultMessage: 'Password',
   },
   legalInfo: {
     id: 'signup.legal.info',
-    defaultMessage: '!!!By creating a Ferdi account you accept the',
+    defaultMessage: 'By creating a Ferdi account you accept the',
   },
   terms: {
     id: 'signup.legal.terms',
-    defaultMessage: '!!!Terms of service',
+    defaultMessage: 'Terms of service',
   },
   privacy: {
     id: 'signup.legal.privacy',
-    defaultMessage: '!!!Privacy Statement',
+    defaultMessage: 'Privacy Statement',
   },
   submitButtonLabel: {
     id: 'signup.submit.label',
-    defaultMessage: '!!!Create account',
+    defaultMessage: 'Create account',
   },
   loginLink: {
     id: 'signup.link.login',
-    defaultMessage: '!!!Already have an account, sign in?',
+    defaultMessage: 'Already have an account, sign in?',
   },
   changeServer: {
     id: 'login.changeServer',
-    defaultMessage: '!!!Change server',
+    defaultMessage: 'Change server',
   },
   serverless: {
     id: 'services.serverless',
-    defaultMessage: '!!!Use Ferdi without an Account',
+    defaultMessage: 'Use Ferdi without an Account',
   },
   emailDuplicate: {
     id: 'signup.emailDuplicate',
-    defaultMessage: '!!!A user with that email address already exists',
+    defaultMessage: 'A user with that email address already exists',
   },
 });
 

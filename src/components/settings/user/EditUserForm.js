@@ -14,27 +14,27 @@ import Infobox from '../../ui/Infobox';
 const messages = defineMessages({
   headline: {
     id: 'settings.account.headline',
-    defaultMessage: '!!!Account',
+    defaultMessage: 'Account',
   },
   headlineProfile: {
     id: 'settings.account.headlineProfile',
-    defaultMessage: '!!!Update Profile',
+    defaultMessage: 'Update Profile',
   },
   headlineAccount: {
     id: 'settings.account.headlineAccount',
-    defaultMessage: '!!!Account Information',
+    defaultMessage: 'Account Information',
   },
   headlinePassword: {
     id: 'settings.account.headlinePassword',
-    defaultMessage: '!!!Change Password',
+    defaultMessage: 'Change Password',
   },
   successInfo: {
     id: 'settings.account.successInfo',
-    defaultMessage: '!!!Your changes have been saved',
+    defaultMessage: 'Your changes have been saved',
   },
   buttonSave: {
     id: 'settings.account.buttonSave',
-    defaultMessage: '!!!Update profile',
+    defaultMessage: 'Update profile',
   },
 });
 

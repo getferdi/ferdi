@@ -10,15 +10,15 @@ import ServiceModel from '../../../models/Service';
 const messages = defineMessages({
   tooltipIsDisabled: {
     id: 'settings.services.tooltip.isDisabled',
-    defaultMessage: '!!!Service is disabled',
+    defaultMessage: 'Service is disabled',
   },
   tooltipNotificationsDisabled: {
     id: 'settings.services.tooltip.notificationsDisabled',
-    defaultMessage: '!!!Notifications are disabled',
+    defaultMessage: 'Notifications are disabled',
   },
   tooltipIsMuted: {
     id: 'settings.services.tooltip.isMuted',
-    defaultMessage: '!!!All sounds are muted',
+    defaultMessage: 'All sounds are muted',
   },
 });
 

@@ -13,39 +13,39 @@ import { required, email, minLength } from '../../helpers/validation-helpers';
 const messages = defineMessages({
   firstname: {
     id: 'settings.user.form.firstname',
-    defaultMessage: '!!!Firstname',
+    defaultMessage: 'Firstname',
   },
   lastname: {
     id: 'settings.user.form.lastname',
-    defaultMessage: '!!!Lastname',
+    defaultMessage: 'Lastname',
   },
   email: {
     id: 'settings.user.form.email',
-    defaultMessage: '!!!Email',
+    defaultMessage: 'Email',
   },
   accountTypeLabel: {
     id: 'settings.user.form.accountType.label',
-    defaultMessage: '!!!Account type',
+    defaultMessage: 'Account type',
   },
   accountTypeIndividual: {
     id: 'settings.user.form.accountType.individual',
-    defaultMessage: '!!!Individual',
+    defaultMessage: 'Individual',
   },
   accountTypeNonProfit: {
     id: 'settings.user.form.accountType.non-profit',
-    defaultMessage: '!!!Non-Profit',
+    defaultMessage: 'Non-Profit',
   },
   accountTypeCompany: {
     id: 'settings.user.form.accountType.company',
-    defaultMessage: '!!!Company',
+    defaultMessage: 'Company',
   },
   currentPassword: {
     id: 'settings.user.form.currentPassword',
-    defaultMessage: '!!!Current password',
+    defaultMessage: 'Current password',
   },
   newPassword: {
     id: 'settings.user.form.newPassword',
-    defaultMessage: '!!!New password',
+    defaultMessage: 'New password',
   },
 });
 

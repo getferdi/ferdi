@@ -11,23 +11,23 @@ import styles from './styles';
 const messages = defineMessages({
   headline: {
     id: 'service.errorHandler.headline',
-    defaultMessage: '!!!Oh no!',
+    defaultMessage: 'Oh no!',
   },
   text: {
     id: 'service.errorHandler.text',
-    defaultMessage: '!!!{name} has failed to load.',
+    defaultMessage: '{name} has failed to load.',
   },
   action: {
     id: 'service.errorHandler.action',
-    defaultMessage: '!!!Reload {name}',
+    defaultMessage: 'Reload {name}',
   },
   editAction: {
     id: 'service.errorHandler.editAction',
-    defaultMessage: '!!!Edit {name}',
+    defaultMessage: 'Edit {name}',
   },
   errorMessage: {
     id: 'service.errorHandler.message',
-    defaultMessage: '!!!Error:',
+    defaultMessage: 'Error:',
   },
 });
 

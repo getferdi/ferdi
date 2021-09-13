@@ -12,19 +12,19 @@ import Button from '../ui/Button';
 const messages = defineMessages({
   headline: {
     id: 'import.headline',
-    defaultMessage: '!!!Import your Ferdi 4 services',
+    defaultMessage: 'Import your Ferdi 4 services',
   },
   notSupportedHeadline: {
     id: 'import.notSupportedHeadline',
-    defaultMessage: '!!!Services not yet supported in Ferdi 5',
+    defaultMessage: 'Services not yet supported in Ferdi 5',
   },
   submitButtonLabel: {
     id: 'import.submit.label',
-    defaultMessage: '!!!Import {count} services',
+    defaultMessage: 'Import {count} services',
   },
   skipButtonLabel: {
     id: 'import.skip.label',
-    defaultMessage: '!!!I want to add services manually',
+    defaultMessage: 'I want to add services manually',
   },
 });
 

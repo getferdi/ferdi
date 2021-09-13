@@ -8,7 +8,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 const messages = defineMessages({
   dismiss: {
     id: 'infobox.dismiss',
-    defaultMessage: '!!!Dismiss',
+    defaultMessage: 'Dismiss',
   },
 });
 

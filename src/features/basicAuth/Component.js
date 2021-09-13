@@ -18,7 +18,7 @@ import globalMessages from '../../i18n/globalMessages';
 const messages = defineMessages({
   signIn: {
     id: 'feature.basicAuth.signIn',
-    defaultMessage: '!!!Sign In',
+    defaultMessage: 'Sign In',
   },
 });
 

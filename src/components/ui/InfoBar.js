@@ -11,7 +11,7 @@ import Appear from './effects/Appear';
 const messages = defineMessages({
   hide: {
     id: 'infobar.hide',
-    defaultMessage: '!!!Hide',
+    defaultMessage: 'Hide',
   },
 });
 

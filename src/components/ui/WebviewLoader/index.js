@@ -10,7 +10,7 @@ import styles from './styles';
 const messages = defineMessages({
   loading: {
     id: 'service.webviewLoader.loading',
-    defaultMessage: '!!!Loading {service}',
+    defaultMessage: 'Loading {service}',
   },
 });
 

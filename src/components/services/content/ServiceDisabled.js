@@ -8,11 +8,11 @@ import Button from '../../ui/Button';
 const messages = defineMessages({
   headline: {
     id: 'service.disabledHandler.headline',
-    defaultMessage: '!!!{name} is disabled',
+    defaultMessage: '{name} is disabled',
   },
   action: {
     id: 'service.disabledHandler.action',
-    defaultMessage: '!!!Enable {name}',
+    defaultMessage: 'Enable {name}',
   },
 });
 

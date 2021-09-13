@@ -14,23 +14,23 @@ import { workspaceStore } from '../index';
 const messages = defineMessages({
   headline: {
     id: 'workspaceDrawer.headline',
-    defaultMessage: '!!!Workspaces',
+    defaultMessage: 'Workspaces',
   },
   allServices: {
     id: 'workspaceDrawer.allServices',
-    defaultMessage: '!!!All services',
+    defaultMessage: 'All services',
   },
   workspacesSettingsTooltip: {
     id: 'workspaceDrawer.workspacesSettingsTooltip',
-    defaultMessage: '!!!Workspaces settings',
+    defaultMessage: 'Workspaces settings',
   },
   workspaceFeatureInfo: {
     id: 'workspaceDrawer.workspaceFeatureInfo',
-    defaultMessage: '!!!Info about workspace feature',
+    defaultMessage: 'Info about workspace feature',
   },
   addNewWorkspaceLabel: {
     id: 'workspaceDrawer.addNewWorkspaceLabel',
-    defaultMessage: '!!!add new workspace',
+    defaultMessage: 'add new workspace',
   },
 });
 

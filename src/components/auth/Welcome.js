@@ -10,15 +10,15 @@ import Link from '../ui/Link';
 const messages = defineMessages({
   signupButton: {
     id: 'welcome.signupButton',
-    defaultMessage: '!!!Create a free account',
+    defaultMessage: 'Create a free account',
   },
   loginButton: {
     id: 'welcome.loginButton',
-    defaultMessage: '!!!Login to your account',
+    defaultMessage: 'Login to your account',
   },
   serverless: {
     id: 'services.serverless',
-    defaultMessage: '!!!Use Ferdi without an Account',
+    defaultMessage: 'Use Ferdi without an Account',
   },
 });
 

@@ -16,16 +16,16 @@ import ServicesStore from '../../stores/ServicesStore';
 const messages = defineMessages({
   title: {
     id: 'feature.quickSwitch.title',
-    defaultMessage: '!!!QuickSwitch',
+    defaultMessage: 'QuickSwitch',
   },
   search: {
     id: 'feature.quickSwitch.search',
-    defaultMessage: '!!!Search...',
+    defaultMessage: 'Search...',
   },
   info: {
     id: 'feature.quickSwitch.info',
     defaultMessage:
-      '!!!Select a service with TAB, ↑ and ↓. Open a service with ENTER.',
+      'Select a service with TAB, ↑ and ↓. Open a service with ENTER.',
   },
 });
 

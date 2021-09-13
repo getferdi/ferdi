@@ -11,11 +11,11 @@ import { workspaceStore } from '../index';
 const messages = defineMessages({
   submitButton: {
     id: 'settings.workspace.add.form.submitButton',
-    defaultMessage: '!!!Create workspace',
+    defaultMessage: 'Create workspace',
   },
   name: {
     id: 'settings.workspace.add.form.name',
-    defaultMessage: '!!!Name',
+    defaultMessage: 'Name',
   },
 });
 

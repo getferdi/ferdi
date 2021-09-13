@@ -12,15 +12,15 @@ import { LIVE_API_FERDI_WEBSITE } from '../../../config';
 const messages = defineMessages({
   text: {
     id: 'connectionLostBanner.message',
-    defaultMessage: '!!!Oh no! Ferdi lost the connection to {name}.',
+    defaultMessage: 'Oh no! Ferdi lost the connection to {name}.',
   },
   moreInformation: {
     id: 'connectionLostBanner.informationLink',
-    defaultMessage: '!!!What happened?',
+    defaultMessage: 'What happened?',
   },
   cta: {
     id: 'connectionLostBanner.cta',
-    defaultMessage: '!!!Reload Service',
+    defaultMessage: 'Reload Service',
   },
 });
 

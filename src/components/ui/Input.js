@@ -10,7 +10,7 @@ import { scorePassword as scorePasswordFunc } from '../../helpers/password-helpe
 const messages = defineMessages({
   passwordToggle: {
     id: 'settings.app.form.passwordToggle',
-    defaultMessage: '!!!Password toggle',
+    defaultMessage: 'Password toggle',
   },
 });
 

@@ -11,7 +11,7 @@ import { workspaceStore } from '../index';
 const messages = defineMessages({
   switchingTo: {
     id: 'workspaces.switchingIndicator.switchingTo',
-    defaultMessage: '!!!Switching to',
+    defaultMessage: 'Switching to',
   },
 });
 

@@ -123,7 +123,7 @@ class ServiceView extends Component {
               service.isFirstLoad &&
               !service.isServiceAccessRestricted && (
                 <WebviewLoader loaded={false} name={service.name} />
-              )}
+            )}
             {service.isError && (
               <WebviewErrorHandler
                 name={service.recipe.name}

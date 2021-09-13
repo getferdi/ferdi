@@ -19,55 +19,55 @@ import { globalError as globalErrorPropType } from '../../prop-types';
 const messages = defineMessages({
   headline: {
     id: 'login.headline',
-    defaultMessage: '!!!Sign in',
+    defaultMessage: 'Sign in',
   },
   emailLabel: {
     id: 'login.email.label',
-    defaultMessage: '!!!Email address',
+    defaultMessage: 'Email address',
   },
   passwordLabel: {
     id: 'login.password.label',
-    defaultMessage: '!!!Password',
+    defaultMessage: 'Password',
   },
   submitButtonLabel: {
     id: 'login.submit.label',
-    defaultMessage: '!!!Sign in',
+    defaultMessage: 'Sign in',
   },
   invalidCredentials: {
     id: 'login.invalidCredentials',
-    defaultMessage: '!!!Email or password not valid',
+    defaultMessage: 'Email or password not valid',
   },
   customServerQuestion: {
     id: 'login.customServerQuestion',
-    defaultMessage: '!!!Using a Franz account to log in?',
+    defaultMessage: 'Using a Franz account to log in?',
   },
   customServerSuggestion: {
     id: 'login.customServerSuggestion',
-    defaultMessage: '!!!Try importing your Franz account into Ferdi',
+    defaultMessage: 'Try importing your Franz account into Ferdi',
   },
   tokenExpired: {
     id: 'login.tokenExpired',
-    defaultMessage: '!!!Your session expired, please login again.',
+    defaultMessage: 'Your session expired, please login again.',
   },
   serverLogout: {
     id: 'login.serverLogout',
-    defaultMessage: '!!!Your session expired, please login again.',
+    defaultMessage: 'Your session expired, please login again.',
   },
   signupLink: {
     id: 'login.link.signup',
-    defaultMessage: '!!!Create a free account',
+    defaultMessage: 'Create a free account',
   },
   changeServer: {
     id: 'login.changeServer',
-    defaultMessage: '!!!Change server',
+    defaultMessage: 'Change server',
   },
   serverless: {
     id: 'services.serverless',
-    defaultMessage: '!!!Use Ferdi without an Account',
+    defaultMessage: 'Use Ferdi without an Account',
   },
   passwordLink: {
     id: 'login.link.password',
-    defaultMessage: '!!!Forgot password',
+    defaultMessage: 'Forgot password',
   },
 });
 

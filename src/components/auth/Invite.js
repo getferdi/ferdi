@@ -15,31 +15,31 @@ import Button from '../ui/Button';
 const messages = defineMessages({
   settingsHeadline: {
     id: 'settings.invite.headline',
-    defaultMessage: '!!!Invite Friends',
+    defaultMessage: 'Invite Friends',
   },
   headline: {
     id: 'invite.headline.friends',
-    defaultMessage: '!!!Invite 3 of your friends or colleagues',
+    defaultMessage: 'Invite 3 of your friends or colleagues',
   },
   nameLabel: {
     id: 'invite.name.label',
-    defaultMessage: '!!!Name',
+    defaultMessage: 'Name',
   },
   emailLabel: {
     id: 'invite.email.label',
-    defaultMessage: '!!!Email address',
+    defaultMessage: 'Email address',
   },
   submitButtonLabel: {
     id: 'invite.submit.label',
-    defaultMessage: '!!!Send invites',
+    defaultMessage: 'Send invites',
   },
   skipButtonLabel: {
     id: 'invite.skip.label',
-    defaultMessage: '!!!I want to do this later',
+    defaultMessage: 'I want to do this later',
   },
   inviteSuccessInfo: {
     id: 'invite.successInfo',
-    defaultMessage: '!!!Invitations sent successfully',
+    defaultMessage: 'Invitations sent successfully',
   },
 });
 

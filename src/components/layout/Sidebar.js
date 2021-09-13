@@ -24,35 +24,35 @@ import globalMessages from '../../i18n/globalMessages';
 const messages = defineMessages({
   addNewService: {
     id: 'sidebar.addNewService',
-    defaultMessage: '!!!Add new service',
+    defaultMessage: 'Add new service',
   },
   mute: {
     id: 'sidebar.muteApp',
-    defaultMessage: '!!!Disable notifications & audio',
+    defaultMessage: 'Disable notifications & audio',
   },
   unmute: {
     id: 'sidebar.unmuteApp',
-    defaultMessage: '!!!Enable notifications & audio',
+    defaultMessage: 'Enable notifications & audio',
   },
   openWorkspaceDrawer: {
     id: 'sidebar.openWorkspaceDrawer',
-    defaultMessage: '!!!Open workspace drawer',
+    defaultMessage: 'Open workspace drawer',
   },
   closeWorkspaceDrawer: {
     id: 'sidebar.closeWorkspaceDrawer',
-    defaultMessage: '!!!Close workspace drawer',
+    defaultMessage: 'Close workspace drawer',
   },
   openTodosDrawer: {
     id: 'sidebar.openTodosDrawer',
-    defaultMessage: '!!!Open Ferdi Todos',
+    defaultMessage: 'Open Ferdi Todos',
   },
   closeTodosDrawer: {
     id: 'sidebar.closeTodosDrawer',
-    defaultMessage: '!!!Close Ferdi Todos',
+    defaultMessage: 'Close Ferdi Todos',
   },
   lockFerdi: {
     id: 'sidebar.lockFerdi',
-    defaultMessage: '!!!Lock Ferdi',
+    defaultMessage: 'Lock Ferdi',
   },
 });
 

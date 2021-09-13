@@ -14,23 +14,23 @@ import globalMessages from '../../i18n/globalMessages';
 const messages = defineMessages({
   headline: {
     id: 'changeserver.headline',
-    defaultMessage: '!!!Change server',
+    defaultMessage: 'Change server',
   },
   label: {
     id: 'changeserver.label',
-    defaultMessage: '!!!Server',
+    defaultMessage: 'Server',
   },
   warning: {
     id: 'changeserver.warning',
-    defaultMessage: '!!!Extra settings offered by Ferdi will not be saved',
+    defaultMessage: 'Extra settings offered by Ferdi will not be saved',
   },
   customServerLabel: {
     id: 'changeserver.customServerLabel',
-    defaultMessage: '!!!Custom server',
+    defaultMessage: 'Custom server',
   },
   urlError: {
     id: 'changeserver.urlError',
-    defaultMessage: '!!!Enter a valid URL',
+    defaultMessage: 'Enter a valid URL',
   },
 });
 

@@ -14,27 +14,27 @@ import globalMessages from '../../i18n/globalMessages';
 const messages = defineMessages({
   headline: {
     id: 'password.headline',
-    defaultMessage: '!!!Forgot password',
+    defaultMessage: 'Forgot password',
   },
   emailLabel: {
     id: 'password.email.label',
-    defaultMessage: '!!!Email address',
+    defaultMessage: 'Email address',
   },
   successInfo: {
     id: 'password.successInfo',
-    defaultMessage: '!!!Your new password was sent to your email address',
+    defaultMessage: 'Your new password was sent to your email address',
   },
   noUser: {
     id: 'password.noUser',
-    defaultMessage: '!!!No user affiliated with that email address',
+    defaultMessage: 'No user affiliated with that email address',
   },
   signupLink: {
     id: 'password.link.signup',
-    defaultMessage: '!!!Create a free account',
+    defaultMessage: 'Create a free account',
   },
   loginLink: {
     id: 'password.link.login',
-    defaultMessage: '!!!Sign in to your account',
+    defaultMessage: 'Sign in to your account',
   },
 });
 

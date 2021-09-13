@@ -9,15 +9,15 @@ import { openExternalUrl } from '../helpers/url-helpers';
 const messages = defineMessages({
   updateAvailable: {
     id: 'infobar.updateAvailable',
-    defaultMessage: '!!!A new update for Ferdi is available.',
+    defaultMessage: 'A new update for Ferdi is available.',
   },
   changelog: {
     id: 'infobar.buttonChangelog',
-    defaultMessage: '!!!Changelog',
+    defaultMessage: 'Changelog',
   },
   buttonInstallUpdate: {
     id: 'infobar.buttonInstallUpdate',
-    defaultMessage: '!!!Restart & install update',
+    defaultMessage: 'Restart & install update',
   },
 });
 

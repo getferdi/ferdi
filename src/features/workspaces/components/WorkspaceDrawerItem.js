@@ -10,11 +10,11 @@ import { altKey, cmdOrCtrlShortcutKey } from '../../../environment';
 const messages = defineMessages({
   noServicesAddedYet: {
     id: 'workspaceDrawer.item.noServicesAddedYet',
-    defaultMessage: '!!!No services added yet',
+    defaultMessage: 'No services added yet',
   },
   contextMenuEdit: {
     id: 'workspaceDrawer.item.contextMenuEdit',
-    defaultMessage: '!!!edit',
+    defaultMessage: 'edit',
   },
 });
 

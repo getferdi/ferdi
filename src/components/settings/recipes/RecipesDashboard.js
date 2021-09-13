@@ -18,56 +18,56 @@ import RecipePreview from '../../../models/RecipePreview';
 const messages = defineMessages({
   headline: {
     id: 'settings.recipes.headline',
-    defaultMessage: '!!!Available Services',
+    defaultMessage: 'Available Services',
   },
   searchService: {
     id: 'settings.searchService',
-    defaultMessage: '!!!Search service',
+    defaultMessage: 'Search service',
   },
   allRecipes: {
     id: 'settings.recipes.all',
-    defaultMessage: '!!!All services',
+    defaultMessage: 'All services',
   },
   customRecipes: {
     id: 'settings.recipes.custom',
-    defaultMessage: '!!!Custom Services',
+    defaultMessage: 'Custom Services',
   },
   nothingFound: {
     id: 'settings.recipes.nothingFound',
     defaultMessage:
-      '!!!Sorry, but no service matched your search term - but you can still probably add it using the "Custom Website" option. Please note that the website might show more services that have been added to Ferdi since the version that you are currently on. To get those new services, please consider upgrading to a newer version of Ferdi.',
+      'Sorry, but no service matched your search term - but you can still probably add it using the "Custom Website" option. Please note that the website might show more services that have been added to Ferdi since the version that you are currently on. To get those new services, please consider upgrading to a newer version of Ferdi.',
   },
   servicesSuccessfulAddedInfo: {
     id: 'settings.recipes.servicesSuccessfulAddedInfo',
-    defaultMessage: '!!!Service successfully added',
+    defaultMessage: 'Service successfully added',
   },
   missingService: {
     id: 'settings.recipes.missingService',
-    defaultMessage: '!!!Missing a service?',
+    defaultMessage: 'Missing a service?',
   },
   customRecipeIntro: {
     id: 'settings.recipes.customService.intro',
-    defaultMessage: '!!!To add a custom service, copy the recipe folder into:',
+    defaultMessage: 'To add a custom service, copy the recipe folder into:',
   },
   openFolder: {
     id: 'settings.recipes.customService.openFolder',
-    defaultMessage: '!!!Open directory',
+    defaultMessage: 'Open directory',
   },
   openDevDocs: {
     id: 'settings.recipes.customService.openDevDocs',
-    defaultMessage: '!!!Developer Documentation',
+    defaultMessage: 'Developer Documentation',
   },
   headlineCustomRecipes: {
     id: 'settings.recipes.customService.headline.customRecipes',
-    defaultMessage: '!!!Custom 3rd Party Recipes',
+    defaultMessage: 'Custom 3rd Party Recipes',
   },
   headlineCommunityRecipes: {
     id: 'settings.recipes.customService.headline.communityRecipes',
-    defaultMessage: '!!!Community 3rd Party Recipes',
+    defaultMessage: 'Community 3rd Party Recipes',
   },
   headlineDevRecipes: {
     id: 'settings.recipes.customService.headline.devRecipes',
-    defaultMessage: '!!!Your Development Service Recipes',
+    defaultMessage: 'Your Development Service Recipes',
   },
 });
 

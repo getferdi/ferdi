@@ -20,40 +20,40 @@ import Toggle from '../../../components/ui/Toggle';
 const messages = defineMessages({
   buttonDelete: {
     id: 'settings.workspace.form.buttonDelete',
-    defaultMessage: '!!!Delete workspace',
+    defaultMessage: 'Delete workspace',
   },
   buttonSave: {
     id: 'settings.workspace.form.buttonSave',
-    defaultMessage: '!!!Save workspace',
+    defaultMessage: 'Save workspace',
   },
   name: {
     id: 'settings.workspace.form.name',
-    defaultMessage: '!!!Name',
+    defaultMessage: 'Name',
   },
   yourWorkspaces: {
     id: 'settings.workspace.form.yourWorkspaces',
-    defaultMessage: '!!!Your workspaces',
+    defaultMessage: 'Your workspaces',
   },
   keepLoaded: {
     id: 'settings.workspace.form.keepLoaded',
-    defaultMessage: '!!!Keep this workspace loaded*',
+    defaultMessage: 'Keep this workspace loaded*',
   },
   keepLoadedInfo: {
     id: 'settings.workspace.form.keepLoadedInfo',
     defaultMessage:
-      '!!!*This option will be overwritten by the global "Keep all workspaces loaded" option.',
+      '*This option will be overwritten by the global "Keep all workspaces loaded" option.',
   },
   servicesInWorkspaceHeadline: {
     id: 'settings.workspace.form.servicesInWorkspaceHeadline',
-    defaultMessage: '!!!Services in this Workspace',
+    defaultMessage: 'Services in this Workspace',
   },
   noServicesAdded: {
     id: 'settings.services.noServicesAdded',
-    defaultMessage: '!!!Start by adding a service.',
+    defaultMessage: 'Start by adding a service.',
   },
   discoverServices: {
     id: 'settings.services.discoverServices',
-    defaultMessage: '!!!Discover services',
+    defaultMessage: 'Discover services',
   },
 });
 

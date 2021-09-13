@@ -28,151 +28,151 @@ import globalMessages from '../../../i18n/globalMessages';
 const messages = defineMessages({
   headlineGeneral: {
     id: 'settings.app.headlineGeneral',
-    defaultMessage: '!!!General',
+    defaultMessage: 'General',
   },
   sentryInfo: {
     id: 'settings.app.sentryInfo',
     defaultMessage:
-      '!!!Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data!',
+      'Sending telemetry data allows us to find errors in Ferdi - we will not send any personal information like your message data!',
   },
   hibernateInfo: {
     id: 'settings.app.hibernateInfo',
     defaultMessage:
-      '!!!By default, Ferdi will keep all your services open and loaded in the background so they are ready when you want to use them. Service Hibernation will unload your services after a specified amount. This is useful to save RAM or keeping services from slowing down your computer.',
+      'By default, Ferdi will keep all your services open and loaded in the background so they are ready when you want to use them. Service Hibernation will unload your services after a specified amount. This is useful to save RAM or keeping services from slowing down your computer.',
   },
   inactivityLockInfo: {
     id: 'settings.app.inactivityLockInfo',
     defaultMessage:
-      '!!!Minutes of inactivity, after which Ferdi should automatically lock. Use 0 to disable',
+      'Minutes of inactivity, after which Ferdi should automatically lock. Use 0 to disable',
   },
   todoServerInfo: {
     id: 'settings.app.todoServerInfo',
     defaultMessage:
-      '!!!This server will be used for the "Franz Todo" feature. (default: https://app.franztodos.com)',
+      'This server will be used for the "Franz Todo" feature. (default: https://app.franztodos.com)',
   },
   lockedPassword: {
     id: 'settings.app.lockedPassword',
-    defaultMessage: '!!!Password',
+    defaultMessage: 'Password',
   },
   lockedPasswordInfo: {
     id: 'settings.app.lockedPasswordInfo',
     defaultMessage:
-      "!!!Please make sure to set a password you'll remember.\nIf you loose this password, you will have to reinstall Ferdi.",
+      "Please make sure to set a password you'll remember.\nIf you loose this password, you will have to reinstall Ferdi.",
   },
   lockInfo: {
     id: 'settings.app.lockInfo',
     defaultMessage:
-      '!!!Password Lock allows you to keep your messages protected.\nUsing Password Lock, you will be prompted to enter your password everytime you start Ferdi or lock Ferdi yourself using the lock symbol in the bottom left corner or the shortcut {lockShortcut}.',
+      'Password Lock allows you to keep your messages protected.\nUsing Password Lock, you will be prompted to enter your password everytime you start Ferdi or lock Ferdi yourself using the lock symbol in the bottom left corner or the shortcut {lockShortcut}.',
   },
   scheduledDNDTimeInfo: {
     id: 'settings.app.scheduledDNDTimeInfo',
     defaultMessage:
-      '!!!Times in 24-Hour-Format. End time can be before start time (e.g. start 17:00, end 09:00) to enable Do-not-Disturb overnight.',
+      'Times in 24-Hour-Format. End time can be before start time (e.g. start 17:00, end 09:00) to enable Do-not-Disturb overnight.',
   },
   scheduledDNDInfo: {
     id: 'settings.app.scheduledDNDInfo',
     defaultMessage:
-      '!!!Scheduled Do-not-Disturb allows you to define a period of time in which you do not want to get Notifications from Ferdi.',
+      'Scheduled Do-not-Disturb allows you to define a period of time in which you do not want to get Notifications from Ferdi.',
   },
   headlineLanguage: {
     id: 'settings.app.headlineLanguage',
-    defaultMessage: '!!!Language',
+    defaultMessage: 'Language',
   },
   headlineUpdates: {
     id: 'settings.app.headlineUpdates',
-    defaultMessage: '!!!Updates',
+    defaultMessage: 'Updates',
   },
   headlineAppearance: {
     id: 'settings.app.headlineAppearance',
-    defaultMessage: '!!!Appearance',
+    defaultMessage: 'Appearance',
   },
   universalDarkModeInfo: {
     id: 'settings.app.universalDarkModeInfo',
     defaultMessage:
-      '!!!Universal Dark Mode tries to dynamically generate dark mode styles for services that are otherwise not currently supported.',
+      'Universal Dark Mode tries to dynamically generate dark mode styles for services that are otherwise not currently supported.',
   },
   accentColorInfo: {
     id: 'settings.app.accentColorInfo',
     defaultMessage:
-      '!!!Write your accent color in a CSS-compatible format. (Default: {defaultAccentColor})',
+      'Write your accent color in a CSS-compatible format. (Default: {defaultAccentColor})',
   },
   headlinePrivacy: {
     id: 'settings.app.headlinePrivacy',
-    defaultMessage: '!!!Privacy',
+    defaultMessage: 'Privacy',
   },
   headlineAdvanced: {
     id: 'settings.app.headlineAdvanced',
-    defaultMessage: '!!!Advanced',
+    defaultMessage: 'Advanced',
   },
   translationHelp: {
     id: 'settings.app.translationHelp',
-    defaultMessage: '!!!Help us to translate Ferdi into your language.',
+    defaultMessage: 'Help us to translate Ferdi into your language.',
   },
   spellCheckerLanguageInfo: {
     id: 'settings.app.spellCheckerLanguageInfo',
     defaultMessage:
-      "!!!Ferdi uses your Mac's build-in spellchecker to check for typos. If you want to change the languages the spellchecker checks for, you can do so in your Mac's System Preferences.",
+      "Ferdi uses your Mac's build-in spellchecker to check for typos. If you want to change the languages the spellchecker checks for, you can do so in your Mac's System Preferences.",
   },
   subheadlineCache: {
     id: 'settings.app.subheadlineCache',
-    defaultMessage: '!!!Cache',
+    defaultMessage: 'Cache',
   },
   cacheInfo: {
     id: 'settings.app.cacheInfo',
-    defaultMessage: '!!!Ferdi cache is currently using {size} of disk space.',
+    defaultMessage: 'Ferdi cache is currently using {size} of disk space.',
   },
   cacheNotCleared: {
     id: 'settings.app.cacheNotCleared',
-    defaultMessage: "!!!Couldn't clear all cache",
+    defaultMessage: "Couldn't clear all cache",
   },
   buttonClearAllCache: {
     id: 'settings.app.buttonClearAllCache',
-    defaultMessage: '!!!Clear cache',
+    defaultMessage: 'Clear cache',
   },
   subheadlineFerdiProfile: {
     id: 'settings.app.subheadlineFerdiProfile',
-    defaultMessage: '!!!Ferdi Profile',
+    defaultMessage: 'Ferdi Profile',
   },
   buttonOpenFerdiProfileFolder: {
     id: 'settings.app.buttonOpenFerdiProfileFolder',
-    defaultMessage: '!!!Open Profile folder',
+    defaultMessage: 'Open Profile folder',
   },
   buttonOpenFerdiServiceRecipesFolder: {
     id: 'settings.app.buttonOpenFerdiServiceRecipesFolder',
-    defaultMessage: '!!!Open Service Recipes folder',
+    defaultMessage: 'Open Service Recipes folder',
   },
   buttonSearchForUpdate: {
     id: 'settings.app.buttonSearchForUpdate',
-    defaultMessage: '!!!Check for updates',
+    defaultMessage: 'Check for updates',
   },
   buttonInstallUpdate: {
     id: 'settings.app.buttonInstallUpdate',
-    defaultMessage: '!!!Restart & install update',
+    defaultMessage: 'Restart & install update',
   },
   updateStatusSearching: {
     id: 'settings.app.updateStatusSearching',
-    defaultMessage: '!!!Is searching for update',
+    defaultMessage: 'Is searching for update',
   },
   updateStatusAvailable: {
     id: 'settings.app.updateStatusAvailable',
-    defaultMessage: '!!!Update available, downloading...',
+    defaultMessage: 'Update available, downloading...',
   },
   updateStatusUpToDate: {
     id: 'settings.app.updateStatusUpToDate',
-    defaultMessage: '!!!You are using the latest version of Ferdi',
+    defaultMessage: 'You are using the latest version of Ferdi',
   },
   currentVersion: {
     id: 'settings.app.currentVersion',
-    defaultMessage: '!!!Current version:',
+    defaultMessage: 'Current version:',
   },
   appRestartRequired: {
     id: 'settings.app.restartRequired',
-    defaultMessage: '!!!Changes require restart',
+    defaultMessage: 'Changes require restart',
   },
   languageDisclaimer: {
     id: 'settings.app.languageDisclaimer',
     defaultMessage:
-      '!!!Official translations are English & German. All other languages are community based translations.',
+      'Official translations are English & German. All other languages are community based translations.',
   },
 });
 

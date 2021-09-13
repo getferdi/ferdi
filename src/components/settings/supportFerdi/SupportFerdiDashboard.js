@@ -6,68 +6,68 @@ import InfoBar from '../../ui/InfoBar';
 const messages = defineMessages({
   headline: {
     id: 'settings.supportFerdi.headline',
-    defaultMessage: '!!!About Ferdi',
+    defaultMessage: 'About Ferdi',
   },
   title: {
     id: 'settings.supportFerdi.title',
-    defaultMessage: '!!!Do you like Ferdi?',
+    defaultMessage: 'Do you like Ferdi?',
   },
   aboutIntro: {
     id: 'settings.supportFerdi.aboutIntro',
     defaultMessage:
-      '!!!<p>Ferdi is an open-source and a community-lead application.</p><p>Thanks to the people who make this possbile:</p>',
+      '<p>Ferdi is an open-source and a community-lead application.</p><p>Thanks to the people who make this possbile:</p>',
   },
   textListContributors: {
     id: 'settings.supportFerdi.textListContributors',
-    defaultMessage: '!!!Full list of contributor',
+    defaultMessage: 'Full list of contributor',
   },
   textListContributorsHere: {
     id: 'settings.supportFerdi.textListContributorsHere',
-    defaultMessage: '!!!here',
+    defaultMessage: 'here',
   },
   textVolunteers: {
     id: 'settings.supportFerdi.textVolunteers',
     defaultMessage:
-      '!!!The development of Ferdi is done by volunteers. People who use Ferdi like you. They maintain, fix, and improve Ferdi in their spare time.',
+      'The development of Ferdi is done by volunteers. People who use Ferdi like you. They maintain, fix, and improve Ferdi in their spare time.',
   },
   textSupportWelcome: {
     id: 'settings.supportFerdi.textSupportWelcome',
     defaultMessage:
-      '!!!Support is always welcome. You can find a list of the help we need',
+      'Support is always welcome. You can find a list of the help we need',
   },
   textSupportWelcomeHere: {
     id: 'settings.supportFerdi.textSupportWelcomeHere',
-    defaultMessage: '!!!here',
+    defaultMessage: 'here',
   },
   textExpenses: {
     id: 'settings.supportFerdi.textExpenses',
     defaultMessage:
-      '!!!While volunteers do most of the work, we still need to pay for servers and certificates. As a community, we are fully transparent on funds we collect and spend - see our',
+      'While volunteers do most of the work, we still need to pay for servers and certificates. As a community, we are fully transparent on funds we collect and spend - see our',
   },
   textOpenCollective: {
     id: 'settings.supportFerdi.textOpenCollective',
-    defaultMessage: '!!!Open Collective',
+    defaultMessage: 'Open Collective',
   },
   textDonation: {
     id: 'settings.supportFerdi.textDonation',
     defaultMessage:
-      '!!!If you feel like supporting Ferdi development with a donation, you can do so on both,',
+      'If you feel like supporting Ferdi development with a donation, you can do so on both,',
   },
   textDonationAnd: {
     id: 'settings.supportFerdi.textDonationAnd',
-    defaultMessage: '!!!and',
+    defaultMessage: 'and',
   },
   textGitHubSponsors: {
     id: 'settings.supportFerdi.textGitHubSponsors',
-    defaultMessage: '!!!GitHub Sponsors',
+    defaultMessage: 'GitHub Sponsors',
   },
   openSurvey: {
     id: 'settings.supportFerdi.openSurvey',
-    defaultMessage: '!!!Open Survey',
+    defaultMessage: 'Open Survey',
   },
   bannerText: {
     id: 'settings.supportFerdi.bannerText',
-    defaultMessage: '!!!Do you want to help us improve Ferdi?',
+    defaultMessage: 'Do you want to help us improve Ferdi?',
   },
 });
 

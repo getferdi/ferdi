@@ -27,20 +27,20 @@ function createMarkup(HTMLString) {
 const messages = defineMessages({
   servicesUpdated: {
     id: 'infobar.servicesUpdated',
-    defaultMessage: '!!!Your services have been updated.',
+    defaultMessage: 'Your services have been updated.',
   },
   buttonReloadServices: {
     id: 'infobar.buttonReloadServices',
-    defaultMessage: '!!!Reload services',
+    defaultMessage: 'Reload services',
   },
   requiredRequestsFailed: {
     id: 'infobar.requiredRequestsFailed',
-    defaultMessage: '!!!Could not load services and user information',
+    defaultMessage: 'Could not load services and user information',
   },
   authRequestFailed: {
     id: 'infobar.authRequestFailed',
     defaultMessage:
-      '!!!There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.',
+      'There were errors while trying to perform an authenticated request. Please try logging out and back in if this error persists.',
   },
 });
 

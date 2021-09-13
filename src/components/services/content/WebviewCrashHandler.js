@@ -9,20 +9,20 @@ import Button from '../../ui/Button';
 const messages = defineMessages({
   headline: {
     id: 'service.crashHandler.headline',
-    defaultMessage: '!!!Oh no!',
+    defaultMessage: 'Oh no!',
   },
   text: {
     id: 'service.crashHandler.text',
-    defaultMessage: '!!!{name} has caused an error.',
+    defaultMessage: '{name} has caused an error.',
   },
   action: {
     id: 'service.crashHandler.action',
-    defaultMessage: '!!!Reload {name}',
+    defaultMessage: 'Reload {name}',
   },
   autoReload: {
     id: 'service.crashHandler.autoReload',
     defaultMessage:
-      '!!!Trying to automatically restore {name} in {seconds} seconds',
+      'Trying to automatically restore {name} in {seconds} seconds',
   },
 });
 

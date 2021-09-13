@@ -38,188 +38,187 @@ const debug = require('debug')('Ferdi:EditSettingsScreen');
 const messages = defineMessages({
   autoLaunchOnStart: {
     id: 'settings.app.form.autoLaunchOnStart',
-    defaultMessage: '!!!Launch Ferdi on start',
+    defaultMessage: 'Launch Ferdi on start',
   },
   autoLaunchInBackground: {
     id: 'settings.app.form.autoLaunchInBackground',
-    defaultMessage: '!!!Open in background',
+    defaultMessage: 'Open in background',
   },
   runInBackground: {
     id: 'settings.app.form.runInBackground',
-    defaultMessage: '!!!Keep Ferdi in background when closing the window',
+    defaultMessage: 'Keep Ferdi in background when closing the window',
   },
   startMinimized: {
     id: 'settings.app.form.startMinimized',
-    defaultMessage: '!!!Start minimized',
+    defaultMessage: 'Start minimized',
   },
   confirmOnQuit: {
     id: 'settings.app.form.confirmOnQuit',
-    defaultMessage: '!!!Confirm when quitting Ferdi',
+    defaultMessage: 'Confirm when quitting Ferdi',
   },
   enableSystemTray: {
     id: 'settings.app.form.enableSystemTray',
-    defaultMessage: '!!!Always show Ferdi in System Tray',
+    defaultMessage: 'Always show Ferdi in System Tray',
   },
   enableMenuBar: {
     id: 'settings.app.form.enableMenuBar',
-    defaultMessage: '!!!Always show Ferdi in Menu Bar',
+    defaultMessage: 'Always show Ferdi in Menu Bar',
   },
   reloadAfterResume: {
     id: 'settings.app.form.reloadAfterResume',
-    defaultMessage: '!!!Reload Ferdi after system resume',
+    defaultMessage: 'Reload Ferdi after system resume',
   },
   minimizeToSystemTray: {
     id: 'settings.app.form.minimizeToSystemTray',
-    defaultMessage: '!!!Minimize Ferdi to system tray',
+    defaultMessage: 'Minimize Ferdi to system tray',
   },
   closeToSystemTray: {
     id: 'settings.app.form.closeToSystemTray',
-    defaultMessage: '!!!Close Ferdi to system tray',
+    defaultMessage: 'Close Ferdi to system tray',
   },
   privateNotifications: {
     id: 'settings.app.form.privateNotifications',
-    defaultMessage: "!!!Don't show message content in notifications",
+    defaultMessage: "Don't show message content in notifications",
   },
   clipboardNotifications: {
     id: 'settings.app.form.clipboardNotifications',
-    defaultMessage: "!!!Don't show notifications for clipboard events",
+    defaultMessage: "Don't show notifications for clipboard events",
   },
   notifyTaskBarOnMessage: {
     id: 'settings.app.form.notifyTaskBarOnMessage',
-    defaultMessage: '!!!Notify TaskBar/Dock on new message',
+    defaultMessage: 'Notify TaskBar/Dock on new message',
   },
   navigationBarBehaviour: {
     id: 'settings.app.form.navigationBarBehaviour',
-    defaultMessage: '!!!Navigation bar behaviour',
+    defaultMessage: 'Navigation bar behaviour',
   },
   searchEngine: {
     id: 'settings.app.form.searchEngine',
-    defaultMessage: '!!!Search engine',
+    defaultMessage: 'Search engine',
   },
   sentry: {
     id: 'settings.app.form.sentry',
-    defaultMessage: '!!!Send telemetry data',
+    defaultMessage: 'Send telemetry data',
   },
   hibernateOnStartup: {
     id: 'settings.app.form.hibernateOnStartup',
-    defaultMessage: '!!!Keep services in hibernation on startup',
+    defaultMessage: 'Keep services in hibernation on startup',
   },
   hibernationStrategy: {
     id: 'settings.app.form.hibernationStrategy',
-    defaultMessage: '!!!Hibernation strategy',
+    defaultMessage: 'Hibernation strategy',
   },
   wakeUpStrategy: {
     id: 'settings.app.form.wakeUpStrategy',
-    defaultMessage: '!!!Wake up strategy',
+    defaultMessage: 'Wake up strategy',
   },
   predefinedTodoServer: {
     id: 'settings.app.form.predefinedTodoServer',
-    defaultMessage: '!!!Todo Server',
+    defaultMessage: 'Todo Server',
   },
   customTodoServer: {
     id: 'settings.app.form.customTodoServer',
-    defaultMessage: '!!!Custom TodoServer',
+    defaultMessage: 'Custom TodoServer',
   },
   enableLock: {
     id: 'settings.app.form.enableLock',
-    defaultMessage: '!!!Enable Password Lock',
+    defaultMessage: 'Enable Password Lock',
   },
   lockPassword: {
     id: 'settings.app.form.lockPassword',
-    defaultMessage: '!!!Password',
+    defaultMessage: 'Password',
   },
   useTouchIdToUnlock: {
     id: 'settings.app.form.useTouchIdToUnlock',
-    defaultMessage: '!!!Allow using Touch ID to unlock',
+    defaultMessage: 'Allow using Touch ID to unlock',
   },
   inactivityLock: {
     id: 'settings.app.form.inactivityLock',
-    defaultMessage: '!!!Lock after inactivity',
+    defaultMessage: 'Lock after inactivity',
   },
   scheduledDNDEnabled: {
     id: 'settings.app.form.scheduledDNDEnabled',
-    defaultMessage: '!!!Enable scheduled Do-not-Disturb',
+    defaultMessage: 'Enable scheduled Do-not-Disturb',
   },
   scheduledDNDStart: {
     id: 'settings.app.form.scheduledDNDStart',
-    defaultMessage: '!!!From',
+    defaultMessage: 'From',
   },
   scheduledDNDEnd: {
     id: 'settings.app.form.scheduledDNDEnd',
-    defaultMessage: '!!!To',
+    defaultMessage: 'To',
   },
   language: {
     id: 'settings.app.form.language',
-    defaultMessage: '!!!Language',
+    defaultMessage: 'Language',
   },
   darkMode: {
     id: 'settings.app.form.darkMode',
-    defaultMessage: '!!!Dark Mode',
+    defaultMessage: 'Dark Mode',
   },
   adaptableDarkMode: {
     id: 'settings.app.form.adaptableDarkMode',
-    defaultMessage: "!!!Synchronize dark mode with my OS's dark mode setting",
+    defaultMessage: "Synchronize dark mode with my OS's dark mode setting",
   },
   universalDarkMode: {
     id: 'settings.app.form.universalDarkMode',
-    defaultMessage: '!!!Enable universal Dark Mode',
+    defaultMessage: 'Enable universal Dark Mode',
   },
   serviceRibbonWidth: {
     id: 'settings.app.form.serviceRibbonWidth',
-    defaultMessage: '!!!Sidebar width',
+    defaultMessage: 'Sidebar width',
   },
   iconSize: {
     id: 'settings.app.form.iconSize',
-    defaultMessage: '!!!Service icon size',
+    defaultMessage: 'Service icon size',
   },
   useVerticalStyle: {
     id: 'settings.app.form.useVerticalStyle',
-    defaultMessage: '!!!Use horizontal style',
+    defaultMessage: 'Use horizontal style',
   },
   alwaysShowWorkspaces: {
     id: 'settings.app.form.alwaysShowWorkspaces',
-    defaultMessage: '!!!Always show workspace drawer',
+    defaultMessage: 'Always show workspace drawer',
   },
   accentColor: {
     id: 'settings.app.form.accentColor',
-    defaultMessage: '!!!Accent color',
+    defaultMessage: 'Accent color',
   },
   showDisabledServices: {
     id: 'settings.app.form.showDisabledServices',
-    defaultMessage: '!!!Display disabled services tabs',
+    defaultMessage: 'Display disabled services tabs',
   },
   showMessageBadgeWhenMuted: {
     id: 'settings.app.form.showMessagesBadgesWhenMuted',
-    defaultMessage:
-      '!!!Show unread message badge when notifications are disabled',
+    defaultMessage: 'Show unread message badge when notifications are disabled',
   },
   showDragArea: {
     id: 'settings.app.form.showDragArea',
-    defaultMessage: '!!!Show draggable area on window',
+    defaultMessage: 'Show draggable area on window',
   },
   enableSpellchecking: {
     id: 'settings.app.form.enableSpellchecking',
-    defaultMessage: '!!!Enable spell checking',
+    defaultMessage: 'Enable spell checking',
   },
   enableGPUAcceleration: {
     id: 'settings.app.form.enableGPUAcceleration',
-    defaultMessage: '!!!Enable GPU Acceleration',
+    defaultMessage: 'Enable GPU Acceleration',
   },
   beta: {
     id: 'settings.app.form.beta',
-    defaultMessage: '!!!Include beta versions',
+    defaultMessage: 'Include beta versions',
   },
   automaticUpdates: {
     id: 'settings.app.form.automaticUpdates',
-    defaultMessage: '!!!Enable updates',
+    defaultMessage: 'Enable updates',
   },
   enableTodos: {
     id: 'settings.app.form.enableTodos',
-    defaultMessage: '!!!Enable Franz Todos',
+    defaultMessage: 'Enable Franz Todos',
   },
   keepAllWorkspacesLoaded: {
     id: 'settings.app.form.keepAllWorkspacesLoaded',
-    defaultMessage: '!!!Keep all workspaces loaded',
+    defaultMessage: 'Keep all workspaces loaded',
   },
 });
 

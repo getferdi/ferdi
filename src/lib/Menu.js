@@ -1,7 +1,7 @@
 import { clipboard } from 'electron';
 import { app, Menu, dialog, systemPreferences } from '@electron/remote';
 import { autorun, observable } from 'mobx';
-import { defineMessages, injectIntl } from 'react-intl';
+import { defineMessages } from 'react-intl';
 import {
   CUSTOM_WEBSITE_RECIPE_ID,
   GITHUB_FERDI_URL,
@@ -32,284 +32,283 @@ import globalMessages from '../i18n/globalMessages';
 const menuItems = defineMessages({
   edit: {
     id: 'menu.edit',
-    defaultMessage: '!!!Edit',
+    defaultMessage: 'Edit',
   },
   undo: {
     id: 'menu.edit.undo',
-    defaultMessage: '!!!Undo',
+    defaultMessage: 'Undo',
   },
   redo: {
     id: 'menu.edit.redo',
-    defaultMessage: '!!!Redo',
+    defaultMessage: 'Redo',
   },
   cut: {
     id: 'menu.edit.cut',
-    defaultMessage: '!!!Cut',
+    defaultMessage: 'Cut',
   },
   copy: {
     id: 'menu.edit.copy',
-    defaultMessage: '!!!Copy',
+    defaultMessage: 'Copy',
   },
   paste: {
     id: 'menu.edit.paste',
-    defaultMessage: '!!!Paste',
+    defaultMessage: 'Paste',
   },
   pasteAndMatchStyle: {
     id: 'menu.edit.pasteAndMatchStyle',
-    defaultMessage: '!!!Paste And Match Style',
+    defaultMessage: 'Paste And Match Style',
   },
   delete: {
     id: 'menu.edit.delete',
-    defaultMessage: '!!!Delete',
+    defaultMessage: 'Delete',
   },
   selectAll: {
     id: 'menu.edit.selectAll',
-    defaultMessage: '!!!Select All',
+    defaultMessage: 'Select All',
   },
   findInPage: {
     id: 'menu.edit.findInPage',
-    defaultMessage: '!!!Find in Page',
+    defaultMessage: 'Find in Page',
   },
   speech: {
     id: 'menu.edit.speech',
-    defaultMessage: '!!!Speech',
+    defaultMessage: 'Speech',
   },
   startSpeaking: {
     id: 'menu.edit.startSpeaking',
-    defaultMessage: '!!!Start Speaking',
+    defaultMessage: 'Start Speaking',
   },
   stopSpeaking: {
     id: 'menu.edit.stopSpeaking',
-    defaultMessage: '!!!Stop Speaking',
+    defaultMessage: 'Stop Speaking',
   },
   startDictation: {
     id: 'menu.edit.startDictation',
-    defaultMessage: '!!!Start Dictation',
+    defaultMessage: 'Start Dictation',
   },
   emojiSymbols: {
     id: 'menu.edit.emojiSymbols',
-    defaultMessage: '!!!Emoji & Symbols',
+    defaultMessage: 'Emoji & Symbols',
   },
   openQuickSwitch: {
     id: 'menu.view.openQuickSwitch',
-    defaultMessage: '!!!Open Quick Switch',
+    defaultMessage: 'Open Quick Switch',
   },
   back: {
     id: 'menu.view.back',
-    defaultMessage: '!!!Back',
+    defaultMessage: 'Back',
   },
   forward: {
     id: 'menu.view.forward',
-    defaultMessage: '!!!Forward',
+    defaultMessage: 'Forward',
   },
   resetZoom: {
     id: 'menu.view.resetZoom',
-    defaultMessage: '!!!Actual Size',
+    defaultMessage: 'Actual Size',
   },
   zoomIn: {
     id: 'menu.view.zoomIn',
-    defaultMessage: '!!!Zoom In',
+    defaultMessage: 'Zoom In',
   },
   zoomOut: {
     id: 'menu.view.zoomOut',
-    defaultMessage: '!!!Zoom Out',
+    defaultMessage: 'Zoom Out',
   },
   toggleFullScreen: {
     id: 'menu.view.toggleFullScreen',
-    defaultMessage: '!!!Toggle Full Screen',
+    defaultMessage: 'Toggle Full Screen',
   },
   toggleDarkMode: {
     id: 'menu.view.toggleDarkMode',
-    defaultMessage: '!!!Toggle Dark Mode',
+    defaultMessage: 'Toggle Dark Mode',
   },
   toggleDevTools: {
     id: 'menu.view.toggleDevTools',
-    defaultMessage: '!!!Toggle Developer Tools',
+    defaultMessage: 'Toggle Developer Tools',
   },
   toggleTodosDevTools: {
     id: 'menu.view.toggleTodosDevTools',
-    defaultMessage: '!!!Toggle Todos Developer Tools',
+    defaultMessage: 'Toggle Todos Developer Tools',
   },
   toggleServiceDevTools: {
     id: 'menu.view.toggleServiceDevTools',
-    defaultMessage: '!!!Toggle Service Developer Tools',
+    defaultMessage: 'Toggle Service Developer Tools',
   },
   reloadService: {
     id: 'menu.view.reloadService',
-    defaultMessage: '!!!Reload Service',
+    defaultMessage: 'Reload Service',
   },
   reloadFerdi: {
     id: 'menu.view.reloadFerdi',
-    defaultMessage: '!!!Reload Ferdi',
+    defaultMessage: 'Reload Ferdi',
   },
   lockFerdi: {
     id: 'menu.view.lockFerdi',
-    defaultMessage: '!!!Lock Ferdi',
+    defaultMessage: 'Lock Ferdi',
   },
   reloadTodos: {
     id: 'menu.view.reloadTodos',
-    defaultMessage: '!!!Reload ToDos',
+    defaultMessage: 'Reload ToDos',
   },
   minimize: {
     id: 'menu.window.minimize',
-    defaultMessage: '!!!Minimize',
+    defaultMessage: 'Minimize',
   },
   close: {
     id: 'menu.window.close',
-    defaultMessage: '!!!Close',
+    defaultMessage: 'Close',
   },
   learnMore: {
     id: 'menu.help.learnMore',
-    defaultMessage: '!!!Learn More',
+    defaultMessage: 'Learn More',
   },
   changelog: {
     id: 'menu.help.changelog',
-    defaultMessage: '!!!Changelog',
+    defaultMessage: 'Changelog',
   },
   importExportData: {
     id: 'menu.help.importExportData',
-    defaultMessage: '!!!Import/Export Configuration Data',
+    defaultMessage: 'Import/Export Configuration Data',
   },
   support: {
     id: 'menu.help.support',
-    defaultMessage: '!!!Support',
+    defaultMessage: 'Support',
   },
   debugInfo: {
     id: 'menu.help.debugInfo',
-    defaultMessage: '!!!Copy Debug Information',
+    defaultMessage: 'Copy Debug Information',
   },
   publishDebugInfo: {
     id: 'menu.help.publishDebugInfo',
-    defaultMessage: '!!!Publish Debug Information',
+    defaultMessage: 'Publish Debug Information',
   },
   debugInfoCopiedHeadline: {
     id: 'menu.help.debugInfoCopiedHeadline',
-    defaultMessage: '!!!Ferdi Debug Information',
+    defaultMessage: 'Ferdi Debug Information',
   },
   debugInfoCopiedBody: {
     id: 'menu.help.debugInfoCopiedBody',
-    defaultMessage:
-      '!!!Your Debug Information has been copied to your clipboard.',
+    defaultMessage: 'Your Debug Information has been copied to your clipboard.',
   },
   touchId: {
     id: 'locked.touchId',
-    defaultMessage: '!!!Unlock with Touch ID',
+    defaultMessage: 'Unlock with Touch ID',
   },
   touchIdPrompt: {
     id: 'locked.touchIdPrompt',
-    defaultMessage: '!!!unlock via Touch ID',
+    defaultMessage: 'unlock via Touch ID',
   },
   tos: {
     id: 'menu.help.tos',
-    defaultMessage: '!!!Terms of Service',
+    defaultMessage: 'Terms of Service',
   },
   privacy: {
     id: 'menu.help.privacy',
-    defaultMessage: '!!!Privacy Statement',
+    defaultMessage: 'Privacy Statement',
   },
   file: {
     id: 'menu.file',
-    defaultMessage: '!!!File',
+    defaultMessage: 'File',
   },
   view: {
     id: 'menu.view',
-    defaultMessage: '!!!View',
+    defaultMessage: 'View',
   },
   services: {
     id: 'menu.services',
-    defaultMessage: '!!!Services',
+    defaultMessage: 'Services',
   },
   window: {
     id: 'menu.window',
-    defaultMessage: '!!!Window',
+    defaultMessage: 'Window',
   },
   help: {
     id: 'menu.help',
-    defaultMessage: '!!!Help',
+    defaultMessage: 'Help',
   },
   about: {
     id: 'menu.app.about',
-    defaultMessage: '!!!About Ferdi',
+    defaultMessage: 'About Ferdi',
   },
   checkForUpdates: {
     id: 'menu.app.checkForUpdates',
-    defaultMessage: '!!!Check for updates',
+    defaultMessage: 'Check for updates',
   },
   hide: {
     id: 'menu.app.hide',
-    defaultMessage: '!!!Hide',
+    defaultMessage: 'Hide',
   },
   hideOthers: {
     id: 'menu.app.hideOthers',
-    defaultMessage: '!!!Hide Others',
+    defaultMessage: 'Hide Others',
   },
   unhide: {
     id: 'menu.app.unhide',
-    defaultMessage: '!!!Unhide',
+    defaultMessage: 'Unhide',
   },
   autohideMenuBar: {
     id: 'menu.app.autohideMenuBar',
-    defaultMessage: '!!!Auto-hide menu bar',
+    defaultMessage: 'Auto-hide menu bar',
   },
   addNewService: {
     id: 'menu.services.addNewService',
-    defaultMessage: '!!!Add New Service...',
+    defaultMessage: 'Add New Service...',
   },
   addNewWorkspace: {
     id: 'menu.workspaces.addNewWorkspace',
-    defaultMessage: '!!!Add New Workspace...',
+    defaultMessage: 'Add New Workspace...',
   },
   openWorkspaceDrawer: {
     id: 'menu.workspaces.openWorkspaceDrawer',
-    defaultMessage: '!!!Open workspace drawer',
+    defaultMessage: 'Open workspace drawer',
   },
   closeWorkspaceDrawer: {
     id: 'menu.workspaces.closeWorkspaceDrawer',
-    defaultMessage: '!!!Close workspace drawer',
+    defaultMessage: 'Close workspace drawer',
   },
   activateNextService: {
     id: 'menu.services.setNextServiceActive',
-    defaultMessage: '!!!Activate next service...',
+    defaultMessage: 'Activate next service...',
   },
   activatePreviousService: {
     id: 'menu.services.activatePreviousService',
-    defaultMessage: '!!!Activate previous service...',
+    defaultMessage: 'Activate previous service...',
   },
   muteApp: {
     id: 'sidebar.muteApp',
-    defaultMessage: '!!!Disable notifications & audio',
+    defaultMessage: 'Disable notifications & audio',
   },
   unmuteApp: {
     id: 'sidebar.unmuteApp',
-    defaultMessage: '!!!Enable notifications & audio',
+    defaultMessage: 'Enable notifications & audio',
   },
   workspaces: {
     id: 'menu.workspaces',
-    defaultMessage: '!!!Workspaces',
+    defaultMessage: 'Workspaces',
   },
   defaultWorkspace: {
     id: 'menu.workspaces.defaultWorkspace',
-    defaultMessage: '!!!Default',
+    defaultMessage: 'Default',
   },
   todos: {
     id: 'menu.todos',
-    defaultMessage: '!!!Todos',
+    defaultMessage: 'Todos',
   },
   openTodosDrawer: {
     id: 'menu.Todoss.openTodosDrawer',
-    defaultMessage: '!!!Open Todos drawer',
+    defaultMessage: 'Open Todos drawer',
   },
   closeTodosDrawer: {
     id: 'menu.Todoss.closeTodosDrawer',
-    defaultMessage: '!!!Close Todos drawer',
+    defaultMessage: 'Close Todos drawer',
   },
   enableTodos: {
     id: 'menu.todos.enableTodos',
-    defaultMessage: '!!!Enable Todos',
+    defaultMessage: 'Enable Todos',
   },
   serviceGoHome: {
     id: 'menu.services.goHome',
-    defaultMessage: '!!!Home',
+    defaultMessage: 'Home',
   },
 });
 
@@ -1133,4 +1132,4 @@ class FranzMenu {
   }
 }
 
-export default injectIntl(FranzMenu);
+export default FranzMenu;

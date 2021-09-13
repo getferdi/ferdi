@@ -14,40 +14,40 @@ import Appear from '../../ui/effects/Appear';
 const messages = defineMessages({
   headline: {
     id: 'settings.services.headline',
-    defaultMessage: '!!!Your services',
+    defaultMessage: 'Your services',
   },
   searchService: {
     id: 'settings.searchService',
-    defaultMessage: '!!!Search service',
+    defaultMessage: 'Search service',
   },
   noServicesAdded: {
     id: 'settings.services.noServicesAdded',
-    defaultMessage: '!!!Start by adding a service.',
+    defaultMessage: 'Start by adding a service.',
   },
   noServiceFound: {
     id: 'settings.recipes.nothingFound',
     defaultMessage:
-      '!!!Sorry, but no service matched your search term. Please note that the website might show more services that have been added to Ferdi since the version that you are currently on. To get those new services, please consider upgrading to a newer version of Ferdi.',
+      'Sorry, but no service matched your search term. Please note that the website might show more services that have been added to Ferdi since the version that you are currently on. To get those new services, please consider upgrading to a newer version of Ferdi.',
   },
   discoverServices: {
     id: 'settings.services.discoverServices',
-    defaultMessage: '!!!Discover services',
+    defaultMessage: 'Discover services',
   },
   servicesRequestFailed: {
     id: 'settings.services.servicesRequestFailed',
-    defaultMessage: '!!!Could not load your services',
+    defaultMessage: 'Could not load your services',
   },
   tryReloadServices: {
     id: 'settings.account.tryReloadServices',
-    defaultMessage: '!!!Try again',
+    defaultMessage: 'Try again',
   },
   updatedInfo: {
     id: 'settings.services.updatedInfo',
-    defaultMessage: '!!!Your changes have been saved',
+    defaultMessage: 'Your changes have been saved',
   },
   deletedInfo: {
     id: 'settings.services.deletedInfo',
-    defaultMessage: '!!!Service has been deleted',
+    defaultMessage: 'Service has been deleted',
   },
 });
 

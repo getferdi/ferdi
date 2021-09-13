@@ -16,16 +16,16 @@ import globalMessages from '../../i18n/globalMessages';
 const messages = defineMessages({
   title: {
     id: 'feature.nightlyBuilds.title',
-    defaultMessage: '!!!Nightly Builds',
+    defaultMessage: 'Nightly Builds',
   },
   info: {
     id: 'feature.nightlyBuilds.info',
     defaultMessage:
-      "!!!Nightly builds are highly experimental versions of Ferdi that may contain unpolished or uncompleted features. These nightly builds are mainly used by developers to test their newly developed features and how they will perform in the final build. If you don't know what you are doing, we suggest not activating nightly builds.",
+      "Nightly builds are highly experimental versions of Ferdi that may contain unpolished or uncompleted features. These nightly builds are mainly used by developers to test their newly developed features and how they will perform in the final build. If you don't know what you are doing, we suggest not activating nightly builds.",
   },
   activate: {
     id: 'feature.nightlyBuilds.activate',
-    defaultMessage: '!!!Activate',
+    defaultMessage: 'Activate',
   },
 });
 

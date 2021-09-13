@@ -16,35 +16,35 @@ import UIStore from '../../../stores/UIStore';
 const messages = defineMessages({
   headline: {
     id: 'settings.workspaces.headline',
-    defaultMessage: '!!!Your workspaces',
+    defaultMessage: 'Your workspaces',
   },
   noServicesAdded: {
     id: 'settings.workspaces.noWorkspacesAdded',
-    defaultMessage: "!!!You haven't created any workspaces yet.",
+    defaultMessage: "You haven't created any workspaces yet.",
   },
   workspacesRequestFailed: {
     id: 'settings.workspaces.workspacesRequestFailed',
-    defaultMessage: '!!!Could not load your workspaces',
+    defaultMessage: 'Could not load your workspaces',
   },
   tryReloadWorkspaces: {
     id: 'settings.workspaces.tryReloadWorkspaces',
-    defaultMessage: '!!!Try again',
+    defaultMessage: 'Try again',
   },
   updatedInfo: {
     id: 'settings.workspaces.updatedInfo',
-    defaultMessage: '!!!Your changes have been saved',
+    defaultMessage: 'Your changes have been saved',
   },
   deletedInfo: {
     id: 'settings.workspaces.deletedInfo',
-    defaultMessage: '!!!Workspace has been deleted',
+    defaultMessage: 'Workspace has been deleted',
   },
   workspaceFeatureInfo: {
     id: 'settings.workspaces.workspaceFeatureInfo',
-    defaultMessage: '!!!Info about workspace feature',
+    defaultMessage: 'Info about workspace feature',
   },
   workspaceFeatureHeadline: {
     id: 'settings.workspaces.workspaceFeatureHeadline',
-    defaultMessage: '!!!Less is More: Introducing Ferdi Workspaces',
+    defaultMessage: 'Less is More: Introducing Ferdi Workspaces',
   },
 });
 

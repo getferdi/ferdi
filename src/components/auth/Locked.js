@@ -15,36 +15,36 @@ import { globalError as globalErrorPropType } from '../../prop-types';
 const messages = defineMessages({
   headline: {
     id: 'locked.headline',
-    defaultMessage: '!!!Locked',
+    defaultMessage: 'Locked',
   },
   info: {
     id: 'locked.info',
     defaultMessage:
-      '!!!Ferdi is currently locked. Please unlock Ferdi with your password to see your messages.',
+      'Ferdi is currently locked. Please unlock Ferdi with your password to see your messages.',
   },
   touchId: {
     id: 'locked.touchId',
-    defaultMessage: '!!!Unlock with Touch ID',
+    defaultMessage: 'Unlock with Touch ID',
   },
   touchIdPrompt: {
     id: 'locked.touchIdPrompt',
-    defaultMessage: '!!!unlock via Touch ID',
+    defaultMessage: 'unlock via Touch ID',
   },
   passwordLabel: {
     id: 'locked.password.label',
-    defaultMessage: '!!!Password',
+    defaultMessage: 'Password',
   },
   submitButtonLabel: {
     id: 'locked.submit.label',
-    defaultMessage: '!!!Unlock',
+    defaultMessage: 'Unlock',
   },
   unlockWithPassword: {
     id: 'locked.unlockWithPassword',
-    defaultMessage: '!!!Unlock with Password',
+    defaultMessage: 'Unlock with Password',
   },
   invalidCredentials: {
     id: 'locked.invalidCredentials',
-    defaultMessage: '!!!Password invalid',
+    defaultMessage: 'Password invalid',
   },
 });
 

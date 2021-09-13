@@ -19,20 +19,20 @@ const SLACK_ID = 'slack';
 const messages = defineMessages({
   headline: {
     id: 'setupAssistant.headline',
-    defaultMessage: "!!!Let's get started",
+    defaultMessage: "Let's get started",
   },
   subHeadline: {
     id: 'setupAssistant.subheadline',
     defaultMessage:
-      '!!!Choose from our most used services and get back on top of your messaging now.',
+      'Choose from our most used services and get back on top of your messaging now.',
   },
   submitButtonLabel: {
     id: 'setupAssistant.submit.label',
-    defaultMessage: "!!!Let's go",
+    defaultMessage: "Let's go",
   },
   inviteSuccessInfo: {
     id: 'invite.successInfo',
-    defaultMessage: '!!!Invitations sent successfully',
+    defaultMessage: 'Invitations sent successfully',
   },
 });
 

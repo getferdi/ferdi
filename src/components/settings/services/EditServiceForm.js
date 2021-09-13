@@ -22,112 +22,112 @@ import globalMessages from '../../../i18n/globalMessages';
 const messages = defineMessages({
   saveService: {
     id: 'settings.service.form.saveButton',
-    defaultMessage: '!!!Save service',
+    defaultMessage: 'Save service',
   },
   deleteService: {
     id: 'settings.service.form.deleteButton',
-    defaultMessage: '!!!Delete Service',
+    defaultMessage: 'Delete Service',
   },
   openDarkmodeCss: {
     id: 'settings.service.form.openDarkmodeCss',
-    defaultMessage: '!!!Open darkmode.css',
+    defaultMessage: 'Open darkmode.css',
   },
   openUserCss: {
     id: 'settings.service.form.openUserCss',
-    defaultMessage: '!!!Open user.css',
+    defaultMessage: 'Open user.css',
   },
   openUserJs: {
     id: 'settings.service.form.openUserJs',
-    defaultMessage: '!!!Open user.js',
+    defaultMessage: 'Open user.js',
   },
   recipeFileInfo: {
     id: 'settings.service.form.recipeFileInfo',
     defaultMessage:
-      '!!!Your user files will be inserted into the webpage so you can customize services in any way you like. User files are only stored locally and are not transferred to other computers using the same account.',
+      'Your user files will be inserted into the webpage so you can customize services in any way you like. User files are only stored locally and are not transferred to other computers using the same account.',
   },
   availableServices: {
     id: 'settings.service.form.availableServices',
-    defaultMessage: '!!!Available services',
+    defaultMessage: 'Available services',
   },
   yourServices: {
     id: 'settings.service.form.yourServices',
-    defaultMessage: '!!!Your services',
+    defaultMessage: 'Your services',
   },
   addServiceHeadline: {
     id: 'settings.service.form.addServiceHeadline',
-    defaultMessage: '!!!Add {name}',
+    defaultMessage: 'Add {name}',
   },
   editServiceHeadline: {
     id: 'settings.service.form.editServiceHeadline',
-    defaultMessage: '!!!Edit {name}',
+    defaultMessage: 'Edit {name}',
   },
   tabHosted: {
     id: 'settings.service.form.tabHosted',
-    defaultMessage: '!!!Hosted',
+    defaultMessage: 'Hosted',
   },
   tabOnPremise: {
     id: 'settings.service.form.tabOnPremise',
-    defaultMessage: '!!!Self hosted ⭐️',
+    defaultMessage: 'Self hosted ⭐️',
   },
   useHostedService: {
     id: 'settings.service.form.useHostedService',
-    defaultMessage: '!!!Use the hosted {name} service.',
+    defaultMessage: 'Use the hosted {name} service.',
   },
   customUrlValidationError: {
     id: 'settings.service.form.customUrlValidationError',
-    defaultMessage: '!!!Could not validate custom {name} server.',
+    defaultMessage: 'Could not validate custom {name} server.',
   },
   indirectMessageInfo: {
     id: 'settings.service.form.indirectMessageInfo',
     defaultMessage:
-      '!!!You will be notified about all new messages in a channel, not just @username, @channel, @here, ...',
+      'You will be notified about all new messages in a channel, not just @username, @channel, @here, ...',
   },
   isMutedInfo: {
     id: 'settings.service.form.isMutedInfo',
     defaultMessage:
-      '!!!When disabled, all notification sounds and audio playback are muted',
+      'When disabled, all notification sounds and audio playback are muted',
   },
   isHibernationEnabledInfo: {
     id: 'settings.service.form.isHibernatedEnabledInfo',
     defaultMessage:
-      '!!!When enabled, a service will be shut down after a period of time to save system resources.',
+      'When enabled, a service will be shut down after a period of time to save system resources.',
   },
   headlineNotifications: {
     id: 'settings.service.form.headlineNotifications',
-    defaultMessage: '!!!Notifications',
+    defaultMessage: 'Notifications',
   },
   headlineBadges: {
     id: 'settings.service.form.headlineBadges',
-    defaultMessage: '!!!Unread message badges',
+    defaultMessage: 'Unread message badges',
   },
   headlineGeneral: {
     id: 'settings.service.form.headlineGeneral',
-    defaultMessage: '!!!General',
+    defaultMessage: 'General',
   },
   headlineDarkReaderSettings: {
     id: 'settings.service.form.headlineDarkReaderSettings',
-    defaultMessage: '!!!Dark Reader Settings',
+    defaultMessage: 'Dark Reader Settings',
   },
   iconDelete: {
     id: 'settings.service.form.iconDelete',
-    defaultMessage: '!!!Delete',
+    defaultMessage: 'Delete',
   },
   iconUpload: {
     id: 'settings.service.form.iconUpload',
-    defaultMessage: '!!!Drop your image, or click here',
+    defaultMessage: 'Drop your image, or click here',
   },
   headlineProxy: {
     id: 'settings.service.form.proxy.headline',
-    defaultMessage: '!!!HTTP/HTTPS Proxy Settings',
+    defaultMessage: 'HTTP/HTTPS Proxy Settings',
   },
   proxyRestartInfo: {
     id: 'settings.service.form.proxy.restartInfo',
-    defaultMessage: '!!!Please restart Ferdi after changing proxy Settings.',
+    defaultMessage: 'Please restart Ferdi after changing proxy Settings.',
   },
   proxyInfo: {
     id: 'settings.service.form.proxy.info',
     defaultMessage:
-      '!!!Proxy settings will not be synchronized with the Ferdi servers.',
+      'Proxy settings will not be synchronized with the Ferdi servers.',
   },
 });
 

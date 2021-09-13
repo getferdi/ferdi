@@ -10,7 +10,7 @@ import Appear from '../ui/effects/Appear';
 const messages = defineMessages({
   closeSettings: {
     id: 'settings.app.closeSettings',
-    defaultMessage: '!!!Close settings',
+    defaultMessage: 'Close settings',
   },
 });
 

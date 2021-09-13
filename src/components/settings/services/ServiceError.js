@@ -9,19 +9,19 @@ import Button from '../../ui/Button';
 const messages = defineMessages({
   headline: {
     id: 'settings.service.error.headline',
-    defaultMessage: '!!!Error',
+    defaultMessage: 'Error',
   },
   goBack: {
     id: 'settings.service.error.goBack',
-    defaultMessage: '!!!Back to services',
+    defaultMessage: 'Back to services',
   },
   availableServices: {
     id: 'settings.service.form.availableServices',
-    defaultMessage: '!!!Available services',
+    defaultMessage: 'Available services',
   },
   errorMessage: {
     id: 'settings.service.error.message',
-    defaultMessage: '!!!Could not load service recipe.',
+    defaultMessage: 'Could not load service recipe.',
   },
 });
 

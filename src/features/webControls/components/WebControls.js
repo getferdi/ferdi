@@ -16,23 +16,23 @@ import {
 const messages = defineMessages({
   goHome: {
     id: 'webControls.goHome',
-    defaultMessage: '!!!Home',
+    defaultMessage: 'Home',
   },
   openInBrowser: {
     id: 'webControls.openInBrowser',
-    defaultMessage: '!!!Open in Browser',
+    defaultMessage: 'Open in Browser',
   },
   back: {
     id: 'webControls.back',
-    defaultMessage: '!!!Back',
+    defaultMessage: 'Back',
   },
   forward: {
     id: 'webControls.forward',
-    defaultMessage: '!!!Forward',
+    defaultMessage: 'Forward',
   },
   reload: {
     id: 'webControls.reload',
-    defaultMessage: '!!!Reload',
+    defaultMessage: 'Reload',
   },
 });
 
