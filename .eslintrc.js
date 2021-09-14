@@ -127,6 +127,7 @@ module.exports = {
     'implicit-arrow-linebreak': 0,
     indent: 0,
     'function-paren-newline': 0,
+    'linebreak-style': 0,
     'max-len': 0,
     'no-await-in-loop': 1,
     'no-console': [
