@@ -191,10 +191,10 @@ export default class WorkspacesStore extends FeatureStore {
       this.isSwitchingWorkspace = false;
       this.nextWorkspace = null;
       if (this.stores.settings.app.splitMode) {
-        const serviceNames = this.getWorkspaceServices(workspace).map(service => service.name);
-        document.querySelectorAll('.services__webview-wrapper').forEach(wrapper => {
-          wrapper.style.display = serviceNames.includes(wrapper.dataset.name) ? '' : 'none';
-        });
+        const serviceNames = new Set(this.getWorkspaceServices(workspace).map(service => service.name));
+        for (const wrapper of document.querySelectorAll('.services__webview-wrapper')) {
+          wrapper.style.display = serviceNames.has(wrapper.dataset.name) ? '' : 'none';
+        }
       }
     }, 1000);
   };
@@ -212,9 +212,9 @@ export default class WorkspacesStore extends FeatureStore {
     setTimeout(() => {
       this.isSwitchingWorkspace = false;
       if (this.stores.settings.app.splitMode) {
-        document.querySelectorAll('.services__webview-wrapper').forEach(wrapper => {
+        for (const wrapper of document.querySelectorAll('.services__webview-wrapper')) {
           wrapper.style.display = '';
-        });
+        }
       }
     }, 1000);
   };

@@ -682,7 +682,11 @@ export default class ServicesStore extends Store {
         this._focusService({ serviceId: service.id });
         if (this.stores.settings.app.splitMode && !focusEvent) {
           setTimeout(() => {
-            document.querySelector('.services__webview-wrapper.is-active').scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'});
+            document.querySelector('.services__webview-wrapper.is-active').scrollIntoView({
+              behavior: 'smooth',
+              block: 'end',
+              inline: 'nearest',
+            });
           }, 10);
         }
       } else {
