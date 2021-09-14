@@ -52,9 +52,7 @@ export default class UIStore extends Store {
       { fireImmediately: true },
     );
     reaction(
-      () => (
-        this.isSplitModeActive
-      ),
+      () => this.isSplitModeActive,
       () => {
         this._setupModeInDOM();
       },
@@ -132,9 +130,9 @@ export default class UIStore extends Store {
     const body = document.querySelector('body');
 
     if (!this.isSplitModeActive) {
-      body.classList.remove('mode__split');
+      body?.classList.remove('mode__split');
     } else {
-      body.classList.add('mode__split');
+      body?.classList.add('mode__split');
     }
   }
 }
