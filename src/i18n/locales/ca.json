@@ -144,7 +144,7 @@
   "menu.workspaces": "Espais de treball",
   "menu.workspaces.addNewWorkspace": "Afegir un Espai de Treball...",
   "menu.workspaces.closeWorkspaceDrawer": "Tancar el calaix d'espais de treball",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "Tots els serveis",
   "menu.workspaces.openWorkspaceDrawer": "Obrir el calaix d'espais de treball",
   "password.email.label": "Correu electrònic",
   "password.headline": "Forgot password",
