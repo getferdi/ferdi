@@ -144,7 +144,7 @@
   "menu.workspaces": "Espace de travail",
   "menu.workspaces.addNewWorkspace": "Ajouter un nouvel espace de travail...",
   "menu.workspaces.closeWorkspaceDrawer": "Fermer l'espace de travail",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "Tous les services",
   "menu.workspaces.openWorkspaceDrawer": "Ouvrir l'espace de travail",
   "password.email.label": "Adresse Email",
   "password.headline": "Forgot password",
