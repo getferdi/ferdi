@@ -144,7 +144,7 @@
   "menu.workspaces": "Çalışma Alanları",
   "menu.workspaces.addNewWorkspace": "Yeni Çalışma Alanı ekle...",
   "menu.workspaces.closeWorkspaceDrawer": "Çalışma alanı çekmecesini kapat",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "Tüm servisler",
   "menu.workspaces.openWorkspaceDrawer": "Çalışma alanı çekmecesini aç",
   "password.email.label": "E-posta adresi",
   "password.headline": "Forgot password",
