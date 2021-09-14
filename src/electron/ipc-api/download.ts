@@ -7,7 +7,7 @@ import { PathLike } from 'fs';
 const debug = require('debug')('Ferdi:ipcApi:download');
 
 function decodeBase64Image(dataString: string) {
-  const matches = dataString.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
+  const matches = dataString.match(/^data:([+/A-Za-z-]+);base64,(.+)$/);
 
   if (matches?.length !== 3) {
     return new Error('Invalid input string');
@@ -47,12 +47,12 @@ export default (params: { mainWindow: BrowserWindow }) => {
             );
 
             debug('File blob saved to', saveDialog.filePath);
-          } catch (err) {
-            console.log(err);
+          } catch (error) {
+            console.log(error);
           }
         }
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        console.error(error);
       }
     },
   );

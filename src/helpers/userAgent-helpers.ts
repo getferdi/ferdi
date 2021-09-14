@@ -8,7 +8,7 @@ import {
 function macOS() {
   const version = macosVersion() || '';
   let cpuName = os.cpus()[0].model.split(' ')[0];
-  if (cpuName && cpuName.match(/\(/)) {
+  if (cpuName && /\(/.test(cpuName)) {
     cpuName = cpuName.split('(')[0];
   }
   return `Macintosh; ${cpuName} Mac OS X ${version.replace(/\./g, '_')}`;

@@ -4,13 +4,11 @@ export function getLocale({
   let localeStr = locale;
   if (locales[locale] === undefined) {
     let localeFuzzy: string | undefined;
-    Object.keys(locales).forEach((localStr) => {
-      if (locales && Object.hasOwnProperty.call(locales, localStr)) {
-        if (locale.substring(0, 2) === localStr.substring(0, 2)) {
+    for (const localStr of Object.keys(locales)) {
+      if (locales && Object.hasOwnProperty.call(locales, localStr) && locale.slice(0, 2) === localStr.slice(0, 2)) {
           localeFuzzy = localStr;
         }
-      }
-    });
+    }
 
     if (localeFuzzy !== undefined) {
       localeStr = localeFuzzy;
@@ -61,12 +59,12 @@ export function getSelectOptions({
   if (sort) {
     keys = keys.sort(Intl.Collator().compare);
   }
-  keys.forEach((key) => {
+  for (const key of keys) {
     options.push({
       value: key,
       label: locales[key],
     });
-  });
+  }
 
   return options;
 }

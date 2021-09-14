@@ -12,9 +12,9 @@ export function scorePassword(password: string) {
 
   // award every unique letter until 5 repetitions
   const letters = {};
-  for (let i = 0; i < password.length; i += 1) {
-    letters[password[i]] = (letters[password[i]] || 0) + 1;
-    score += 5.0 / letters[password[i]];
+  for (const letter of password) {
+    letters[letter] = (letters[letter] || 0) + 1;
+    score += 5 / letters[letter];
   }
 
   // bonus points for mixing it up
@@ -26,11 +26,11 @@ export function scorePassword(password: string) {
   };
 
   let variationCount = 0;
-  Object.keys(variations).forEach((key) => {
-    variationCount += (variations[key] === true) ? 1 : 0;
-  });
+  for (const key of Object.keys(variations)) {
+    variationCount += variations[key] === true ? 1 : 0;
+  }
 
   score += (variationCount - 1) * 10;
 
-  return parseInt(score.toString(), 10);
+  return Number.parseInt(score.toString(), 10);
 }

@@ -9,7 +9,7 @@ export default (brandPrimary: string) => {
   let brandPrimaryColor = color(legacyStyles.themeBrandPrimary);
   try {
     brandPrimaryColor = color(defaultStyles.brandPrimary);
-  } catch (e) {
+  } catch {
     // Ignore invalid color and fall back to default.
   }
 

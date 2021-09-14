@@ -68,16 +68,16 @@ export default class Recipe {
   // TODO: Need to reconcile which of these are optional/mandatory
   constructor(data: IRecipe) {
     if (!data) {
-      throw Error('Recipe config not valid');
+      throw new Error('Recipe config not valid');
     }
 
     if (!data.id) {
       // Ferdi 4 recipes do not have an Id
-      throw Error(`Recipe '${data.name}' requires Id`);
+      throw new Error(`Recipe '${data.name}' requires Id`);
     }
 
     if (!semver.valid(data.version)) {
-      throw Error(`Version ${data.version} of recipe '${data.name}' is not a valid semver version`);
+      throw new Error(`Version ${data.version} of recipe '${data.name}' is not a valid semver version`);
     }
 
     this.id = data.id || this.id;

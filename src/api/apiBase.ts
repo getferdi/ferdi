@@ -12,8 +12,6 @@ import {
 
 // Note: This cannot be used from the internal-server since we are not running within the context of a browser window
 const apiBase = (withVersion = true) => {
-  let url: string;
-
   if (
     !(window as any).ferdi ||
     !(window as any).ferdi.stores.settings ||
@@ -23,15 +21,12 @@ const apiBase = (withVersion = true) => {
     // Stores have not yet been loaded - return SERVER_NOT_LOADED to force a retry when stores are loaded
     return SERVER_NOT_LOADED;
   }
-  if ((window as any).ferdi.stores.settings.all.app.server === LOCAL_SERVER) {
-    // Use URL for local server
-    url = `http://${LOCAL_HOSTNAME}:${
-      (window as any).ferdi.stores.requests.localServerPort
-    }`;
-  } else {
-    // Load URL from store
-    url = (window as any).ferdi.stores.settings.all.app.server;
-  }
+  const url =
+    (window as any).ferdi.stores.settings.all.app.server === LOCAL_SERVER
+      ? `http://${LOCAL_HOSTNAME}:${
+          (window as any).ferdi.stores.requests.localServerPort
+        }`
+      : (window as any).ferdi.stores.settings.all.app.server;
 
   return withVersion ? `${url}/${API_VERSION}` : url;
 };

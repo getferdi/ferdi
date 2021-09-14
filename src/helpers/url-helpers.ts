@@ -12,7 +12,7 @@ export function isValidExternalURL(url: string | URL) {
   let parsedUrl: URL;
   try {
     parsedUrl = new URL(url.toString());
-  } catch (_) {
+  } catch {
     return false;
   }
 

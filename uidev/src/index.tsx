@@ -6,4 +6,4 @@ const app = () => (
   <App />
 );
 
-render(app(), document.getElementById('root'));
+render(app(), document.querySelector('#root'));

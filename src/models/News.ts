@@ -20,11 +20,11 @@ export default class News {
 
   constructor(data: INews) {
     if (!data) {
-      throw Error('News config not valid');
+      throw new Error('News config not valid');
     }
 
     if (!data.id) {
-      throw Error('News requires Id');
+      throw new Error('News requires Id');
     }
 
     this.id = data.id;

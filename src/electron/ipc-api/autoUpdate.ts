@@ -44,8 +44,8 @@ export default (params: { mainWindow: BrowserWindow; settings: any }) => {
               app.quit();
             }, 20);
           }
-        } catch (e) {
-          console.error(e);
+        } catch (error) {
+          console.error(error);
           event.sender.send('autoUpdate', { error: true });
         }
       }

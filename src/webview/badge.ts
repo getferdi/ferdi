@@ -21,7 +21,7 @@ export class BadgeHandler {
     // Parse number to integer
     // This will correct errors that recipes may introduce, e.g.
     // by sending a String instead of an integer
-    const parsedNumber = parseInt(text.toString(), 10);
+    const parsedNumber = Number.parseInt(text.toString(), 10);
     const adjustedNumber = Number.isNaN(parsedNumber) ? 0 : parsedNumber;
     return Math.max(adjustedNumber, 0);
   }

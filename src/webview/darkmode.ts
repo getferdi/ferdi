@@ -1,5 +1,3 @@
-/* eslint no-bitwise: ["error", { "int32Hint": true }] */
-
 import { join } from 'path';
 import { pathExistsSync, readFileSync } from 'fs-extra';
 
@@ -7,7 +5,9 @@ const debug = require('debug')('Ferdi:DarkMode');
 
 const chars = [...'abcdefghijklmnopqrstuvwxyz'];
 
-const ID = [...Array(20)].map(() => chars[Math.random() * chars.length | 0]).join('');
+const ID = [...Array.from({ length: 20 })]
+  .map(() => chars[Math.trunc(Math.random() * chars.length)])
+  .join('');
 
 export function injectDarkModeStyle(recipePath: string) {
   const darkModeStyle = join(recipePath, 'darkmode.css');

@@ -187,10 +187,8 @@ class SelectComponent extends Component<IProps> {
   componentDidUpdate() {
     const { open } = this.state;
 
-    if (this.searchInputRef && this.searchInputRef.current) {
-      if (open) {
-        this.searchInputRef.current.focus();
-      }
+    if (this.searchInputRef && this.searchInputRef.current && open) {
+      this.searchInputRef.current.focus();
     }
   }
 
@@ -228,6 +226,7 @@ class SelectComponent extends Component<IProps> {
   }
 
   componentWillUnmount() {
+    // eslint-disable-next-line unicorn/no-invalid-remove-event-listener
     window.removeEventListener('keydown', this.arrowKeysHandler.bind(this));
   }
 

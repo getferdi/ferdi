@@ -49,16 +49,15 @@ export function url({ field }) {
   const value = field.value.trim();
   let isValid = false;
 
-  if (value !== '') {
-    // eslint-disable-next-line
-    isValid = Boolean(
-      value.match(
-        /(^|[\s.:;?\-\]<(])(https?:\/\/[-\w;/?:@&=+$|_.!~*|'()[\]%#,☺]+[\w/#](\(\))?)(?=$|[\s',|().:;?\-[\]>)])/i,
-      ),
-    );
-  } else {
-    isValid = true;
-  }
+  isValid =
+    value !== ''
+      ? Boolean(
+          // eslint-disable-next-line unicorn/better-regex
+          /(^|[\s.:;?\-\]<(])(https?:\/\/[-\w;/?:@&=+$|_.!~*|'()[\]%#,☺]+[\w/#](\(\))?)(?=$|[\s',|().:;?\-[\]>)])/ii.test(
+            value,
+          ),
+        )
+      : true;
 
   return [
     isValid,

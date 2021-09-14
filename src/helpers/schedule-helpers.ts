@@ -5,15 +5,15 @@ export function isInTimeframe(start: string, end: string) {
     startHourStr,
     startMinuteStr,
   ] = start.split(':');
-  const startHour = parseInt(startHourStr, 10);
-  const startMinute = parseInt(startMinuteStr, 10);
+  const startHour = Number.parseInt(startHourStr, 10);
+  const startMinute = Number.parseInt(startMinuteStr, 10);
 
   const [
     endHourStr,
     endMinuteStr,
   ] = end.split(':');
-  const endHour = parseInt(endHourStr, 10);
-  const endMinute = parseInt(endMinuteStr, 10);
+  const endHour = Number.parseInt(endHourStr, 10);
+  const endMinute = Number.parseInt(endMinuteStr, 10);
 
   const currentHour = new Date().getHours();
   const currentMinute = new Date().getMinutes();

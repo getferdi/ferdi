@@ -16,8 +16,8 @@ export default async () => {
 
         return result.languages[0].code;
       }
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
     }
   });
 };

@@ -227,44 +227,38 @@ class ButtonComponent extends Component<IProps> {
       </>
     );
 
-    let wrapperComponent: JSX.Element;
-
-    if (!href) {
-      wrapperComponent = (
-        <button
-          id={id}
-          type={type}
-          onClick={onClick}
-          className={classnames({
-            [`${classes.button}`]: true,
-            [`${classes[buttonType as ButtonType]}`]: true,
-            [`${classes.disabled}`]: disabled,
-            [`${className}`]: className,
-          })}
-          disabled={disabled}
-          data-type="franz-button"
-        >
-          {content}
-        </button>
-      );
-    } else {
-      wrapperComponent = (
-        <a
-          href={href}
-          target={target}
-          onClick={onClick}
-          className={classnames({
-            [`${classes.button}`]: true,
-            [`${classes[buttonType as ButtonType]}`]: true,
-            [`${className}`]: className,
-          })}
-          rel={target === '_blank' ? 'noopener' : ''}
-          data-type="franz-button"
-        >
-          {content}
-        </a>
-      );
-    }
+    const wrapperComponent = !href ? (
+      <button
+        id={id}
+        type={type}
+        onClick={onClick}
+        className={classnames({
+          [`${classes.button}`]: true,
+          [`${classes[buttonType as ButtonType]}`]: true,
+          [`${classes.disabled}`]: disabled,
+          [`${className}`]: className,
+        })}
+        disabled={disabled}
+        data-type="franz-button"
+      >
+        {content}
+      </button>
+    ) : (
+      <a
+        href={href}
+        target={target}
+        onClick={onClick}
+        className={classnames({
+          [`${classes.button}`]: true,
+          [`${classes[buttonType as ButtonType]}`]: true,
+          [`${className}`]: className,
+        })}
+        rel={target === '_blank' ? 'noopener' : ''}
+        data-type="franz-button"
+      >
+        {content}
+      </a>
+    );
 
     return wrapperComponent;
   }

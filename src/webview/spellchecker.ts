@@ -11,7 +11,7 @@ debug('Spellchecker default locale is', defaultLocale);
 export function getSpellcheckerLocaleByFuzzyIdentifier(identifier: string) {
   const locales = Object.keys(SPELLCHECKER_LOCALES).filter((key) => key.toLocaleLowerCase() === identifier.toLowerCase() || key.split('-')[0] === identifier.toLowerCase());
 
-  return locales.length >= 1 ? locales[0] : null;
+  return locales.length > 0 ? locales[0] : null;
 }
 
 export function switchDict(locale: string) {

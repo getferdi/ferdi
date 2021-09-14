@@ -34,8 +34,7 @@ export default params => {
 
   ipcMain.on('updateAppIndicator', (_event, args) => {
     // Flash TaskBar for windows, bounce Dock on Mac
-    if (!(app as any).mainWindow.isFocused()) {
-      if (params.settings.app.get('notifyTaskBarOnMessage')) {
+    if (!(app as any).mainWindow.isFocused() && params.settings.app.get('notifyTaskBarOnMessage')) {
         if (isWindows) {
           (app as any).mainWindow.flashFrame(true);
           (app as any).mainWindow.once('focus', () =>
@@ -45,7 +44,6 @@ export default params => {
           app.dock.bounce('informational');
         }
       }
-    }
 
     // Update badge
     if (isMac && typeof args.indicator === 'string') {

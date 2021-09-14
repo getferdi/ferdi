@@ -43,11 +43,11 @@ export default class User {
 
   constructor(data: IUser) {
     if (!data) {
-      throw Error('User config not valid');
+      throw new Error('User config not valid');
     }
 
     if (!data.id) {
-      throw Error('User requires Id');
+      throw new Error('User requires Id');
     }
 
     this.id = data.id;

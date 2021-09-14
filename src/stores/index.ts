@@ -34,10 +34,10 @@ export default (api, actions, router) => {
   });
 
   // Initialize all stores
-  Object.keys(stores).forEach(name => {
+  for (const name of Object.keys(stores)) {
     if (stores[name] && stores[name].initialize) {
       stores[name].initialize();
     }
-  });
+  }
   return stores;
 };
