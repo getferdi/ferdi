@@ -144,7 +144,7 @@
   "menu.workspaces": "Окружение",
   "menu.workspaces.addNewWorkspace": "Добавить Новое Окружение...",
   "menu.workspaces.closeWorkspaceDrawer": "Закрыть меню окружений",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "Все сервисы",
   "menu.workspaces.openWorkspaceDrawer": "Открыть меню окружений",
   "password.email.label": "Адрес электронной почты",
   "password.headline": "Forgot password",
