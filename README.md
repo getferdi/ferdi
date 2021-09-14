@@ -386,7 +386,7 @@ Thanks goes to these awesome people:
   </tr>
   <tr>
     <td align="center"><a href='https://github.com/graves501' title='graves501: doc'><img src='https://avatars.githubusercontent.com/u/11211125?v=4' alt='graves501' style='border-radius:42px;width:42px;height:42px;'/></a></td>
-    <td align="center"><a href='https://www.ekino.com' title='Sadetdin EYILI: code, bug'><img src='https://avatars.githubusercontent.com/u/5607440?v=4' alt='sad270' style='border-radius:42px;width:42px;height:42px;'/></a></td>
+    <td align="center"><a href='https://www.ekino.com' title='Sadetdin EYILI: code, bug, userTesting'><img src='https://avatars.githubusercontent.com/u/5607440?v=4' alt='sad270' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://github.com/Tsakatac' title='Tsakatac: bug'><img src='https://avatars.githubusercontent.com/u/89021195?v=4' alt='Tsakatac' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='http://niute.ch' title='niu tech: code'><img src='https://avatars.githubusercontent.com/u/384997?v=4' alt='niutech' style='border-radius:42px;width:42px;height:42px;'/></a></td>
   </tr>
