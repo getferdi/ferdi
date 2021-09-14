@@ -213,6 +213,7 @@ const createWindow = () => {
     frame: isLinux,
     backgroundColor,
     webPreferences: {
+      spellcheck: retrieveSettingValue('enableSpellchecking'),
       nodeIntegration: true,
       contextIsolation: false,
       webviewTag: true,
