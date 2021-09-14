@@ -35,3 +35,5 @@ ImportScreen.wrappedComponent.propTypes = {
     router: PropTypes.instanceOf(RouterStore).isRequired,
   }).isRequired,
 };
+
+export default ImportScreen;

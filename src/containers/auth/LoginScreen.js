@@ -40,3 +40,5 @@ LoginScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
   }).isRequired,
 };
+
+export default LoginScreen;

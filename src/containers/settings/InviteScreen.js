@@ -40,3 +40,5 @@ InviteScreen.wrappedComponent.propTypes = {
     user: PropTypes.instanceOf(UserStore).isRequired,
   }).isRequired,
 };
+
+export default InviteScreen;

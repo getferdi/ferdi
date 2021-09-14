@@ -43,3 +43,5 @@ ChangeServerScreen.wrappedComponent.propTypes = {
     router: PropTypes.instanceOf(RouterStore).isRequired,
   }).isRequired,
 };
+
+export default ChangeServerScreen;
