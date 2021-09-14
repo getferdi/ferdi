@@ -144,7 +144,7 @@
   "menu.workspaces": "Workspaces",
   "menu.workspaces.addNewWorkspace": "Add New Workspace...",
   "menu.workspaces.closeWorkspaceDrawer": "Close workspace drawer",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "All services",
   "menu.workspaces.openWorkspaceDrawer": "Open workspace drawer",
   "password.email.label": "电子邮箱地址",
   "password.headline": "Forgot password",
