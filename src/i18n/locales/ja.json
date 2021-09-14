@@ -144,7 +144,7 @@
   "menu.workspaces": "ワークスペース",
   "menu.workspaces.addNewWorkspace": "ワークスペースを追加",
   "menu.workspaces.closeWorkspaceDrawer": "ワークスペースドロワーを閉じる",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "すべてのサービス",
   "menu.workspaces.openWorkspaceDrawer": "ワークスペースドロワーを開く",
   "password.email.label": "メールアドレス",
   "password.headline": "Forgot password",
