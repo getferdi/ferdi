@@ -144,7 +144,7 @@
   "menu.workspaces": "Työtilat",
   "menu.workspaces.addNewWorkspace": "Lisää Uusi Työtila...",
   "menu.workspaces.closeWorkspaceDrawer": "Sulje työtilan valikko",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "Kaikki palvelut",
   "menu.workspaces.openWorkspaceDrawer": "Avaa työtilan valikko",
   "password.email.label": "Sähköpostiosoite",
   "password.headline": "Forgot password",
