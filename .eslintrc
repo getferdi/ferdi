@@ -1,33 +1,54 @@
 {
   "root": true,
   "parser": "@babel/eslint-parser",
-  "extends": "eslint-config-airbnb",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "eslint-config-airbnb",
+    "plugin:unicorn/recommended"
+  ],
   "plugins": [
     "jest"
   ],
+  "settings": {
+    "react": {
+      "pragma": "React", // Pragma to use, default to "React"
+      "version": "detect" // React version. "detect" automatically picks the version you have installed.
+    }
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "FormData": true,
+    "localStorage": true,
+    "navigator": true,
+    "Element": true,
+    "use": true,
+    "FileReader": true
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
   "overrides": [
     {
       "files": [
         "**/*.ts",
         "**/*.tsx"
       ],
-      "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
-      },
       "extends": [
-        "airbnb-typescript"
+        "airbnb-typescript",
+        "plugin:unicorn/recommended"
       ],
       "parser": "@typescript-eslint/parser",
-      "parserOptions": {
-        "ecmaFeatures": {
-          "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module",
-        "project": "./tsconfig.json"
-      },
       "plugins": [
         "@typescript-eslint"
       ],
@@ -44,6 +65,7 @@
         "no-confusing-arrow": 0,
         "no-console": 0,
         "no-param-reassign": 0,
+        "no-restricted-syntax": 0,
         "no-return-assign": 1,
         "no-underscore-dangle": 0,
         "no-use-before-define": 0,
@@ -92,29 +114,27 @@
           }
         ],
         "jsx-a11y/no-static-element-interactions": 0,
-        "jsx-a11y/no-noninteractive-element-interactions": 1
+        "jsx-a11y/no-noninteractive-element-interactions": 1,
+        //  eslint-plugin-unicorn
+        "unicorn/filename-case": 0,
+        "unicorn/no-null": 0,
+        "unicorn/no-useless-undefined": 0,
+        "unicorn/prefer-module": 0,
+        "unicorn/prevent-abbreviations": 0,
+        "unicorn/prefer-node-protocol": 0,
+        "unicorn/import-style": [
+          2,
+          {
+            "styles": {
+              "path": {
+                "named": true
+              }
+            }
+          }
+        ]
       }
     }
   ],
-  "settings": {
-    "react": {
-      "pragma": "React", // Pragma to use, default to "React"
-      "version": "detect" // React version. "detect" automatically picks the version you have installed.
-    }
-  },
-  "globals": {
-    "window": true,
-    "document": true,
-    "FormData": true,
-    "localStorage": true,
-    "navigator": true,
-    "Element": true,
-    "use": true,
-    "FileReader": true
-  },
-  "env": {
-    "jest/globals": true
-  },
   "rules": {
     // eslint
     "arrow-parens": 0,
@@ -160,6 +180,23 @@
     //  eslint-plugin-jsx-a11y
     "jsx-a11y/click-events-have-key-events": 1,
     "jsx-a11y/no-static-element-interactions": 1,
-    "jsx-a11y/no-noninteractive-element-interactions": 1
+    "jsx-a11y/no-noninteractive-element-interactions": 1,
+    //  eslint-plugin-unicorn
+    "unicorn/filename-case": 0,
+    "unicorn/no-null": 0,
+    "unicorn/no-useless-undefined": 0,
+    "unicorn/prefer-module": 0,
+    "unicorn/prevent-abbreviations": 0,
+    "unicorn/prefer-node-protocol": 0,
+    "unicorn/import-style": [
+      2,
+      {
+        "styles": {
+          "path": {
+            "named": true
+          }
+        }
+      }
+    ]
   }
 }
