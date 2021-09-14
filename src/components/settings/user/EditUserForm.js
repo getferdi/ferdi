@@ -18,15 +18,15 @@ const messages = defineMessages({
   },
   headlineProfile: {
     id: 'settings.account.headlineProfile',
-    defaultMessage: 'Update Profile',
+    defaultMessage: 'Update profile',
   },
   headlineAccount: {
     id: 'settings.account.headlineAccount',
-    defaultMessage: 'Account Information',
+    defaultMessage: 'Account information',
   },
   headlinePassword: {
     id: 'settings.account.headlinePassword',
-    defaultMessage: 'Change Password',
+    defaultMessage: 'Change password',
   },
   successInfo: {
     id: 'settings.account.successInfo',

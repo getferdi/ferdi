@@ -67,7 +67,7 @@ const messages = defineMessages({
   },
   passwordLink: {
     id: 'login.link.password',
-    defaultMessage: 'Forgot password',
+    defaultMessage: 'Reset password',
   },
 });
 

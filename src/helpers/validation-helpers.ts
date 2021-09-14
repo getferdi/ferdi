@@ -4,19 +4,19 @@ import isEmail from 'validator/lib/isEmail';
 const messages = defineMessages({
   required: {
     id: 'validation.required',
-    defaultMessage: 'Field is required',
+    defaultMessage: '{field} is required',
   },
   email: {
     id: 'validation.email',
-    defaultMessage: 'Email not valid',
+    defaultMessage: '{field} is not valid',
   },
   url: {
     id: 'validation.url',
-    defaultMessage: 'Not a valid URL',
+    defaultMessage: '{field} is not a valid URL',
   },
   minLength: {
     id: 'validation.minLength',
-    defaultMessage: 'Too few characters',
+    defaultMessage: '{field} should be at least {length} characters long',
   },
   oneRequired: {
     id: 'validation.oneRequired',

@@ -63,7 +63,7 @@ const messages = defineMessages({
   },
   openSurvey: {
     id: 'settings.supportFerdi.openSurvey',
-    defaultMessage: 'Open Survey',
+    defaultMessage: 'Open survey',
   },
   bannerText: {
     id: 'settings.supportFerdi.bannerText',

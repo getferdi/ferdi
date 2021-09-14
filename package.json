@@ -27,7 +27,7 @@
     "test:watch": "jest --watch",
     "lint": "eslint \"{src,scripts,packages,uidev}/**/*.{js,jsx,ts,tsx}\" --quiet",
     "lint:fix": "npm run lint -- --fix",
-    "extract": "formatjs extract 'src/**/*.{js,ts}' --out-file temp.json --flatten --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+    "extract": "formatjs extract 'src/**/*.{js,ts}' --out-file temp.json --flatten --id-interpolation-pattern '[sha512:contenthash:base64:6]' --preserve-whitespace",
     "compile": "formatjs compile 'temp.json' --out-file src/i18n/locales/en-US.json",
     "manage-translations": "npm run extract && npm run compile && rimraf temp.json",
     "prebuild": "preval-build-info-cli && gulp build",

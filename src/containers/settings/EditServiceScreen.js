@@ -39,7 +39,7 @@ const messages = defineMessages({
   },
   enableNotification: {
     id: 'settings.service.form.enableNotification',
-    defaultMessage: 'Enable Notifications',
+    defaultMessage: 'Enable notifications',
   },
   enableBadge: {
     id: 'settings.service.form.enableBadge',
@@ -55,7 +55,7 @@ const messages = defineMessages({
   },
   customUrl: {
     id: 'settings.service.form.customUrl',
-    defaultMessage: 'Service URL',
+    defaultMessage: 'Custom server',
   },
   indirectMessages: {
     id: 'settings.service.form.indirectMessages',
@@ -95,11 +95,11 @@ const messages = defineMessages({
   },
   proxyUser: {
     id: 'settings.service.form.proxy.user',
-    defaultMessage: 'User',
+    defaultMessage: 'User (optional)',
   },
   proxyPassword: {
     id: 'settings.service.form.proxy.password',
-    defaultMessage: 'Password',
+    defaultMessage: 'Password (optional)',
   },
 });
 

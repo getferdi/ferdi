@@ -48,23 +48,23 @@ const messages = defineMessages({
   },
   disableService: {
     id: 'tabs.item.disableService',
-    defaultMessage: 'Disable Service',
+    defaultMessage: 'Disable service',
   },
   enableService: {
     id: 'tabs.item.enableService',
-    defaultMessage: 'Enable Service',
+    defaultMessage: 'Enable service',
   },
   hibernateService: {
     id: 'tabs.item.hibernateService',
-    defaultMessage: 'Hibernate Service',
+    defaultMessage: 'Hibernate service',
   },
   wakeUpService: {
     id: 'tabs.item.wakeUpService',
-    defaultMessage: 'Wake Up Service',
+    defaultMessage: 'Wake up service',
   },
   deleteService: {
     id: 'tabs.item.deleteService',
-    defaultMessage: 'Delete Service',
+    defaultMessage: 'Delete service',
   },
   confirmDeleteService: {
     id: 'tabs.item.confirmDeleteService',

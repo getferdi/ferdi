@@ -18,7 +18,7 @@ import RecipePreview from '../../../models/RecipePreview';
 const messages = defineMessages({
   headline: {
     id: 'settings.recipes.headline',
-    defaultMessage: 'Available Services',
+    defaultMessage: 'Available services',
   },
   searchService: {
     id: 'settings.searchService',
@@ -47,11 +47,11 @@ const messages = defineMessages({
   },
   customRecipeIntro: {
     id: 'settings.recipes.customService.intro',
-    defaultMessage: 'To add a custom service, copy the recipe folder into:',
+    defaultMessage: 'To add a custom service, copy the service recipe to:',
   },
   openFolder: {
     id: 'settings.recipes.customService.openFolder',
-    defaultMessage: 'Open directory',
+    defaultMessage: 'Open folder',
   },
   openDevDocs: {
     id: 'settings.recipes.customService.openDevDocs',

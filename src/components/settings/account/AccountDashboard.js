@@ -21,7 +21,7 @@ const messages = defineMessages({
   },
   accountEditButton: {
     id: 'settings.account.account.editButton',
-    defaultMessage: 'Edit Account',
+    defaultMessage: 'Edit account',
   },
   invoicesButton: {
     id: 'settings.account.headlineInvoices',
@@ -51,7 +51,7 @@ const messages = defineMessages({
   },
   yourLicense: {
     id: 'settings.account.yourLicense',
-    defaultMessage: 'Your Franz License:',
+    defaultMessage: 'Your Ferdi License:',
   },
   accountUnavailable: {
     id: 'settings.account.accountUnavailable',

@@ -23,11 +23,11 @@ const messages = defineMessages({
   },
   firstnameLabel: {
     id: 'signup.firstname.label',
-    defaultMessage: 'Firstname',
+    defaultMessage: 'First Name',
   },
   lastnameLabel: {
     id: 'signup.lastname.label',
-    defaultMessage: 'Lastname',
+    defaultMessage: 'Last Name',
   },
   emailLabel: {
     id: 'signup.email.label',

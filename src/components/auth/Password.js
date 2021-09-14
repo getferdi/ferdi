@@ -14,7 +14,7 @@ import globalMessages from '../../i18n/globalMessages';
 const messages = defineMessages({
   headline: {
     id: 'password.headline',
-    defaultMessage: 'Forgot password',
+    defaultMessage: 'Reset password',
   },
   emailLabel: {
     id: 'password.email.label',
@@ -26,7 +26,7 @@ const messages = defineMessages({
   },
   noUser: {
     id: 'password.noUser',
-    defaultMessage: 'No user affiliated with that email address',
+    defaultMessage: 'No user with that email address was found',
   },
   signupLink: {
     id: 'password.link.signup',

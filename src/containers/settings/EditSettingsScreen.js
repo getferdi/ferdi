@@ -118,7 +118,7 @@ const messages = defineMessages({
   },
   customTodoServer: {
     id: 'settings.app.form.customTodoServer',
-    defaultMessage: 'Custom TodoServer',
+    defaultMessage: 'Custom Todo Server',
   },
   enableLock: {
     id: 'settings.app.form.enableLock',
@@ -130,7 +130,7 @@ const messages = defineMessages({
   },
   useTouchIdToUnlock: {
     id: 'settings.app.form.useTouchIdToUnlock',
-    defaultMessage: 'Allow using Touch ID to unlock',
+    defaultMessage: 'Allow using TouchID to unlock Ferdi',
   },
   inactivityLock: {
     id: 'settings.app.form.inactivityLock',
@@ -154,7 +154,7 @@ const messages = defineMessages({
   },
   darkMode: {
     id: 'settings.app.form.darkMode',
-    defaultMessage: 'Dark Mode',
+    defaultMessage: 'Enable Dark Mode',
   },
   adaptableDarkMode: {
     id: 'settings.app.form.adaptableDarkMode',
@@ -214,7 +214,7 @@ const messages = defineMessages({
   },
   enableTodos: {
     id: 'settings.app.form.enableTodos',
-    defaultMessage: 'Enable Franz Todos',
+    defaultMessage: 'Enable Ferdi Todos',
   },
   keepAllWorkspacesLoaded: {
     id: 'settings.app.form.keepAllWorkspacesLoaded',

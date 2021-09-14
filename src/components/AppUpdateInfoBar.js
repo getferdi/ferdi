@@ -13,7 +13,7 @@ const messages = defineMessages({
   },
   changelog: {
     id: 'infobar.buttonChangelog',
-    defaultMessage: 'Changelog',
+    defaultMessage: 'What is new?',
   },
   buttonInstallUpdate: {
     id: 'infobar.buttonInstallUpdate',

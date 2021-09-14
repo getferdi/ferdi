@@ -268,11 +268,11 @@ const menuItems = defineMessages({
   },
   activateNextService: {
     id: 'menu.services.setNextServiceActive',
-    defaultMessage: 'Activate next service...',
+    defaultMessage: 'Activate next service',
   },
   activatePreviousService: {
     id: 'menu.services.activatePreviousService',
-    defaultMessage: 'Activate previous service...',
+    defaultMessage: 'Activate previous service',
   },
   muteApp: {
     id: 'sidebar.muteApp',

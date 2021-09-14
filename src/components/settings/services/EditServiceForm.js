@@ -26,7 +26,7 @@ const messages = defineMessages({
   },
   deleteService: {
     id: 'settings.service.form.deleteButton',
-    defaultMessage: 'Delete Service',
+    defaultMessage: 'Delete service',
   },
   openDarkmodeCss: {
     id: 'settings.service.form.openDarkmodeCss',

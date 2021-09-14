@@ -27,7 +27,7 @@ const messages = defineMessages({
   },
   errorMessage: {
     id: 'service.errorHandler.message',
-    defaultMessage: 'Error:',
+    defaultMessage: 'Error',
   },
 });
 

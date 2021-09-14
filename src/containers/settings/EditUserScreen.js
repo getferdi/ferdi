@@ -13,11 +13,11 @@ import { required, email, minLength } from '../../helpers/validation-helpers';
 const messages = defineMessages({
   firstname: {
     id: 'settings.user.form.firstname',
-    defaultMessage: 'Firstname',
+    defaultMessage: 'First Name',
   },
   lastname: {
     id: 'settings.user.form.lastname',
-    defaultMessage: 'Lastname',
+    defaultMessage: 'Last Name',
   },
   email: {
     id: 'settings.user.form.email',

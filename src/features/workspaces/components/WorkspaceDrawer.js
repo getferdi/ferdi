@@ -22,11 +22,11 @@ const messages = defineMessages({
   },
   workspacesSettingsTooltip: {
     id: 'workspaceDrawer.workspacesSettingsTooltip',
-    defaultMessage: 'Workspaces settings',
+    defaultMessage: 'Edit workspaces settings',
   },
   workspaceFeatureInfo: {
     id: 'workspaceDrawer.workspaceFeatureInfo',
-    defaultMessage: 'Info about workspace feature',
+    defaultMessage: '<p>Ferdi Workspaces let you focus on what’s important right now. Set up different sets of services and easily switch between them at any time.</p><p>You decide which services you need when and where, so we can help you stay on top of your game - or easily switch off from work whenever you want.</p>',
   },
   addNewWorkspaceLabel: {
     id: 'workspaceDrawer.addNewWorkspaceLabel',
