@@ -144,7 +144,7 @@
   "menu.workspaces": "작업 공간",
   "menu.workspaces.addNewWorkspace": "새 작업영역을 추가",
   "menu.workspaces.closeWorkspaceDrawer": "작업영역 서랍 닫기",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "모든 서비스",
   "menu.workspaces.openWorkspaceDrawer": "작업영역 서랍 열기",
   "password.email.label": "이메일 주소",
   "password.headline": "Forgot password",
