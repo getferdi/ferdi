@@ -144,7 +144,7 @@
   "menu.workspaces": "Munkaterületek",
   "menu.workspaces.addNewWorkspace": "Új munkaterület...",
   "menu.workspaces.closeWorkspaceDrawer": "Munkaterület panel bezárása",
-  "menu.workspaces.defaultWorkspace": "Default",
+  "menu.workspaces.defaultWorkspace": "Összes szolgáltatás",
   "menu.workspaces.openWorkspaceDrawer": "Munkaterület panel kinyitása",
   "password.email.label": "Email cím",
   "password.headline": "Forgot password",
