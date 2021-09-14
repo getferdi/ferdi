@@ -7,9 +7,11 @@ const debug = require('debug')('Ferdi:Settings');
 export default class Settings {
   type = '';
 
+  defaultState: {};
+
   @observable store = {};
 
-  constructor(type, defaultState = {}) {
+  constructor(type: string, defaultState = {}) {
     this.type = type;
     this.store = defaultState;
     this.defaultState = defaultState;
@@ -35,7 +37,7 @@ export default class Settings {
     return toJS(this.store);
   }
 
-  get(key) {
+  get(key: string | number) {
     return this.store[key];
   }
 
@@ -56,6 +58,9 @@ export default class Settings {
   }
 
   get settingsFile() {
-    return userDataPath('config', `${this.type === 'app' ? 'settings' : this.type}.json`);
+    return userDataPath(
+      'config',
+      `${this.type === 'app' ? 'settings' : this.type}.json`,
+    );
   }
 }

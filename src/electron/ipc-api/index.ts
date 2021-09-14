@@ -1,3 +1,4 @@
+import { BrowserWindow, Tray } from 'electron';
 import autoUpdate from './autoUpdate';
 import settings from './settings';
 import appIndicator from './appIndicator';
@@ -7,13 +8,17 @@ import cld from './cld';
 import dnd from './dnd';
 import focusState from './focusState';
 
-export default (params) => {
+export default (params: {
+  mainWindow: BrowserWindow;
+  settings: any;
+  tray: Tray;
+}) => {
   settings(params);
   autoUpdate(params);
   appIndicator(params);
   download(params);
   localServer(params);
-  cld(params);
+  cld();
   dnd();
   focusState(params);
 };

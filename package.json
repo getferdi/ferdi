@@ -155,6 +155,7 @@
     "@types/expect.js": "0.3.29",
     "@types/fs-extra": "9.0.12",
     "@types/lodash": "4.14.172",
+    "@types/mime-types": "2.1.1",
     "@types/mocha": "9.0.0",
     "@types/ms": "0.7.31",
     "@types/node": "14.17.6",

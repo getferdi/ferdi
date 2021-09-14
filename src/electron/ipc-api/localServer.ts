@@ -1,12 +1,12 @@
-import { ipcMain } from 'electron';
+import { ipcMain, BrowserWindow } from 'electron';
 import net from 'net';
 import { LOCAL_HOSTNAME, LOCAL_PORT } from '../../config';
 import { userDataPath } from '../../environment';
 import startServer from '../../internal-server/start';
 
-const portInUse = function (port) {
-  return new Promise((resolve) => {
-    const server = net.createServer((socket) => {
+const portInUse = (port: number): Promise<boolean> =>
+  new Promise(resolve => {
+    const server = net.createServer(socket => {
       socket.write('Echo server\r\n');
       socket.pipe(socket);
     });
@@ -20,11 +20,10 @@ const portInUse = function (port) {
       resolve(false);
     });
   });
-};
 
 let localServerStarted = false;
 
-export default (params) => {
+export default (params: { mainWindow: BrowserWindow }) => {
   ipcMain.on('startLocalServer', () => {
     if (!localServerStarted) {
       // Find next unused port for server

@@ -6,15 +6,22 @@ import { isMac, isWindows, isLinux } from '../../environment';
 const INDICATOR_TASKBAR = 'taskbar';
 const FILE_EXTENSION = isWindows ? 'ico' : 'png';
 
-let isTrayIconEnabled;
+let isTrayIconEnabled: boolean;
 
-function getAsset(type, asset) {
+function getAsset(type: 'tray' | 'taskbar', asset: string) {
   return join(
-    __dirname, '..', '..', 'assets', 'images', type, process.platform, `${asset}.${FILE_EXTENSION}`,
+    __dirname,
+    '..',
+    '..',
+    'assets',
+    'images',
+    type,
+    process.platform,
+    `${asset}.${FILE_EXTENSION}`,
   );
 }
 
-export default (params) => {
+export default params => {
   autorun(() => {
     isTrayIconEnabled = params.settings.app.get('enableSystemTray');
 
@@ -25,13 +32,15 @@ export default (params) => {
     }
   });
 
-  ipcMain.on('updateAppIndicator', (event, args) => {
+  ipcMain.on('updateAppIndicator', (_event, args) => {
     // Flash TaskBar for windows, bounce Dock on Mac
-    if (!app.mainWindow.isFocused()) {
+    if (!(app as any).mainWindow.isFocused()) {
       if (params.settings.app.get('notifyTaskBarOnMessage')) {
         if (isWindows) {
-          app.mainWindow.flashFrame(true);
-          app.mainWindow.once('focus', () => app.mainWindow.flashFrame(false));
+          (app as any).mainWindow.flashFrame(true);
+          (app as any).mainWindow.once('focus', () =>
+            (app as any).mainWindow.flashFrame(false),
+          );
         } else if (isMac) {
           app.dock.bounce('informational');
         }
@@ -39,22 +48,23 @@ export default (params) => {
     }
 
     // Update badge
-    if (isMac
-      && typeof (args.indicator) === 'string') {
+    if (isMac && typeof args.indicator === 'string') {
       app.dock.setBadge(args.indicator);
     }
 
-    if ((isMac || isLinux)
-      && typeof (args.indicator) === 'number'
-    ) {
+    if ((isMac || isLinux) && typeof args.indicator === 'number') {
       app.badgeCount = args.indicator;
     }
 
     if (isWindows) {
-      if (typeof args.indicator === 'number'
-        && args.indicator !== 0) {
+      if (typeof args.indicator === 'number' && args.indicator !== 0) {
         params.mainWindow.setOverlayIcon(
-          getAsset('taskbar', `${INDICATOR_TASKBAR}-${(args.indicator >= 10 ? 10 : args.indicator)}`),
+          getAsset(
+            'taskbar',
+            `${INDICATOR_TASKBAR}-${
+              args.indicator >= 10 ? 10 : args.indicator
+            }`,
+          ),
           '',
         );
       } else if (typeof args.indicator === 'string') {

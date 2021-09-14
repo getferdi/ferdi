@@ -1,4 +1,4 @@
-import { systemPreferences, dialog } from 'electron';
+import { systemPreferences, BrowserWindow, dialog } from 'electron';
 import { pathExistsSync, mkdirSync, writeFileSync } from 'fs-extra';
 import macosVersion from 'macos-version';
 import { dirname } from 'path';
@@ -7,12 +7,15 @@ import { userDataPath } from '../environment';
 
 const debug = require('debug')('Ferdi:macOSPermissions');
 
-const isExplicitScreenCapturePermissionReqd = macosVersion.isGreaterThanOrEqualTo('10.15');
-debug(`Should check explicitly for screen-capture permissions: ${isExplicitScreenCapturePermissionReqd}`);
+const isExplicitScreenCapturePermissionReqd =
+  macosVersion.isGreaterThanOrEqualTo('10.15');
+debug(
+  `Should check explicitly for screen-capture permissions: ${isExplicitScreenCapturePermissionReqd}`,
+);
 
 const filePath = userDataPath('.has-app-requested-screen-capture-permissions');
 
-function hasPromptedForScreenCapturePermission() {
+function hasPromptedForScreenCapturePermission(): boolean {
   if (!isExplicitScreenCapturePermissionReqd) {
     return false;
   }
@@ -21,7 +24,7 @@ function hasPromptedForScreenCapturePermission() {
   return filePath && pathExistsSync(filePath);
 }
 
-function hasScreenCapturePermissionAlreadyBeenGranted() {
+function hasScreenCapturePermissionAlreadyBeenGranted(): boolean {
   if (!isExplicitScreenCapturePermissionReqd) {
     return true;
   }
@@ -35,7 +38,7 @@ function createStatusFile() {
   try {
     writeFileSync(filePath, '');
   } catch (error) {
-    if (error.code === 'ENOENT') {
+    if ((error as any).code === 'ENOENT') {
       mkdirSync(dirname(filePath));
       writeFileSync(filePath, '');
     }
@@ -44,7 +47,7 @@ function createStatusFile() {
   }
 }
 
-export const askFormacOSPermissions = async mainWindow => {
+export const askFormacOSPermissions = async (mainWindow: BrowserWindow) => {
   debug('Checking camera & microphone permissions');
   systemPreferences.askForMediaAccess('camera');
   systemPreferences.askForMediaAccess('microphone');

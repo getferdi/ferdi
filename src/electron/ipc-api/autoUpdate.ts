@@ -1,11 +1,11 @@
-import { app, ipcMain } from 'electron';
+import { app, ipcMain, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { GITHUB_NIGHTLIES_REPO_NAME, GITHUB_ORG_NAME } from '../../config';
 import { isMac, isWindows } from '../../environment';
 
 const debug = require('debug')('Ferdi:ipcApi:autoUpdate');
 
-export default (params) => {
+export default (params: { mainWindow: BrowserWindow; settings: any }) => {
   const enableUpdate = Boolean(params.settings.app.get('automaticUpdates'));
 
   if (!enableUpdate) {
@@ -16,11 +16,15 @@ export default (params) => {
       if (enableUpdate) {
         try {
           autoUpdater.autoInstallOnAppQuit = false;
-          autoUpdater.allowPrerelease = Boolean(params.settings.app.get('beta'));
+          autoUpdater.allowPrerelease = Boolean(
+            params.settings.app.get('beta'),
+          );
           autoUpdater.channel = autoUpdater.allowPrerelease ? 'beta' : 'latest';
 
           if (params.settings.app.get('nightly')) {
-            autoUpdater.allowPrerelease = Boolean(params.settings.app.get('nightly'));
+            autoUpdater.allowPrerelease = Boolean(
+              params.settings.app.get('nightly'),
+            );
             autoUpdater.channel = 'alpha';
             autoUpdater.setFeedURL({
               provider: 'github',
@@ -52,7 +56,7 @@ export default (params) => {
       params.mainWindow.webContents.send('autoUpdate', { available: false });
     });
 
-    autoUpdater.on('update-available', (event) => {
+    autoUpdater.on('update-available', event => {
       debug('update-available');
 
       if (enableUpdate) {
@@ -63,7 +67,7 @@ export default (params) => {
       }
     });
 
-    autoUpdater.on('download-progress', (progressObj) => {
+    autoUpdater.on('download-progress', progressObj => {
       let logMessage = `Download speed: ${progressObj.bytesPerSecond}`;
       logMessage = `${logMessage} - Downloaded ${progressObj.percent}%`;
       logMessage = `${logMessage} (${progressObj.transferred}/${progressObj.total})`;
