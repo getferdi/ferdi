@@ -44,7 +44,7 @@ window.addEventListener('load', () => {
           </I18N>
         </Provider>
       );
-      render(preparedApp, document.getElementById('root'));
+      render(preparedApp, document.querySelector('#root'));
     },
   };
   window.ferdi.render();

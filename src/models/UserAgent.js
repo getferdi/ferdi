@@ -1,9 +1,4 @@
-import {
-  action,
-  computed,
-  observe,
-  observable,
-} from 'mobx';
+import { action, computed, observe, observable } from 'mobx';
 
 import defaultUserAgent from '../helpers/userAgent-helpers';
 
@@ -27,7 +22,7 @@ export default class UserAgent {
       this.getUserAgent = overrideUserAgent;
     }
 
-    observe(this, 'webview', (change) => {
+    observe(this, 'webview', change => {
       const { oldValue, newValue } = change;
       if (oldValue !== null) {
         this._removeWebviewEvents(oldValue);
@@ -64,11 +59,13 @@ export default class UserAgent {
 
   @computed get userAgentWithoutChromeVersion() {
     const withChrome = this.userAgentWithChromeVersion;
-    return withChrome.replace(/Chrome\/[0-9.]+/, 'Chrome');
+    return withChrome.replace(/Chrome\/[\d.]+/, 'Chrome');
   }
 
   @computed get userAgent() {
-    return this.chromelessUserAgent ? this.userAgentWithoutChromeVersion : this.userAgentWithChromeVersion;
+    return this.chromelessUserAgent
+      ? this.userAgentWithoutChromeVersion
+      : this.userAgentWithChromeVersion;
   }
 
   @action setWebviewReference(webview) {
@@ -95,10 +92,10 @@ export default class UserAgent {
   _addWebviewEvents(webview) {
     debug('Adding event handlers');
 
-    this._willNavigateListener = (event) => this._handleNavigate(event.url, true);
+    this._willNavigateListener = event => this._handleNavigate(event.url, true);
     webview.addEventListener('will-navigate', this._willNavigateListener);
 
-    this._didNavigateListener = (event) => this._handleNavigate(event.url);
+    this._didNavigateListener = event => this._handleNavigate(event.url);
     webview.addEventListener('did-navigate', this._didNavigateListener);
   }
 

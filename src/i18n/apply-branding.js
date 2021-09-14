@@ -7,7 +7,7 @@ const path = require('path');
 console.log('Applying Ferdi branding to translations...');
 
 // Keys to ignore when applying branding
-const ignore = [
+const ignore = new Set([
   'login.customServerSuggestion',
   'login.customServerQuestion',
   'settings.app.todoServerInfo',
@@ -18,10 +18,10 @@ const ignore = [
   'settings.team.copy',
   'settings.team.manageAction',
   'settings.app.serverMoneyInfo',
-];
+]);
 
 // Files to ignore when applying branding
-const ignoreFiles = ['.DS_Store', '.', '..'];
+const ignoreFiles = new Set(['.DS_Store', '.', '..']);
 
 // What to replace
 const replace = {
@@ -38,14 +38,15 @@ const replaceFind = Object.keys(replace);
 const replaceReplaceWith = Object.values(replace);
 
 const replaceStr = (str, find, replaceWith) => {
-  for (let i = 0; i < find.length; i += 1) {
-    str = str.replace(new RegExp(find[i], 'gi'), replaceWith[i]);
+  for (const [i, element] of find.entries()) {
+    str = str.replace(new RegExp(element, 'gi'), replaceWith[i]);
   }
   return str;
 };
 
+// eslint-disable-next-line unicorn/no-array-for-each
 files.forEach(async file => {
-  if (ignoreFiles.includes(file)) return;
+  if (ignoreFiles.has(file)) return;
 
   // Read locale data
   const filePath = path.join(locales, file);
@@ -53,7 +54,7 @@ files.forEach(async file => {
 
   // Replace branding
   for (const key in locale) {
-    if (!ignore.includes(key)) {
+    if (!ignore.has(key)) {
       locale[key] = replaceStr(locale[key], replaceFind, replaceReplaceWith);
     }
   }

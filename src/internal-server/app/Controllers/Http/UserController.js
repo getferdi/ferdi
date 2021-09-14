@@ -1,34 +1,37 @@
 const User = use('App/Models/User');
 const Service = use('App/Models/Service');
 const Workspace = use('App/Models/Workspace');
-const {
-  validateAll,
-} = use('Validator');
+const { validateAll } = use('Validator');
 
 const btoa = require('btoa');
 const fetch = require('node-fetch');
 const uuid = require('uuid/v4');
 const crypto = require('crypto');
-const { DEFAULT_APP_SETTINGS, API_VERSION } = require('../../../../environment');
+const {
+  DEFAULT_APP_SETTINGS,
+  API_VERSION,
+} = require('../../../../environment');
 const { default: userAgent } = require('../../../../helpers/userAgent-helpers');
 
-const apiRequest = (url, route, method, auth) => new Promise((resolve, reject) => {
-  try {
-    fetch(`${url}/${API_VERSION}/${route}`, {
-      method,
-      headers: {
-        Authorization: `Bearer ${auth}`,
-        'User-Agent': userAgent(),
-      },
-    })
-      .then(data => data.json())
-      .then(json => resolve(json));
-  } catch (e) {
-    reject();
-  }
-});
+const apiRequest = (url, route, method, auth) =>
+  new Promise((resolve, reject) => {
+    try {
+      fetch(`${url}/${API_VERSION}/${route}`, {
+        method,
+        headers: {
+          Authorization: `Bearer ${auth}`,
+          'User-Agent': userAgent(),
+        },
+      })
+        .then(data => data.json())
+        .then(json => resolve(json));
+    } catch {
+      reject();
+    }
+  });
 
-const LOGIN_SUCCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGZXJkaSBJbnRlcm5hbCBTZXJ2ZXIiLCJpYXQiOjE1NzEwNDAyMTUsImV4cCI6MjUzMzk1NDE3ODQ0LCJhdWQiOiJnZXRmZXJkaS5jb20iLCJzdWIiOiJmZXJkaUBsb2NhbGhvc3QiLCJ1c2VySWQiOiIxIn0.9_TWFGp6HROv8Yg82Rt6i1-95jqWym40a-HmgrdMC6M';
+const LOGIN_SUCCESS_TOKEN =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGZXJkaSBJbnRlcm5hbCBTZXJ2ZXIiLCJpYXQiOjE1NzEwNDAyMTUsImV4cCI6MjUzMzk1NDE3ODQ0LCJhdWQiOiJnZXRmZXJkaS5jb20iLCJzdWIiOiJmZXJkaUBsb2NhbGhvc3QiLCJ1c2VySWQiOiIxIn0.9_TWFGp6HROv8Yg82Rt6i1-95jqWym40a-HmgrdMC6M';
 
 const DEFAULT_USER_DATA = {
   accountType: 'individual',
@@ -45,10 +48,7 @@ const DEFAULT_USER_DATA = {
 
 class UserController {
   // Register a new user
-  async signup({
-    request,
-    response,
-  }) {
+  async signup({ request, response }) {
     // Validate user input
     const validation = await validateAll(request.all(), {
       firstname: 'required',
@@ -70,10 +70,7 @@ class UserController {
   }
 
   // Login using an existing user
-  async login({
-    request,
-    response,
-  }) {
+  async login({ request, response }) {
     if (!request.header('Authorization')) {
       return response.status(401).send({
         message: 'Please provide authorization',
@@ -88,23 +85,21 @@ class UserController {
   }
 
   // Return information about the current user
-  async me({
-    response,
-  }) {
+  async me({ response }) {
     const user = await User.find(1);
 
-    const settings = typeof user.settings === 'string' ? JSON.parse(user.settings) : user.settings;
+    const settings =
+      typeof user.settings === 'string'
+        ? JSON.parse(user.settings)
+        : user.settings;
 
     return response.send({
       ...DEFAULT_USER_DATA,
-      ...settings || {},
+      ...settings,
     });
   }
 
-  async updateMe({
-    request,
-    response,
-  }) {
+  async updateMe({ request, response }) {
     const user = await User.find(1);
 
     let settings = user.settings || {};
@@ -125,16 +120,11 @@ class UserController {
         ...DEFAULT_USER_DATA,
         ...newSettings,
       },
-      status: [
-        'data-updated',
-      ],
+      status: ['data-updated'],
     });
   }
 
-  async import({
-    request,
-    response,
-  }) {
+  async import({ request, response }) {
     // Validate user input
     const validation = await validateAll(request.all(), {
       email: 'required|email',
@@ -142,7 +132,8 @@ class UserController {
       server: 'required',
     });
     if (validation.fails()) {
-      let errorMessage = 'There was an error while trying to import your account:\n';
+      let errorMessage =
+        'There was an error while trying to import your account:\n';
       for (const message of validation.messages()) {
         if (message.validation === 'required') {
           errorMessage += `- Please make sure to supply your ${message.field}\n`;
@@ -155,13 +146,12 @@ class UserController {
       return response.status(401).send(errorMessage);
     }
 
-    const {
-      email,
-      password,
-      server,
-    } = request.all();
+    const { email, password, server } = request.all();
 
-    const hashedPassword = crypto.createHash('sha256').update(password).digest('base64');
+    const hashedPassword = crypto
+      .createHash('sha256')
+      .update(password)
+      .digest('base64');
 
     // Try to get an authentication token
     let token;
@@ -178,16 +168,17 @@ class UserController {
       const content = await rawResponse.json();
 
       if (!content.message || content.message !== 'Successfully logged in') {
-        const errorMessage = 'Could not login into Franz with your supplied credentials. Please check and try again';
+        const errorMessage =
+          'Could not login into Franz with your supplied credentials. Please check and try again';
         return response.status(401).send(errorMessage);
       }
 
       // eslint-disable-next-line prefer-destructuring
       token = content.token;
-    } catch (e) {
+    } catch (error) {
       return response.status(401).send({
         message: 'Cannot login to Franz',
-        error: e,
+        error,
       });
     }
 
@@ -195,12 +186,13 @@ class UserController {
     let userInf = false;
     try {
       userInf = await apiRequest(server, 'me', 'GET', token);
-    } catch (e) {
-      const errorMessage = `Could not get your user info from Franz. Please check your credentials or try again later.\nError: ${e}`;
+    } catch (error) {
+      const errorMessage = `Could not get your user info from Franz. Please check your credentials or try again later.\nError: ${error}`;
       return response.status(401).send(errorMessage);
     }
     if (!userInf) {
-      const errorMessage = 'Could not get your user info from Franz. Please check your credentials or try again later';
+      const errorMessage =
+        'Could not get your user info from Franz. Please check your credentials or try again later';
       return response.status(401).send(errorMessage);
     }
 
@@ -213,8 +205,8 @@ class UserController {
       for (const service of services) {
         await this._createAndCacheService(service, serviceIdTranslation); // eslint-disable-line no-await-in-loop
       }
-    } catch (e) {
-      const errorMessage = `Could not import your services into our system.\nError: ${e}`;
+    } catch (error) {
+      const errorMessage = `Could not import your services into our system.\nError: ${error}`;
       return response.status(401).send(errorMessage);
     }
 
@@ -225,12 +217,14 @@ class UserController {
       for (const workspace of workspaces) {
         await this._createWorkspace(workspace, serviceIdTranslation); // eslint-disable-line no-await-in-loop
       }
-    } catch (e) {
-      const errorMessage = `Could not import your workspaces into our system.\nError: ${e}`;
+    } catch (error) {
+      const errorMessage = `Could not import your workspaces into our system.\nError: ${error}`;
       return response.status(401).send(errorMessage);
     }
 
-    return response.send('Your account has been imported. You can now use your Franz account in Ferdi.');
+    return response.send(
+      'Your account has been imported. You can now use your Franz account in Ferdi.',
+    );
   }
 
   // Account import/export
@@ -255,10 +249,7 @@ class UserController {
       .send(exportData);
   }
 
-  async importFerdi({
-    request,
-    response,
-  }) {
+  async importFerdi({ request, response }) {
     const validation = await validateAll(request.all(), {
       file: 'required',
     });
@@ -269,8 +260,10 @@ class UserController {
     let file;
     try {
       file = JSON.parse(request.input('file'));
-    } catch (e) {
-      return response.send('Could not import: Invalid file, could not read file');
+    } catch {
+      return response.send(
+        'Could not import: Invalid file, could not read file',
+      );
     }
 
     if (!file || !file.services || !file.workspaces) {
@@ -284,8 +277,8 @@ class UserController {
       for (const service of file.services) {
         await this._createAndCacheService(service, serviceIdTranslation); // eslint-disable-line no-await-in-loop
       }
-    } catch (e) {
-      const errorMessage = `Could not import your services into our system.\nError: ${e}`;
+    } catch (error) {
+      const errorMessage = `Could not import your services into our system.\nError: ${error}`;
       return response.send(errorMessage);
     }
 
@@ -294,8 +287,8 @@ class UserController {
       for (const workspace of file.workspaces) {
         await this._createWorkspace(workspace, serviceIdTranslation); // eslint-disable-line no-await-in-loop
       }
-    } catch (e) {
-      const errorMessage = `Could not import your workspaces into our system.\nError: ${e}`;
+    } catch (error) {
+      const errorMessage = `Could not import your workspaces into our system.\nError: ${error}`;
       return response.status(401).send(errorMessage);
     }
 
@@ -306,15 +299,29 @@ class UserController {
     let newWorkspaceId;
     do {
       newWorkspaceId = uuid();
-    } while ((await Workspace.query().where('workspaceId', newWorkspaceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+    } while (
+      (await Workspace.query().where('workspaceId', newWorkspaceId).fetch())
+        .rows.length > 0
+    ); // eslint-disable-line no-await-in-loop
 
-    if (workspace.services && typeof (workspace.services) === 'string' && workspace.services.length > 0) {
+    if (
+      workspace.services &&
+      typeof workspace.services === 'string' &&
+      workspace.services.length > 0
+    ) {
       workspace.services = JSON.parse(workspace.services);
     }
-    const services = (workspace.services && typeof (workspace.services) === 'object') ?
-      workspace.services.map(oldServiceId => serviceIdTranslation[oldServiceId]) :
-      [];
-    if (workspace.data && typeof (workspace.data) === 'string' && workspace.data.length > 0) {
+    const services =
+      workspace.services && typeof workspace.services === 'object'
+        ? workspace.services.map(
+            oldServiceId => serviceIdTranslation[oldServiceId],
+          )
+        : [];
+    if (
+      workspace.data &&
+      typeof workspace.data === 'string' &&
+      workspace.data.length > 0
+    ) {
       workspace.data = JSON.parse(workspace.data);
     }
 
@@ -332,12 +339,19 @@ class UserController {
     let newServiceId;
     do {
       newServiceId = uuid();
-    } while ((await Service.query().where('serviceId', newServiceId).fetch()).rows.length > 0); // eslint-disable-line no-await-in-loop
+    } while (
+      (await Service.query().where('serviceId', newServiceId).fetch()).rows
+        .length > 0
+    ); // eslint-disable-line no-await-in-loop
 
     // store the old serviceId as the key for future lookup
     serviceIdTranslation[service.serviceId] = newServiceId;
 
-    if (service.settings && typeof (service.settings) === 'string' && service.settings.length > 0) {
+    if (
+      service.settings &&
+      typeof service.settings === 'string' &&
+      service.settings.length > 0
+    ) {
       service.settings = JSON.parse(service.settings);
     }
 

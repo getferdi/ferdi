@@ -140,7 +140,7 @@ class QuickSwitchModal extends Component {
     let services = [];
     if (
       this.state.search &&
-      compact(invoke(this.state.search, 'match', /^[a-z0-9]/i)).length > 0
+      compact(invoke(this.state.search, 'match', /^[\da-z]/i)).length > 0
     ) {
       // Apply simple search algorythm to list of all services
       services = this.props.stores.services.allDisplayed;
@@ -261,7 +261,7 @@ class QuickSwitchModal extends Component {
       // Wrapped inside timeout to let the modal render first
       setTimeout(() => {
         if (this.inputRef.current) {
-          this.inputRef.current.getElementsByTagName('input')[0].focus();
+          this.inputRef.current.querySelectorAll('input')[0].focus();
         }
       }, 10);
 
@@ -273,7 +273,7 @@ class QuickSwitchModal extends Component {
       // search query change when modal not visible
       setTimeout(() => {
         if (this.inputRef.current) {
-          this.inputRef.current.getElementsByTagName('input')[0].blur();
+          this.inputRef.current.querySelectorAll('input')[0].blur();
         }
       }, 100);
 

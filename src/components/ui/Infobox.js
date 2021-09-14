@@ -15,7 +15,8 @@ const messages = defineMessages({
 @observer
 class Infobox extends Component {
   static propTypes = {
-    children: PropTypes.any.isRequired, // eslint-disable-line
+    // eslint-disable-next-line react/forbid-prop-types
+    children: PropTypes.any.isRequired,
     icon: PropTypes.string,
     type: PropTypes.string,
     ctaOnClick: PropTypes.func,

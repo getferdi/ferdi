@@ -1,5 +1,3 @@
-// @flow
-
 interface IRecipePreview {
   id: string;
   name: string;

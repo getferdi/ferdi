@@ -12,9 +12,9 @@ export default class GlobalErrorStore extends Store {
   constructor(...args) {
     super(...args);
 
-    window.onerror = (...errorArgs) => {
+    window.addEventListener('error', (...errorArgs) => {
       this._handleConsoleError.call(this, ['error', ...errorArgs]);
-    };
+    });
 
     const origConsoleError = console.error;
     window.console.error = (...errorArgs) => {
@@ -38,7 +38,7 @@ export default class GlobalErrorStore extends Store {
   }
 
   _handleConsoleError(type, error, url, line) {
-    if (typeof type === 'object' && type.length && type.length >= 1) {
+    if (typeof type === 'object' && type.length > 0 && type.length > 0) {
       this.messages.push({
         type: type[0],
         info: type,
@@ -53,14 +53,14 @@ export default class GlobalErrorStore extends Store {
     }
   }
 
-  _handleRequests = action(async (request) => {
+  _handleRequests = action(async request => {
     if (request.isError) {
       this.error = request.error;
 
       if (request.error.json) {
         try {
           this.response = await request.error.json();
-        } catch (error) {
+        } catch {
           this.response = {};
         }
         if (this.error.status === 401) {

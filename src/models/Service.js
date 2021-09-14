@@ -8,7 +8,11 @@ import { todosStore } from '../features/todos';
 import { isValidExternalURL } from '../helpers/url-helpers';
 import UserAgent from './UserAgent';
 import { DEFAULT_SERVICE_ORDER } from '../config';
-import { ifUndefinedString, ifUndefinedBoolean, ifUndefinedNumber } from '../jsUtils';
+import {
+  ifUndefinedString,
+  ifUndefinedBoolean,
+  ifUndefinedNumber,
+} from '../jsUtils';
 
 const debug = require('debug')('Ferdi:Service');
 
@@ -95,11 +99,11 @@ export default class Service {
 
   constructor(data, recipe) {
     if (!data) {
-      throw Error('Service config not valid');
+      throw new Error('Service config not valid');
     }
 
     if (!recipe) {
-      throw Error('Service recipe not valid');
+      throw new Error('Service recipe not valid');
     }
 
     this.recipe = recipe;
@@ -115,22 +119,51 @@ export default class Service {
 
     this.order = ifUndefinedNumber(data.order, this.order);
     this.isEnabled = ifUndefinedBoolean(data.isEnabled, this.isEnabled);
-    this.isNotificationEnabled = ifUndefinedBoolean(data.isNotificationEnabled, this.isNotificationEnabled);
-    this.isBadgeEnabled = ifUndefinedBoolean(data.isBadgeEnabled, this.isBadgeEnabled);
-    this.isIndirectMessageBadgeEnabled = ifUndefinedBoolean(data.isIndirectMessageBadgeEnabled, this.isIndirectMessageBadgeEnabled);
+    this.isNotificationEnabled = ifUndefinedBoolean(
+      data.isNotificationEnabled,
+      this.isNotificationEnabled,
+    );
+    this.isBadgeEnabled = ifUndefinedBoolean(
+      data.isBadgeEnabled,
+      this.isBadgeEnabled,
+    );
+    this.isIndirectMessageBadgeEnabled = ifUndefinedBoolean(
+      data.isIndirectMessageBadgeEnabled,
+      this.isIndirectMessageBadgeEnabled,
+    );
     this.isMuted = ifUndefinedBoolean(data.isMuted, this.isMuted);
-    this.isDarkModeEnabled = ifUndefinedBoolean(data.isDarkModeEnabled, this.isDarkModeEnabled);
-    this.darkReaderSettings = ifUndefinedString(data.darkReaderSettings, this.darkReaderSettings);
-    this.hasCustomUploadedIcon = ifUndefinedBoolean(data.hasCustomIcon, this.hasCustomUploadedIcon);
+    this.isDarkModeEnabled = ifUndefinedBoolean(
+      data.isDarkModeEnabled,
+      this.isDarkModeEnabled,
+    );
+    this.darkReaderSettings = ifUndefinedString(
+      data.darkReaderSettings,
+      this.darkReaderSettings,
+    );
+    this.hasCustomUploadedIcon = ifUndefinedBoolean(
+      data.hasCustomIcon,
+      this.hasCustomUploadedIcon,
+    );
     this.proxy = ifUndefinedString(data.proxy, this.proxy);
-    this.spellcheckerLanguage = ifUndefinedString(data.spellcheckerLanguage, this.spellcheckerLanguage);
-    this.userAgentPref = ifUndefinedString(data.userAgentPref, this.userAgentPref);
-    this.isHibernationEnabled = ifUndefinedBoolean(data.isHibernationEnabled, this.isHibernationEnabled);
+    this.spellcheckerLanguage = ifUndefinedString(
+      data.spellcheckerLanguage,
+      this.spellcheckerLanguage,
+    );
+    this.userAgentPref = ifUndefinedString(
+      data.userAgentPref,
+      this.userAgentPref,
+    );
+    this.isHibernationEnabled = ifUndefinedBoolean(
+      data.isHibernationEnabled,
+      this.isHibernationEnabled,
+    );
 
     // Check if "Hibernate on Startup" is enabled and hibernate all services except active one
     const { hibernateOnStartup } = window.ferdi.stores.settings.app;
     // The service store is probably not loaded yet so we need to use localStorage data to get active service
-    const isActive = window.localStorage.service && JSON.parse(window.localStorage.service).activeService === this.id;
+    const isActive =
+      window.localStorage.service &&
+      JSON.parse(window.localStorage.service).activeService === this.id;
     if (hibernateOnStartup && !isActive) {
       this.isHibernationRequested = true;
     }
@@ -189,9 +222,14 @@ export default class Service {
     if (this.recipe.hasCustomUrl && this.customUrl) {
       let url;
       try {
-        url = normalizeUrl(this.customUrl, { stripWWW: false, removeTrailingSlash: false });
-      } catch (err) {
-        console.error(`Service (${this.recipe.name}): '${this.customUrl}' is not a valid Url.`);
+        url = normalizeUrl(this.customUrl, {
+          stripWWW: false,
+          removeTrailingSlash: false,
+        });
+      } catch {
+        console.error(
+          `Service (${this.recipe.name}): '${this.customUrl}' is not a valid Url.`,
+        );
       }
 
       if (typeof this.recipe.buildUrl === 'function') {
@@ -241,7 +279,9 @@ export default class Service {
   }
 
   initializeWebViewEvents({ handleIPCMessage, openWindow, stores }) {
-    const webviewWebContents = webContents.fromId(this.webview.getWebContentsId());
+    const webviewWebContents = webContents.fromId(
+      this.webview.getWebContentsId(),
+    );
 
     this.userAgentModel.setWebviewReference(this.webview);
 
@@ -270,9 +310,15 @@ export default class Service {
       debug(this.name, 'knownCertificateHosts is not defined in the recipe');
     }
 
-    this.webview.addEventListener('ipc-message', async (e) => {
+    this.webview.addEventListener('ipc-message', async e => {
       if (e.channel === 'inject-js-unsafe') {
-        await Promise.all(e.args.map((script) => this.webview.executeJavaScript(`"use strict"; (() => { ${script} })();`)));
+        await Promise.all(
+          e.args.map(script =>
+            this.webview.executeJavaScript(
+              `"use strict"; (() => { ${script} })();`,
+            ),
+          ),
+        );
       } else {
         handleIPCMessage({
           serviceId: this.id,
@@ -282,27 +328,33 @@ export default class Service {
       }
     });
 
-    this.webview.addEventListener('new-window', (event, url, frameName, options) => {
-      debug('new-window', event, url, frameName, options);
-      if (!isValidExternalURL(event.url)) {
-        return;
-      }
-      if (event.disposition === 'foreground-tab' || event.disposition === 'background-tab') {
-        openWindow({
-          event,
-          url,
-          frameName,
-          options,
-        });
-      } else {
-        ipcRenderer.send('open-browser-window', {
-          url: event.url,
-          serviceId: this.id,
-        });
-      }
-    });
+    this.webview.addEventListener(
+      'new-window',
+      (event, url, frameName, options) => {
+        debug('new-window', event, url, frameName, options);
+        if (!isValidExternalURL(event.url)) {
+          return;
+        }
+        if (
+          event.disposition === 'foreground-tab' ||
+          event.disposition === 'background-tab'
+        ) {
+          openWindow({
+            event,
+            url,
+            frameName,
+            options,
+          });
+        } else {
+          ipcRenderer.send('open-browser-window', {
+            url: event.url,
+            serviceId: this.id,
+          });
+        }
+      },
+    );
 
-    this.webview.addEventListener('did-start-loading', (event) => {
+    this.webview.addEventListener('did-start-loading', event => {
       debug('Did start load', this.name, event);
 
       this.hasCrashed = false;
@@ -321,9 +373,13 @@ export default class Service {
     this.webview.addEventListener('did-frame-finish-load', didLoad.bind(this));
     this.webview.addEventListener('did-navigate', didLoad.bind(this));
 
-    this.webview.addEventListener('did-fail-load', (event) => {
+    this.webview.addEventListener('did-fail-load', event => {
       debug('Service failed to load', this.name, event);
-      if (event.isMainFrame && event.errorCode !== -21 && event.errorCode !== -3) {
+      if (
+        event.isMainFrame &&
+        event.errorCode !== -21 &&
+        event.errorCode !== -3
+      ) {
         this.isError = true;
         this.errorMessage = event.errorDescription;
         this.isLoading = false;
@@ -365,12 +421,12 @@ export default class Service {
 
   initializeWebViewListener() {
     if (this.webview && this.recipe.events) {
-      Object.keys(this.recipe.events).forEach((eventName) => {
+      for (const eventName of Object.keys(this.recipe.events)) {
         const eventHandler = this.recipe[this.recipe.events[eventName]];
         if (typeof eventHandler === 'function') {
           this.webview.addEventListener(eventName, eventHandler);
         }
-      });
+      }
     }
   }
 

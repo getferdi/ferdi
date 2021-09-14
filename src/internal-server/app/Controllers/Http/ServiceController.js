@@ -135,13 +135,11 @@ class ServiceController {
 
       const newSettings = {
         ...settings,
-        ...{
-          iconId,
-          customIconVersion:
-            settings && settings.customIconVersion
-              ? settings.customIconVersion + 1
-              : 1,
-        },
+        iconId,
+        customIconVersion:
+          settings && settings.customIconVersion
+            ? settings.customIconVersion + 1
+            : 1,
       };
 
       // Update data in database
@@ -157,9 +155,7 @@ class ServiceController {
           id,
           name: service.name,
           ...newSettings,
-          iconUrl: `http://${hostname}:${port}/${API_VERSION}/icon/${
-            newSettings.iconId
-          }`,
+          iconUrl: `http://${hostname}:${port}/${API_VERSION}/icon/${newSettings.iconId}`,
           userId: 1,
         },
         status: ['updated'],

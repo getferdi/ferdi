@@ -18,11 +18,13 @@ export class CommunityRecipesStore extends FeatureStore {
   @computed get communityRecipes() {
     if (!this.stores) return [];
 
-    return this.stores.recipePreviews.dev.map((r) => {
+    return this.stores.recipePreviews.dev.map(recipePreview => {
       // TODO: Need to figure out if this is even necessary/used
-      r.isDevRecipe = !!r.author.find((a) => a.email === this.stores.user.data.email);
+      recipePreview.isDevRecipe = !!recipePreview.author.some(
+        author => author.email === this.stores.user.data.email,
+      );
 
-      return r;
+      return recipePreview;
     });
   }
 }

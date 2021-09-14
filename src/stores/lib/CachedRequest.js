@@ -1,4 +1,3 @@
-// @flow
 import { action } from 'mobx';
 import { isEqual, remove } from 'lodash';
 import Request from './Request';
@@ -30,48 +29,60 @@ export default class CachedRequest extends Request {
 
     // This timeout is necessary to avoid warnings from mobx
     // regarding triggering actions as side-effect of getters
-    setTimeout(action(() => {
-      this.isExecuting = true;
-      // Apply the previous result from this call immediately (cached)
-      if (existingApiCall) {
-        this.result = existingApiCall.result;
-      }
-    }), 0);
+    setTimeout(
+      action(() => {
+        this.isExecuting = true;
+        // Apply the previous result from this call immediately (cached)
+        if (existingApiCall) {
+          this.result = existingApiCall.result;
+        }
+      }),
+      0,
+    );
 
     // Issue api call & save it as promise that is handled to update the results of the operation
-    this._promise = new Promise((resolve) => {
+    this._promise = new Promise(resolve => {
       this._api[this._method](...callArgs)
-        .then((result) => {
-          setTimeout(action(() => {
-            this.result = result;
-            if (this._currentApiCall) this._currentApiCall.result = result;
-            this.isExecuting = false;
-            this.isError = false;
-            this.wasExecuted = true;
-            this._isInvalidated = false;
-            this._isWaitingForResponse = false;
-            this._triggerHooks();
-            resolve(result);
-          }), 1);
+        .then(result => {
+          setTimeout(
+            action(() => {
+              this.result = result;
+              if (this._currentApiCall) this._currentApiCall.result = result;
+              this.isExecuting = false;
+              this.isError = false;
+              this.wasExecuted = true;
+              this._isInvalidated = false;
+              this._isWaitingForResponse = false;
+              this._triggerHooks();
+              resolve(result);
+            }),
+            1,
+          );
           return result;
         })
-        .catch(action((error) => {
-          setTimeout(action(() => {
-            this.error = error;
-            this.isExecuting = false;
-            this.isError = true;
-            this.wasExecuted = true;
-            this._isWaitingForResponse = false;
-            this._triggerHooks();
-            // reject(error);
-          }), 1);
-        }));
+        .catch(
+          action(error => {
+            setTimeout(
+              action(() => {
+                this.error = error;
+                this.isExecuting = false;
+                this.isError = true;
+                this.wasExecuted = true;
+                this._isWaitingForResponse = false;
+                this._triggerHooks();
+                // reject(error);
+              }),
+              1,
+            );
+          }),
+        );
     });
 
     this._isWaitingForResponse = true;
     return this;
   }
 
+  // eslint-disable-next-line unicorn/no-object-as-default-parameter
   invalidate(options = { immediately: false }) {
     this._isInvalidated = true;
     if (options.immediately && this._currentApiCall) {
@@ -81,18 +92,21 @@ export default class CachedRequest extends Request {
   }
 
   patch(modify) {
-    return new Promise((resolve) => {
-      setTimeout(action(() => {
-        const override = modify(this.result);
-        if (override !== undefined) this.result = override;
-        if (this._currentApiCall) this._currentApiCall.result = this.result;
-        resolve(this);
-      }), 0);
+    return new Promise(resolve => {
+      setTimeout(
+        action(() => {
+          const override = modify(this.result);
+          if (override !== undefined) this.result = override;
+          if (this._currentApiCall) this._currentApiCall.result = this.result;
+          resolve(this);
+        }),
+        0,
+      );
     });
   }
 
   removeCacheForCallWith(...args) {
-    remove(this._apiCalls, (c) => isEqual(c.args, args));
+    remove(this._apiCalls, c => isEqual(c.args, args));
   }
 
   _addApiCall(args) {
@@ -102,6 +116,6 @@ export default class CachedRequest extends Request {
   }
 
   _findApiCall(args) {
-    return this._apiCalls.find((c) => isEqual(c.args, args));
+    return this._apiCalls.find(c => isEqual(c.args, args));
   }
 }

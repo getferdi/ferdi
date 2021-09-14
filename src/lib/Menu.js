@@ -952,7 +952,7 @@ class FranzMenu {
       },
     );
 
-    services.allDisplayed.forEach((service, i) =>
+    for (const [i, service] of services.allDisplayed.entries()) {
       menu.push({
         label: this._getServiceName(service),
         accelerator: i < 9 ? `${cmdOrCtrlShortcutKey()}+${i + 1}` : null,
@@ -965,8 +965,8 @@ class FranzMenu {
             app.mainWindow.restore();
           }
         },
-      }),
-    );
+      });
+    }
 
     if (
       services.active &&
@@ -1018,23 +1018,23 @@ class FranzMenu {
       });
     }
 
-    menu.push({
-      type: 'separator',
-    });
-
-    // Default workspace
-    menu.push({
-      label: intl.formatMessage(menuItems.defaultWorkspace),
-      accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+0`,
-      type: 'radio',
-      checked: !activeWorkspace,
-      click: () => {
-        workspaceActions.deactivate();
+    menu.push(
+      {
+        type: 'separator',
       },
-    });
+      {
+        label: intl.formatMessage(menuItems.defaultWorkspace),
+        accelerator: `${cmdOrCtrlShortcutKey()}+${altKey()}+0`,
+        type: 'radio',
+        checked: !activeWorkspace,
+        click: () => {
+          workspaceActions.deactivate();
+        },
+      },
+    );
 
     // Workspace items
-    workspaces.forEach((workspace, i) =>
+    for (const [i, workspace] of workspaces.entries()) {
       menu.push({
         label: workspace.name,
         accelerator:
@@ -1044,8 +1044,8 @@ class FranzMenu {
         click: () => {
           workspaceActions.activate({ workspace });
         },
-      }),
-    );
+      });
+    }
 
     return menu;
   }

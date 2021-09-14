@@ -1,7 +1,11 @@
 import localStorage from 'mobx-localstorage';
 import { ferdiLocale, ferdiVersion } from '../../environment';
 
-export const prepareAuthRequest = (options = { method: 'GET' }, auth = true) => {
+export const prepareAuthRequest = (
+  // eslint-disable-next-line unicorn/no-object-as-default-parameter
+  options = { method: 'GET' },
+  auth = true,
+) => {
   const request = Object.assign(options, {
     mode: 'cors',
     headers: {
@@ -16,12 +20,13 @@ export const prepareAuthRequest = (options = { method: 'GET' }, auth = true) => 
   });
 
   if (auth) {
-    request.headers.Authorization = `Bearer ${localStorage.getItem('authToken')}`;
+    request.headers.Authorization = `Bearer ${localStorage.getItem(
+      'authToken',
+    )}`;
   }
 
   return request;
 };
 
-export const sendAuthRequest = (url, options, auth) => (
-  window.fetch(url, prepareAuthRequest(options, auth))
-);
+export const sendAuthRequest = (url, options, auth) =>
+  window.fetch(url, prepareAuthRequest(options, auth));

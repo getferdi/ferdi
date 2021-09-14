@@ -14,7 +14,7 @@ function createStyleElement() {
 }
 
 function setAppearance(style) {
-  const styleElement = document.getElementById(STYLE_ELEMENT_ID);
+  const styleElement = document.querySelector(`#${STYLE_ELEMENT_ID}`);
 
   if (styleElement) {
     styleElement.innerHTML = style;
@@ -30,18 +30,18 @@ function darkenAbsolute(originalColor, absoluteChange) {
 function generateAccentStyle(accentColorStr) {
   let style = '';
 
-  Object.keys(themeInfo).forEach(property => {
+  for (const property of Object.keys(themeInfo)) {
     style += `
       ${themeInfo[property]} {
         ${property}: ${accentColorStr};
       }
     `;
-  });
+  }
 
   let accentColor = color(DEFAULT_APP_SETTINGS.accentColor);
   try {
     accentColor = color(accentColorStr);
-  } catch (e) {
+  } catch {
     // Ignore invalid accent color.
   }
   const darkerColorStr = darkenAbsolute(accentColor, 5).hex();
@@ -133,14 +133,14 @@ function generateShowDragAreaStyle(accentColor) {
 }
 
 function generateVerticalStyle(widthStr, alwaysShowWorkspaces) {
-  if (!document.getElementById('vertical-style')) {
+  if (!document.querySelector('#vertical-style')) {
     const link = document.createElement('link');
     link.id = 'vertical-style';
     link.rel = 'stylesheet';
     link.type = 'text/css';
     link.href = './styles/vertical.css';
 
-    document.head.appendChild(link);
+    document.head.append(link);
   }
   const width = Number(widthStr);
   const sidebarWidth = width - 4;
@@ -150,12 +150,12 @@ function generateVerticalStyle(widthStr, alwaysShowWorkspaces) {
   .sidebar {
     height: ${sidebarWidth + verticalStyleOffset + 1}px !important;
   ${
-  alwaysShowWorkspaces
-    ? `
+    alwaysShowWorkspaces
+      ? `
     width: calc(100% - 300px) !important;
   `
-    : ''
-}
+      : ''
+  }
   }
 
   .sidebar .sidebar__button {
@@ -220,10 +220,10 @@ function generateStyle(settings) {
   }
   if (useVerticalStyle) {
     style += generateVerticalStyle(serviceRibbonWidth, alwaysShowWorkspaces);
-  } else if (document.getElementById('vertical-style')) {
-    const link = document.getElementById('vertical-style');
+  } else if (document.querySelector('#vertical-style')) {
+    const link = document.querySelector('#vertical-style');
     if (link) {
-      document.head.removeChild(link);
+      link.remove();
     }
   }
   if (alwaysShowWorkspaces) {

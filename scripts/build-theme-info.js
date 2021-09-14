@@ -23,7 +23,7 @@ async function getRulesFromCssFile(file) {
   const cssSrc = (await fs.readFile(file)).toString();
   const cssTree = css.parse(cssSrc);
 
-  return cssTree.stylesheet.rules;
+  return cssTree.stylesheet?.rules;
 }
 
 /**
@@ -49,25 +49,30 @@ async function getRulesFromCssFile(file) {
 function getSelectorsDeclaringValues(rules, values) {
   const output = {};
 
-  rules.forEach((rule) => {
+  for (const rule of rules) {
     if (rule.declarations) {
-      rule.declarations.forEach((declaration) => {
-        if (declaration.type === 'declaration'
-            && values.includes(declaration.value.toLowerCase())) {
+      for (const declaration of rule.declarations) {
+        if (
+          declaration.type === 'declaration' &&
+          values.includes(declaration.value.toLowerCase())
+        ) {
           if (!output[declaration.property]) {
             output[declaration.property] = [];
           }
-          output[declaration.property] = output[declaration.property].concat(rule.selectors);
+          // eslint-disable-next-line unicorn/prefer-spread
+          output[declaration.property] = output[declaration.property].concat(
+            rule.selectors,
+          );
         }
-      });
+      }
     }
-  });
+  }
 
   return output;
 }
 
 async function generateThemeInfo() {
-  if (!await fs.pathExists(cssFile)) {
+  if (!(await fs.pathExists(cssFile))) {
     console.log('Please make sure to build the project first.');
     return;
   }
@@ -75,23 +80,24 @@ async function generateThemeInfo() {
   // Read and parse css bundle
   const rules = await getRulesFromCssFile(cssFile);
 
-  console.log(`Found ${rules.length} rules`);
+  console.log(`Found ${rules?.length} rules`);
 
   // Get rules specifying the brand colors
   const brandRules = getSelectorsDeclaringValues(rules, accentColors);
 
-  console.log(`Found ${Object.keys(brandRules).join(', ')} properties that set color to brand color`);
+  console.log(
+    `Found ${Object.keys(brandRules).join(
+      ', ',
+    )} properties that set color to brand color`,
+  );
 
   // Join array of declarations into a single string
-  Object.keys(brandRules).forEach((rule) => {
+  for (const rule of Object.keys(brandRules)) {
     brandRules[rule] = brandRules[rule].join(', ');
-  });
+  }
 
   // Write object with theme info to file
-  fs.writeFile(
-    outputFile,
-    JSON.stringify(brandRules),
-  );
+  fs.writeFile(outputFile, JSON.stringify(brandRules));
 }
 
 generateThemeInfo();

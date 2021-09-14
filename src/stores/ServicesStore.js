@@ -10,7 +10,10 @@ import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
 import { matchRoute } from '../helpers/routing-helpers';
 import { isInTimeframe } from '../helpers/schedule-helpers';
-import { getRecipeDirectory, getDevRecipeDirectory } from '../helpers/recipe-helpers';
+import {
+  getRecipeDirectory,
+  getDevRecipeDirectory,
+} from '../helpers/recipe-helpers';
 import { workspaceStore } from '../features/workspaces';
 import { KEEP_WS_LOADED_USID } from '../config';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
@@ -125,63 +128,49 @@ export default class ServicesStore extends Store {
   setup() {
     // Single key reactions for the sake of your CPU
     reaction(
-      () => (
-        this.stores.settings.app.enableSpellchecking
-      ),
+      () => this.stores.settings.app.enableSpellchecking,
       () => {
         this._shareSettingsWithServiceProcess();
       },
     );
 
     reaction(
-      () => (
-        this.stores.settings.app.spellcheckerLanguage
-      ),
+      () => this.stores.settings.app.spellcheckerLanguage,
       () => {
         this._shareSettingsWithServiceProcess();
       },
     );
 
     reaction(
-      () => (
-        this.stores.settings.app.darkMode
-      ),
+      () => this.stores.settings.app.darkMode,
       () => {
         this._shareSettingsWithServiceProcess();
       },
     );
 
     reaction(
-      () => (
-        this.stores.settings.app.adaptableDarkMode
-      ),
+      () => this.stores.settings.app.adaptableDarkMode,
       () => {
         this._shareSettingsWithServiceProcess();
       },
     );
 
     reaction(
-      () => (
-        this.stores.settings.app.universalDarkMode
-      ),
+      () => this.stores.settings.app.universalDarkMode,
       () => {
         this._shareSettingsWithServiceProcess();
       },
     );
 
     reaction(
-      () => (
-        this.stores.settings.app.searchEngine
-      ),
+      () => this.stores.settings.app.searchEngine,
       () => {
         this._shareSettingsWithServiceProcess();
       },
     );
 
     reaction(
-      () => (
-        this.stores.settings.app.clipboardNotifications
-      ),
+      () => this.stores.settings.app.clipboardNotifications,
       () => {
         this._shareSettingsWithServiceProcess();
       },
@@ -215,12 +204,12 @@ export default class ServicesStore extends Store {
    * Run various maintenance tasks on services
    */
   _serviceMaintenance() {
-    this.enabled.forEach(service => {
+    for (const service of this.enabled) {
       // Defines which services should be hibernated or woken up
       if (!service.isActive) {
         if (
           !service.lastHibernated &&
-          (Date.now() - service.lastUsed) >
+          Date.now() - service.lastUsed >
             ms(`${this.stores.settings.all.app.hibernationStrategy}s`)
         ) {
           // If service is stale, hibernate it.
@@ -230,8 +219,8 @@ export default class ServicesStore extends Store {
         if (
           service.lastHibernated &&
           Number(this.stores.settings.all.app.wakeUpStrategy) > 0 &&
-          (Date.now() - service.lastHibernated) >
-          ms(`${this.stores.settings.all.app.wakeUpStrategy}s`)
+          Date.now() - service.lastHibernated >
+            ms(`${this.stores.settings.all.app.wakeUpStrategy}s`)
         ) {
           // If service is in hibernation and the wakeup time has elapsed, wake it.
           this._awake({ serviceId: service.id });
@@ -240,7 +229,7 @@ export default class ServicesStore extends Store {
 
       if (
         service.lastPoll &&
-        (service.lastPoll - service.lastPollAnswer) > ms('1m')
+        service.lastPoll - service.lastPollAnswer > ms('1m')
       ) {
         // If service did not reply for more than 1m try to reload.
         if (!service.isActive) {
@@ -261,7 +250,7 @@ export default class ServicesStore extends Store {
         service.lostRecipeConnection = false;
         service.lostRecipeReloadAttempt = 0;
       }
-    });
+    }
   }
 
   // Computed props
@@ -270,8 +259,7 @@ export default class ServicesStore extends Store {
       const services = this.allServicesRequest.execute().result;
       if (services) {
         return observable(
-          services
-            .slice()
+          [...services]
             .slice()
             .sort((a, b) => a.order - b.order)
             .map((s, index) => {
@@ -318,11 +306,11 @@ export default class ServicesStore extends Store {
         // Check if workspace needs to be kept loaded
         if (workspace.services.includes(KEEP_WS_LOADED_USID)) {
           // Get services for workspace
-          const serviceIDs = workspace.services.filter(
-            i => i !== KEEP_WS_LOADED_USID,
+          const serviceIDs = new Set(
+            workspace.services.filter(i => i !== KEEP_WS_LOADED_USID),
           );
           const wsServices = filteredServices.filter(service =>
-            serviceIDs.includes(service.id),
+            serviceIDs.has(service.id),
           );
 
           displayedServices = [...displayedServices, ...wsServices];
@@ -410,12 +398,14 @@ export default class ServicesStore extends Store {
       customIcon: false,
       isDarkModeEnabled: false,
       spellcheckerLanguage:
-          SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
+        SPELLCHECKER_LOCALES[this.stores.settings.app.spellcheckerLanguage],
       userAgentPref: '',
       ...serviceData,
     };
 
-    const data = skipCleanup ? serviceData : this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
+    const data = skipCleanup
+      ? serviceData
+      : this._cleanUpTeamIdAndCustomUrl(recipeId, serviceData);
 
     const response = await this.createServiceRequest.execute(recipeId, data)
       ._promise;
@@ -562,7 +552,8 @@ export default class ServicesStore extends Store {
   // Write your scripts here
   console.log("Hello, World!", config);
 };
-`);
+`,
+        );
       }
     } else {
       ensureFileSync(filePath);
@@ -580,9 +571,9 @@ export default class ServicesStore extends Store {
     if (!keepActiveRoute) this.stores.router.push('/');
     const service = this.one(serviceId);
 
-    this.all.forEach(s => {
+    for (const s of this.all) {
       s.isActive = false;
-    });
+    }
     service.isActive = true;
     this._awake({ serviceId: service.id });
 
@@ -618,9 +609,9 @@ export default class ServicesStore extends Store {
       this.allDisplayed.length,
     );
 
-    this.all.forEach(s => {
+    for (const s of this.all) {
       s.isActive = false;
-    });
+    }
     this.allDisplayed[nextIndex].isActive = true;
   }
 
@@ -631,9 +622,9 @@ export default class ServicesStore extends Store {
       this.allDisplayed.length,
     );
 
-    this.all.forEach(s => {
+    for (const s of this.all) {
       s.isActive = false;
-    });
+    }
     this.allDisplayed[prevIndex].isActive = true;
   }
 
@@ -699,101 +690,128 @@ export default class ServicesStore extends Store {
   @action _handleIPCMessage({ serviceId, channel, args }) {
     const service = this.one(serviceId);
 
-    if (channel === 'hello') {
-      debug('Received hello event from', serviceId);
+    // eslint-disable-next-line default-case
+    switch (channel) {
+      case 'hello': {
+        debug('Received hello event from', serviceId);
 
-      this._initRecipePolling(service.id);
-      this._initializeServiceRecipeInWebview(serviceId);
-      this._shareSettingsWithServiceProcess();
-    } else if (channel === 'alive') {
-      service.lastPollAnswer = Date.now();
-    } else if (channel === 'message-counts') {
-      debug(`Received unread message info from '${serviceId}'`, args[0]);
+        this._initRecipePolling(service.id);
+        this._initializeServiceRecipeInWebview(serviceId);
+        this._shareSettingsWithServiceProcess();
 
-      this.actions.service.setUnreadMessageCount({
-        serviceId,
-        count: {
-          direct: args[0].direct,
-          indirect: args[0].indirect,
-        },
-      });
-    } else if (channel === 'notification') {
-      const { options } = args[0];
-
-      // Check if we are in scheduled Do-not-Disturb time
-      const { scheduledDNDEnabled, scheduledDNDStart, scheduledDNDEnd } =
-        this.stores.settings.all.app;
-
-      if (
-        scheduledDNDEnabled &&
-        isInTimeframe(scheduledDNDStart, scheduledDNDEnd)
-      ) {
-        return;
+        break;
       }
+      case 'alive': {
+        service.lastPollAnswer = Date.now();
 
-      if (
-        service.recipe.hasNotificationSound ||
-        service.isMuted ||
-        this.stores.settings.all.app.isAppMuted
-      ) {
-        Object.assign(options, {
-          silent: true,
+        break;
+      }
+      case 'message-counts': {
+        debug(`Received unread message info from '${serviceId}'`, args[0]);
+
+        this.actions.service.setUnreadMessageCount({
+          serviceId,
+          count: {
+            direct: args[0].direct,
+            indirect: args[0].indirect,
+          },
         });
-      }
 
-      if (service.isNotificationEnabled) {
-        let title = `Notification from ${service.name}`;
-        if (!this.stores.settings.all.app.privateNotifications) {
-          options.body = typeof options.body === 'string' ? options.body : '';
-          title =
-            typeof args[0].title === 'string' ? args[0].title : service.name;
-        } else {
-          // Remove message data from notification in private mode
-          options.body = '';
-          options.icon = '/assets/img/notification-badge.gif';
+        break;
+      }
+      case 'notification': {
+        const { options } = args[0];
+
+        // Check if we are in scheduled Do-not-Disturb time
+        const { scheduledDNDEnabled, scheduledDNDStart, scheduledDNDEnd } =
+          this.stores.settings.all.app;
+
+        if (
+          scheduledDNDEnabled &&
+          isInTimeframe(scheduledDNDStart, scheduledDNDEnd)
+        ) {
+          return;
         }
 
-        console.log(title, options);
+        if (
+          service.recipe.hasNotificationSound ||
+          service.isMuted ||
+          this.stores.settings.all.app.isAppMuted
+        ) {
+          Object.assign(options, {
+            silent: true,
+          });
+        }
 
-        this.actions.app.notify({
-          notificationId: args[0].notificationId,
-          title,
-          options,
-          serviceId,
-        });
-      }
-    } else if (channel === 'avatar') {
-      const url = args[0];
-      if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
-        service.customIconUrl = url;
+        if (service.isNotificationEnabled) {
+          let title = `Notification from ${service.name}`;
+          if (!this.stores.settings.all.app.privateNotifications) {
+            options.body = typeof options.body === 'string' ? options.body : '';
+            title =
+              typeof args[0].title === 'string' ? args[0].title : service.name;
+          } else {
+            // Remove message data from notification in private mode
+            options.body = '';
+            options.icon = '/assets/img/notification-badge.gif';
+          }
 
-        this.actions.service.updateService({
-          serviceId,
-          serviceData: {
-            customIconUrl: url,
-          },
-          redirect: false,
-        });
-      }
-    } else if (channel === 'new-window') {
-      const url = args[0];
+          console.log(title, options);
 
-      this.actions.app.openExternalUrl({ url });
-    } else if (channel === 'set-service-spellchecker-language') {
-      if (!args) {
-        console.warn('Did not receive locale');
-      } else {
-        this.actions.service.updateService({
-          serviceId,
-          serviceData: {
-            spellcheckerLanguage: args[0] === 'reset' ? '' : args[0],
-          },
-          redirect: false,
-        });
+          this.actions.app.notify({
+            notificationId: args[0].notificationId,
+            title,
+            options,
+            serviceId,
+          });
+        }
+
+        break;
       }
-    } else if (channel === 'feature:todos') {
-      Object.assign(args[0].data, { serviceId });
-      this.actions.todos.handleHostMessage(args[0]);
+      case 'avatar': {
+        const url = args[0];
+        if (service.iconUrl !== url && !service.hasCustomUploadedIcon) {
+          service.customIconUrl = url;
+
+          this.actions.service.updateService({
+            serviceId,
+            serviceData: {
+              customIconUrl: url,
+            },
+            redirect: false,
+          });
+        }
+
+        break;
+      }
+      case 'new-window': {
+        const url = args[0];
+
+        this.actions.app.openExternalUrl({ url });
+
+        break;
+      }
+      case 'set-service-spellchecker-language': {
+        if (!args) {
+          console.warn('Did not receive locale');
+        } else {
+          this.actions.service.updateService({
+            serviceId,
+            serviceData: {
+              spellcheckerLanguage: args[0] === 'reset' ? '' : args[0],
+            },
+            redirect: false,
+          });
+        }
+
+        break;
+      }
+      case 'feature:todos': {
+        Object.assign(args[0].data, { serviceId });
+        this.actions.todos.handleHostMessage(args[0]);
+
+        break;
+      }
+      // No default
     }
   }
 
@@ -809,13 +827,13 @@ export default class ServicesStore extends Store {
   }
 
   @action _sendIPCMessageToAllServices({ channel, args }) {
-    this.all.forEach(s =>
+    for (const s of this.all) {
       this.actions.service.sendIPCMessage({
         serviceId: s.id,
         channel,
         args,
-      }),
-    );
+      });
+    }
   }
 
   @action _openWindow({ event }) {
@@ -863,11 +881,11 @@ export default class ServicesStore extends Store {
   }
 
   @action _reloadAll() {
-    this.enabled.forEach(s =>
+    for (const s of this.enabled) {
       this._reload({
         serviceId: s.id,
-      }),
-    );
+      });
+    }
   }
 
   @action _reloadUpdatedServices() {
@@ -901,17 +919,17 @@ export default class ServicesStore extends Store {
 
     const services = {};
     // TODO: simplify this
-    this.all.forEach((s, index) => {
+    for (const [index] of this.all.entries()) {
       services[this.all[index].id] = index;
-    });
+    }
 
     this.reorderServicesRequest.execute(services);
     this.allServicesRequest.patch(data => {
-      data.forEach(s => {
+      for (const s of data) {
         const service = s;
 
         service.order = services[s.id];
-      });
+      }
     });
   }
 
@@ -1001,13 +1019,14 @@ export default class ServicesStore extends Store {
       }`,
     );
 
+    // eslint-disable-next-line unicorn/consistent-function-scoping
     const resetTimer = service => {
       service.lastPollAnswer = Date.now();
       service.lastPoll = Date.now();
     };
 
     if (!serviceId) {
-      this.allDisplayed.forEach(service => resetTimer(service));
+      for (const service of this.allDisplayed) resetTimer(service);
     } else {
       const service = this.one(serviceId);
       if (service) {
@@ -1043,7 +1062,7 @@ export default class ServicesStore extends Store {
 
   _mapActiveServiceToServiceModelReaction() {
     const { activeService } = this.stores.settings.all.service;
-    if (this.allDisplayed.length) {
+    if (this.allDisplayed.length > 0) {
       this.allDisplayed.map(service =>
         Object.assign(service, {
           isActive: activeService
@@ -1102,14 +1121,14 @@ export default class ServicesStore extends Store {
     const { enabled } = this;
     const { isAppMuted } = this.stores.settings.app;
 
-    enabled.forEach(service => {
+    for (const service of enabled) {
       const { isAttached } = service;
       const isMuted = isAppMuted || service.isMuted;
 
       if (isAttached) {
         service.webview.audioMuted = isMuted;
       }
-    });
+    }
   }
 
   _shareSettingsWithServiceProcess() {
@@ -1151,7 +1170,7 @@ export default class ServicesStore extends Store {
 
     if (
       this.allDisplayed.findIndex(service => service.isActive) === -1 &&
-      this.allDisplayed.length !== 0
+      this.allDisplayed.length > 0
     ) {
       debug('No active service found, setting active service to index 0');
 

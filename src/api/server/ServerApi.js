@@ -1,6 +1,16 @@
+/* eslint-disable global-require */
 import { join } from 'path';
 import tar from 'tar';
-import { readdirSync, statSync, writeFileSync, copySync, ensureDirSync, pathExistsSync, readJsonSync, removeSync } from 'fs-extra';
+import {
+  readdirSync,
+  statSync,
+  writeFileSync,
+  copySync,
+  ensureDirSync,
+  pathExistsSync,
+  readJsonSync,
+  removeSync,
+} from 'fs-extra';
 import { require as remoteRequire } from '@electron/remote';
 
 import ServiceModel from '../../models/Service';
@@ -12,7 +22,14 @@ import UserModel from '../../models/User';
 import { sleep } from '../../helpers/async-helpers';
 
 import { SERVER_NOT_LOADED } from '../../config';
-import { osArch, osPlatform, asarRecipesPath, userDataRecipesPath, userDataPath, ferdiVersion } from '../../environment';
+import {
+  osArch,
+  osPlatform,
+  asarRecipesPath,
+  userDataRecipesPath,
+  userDataPath,
+  ferdiVersion,
+} from '../../environment';
 import apiBase from '../apiBase';
 import { prepareAuthRequest, sendAuthRequest } from '../utils/auth';
 
@@ -310,22 +327,22 @@ export default class ServerApi {
   // Recipes
   async getInstalledRecipes() {
     const recipesDirectory = getRecipeDirectory();
-    const paths = readdirSync(recipesDirectory)
-      .filter(
-        file =>
-          statSync(join(recipesDirectory, file)).isDirectory() &&
-          file !== 'temp' &&
-          file !== 'dev',
-      );
+    const paths = readdirSync(recipesDirectory).filter(
+      file =>
+        statSync(join(recipesDirectory, file)).isDirectory() &&
+        file !== 'temp' &&
+        file !== 'dev',
+    );
 
     this.recipes = paths
       .map(id => {
-        // eslint-disable-next-line
+        // eslint-disable-next-line import/no-dynamic-require
         const Recipe = require(id)(RecipeModel);
         return new Recipe(loadRecipeConfig(id));
       })
       .filter(recipe => recipe.id);
 
+    // eslint-disable-next-line unicorn/prefer-spread
     this.recipes = this.recipes.concat(this._getDevRecipes());
 
     debug('StubServerApi::getInstalledRecipes resolves', this.recipes);
@@ -425,8 +442,8 @@ export default class ServerApi {
       removeSync(join(recipesDirectory, recipeId, 'recipe.tar.gz'));
 
       return id;
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
 
       return false;
     }
@@ -434,7 +451,9 @@ export default class ServerApi {
 
   // News
   async getLatestNews() {
-    const url = `${apiBase(true)}/news?platform=${osPlatform}&arch=${osArch}&version=${ferdiVersion}`;
+    const url = `${apiBase(
+      true,
+    )}/news?platform=${osPlatform}&arch=${osArch}&version=${ferdiVersion}`;
     const request = await sendAuthRequest(url);
     if (!request.ok) throw request;
     const data = await request.json();
@@ -494,7 +513,7 @@ export default class ServerApi {
         debug('ServerApi::getLegacyServices resolves', services);
         return services;
       }
-    } catch (err) {
+    } catch {
       console.error('ServerApi::getLegacyServices no config found');
     }
 
@@ -523,8 +542,8 @@ export default class ServerApi {
       }
 
       return new ServiceModel(service, recipe);
-    } catch (e) {
-      debug(e);
+    } catch (error) {
+      debug(error);
       return null;
     }
   }
@@ -559,7 +578,7 @@ export default class ServerApi {
 
         return recipe;
       }),
-    ).catch(err => console.error("Can't load recipe", err));
+    ).catch(error => console.error("Can't load recipe", error));
   }
 
   _mapRecipePreviewModel(recipes) {
@@ -567,8 +586,8 @@ export default class ServerApi {
       .map(recipe => {
         try {
           return new RecipePreviewModel(recipe);
-        } catch (e) {
-          console.error(e);
+        } catch (error) {
+          console.error(error);
           return null;
         }
       })
@@ -580,8 +599,8 @@ export default class ServerApi {
       .map(newsItem => {
         try {
           return new NewsModel(newsItem);
-        } catch (e) {
-          console.error(e);
+        } catch (error) {
+          console.error(error);
           return null;
         }
       })
@@ -591,22 +610,21 @@ export default class ServerApi {
   _getDevRecipes() {
     const recipesDirectory = getDevRecipeDirectory();
     try {
-      const paths = readdirSync(recipesDirectory)
-        .filter(
-          file =>
-            statSync(join(recipesDirectory, file)).isDirectory() &&
-            file !== 'temp',
-        );
+      const paths = readdirSync(recipesDirectory).filter(
+        file =>
+          statSync(join(recipesDirectory, file)).isDirectory() &&
+          file !== 'temp',
+      );
 
       const recipes = paths
         .map(id => {
           let Recipe;
           try {
-            // eslint-disable-next-line
+            // eslint-disable-next-line import/no-dynamic-require
             Recipe = require(id)(RecipeModel);
             return new Recipe(loadRecipeConfig(id));
-          } catch (err) {
-            console.error(err);
+          } catch (error) {
+            console.error(error);
           }
 
           return false;
@@ -624,7 +642,7 @@ export default class ServerApi {
         });
 
       return recipes;
-    } catch (err) {
+    } catch {
       debug('Could not load dev recipes');
       return false;
     }

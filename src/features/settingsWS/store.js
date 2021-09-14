@@ -25,11 +25,13 @@ export class SettingsWSStore extends FeatureStore {
     this.stores = stores;
     this.actions = actions;
 
-    this._registerReactions(createReactions([
-      this._initialize.bind(this),
-      this._reconnect.bind(this),
-      this._close.bind(this),
-    ]));
+    this._registerReactions(
+      createReactions([
+        this._initialize.bind(this),
+        this._reconnect.bind(this),
+        this._close.bind(this),
+      ]),
+    );
   }
 
   connect() {
@@ -51,12 +53,12 @@ export class SettingsWSStore extends FeatureStore {
         this.heartbeat();
       });
 
-      this.ws.on('message', (data) => {
+      this.ws.on('message', data => {
         const resp = JSON.parse(data);
         debug('Received message', resp);
 
         if (resp.id) {
-          this.stores.user.getUserInfoRequest.patch((result) => {
+          this.stores.user.getUserInfoRequest.patch(result => {
             if (!result) return;
 
             debug('Patching user object with new values');
@@ -66,8 +68,8 @@ export class SettingsWSStore extends FeatureStore {
       });
 
       this.ws.on('ping', this.heartbeat.bind(this));
-    } catch (err) {
-      console.err(err);
+    } catch (error) {
+      console.error(error);
     }
   }
 

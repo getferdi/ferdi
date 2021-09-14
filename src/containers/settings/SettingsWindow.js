@@ -19,11 +19,11 @@ class SettingsContainer extends Component {
   el = document.createElement('div');
 
   componentDidMount() {
-    this.portalRoot.appendChild(this.el);
+    this.portalRoot.append(this.el);
   }
 
   componentWillUnmount() {
-    this.portalRoot.removeChild(this.el);
+    this.el.remove();
   }
 
   render() {

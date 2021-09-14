@@ -54,7 +54,7 @@ class Modal extends Component {
         portal={portal}
         onRequestClose={close}
         shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
-        appElement={document.getElementById('root')}
+        appElement={document.querySelector('#root')}
       >
         {showClose && close && (
           <button type="button" className={classes.close} onClick={close}>

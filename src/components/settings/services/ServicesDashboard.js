@@ -91,7 +91,7 @@ class ServicesDashboard extends Component {
           <h1>{intl.formatMessage(messages.headline)}</h1>
         </div>
         <div className="settings__body">
-          {(services.length !== 0 || searchNeedle) && !isLoading && (
+          {(services.length > 0 || searchNeedle) && !isLoading && (
             <SearchInput
               placeholder={intl.formatMessage(messages.searchService)}
               onChange={needle => filterServices({ needle })}

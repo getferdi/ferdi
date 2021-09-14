@@ -30,14 +30,14 @@ class ImageUpload extends Component {
   onDrop(acceptedFiles) {
     const { field } = this.props;
 
-    acceptedFiles.forEach(file => {
+    for (const file of acceptedFiles) {
       const imgPath = isWindows ? file.path.replace(/\\/g, '/') : file.path;
       this.setState({
         path: imgPath,
       });
 
       this.props.field.onDrop(file);
-    });
+    }
 
     field.set('');
   }

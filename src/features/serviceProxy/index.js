@@ -18,7 +18,7 @@ export default function init(stores) {
 
     debug('Service Proxy autorun');
 
-    services.forEach((service) => {
+    for (const service of services) {
       const s = session.fromPartition(`persist:service-${service.id}`);
 
       if (config.isEnabled) {
@@ -33,6 +33,6 @@ export default function init(stores) {
           });
         }
       }
-    });
+    }
   });
 }

@@ -1,11 +1,11 @@
-/* eslint-disable react/no-did-mount-set-state */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class Appear extends Component {
   static propTypes = {
-    children: PropTypes.any.isRequired, // eslint-disable-line
+    // eslint-disable-next-line react/forbid-prop-types
+    children: PropTypes.any.isRequired,
     transitionName: PropTypes.string,
     className: PropTypes.string,
   };
@@ -24,11 +24,7 @@ export default class Appear extends Component {
   }
 
   render() {
-    const {
-      children,
-      transitionName,
-      className,
-    } = this.props;
+    const { children, transitionName, className } = this.props;
 
     if (!this.state.mounted) {
       return null;

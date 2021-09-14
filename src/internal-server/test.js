@@ -6,4 +6,4 @@ const dummyUserFolder = path.join(__dirname, 'user_data');
 
 fs.ensureDirSync(dummyUserFolder);
 
-server(dummyUserFolder, 45568);
+server(dummyUserFolder, 45_568);

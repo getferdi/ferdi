@@ -29,6 +29,7 @@ class SettingsLayout extends Component {
   componentWillUnmount() {
     document.removeEventListener(
       'keydown',
+      // eslint-disable-next-line unicorn/no-invalid-remove-event-listener
       this.handleKeyDown.bind(this),
       false,
     );

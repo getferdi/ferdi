@@ -15,8 +15,8 @@ export default class FranzTouchBar {
       if (isMac && semver.gt(osRelease, '16.6.0')) {
         this.build = autorun(this._build.bind(this));
       }
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -27,7 +27,7 @@ export default class FranzTouchBar {
       const { TouchBarButton, TouchBarSpacer } = TouchBar;
 
       const buttons = [];
-      this.stores.services.allDisplayed.forEach(((service) => {
+      for (const service of this.stores.services.allDisplayed) {
         buttons.push(new TouchBarButton({
           label: `${service.name}${service.unreadDirectMessageCount > 0
             ? ' 🔴' : ''} ${service.unreadDirectMessageCount === 0
@@ -38,7 +38,7 @@ export default class FranzTouchBar {
             this.actions.service.setActive({ serviceId: service.id });
           },
         }), new TouchBarSpacer({ size: 'small' }));
-      }));
+      }
 
       const touchBar = new TouchBar({ items: buttons });
       currentWindow.setTouchBar(touchBar);

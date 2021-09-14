@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { exists, pathExistsSync, readFileSync } from 'fs-extra';
+import { pathExistsSync, readFileSync, existsSync } from 'fs-extra';
 
 const debug = require('debug')('Ferdi:Plugin:RecipeWebview');
 
@@ -62,12 +62,13 @@ class RecipeWebview {
    *                          be an absolute path to the file
    */
   injectCSS(...files) {
-    files.forEach(async (file) => {
+    // eslint-disable-next-line unicorn/no-array-for-each
+    files.forEach(file => {
       if (pathExistsSync(file)) {
         const styles = document.createElement('style');
         styles.innerHTML = readFileSync(file, 'utf8');
 
-        document.querySelector('head').appendChild(styles);
+        document.querySelector('head').append(styles);
 
         debug('Append styles', styles);
       }
@@ -75,14 +76,16 @@ class RecipeWebview {
   }
 
   injectJSUnsafe(...files) {
-    Promise.all(files.map(async (file) => {
-      if (await exists(file)) {
-        return readFileSync(file, 'utf8');
-      }
-      debug('Script not found', file);
-      return null;
-    })).then(async (scripts) => {
-      const scriptsFound = scripts.filter((script) => script !== null);
+    Promise.all(
+      files.map(file => {
+        if (existsSync(file)) {
+          return readFileSync(file, 'utf8');
+        }
+        debug('Script not found', file);
+        return null;
+      }),
+    ).then(scripts => {
+      const scriptsFound = scripts.filter(script => script !== null);
       if (scriptsFound.length > 0) {
         debug('Inject scripts to main world', scriptsFound);
         ipcRenderer.sendToHost('inject-js-unsafe', ...scriptsFound);

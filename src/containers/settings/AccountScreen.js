@@ -32,14 +32,12 @@ class AccountScreen extends Component {
 
     const api = stores.settings.all.app.server;
 
-    let url;
-    if (api === LIVE_FRANZ_API) {
-      url = stores.user.getAuthURL(
-        `${WEBSITE}${route}?utm_source=app&utm_medium=account_dashboard`,
-      );
-    } else {
-      url = `${api}${route}`;
-    }
+    const url =
+      api === LIVE_FRANZ_API
+        ? stores.user.getAuthURL(
+            `${WEBSITE}${route}?utm_source=app&utm_medium=account_dashboard`,
+          )
+        : `${api}${route}`;
 
     actions.app.openExternalUrl({ url });
   }

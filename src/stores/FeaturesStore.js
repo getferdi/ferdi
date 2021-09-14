@@ -51,7 +51,9 @@ export default class FeaturesStore extends Store {
       let requestResult = {};
       try {
         requestResult = this.featuresRequest.execute().result;
-      } catch (e) {} // eslint-disable-line no-empty
+      } catch (error) {
+        console.error(error);
+      }
       Object.assign(features, requestResult);
     }
     runInAction('FeaturesStore::_updateFeatures', () => {
@@ -69,15 +71,15 @@ export default class FeaturesStore extends Store {
   }
 
   _setupFeatures() {
-    serviceProxy(this.stores, this.actions);
-    basicAuth(this.stores, this.actions);
+    serviceProxy(this.stores);
+    basicAuth();
     workspaces(this.stores, this.actions);
-    quickSwitch(this.stores, this.actions);
-    nightlyBuilds(this.stores, this.actions);
-    publishDebugInfo(this.stores, this.actions);
+    quickSwitch();
+    nightlyBuilds();
+    publishDebugInfo();
     settingsWS(this.stores, this.actions);
     communityRecipes(this.stores, this.actions);
     todos(this.stores, this.actions);
-    appearance(this.stores, this.actions);
+    appearance(this.stores);
   }
 }

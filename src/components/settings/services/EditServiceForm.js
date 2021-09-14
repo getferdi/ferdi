@@ -183,8 +183,8 @@ class EditServiceForm extends Component {
               removeTrailingSlash: false,
             });
             isValid = await recipe.validateUrl(values.customUrl);
-          } catch (err) {
-            console.warn('ValidateURL', err);
+          } catch (error) {
+            console.warn('ValidateURL', error);
             isValid = false;
           }
         }

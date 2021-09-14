@@ -1,8 +1,6 @@
 const Recipe = use('App/Models/Recipe');
 const Drive = use('Drive');
-const {
-  validateAll,
-} = use('Validator');
+const { validateAll } = use('Validator');
 const Env = use('Env');
 
 const fetch = require('node-fetch');
@@ -14,9 +12,7 @@ const RECIPES_URL = `${LIVE_FERDI_API}/${API_VERSION}/recipes`;
 
 class RecipeController {
   // List official and custom recipes
-  async list({
-    response,
-  }) {
+  async list({ response }) {
     const officialRecipes = JSON.parse(await (await fetch(RECIPES_URL)).text());
     const customRecipesArray = (await Recipe.all()).rows;
     const customRecipes = customRecipesArray.map(recipe => ({
@@ -25,19 +21,13 @@ class RecipeController {
       ...JSON.parse(recipe.data),
     }));
 
-    const recipes = [
-      ...officialRecipes,
-      ...customRecipes,
-    ];
+    const recipes = [...officialRecipes, ...customRecipes];
 
     return response.send(recipes);
   }
 
   // Search official and custom recipes
-  async search({
-    request,
-    response,
-  }) {
+  async search({ request, response }) {
     // Validate user input
     const validation = await validateAll(request.all(), {
       needle: 'required',
@@ -64,13 +54,23 @@ class RecipeController {
       }));
     } else {
       let remoteResults = [];
-      if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
-        remoteResults = JSON.parse(await (await fetch(`${RECIPES_URL}/search?needle=${encodeURIComponent(needle)}`)).text());
+      // eslint-disable-next-line eqeqeq
+      if (Env.get('CONNECT_WITH_FRANZ') == 'true') {
+        // eslint-disable-line eqeqeq
+        remoteResults = JSON.parse(
+          await (
+            await fetch(
+              `${RECIPES_URL}/search?needle=${encodeURIComponent(needle)}`,
+            )
+          ).text(),
+        );
       }
 
       debug('remoteResults:', remoteResults);
 
-      const localResultsArray = (await Recipe.query().where('name', 'LIKE', `%${needle}%`).fetch()).toJSON();
+      const localResultsArray = (
+        await Recipe.query().where('name', 'LIKE', `%${needle}%`).fetch()
+      ).toJSON();
       const localResults = localResultsArray.map(recipe => ({
         id: recipe.recipeId,
         name: recipe.name,
@@ -79,20 +79,14 @@ class RecipeController {
 
       debug('localResults:', localResults);
 
-      results = [
-        ...localResults,
-        ...remoteResults || [],
-      ];
+      results = [...localResults, ...(remoteResults || [])];
     }
 
     return response.send(results);
   }
 
   // Download a recipe
-  async download({
-    response,
-    params,
-  }) {
+  async download({ response, params }) {
     // Validate user input
     const validation = await validateAll(params, {
       recipe: 'required|accepted',
@@ -108,14 +102,17 @@ class RecipeController {
     const service = params.recipe;
 
     // Check for invalid characters
-    if (/\.{1,}/.test(service) || /\/{1,}/.test(service)) {
+    if (/\.+/.test(service) || /\/+/.test(service)) {
       return response.send('Invalid recipe name');
     }
 
     // Check if recipe exists in recipes folder
     if (await Drive.exists(`${service}.tar.gz`)) {
       return response.send(await Drive.get(`${service}.tar.gz`));
-    } if (Env.get('CONNECT_WITH_FRANZ') == 'true') { // eslint-disable-line eqeqeq
+    }
+    // eslint-disable-next-line eqeqeq
+    if (Env.get('CONNECT_WITH_FRANZ') == 'true') {
+      // eslint-disable-line eqeqeq
       return response.redirect(`${RECIPES_URL}/download/${service}`);
     }
     return response.status(400).send({

@@ -25,9 +25,7 @@ export default class RecipesStore extends Store {
     this.actions.recipe.update.listen(this._update.bind(this));
 
     // Reactions
-    this.registerReactions([
-      this._checkIfRecipeIsInstalled.bind(this),
-    ]);
+    this.registerReactions([this._checkIfRecipeIsInstalled.bind(this)]);
   }
 
   setup() {
@@ -39,7 +37,10 @@ export default class RecipesStore extends Store {
   }
 
   @computed get active() {
-    const match = matchRoute('/settings/services/add/:id', this.stores.router.location.pathname);
+    const match = matchRoute(
+      '/settings/services/add/:id',
+      this.stores.router.location.pathname,
+    );
     if (match) {
       const activeRecipe = this.one(match.id);
       if (activeRecipe) {
@@ -53,11 +54,11 @@ export default class RecipesStore extends Store {
   }
 
   @computed get recipeIdForServices() {
-    return this.stores.services.all.map((s) => s.recipe.id);
+    return this.stores.services.all.map(s => s.recipe.id);
   }
 
   one(id) {
-    return this.all.find((recipe) => recipe.id === id);
+    return this.all.find(recipe => recipe.id === id);
   }
 
   isInstalled(id) {
@@ -77,41 +78,43 @@ export default class RecipesStore extends Store {
     const recipes = {};
 
     // Hackfix, reference this.all to fetch services
-    debug(`Check Recipe updates for ${this.all.map((recipe) => recipe.id)}`);
+    debug(`Check Recipe updates for ${this.all.map(recipe => recipe.id)}`);
 
-    recipeIds.forEach((r) => {
+    for (const r of recipeIds) {
       const recipe = this.one(r);
       recipes[r] = recipe.version;
-    });
+    }
 
     if (Object.keys(recipes).length === 0) return;
 
-    const remoteUpdates = await this.getRecipeUpdatesRequest.execute(recipes)._promise;
+    const remoteUpdates = await this.getRecipeUpdatesRequest.execute(recipes)
+      ._promise;
 
     // Check for local updates
     const allJsonFile = asarRecipesPath('all.json');
     const allJson = readJSONSync(allJsonFile);
     const localUpdates = [];
 
-    Object.keys(recipes).forEach((recipe) => {
+    for (const recipe of Object.keys(recipes)) {
       const version = recipes[recipe];
 
       // Find recipe in local recipe repository
-      const localRecipe = allJson.find((r) => r.id === recipe);
+      const localRecipe = allJson.find(r => r.id === recipe);
 
       if (localRecipe && semver.lt(version, localRecipe.version)) {
         localUpdates.push(recipe);
       }
-    });
+    }
 
-    const updates = [
-      ...remoteUpdates,
-      ...localUpdates,
-    ];
-    debug('Got update information (local, remote):', localUpdates, remoteUpdates);
+    const updates = [...remoteUpdates, ...localUpdates];
+    debug(
+      'Got update information (local, remote):',
+      localUpdates,
+      remoteUpdates,
+    );
 
     const length = updates.length - 1;
-    const syncUpdate = async (i) => {
+    const syncUpdate = async i => {
       const update = updates[i];
 
       this.actions.recipe.install({ recipeId: update });
@@ -134,7 +137,9 @@ export default class RecipesStore extends Store {
   async _checkIfRecipeIsInstalled() {
     const { router } = this.stores;
 
-    const match = router.location && matchRoute('/settings/services/add/:id', router.location.pathname);
+    const match =
+      router.location &&
+      matchRoute('/settings/services/add/:id', router.location.pathname);
     if (match) {
       const recipeId = match.id;
 
@@ -142,9 +147,11 @@ export default class RecipesStore extends Store {
         router.push('/settings/recipes');
         debug(`Recipe ${recipeId} is not installed, trying to install it`);
 
-        const recipe = await this.installRecipeRequest.execute(recipeId)._promise;
+        const recipe = await this.installRecipeRequest.execute(recipeId)
+          ._promise;
         if (recipe) {
-          await this.allRecipesRequest.invalidate({ immediately: true })._promise;
+          await this.allRecipesRequest.invalidate({ immediately: true })
+            ._promise;
           router.push(`/settings/services/add/${recipeId}`);
         } else {
           router.push('/settings/recipes');

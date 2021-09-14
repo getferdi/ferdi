@@ -28,7 +28,7 @@ export default class Userscript {
    *
    * @param {*} settings
    */
-  // eslint-disable-next-line
+  // eslint-disable-next-line camelcase
   internal_setSettings(settings) {
     // This is needed to get a clean JS object from the settings itself to provide better accessibility
     // Otherwise this will be a mobX instance
@@ -95,9 +95,7 @@ export default class Userscript {
    * @param {*} value
    */
   set(key, value) {
-    window.localStorage.setItem(
-      `ferdi-user-${key}`, JSON.stringify(value),
-    );
+    window.localStorage.setItem(`ferdi-user-${key}`, JSON.stringify(value));
   }
 
   /**
@@ -107,9 +105,7 @@ export default class Userscript {
    * @return Value of the key
    */
   get(key) {
-    return JSON.parse(window.localStorage.getItem(
-      `ferdi-user-${key}`,
-    ));
+    return JSON.parse(window.localStorage.getItem(`ferdi-user-${key}`));
   }
 
   /**

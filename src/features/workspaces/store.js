@@ -302,8 +302,8 @@ export default class WorkspacesStore extends FeatureStore {
     const { allServicesRequest } = services;
     const servicesHaveBeenLoaded = allServicesRequest.wasExecuted && !allServicesRequest.isError;
     // Loop through all workspaces and remove invalid service ids (locally)
-    this.workspaces.forEach((workspace) => {
-      workspace.services.forEach((serviceId) => {
+    for (const workspace of this.workspaces) {
+      for (const serviceId of workspace.services) {
         if (
           servicesHaveBeenLoaded
           && !services.one(serviceId)
@@ -311,7 +311,7 @@ export default class WorkspacesStore extends FeatureStore {
         ) {
           workspace.services.remove(serviceId);
         }
-      });
-    });
+      }
+    }
   };
 }

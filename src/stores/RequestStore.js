@@ -13,7 +13,7 @@ export default class RequestStore extends Store {
 
   @observable showRequiredRequestsError = false;
 
-  @observable localServerPort = 45569;
+  @observable localServerPort = 45_569;
 
   retries = 0;
 
@@ -22,11 +22,11 @@ export default class RequestStore extends Store {
   constructor(...args) {
     super(...args);
 
-    this.actions.requests.retryRequiredRequests.listen(this._retryRequiredRequests.bind(this));
+    this.actions.requests.retryRequiredRequests.listen(
+      this._retryRequiredRequests.bind(this),
+    );
 
-    this.registerReactions([
-      this._autoRetry.bind(this),
-    ]);
+    this.registerReactions([this._autoRetry.bind(this)]);
   }
 
   setup() {
@@ -41,13 +41,11 @@ export default class RequestStore extends Store {
   }
 
   @computed get areRequiredRequestsSuccessful() {
-    return !this.userInfoRequest.isError
-      && !this.servicesRequest.isError;
+    return !this.userInfoRequest.isError && !this.servicesRequest.isError;
   }
 
   @computed get areRequiredRequestsLoading() {
-    return this.userInfoRequest.isExecuting
-      || this.servicesRequest.isExecuting;
+    return this.userInfoRequest.isExecuting || this.servicesRequest.isExecuting;
   }
 
   @action _retryRequiredRequests() {
@@ -67,7 +65,7 @@ export default class RequestStore extends Store {
         }
 
         this._autoRetry();
-        debug(`Retry required requests delayed in ${(delay) / 1000}s`);
+        debug(`Retry required requests delayed in ${delay / 1000}s`);
       }, delay);
     }
   }

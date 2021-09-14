@@ -143,7 +143,7 @@ class WorkspaceDrawerItem extends Component {
             isActive ? classes.activeServices : null,
           ])}
         >
-          {services.length
+          {services.length > 0
             ? services.join(', ')
             : intl.formatMessage(messages.noServicesAddedYet)}
         </span>

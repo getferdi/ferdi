@@ -49,7 +49,7 @@ class Select extends Component {
     let selected = field.value;
 
     if (multiple) {
-      if (typeof field.value === 'string' && field.value.substr(0, 1) === '[') {
+      if (typeof field.value === 'string' && field.value.slice(0, 1) === '[') {
         // Value is JSON encoded
         selected = JSON.parse(field.value);
       } else if (typeof field.value === 'object') {

@@ -15,7 +15,7 @@ export default class Workspace {
 
   constructor(data) {
     if (!data.id) {
-      throw Error('Workspace requires Id');
+      throw new Error('Workspace requires Id');
     }
 
     this.id = data.id;

@@ -65,7 +65,7 @@ class Invite extends Component {
       {
         fields: {
           invite: [
-            ...Array(3).fill({
+            ...Array.from({ length: 3 }).fill({
               fields: {
                 name: {
                   label: this.props.intl.formatMessage(messages.nameLabel),
@@ -95,19 +95,19 @@ class Invite extends Component {
       this.props.intl,
     );
 
-    document.querySelector('input:first-child').focus();
+    document.querySelector('input:first-child')?.focus();
   }
 
   submit(e) {
     e.preventDefault();
 
-    this.form.submit({
+    this.form?.submit({
       onSuccess: form => {
         this.props.onSubmit({ invites: form.values().invite });
 
-        this.form.clear();
+        this.form?.clear();
         // this.form.$('invite.0.name').focus(); // path accepted but does not focus ;(
-        document.querySelector('input:first-child').focus();
+        document.querySelector('input:first-child')?.focus();
         this.setState({ showSuccessInfo: true });
       },
       onError: () => {},

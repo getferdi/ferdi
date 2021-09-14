@@ -32,8 +32,7 @@ const globalMiddleware = [
 | Route.get().middleware('auth')
 |
 */
-const namedMiddleware = {
-};
+const namedMiddleware = {};
 
 /*
 |--------------------------------------------------------------------------
@@ -45,11 +44,8 @@ const namedMiddleware = {
 | control over request lifecycle.
 |
 */
-const serverMiddleware = [
-  'Adonis/Middleware/Static',
-];
+const serverMiddleware = ['Adonis/Middleware/Static'];
 
-Server
-  .registerGlobal(globalMiddleware)
+Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
   .use(serverMiddleware);

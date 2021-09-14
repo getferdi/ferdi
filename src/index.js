@@ -147,7 +147,7 @@ if (!gotTheLock) {
 // https://github.com/electron/electron/issues/9046
 if (
   isLinux &&
-  ['Pantheon', 'Unity:Unity7'].indexOf(process.env.XDG_CURRENT_DESKTOP) !== -1
+  ['Pantheon', 'Unity:Unity7'].includes(process.env.XDG_CURRENT_DESKTOP)
 ) {
   process.env.XDG_CURRENT_DESKTOP = 'Unity';
 }
@@ -475,7 +475,7 @@ ipcMain.on(
     debug(
       `Received modifyRequestHeaders ${modifiedRequestHeaders} for serviceId ${serviceId}`,
     );
-    modifiedRequestHeaders.forEach(headerFilterSet => {
+    for (const headerFilterSet of modifiedRequestHeaders) {
       const { headers, requestFilters } = headerFilterSet;
       session
         .fromPartition(`persist:service-${serviceId}`)
@@ -488,7 +488,7 @@ ipcMain.on(
           }
           callback({ requestHeaders: details.requestHeaders });
         });
-    });
+    }
   },
 );
 

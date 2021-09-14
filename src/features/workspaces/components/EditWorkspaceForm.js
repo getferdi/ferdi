@@ -108,7 +108,7 @@ class EditWorkspaceForm extends Component {
           default: false,
         },
         services: {
-          value: workspace.services.slice(),
+          value: [...workspace.services],
         },
       },
     });

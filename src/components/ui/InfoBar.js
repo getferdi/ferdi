@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import Loader from 'react-loader';
 import { defineMessages, injectIntl } from 'react-intl';
 
-// import { oneOrManyChildElements } from '../../prop-types';
 import Appear from './effects/Appear';
 
 const messages = defineMessages({
@@ -18,7 +17,7 @@ const messages = defineMessages({
 @observer
 class InfoBar extends Component {
   static propTypes = {
-    // eslint-disable-next-line
+    // eslint-disable-next-line react/forbid-prop-types
     children: PropTypes.any.isRequired,
     onClick: PropTypes.func,
     type: PropTypes.string,

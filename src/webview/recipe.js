@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable import/first */
 import { contextBridge, desktopCapturer, ipcRenderer } from 'electron';
 import { BrowserWindow, getCurrentWebContents } from '@electron/remote';
@@ -104,16 +105,13 @@ window.open = (url, frameName, features) => {
 // then overwrite the corresponding field of the window object by injected JS.
 contextBridge.exposeInMainWorld('ferdi', {
   open: window.open,
-  setBadge: (direct, indirect) =>
-    badgeHandler.setBadge(direct, indirect),
-  safeParseInt: (text) =>
-    badgeHandler.safeParseInt(text),
+  setBadge: (direct, indirect) => badgeHandler.setBadge(direct, indirect),
+  safeParseInt: text => badgeHandler.safeParseInt(text),
   displayNotification: (title, options) =>
     notificationsHandler.displayNotification(title, options),
-  clearStorageData: (storageLocations) =>
+  clearStorageData: storageLocations =>
     sessionHandler.clearStorageData(storageLocations),
-  releaseServiceWorkers: () =>
-    sessionHandler.releaseServiceWorkers(),
+  releaseServiceWorkers: () => sessionHandler.releaseServiceWorkers(),
   getDisplayMediaSelector,
   getCurrentWebContents,
   BrowserWindow,
@@ -173,12 +171,12 @@ class RecipeController {
   findInPage = null;
 
   async initialize() {
-    Object.keys(this.ipcEvents).forEach(channel => {
+    for (const channel of Object.keys(this.ipcEvents)) {
       ipcRenderer.on(channel, (...args) => {
         debug('Received IPC event for channel', channel, 'with', ...args);
         this[this.ipcEvents[channel]](...args);
       });
-    });
+    }
 
     debug('Send "hello" to host');
     setTimeout(() => ipcRenderer.sendToHost('hello'), 100);
@@ -210,7 +208,7 @@ class RecipeController {
     delete require.cache[require.resolve(modulePath)];
     try {
       this.recipe = new RecipeWebview(badgeHandler, notificationsHandler);
-      // eslint-disable-next-line
+      // eslint-disable-next-line import/no-dynamic-require
       require(modulePath)(this.recipe, { ...config, recipe });
       debug('Initialize Recipe', config, recipe);
 
@@ -218,8 +216,8 @@ class RecipeController {
 
       // Make sure to update the WebView, otherwise the custom darkmode handler may not be used
       this.update();
-    } catch (err) {
-      console.error('Recipe initialization failed', err);
+    } catch (error) {
+      console.error('Recipe initialization failed', error);
     }
 
     this.loadUserFiles(recipe, config);
@@ -234,12 +232,12 @@ class RecipeController {
       const data = readFileSync(userCss);
       styles.innerHTML += data.toString();
     }
-    document.querySelector('head').appendChild(styles);
+    document.querySelector('head').append(styles);
 
     const userJs = join(recipe.path, 'user.js');
     if (pathExistsSync(userJs)) {
       const loadUserJs = () => {
-        // eslint-disable-next-line
+        // eslint-disable-next-line import/no-dynamic-require
         const userJsModule = require(userJs);
 
         if (typeof userJsModule === 'function') {
@@ -392,15 +390,14 @@ class RecipeController {
     }
 
     // Remove dark reader if (universal) dark mode was just disabled
-    if (this.universalDarkModeInjected) {
-      if (
-        !this.settings.app.darkMode ||
+    if (
+      this.universalDarkModeInjected &&
+      (!this.settings.app.darkMode ||
         !this.settings.service.isDarkModeEnabled ||
-        !this.settings.app.universalDarkMode
-      ) {
-        disableDarkMode();
-        this.universalDarkModeInjected = false;
-      }
+        !this.settings.app.universalDarkMode)
+    ) {
+      disableDarkMode();
+      this.universalDarkModeInjected = false;
     }
   }
 

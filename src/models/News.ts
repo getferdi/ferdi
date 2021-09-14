@@ -1,5 +1,3 @@
-// @flow
-
 import { ifUndefinedString, ifUndefinedBoolean } from '../jsUtils';
 
 interface INews {
