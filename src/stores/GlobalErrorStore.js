@@ -38,7 +38,7 @@ export default class GlobalErrorStore extends Store {
   }
 
   _handleConsoleError(type, error, url, line) {
-    if (typeof type === 'object' && type.length > 0 && type.length > 0) {
+    if (typeof type === 'object' && type.length > 0) {
       this.messages.push({
         type: type[0],
         info: type,
