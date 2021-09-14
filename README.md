@@ -14,7 +14,7 @@
 <p align="center">
 <img alt="GitHub Releases" src="https://img.shields.io/github/downloads/getferdi/ferdi/latest/total?label=Downloads&logo=iCloud&logoColor=%23FFFFFF">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-99-default.svg?logo=github' alt='Contributors'/></a>
+<a href='#contributors-'><img src='https://img.shields.io/badge/contributors-100-default.svg?logo=github' alt='Contributors'/></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <a href="#backers-via-opencollective"><img alt="Open Collective backers" src="https://img.shields.io/opencollective/backers/getferdi?logo=open-collective"></a>
 <a href="#sponsors-via-opencollective"><img alt="Open Collective sponsors" src="https://img.shields.io/opencollective/sponsors/getferdi?logo=open-collective"></a>
@@ -388,6 +388,7 @@ Thanks goes to these awesome people:
     <td align="center"><a href='https://github.com/graves501' title='graves501: doc'><img src='https://avatars.githubusercontent.com/u/11211125?v=4' alt='graves501' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://www.ekino.com' title='Sadetdin EYILI: code, bug'><img src='https://avatars.githubusercontent.com/u/5607440?v=4' alt='sad270' style='border-radius:42px;width:42px;height:42px;'/></a></td>
     <td align="center"><a href='https://github.com/Tsakatac' title='Tsakatac: bug'><img src='https://avatars.githubusercontent.com/u/89021195?v=4' alt='Tsakatac' style='border-radius:42px;width:42px;height:42px;'/></a></td>
+    <td align="center"><a href='http://niute.ch' title='niu tech: code'><img src='https://avatars.githubusercontent.com/u/384997?v=4' alt='niutech' style='border-radius:42px;width:42px;height:42px;'/></a></td>
   </tr>
 </table>
 
