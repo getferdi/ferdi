@@ -87,7 +87,7 @@ export default class UIStore extends Store {
   }
 
   @computed get isSplitModeActive() {
-    return !!this.stores.settings.all.app.splitMode;
+    return this.stores.settings.app.splitMode;
   }
 
   @computed get theme() {

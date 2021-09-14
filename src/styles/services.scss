@@ -24,7 +24,15 @@
 
   .services__webview {
     position: relative;
-    flex: 1 0 488px;
+    flex: 1 0 50%;
+
+    @media (min-width: 1280px) {
+      flex-basis: 33.33%;
+    }
+
+    @media (min-width: 2048px) {
+      flex-basis: 25%;
+    }
   }
 }
 
