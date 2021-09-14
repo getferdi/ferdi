@@ -53,7 +53,7 @@ export function url({ field }) {
     value !== ''
       ? Boolean(
           // eslint-disable-next-line unicorn/better-regex
-          /(^|[\s.:;?\-\]<(])(https?:\/\/[-\w;/?:@&=+$|_.!~*|'()[\]%#,☺]+[\w/#](\(\))?)(?=$|[\s',|().:;?\-[\]>)])/ii.test(
+          /(^|[\s.:;?\-\]<(])(https?:\/\/[-\w;/?:@&=+$|_.!~*|'()[\]%#,☺]+[\w/#](\(\))?)(?=$|[\s',|().:;?\-[\]>)])/i.test(
             value,
           ),
         )
