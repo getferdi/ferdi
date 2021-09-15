@@ -239,6 +239,7 @@
   "settings.app.form.showDisabledServices": "Näytä Estetyt palvelut -välilehdet",
   "settings.app.form.showDragArea": "Näytä ikkunassa siirrettävä alue",
   "settings.app.form.showMessagesBadgesWhenMuted": "Näytä merkki lukemattomasta viestistä kun ilmoitukset on poistettu käytöstä",
+  "settings.app.form.splitMode": "Enable Split View Mode",
   "settings.app.form.startMinimized": "Käynnistä pienennettynä",
   "settings.app.form.universalDarkMode": "Ota käyttöön yleinen tumma tila",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
