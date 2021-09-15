@@ -239,7 +239,7 @@
   "settings.app.form.showDisabledServices": "Wyświetlaj karty wyłączonych usług",
   "settings.app.form.showDragArea": "Show draggable area on window",
   "settings.app.form.showMessagesBadgesWhenMuted": "Pokaż licznik nieprzeczytanych wiadomości gdy powiadomienia są wyłączone",
-  "settings.app.form.splitMode": "Włącz tryb podzielony",
+  "settings.app.form.splitMode": "Enable Split View Mode",
   "settings.app.form.startMinimized": "Uruchom zminimalizowany",
   "settings.app.form.universalDarkMode": "Włącz uniwersalny tryb ciemny",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
