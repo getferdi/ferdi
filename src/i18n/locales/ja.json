@@ -239,6 +239,7 @@
   "settings.app.form.showDisabledServices": "無効化されたサービスのタブを表示する",
   "settings.app.form.showDragArea": "ドラッグ可能な領域をウィンドウに表示",
   "settings.app.form.showMessagesBadgesWhenMuted": "通知の無効時に未読メッセージ件数を表示する",
+  "settings.app.form.splitMode": "Enable Split View Mode",
   "settings.app.form.startMinimized": "最小化して起動",
   "settings.app.form.universalDarkMode": "ユニバーサルダークモードを有効にする",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
