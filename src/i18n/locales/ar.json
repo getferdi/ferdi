@@ -239,6 +239,7 @@
   "settings.app.form.showDisabledServices": "عرض تبويبات الخدمات المعطلة",
   "settings.app.form.showDragArea": "إظهار المنطقة القابلة للسحب على النافذة",
   "settings.app.form.showMessagesBadgesWhenMuted": "إظهار شارة رسالة غير مقروءة عند تعطيل الإشعارات",
+  "settings.app.form.splitMode": "Enable Split View Mode",
   "settings.app.form.startMinimized": "البدء بنافذة مصغرة",
   "settings.app.form.universalDarkMode": "تمكين الوضع المظلم الكامل",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
