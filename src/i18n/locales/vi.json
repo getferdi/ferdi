@@ -239,6 +239,7 @@
   "settings.app.form.showDisabledServices": "Hiển thị các tab dịch vụ bị vô hiệu hóa",
   "settings.app.form.showDragArea": "Hiển thị khu vực có thể kéo trên cửa sổ",
   "settings.app.form.showMessagesBadgesWhenMuted": "Hiển thị huy hiệu tin nhắn chưa đọc khi tắt thông báo",
+  "settings.app.form.splitMode": "Enable Split View Mode",
   "settings.app.form.startMinimized": "Bắt đầu thu nhỏ",
   "settings.app.form.universalDarkMode": "Bật Chế độ tối chung",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
