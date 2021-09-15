@@ -239,6 +239,7 @@
   "settings.app.form.showDisabledServices": "Apresentar separadores de serviços desativados",
   "settings.app.form.showDragArea": "Mostrar área arrastável na janela",
   "settings.app.form.showMessagesBadgesWhenMuted": "Apresentar emblema com o número de mensagens não lidas quando as notificações estão desativadas",
+  "settings.app.form.splitMode": "Enable Split View Mode",
   "settings.app.form.startMinimized": "Iniciar minimizado",
   "settings.app.form.universalDarkMode": "Habilitar modo noturno universal",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
