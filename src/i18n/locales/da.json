@@ -239,6 +239,7 @@
   "settings.app.form.showDisabledServices": "Vis faneblade for deaktiverede tjenester",
   "settings.app.form.showDragArea": "Vis trækområde i vinduet",
   "settings.app.form.showMessagesBadgesWhenMuted": "Vis ulæst beskedikon når notifikationer er deaktiveret",
+  "settings.app.form.splitMode": "Enable Split View Mode",
   "settings.app.form.startMinimized": "Start minimeret",
   "settings.app.form.universalDarkMode": "Aktiver universel mørk tilstand",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
