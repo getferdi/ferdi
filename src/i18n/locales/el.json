@@ -239,6 +239,7 @@
   "settings.app.form.showDisabledServices": "Προβολή καρτελών των απενεργοποιημένων υπηρεσιών",
   "settings.app.form.showDragArea": "Show draggable area on window",
   "settings.app.form.showMessagesBadgesWhenMuted": "Προβολή του εικονιδίου μη αναγνωσμένου μηνύματος όταν οι ειδοποιήσεις είναι απενεργοποιημένες",
+  "settings.app.form.splitMode": "Enable Split View Mode",
   "settings.app.form.startMinimized": "Start minimized",
   "settings.app.form.universalDarkMode": "Enable universal Dark Mode",
   "settings.app.form.useTouchIdToUnlock": "Allow using TouchID to unlock Ferdi",
