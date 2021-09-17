@@ -42,7 +42,6 @@
     "apply-branding": "node ./src/i18n/apply-branding.js",
     "update-submodules": "git submodule update --remote --force",
     "prepare-code": "npm run lint && npm run reformat-files && npm run manage-translations && npm run apply-branding",
-    "build-theme-info": "node scripts/build-theme-info.js",
     "link-readme": "node scripts/link-readme.js",
     "minify-images": "./scripts/minify-images.sh",
     "start:server": "node src/internal-server/test.js"

@@ -1,6 +1,5 @@
 import color from 'color';
 import { reaction } from 'mobx';
-import themeInfo from '../../assets/themeInfo.json';
 import { iconSizeBias } from '../../config';
 import { DEFAULT_APP_SETTINGS } from '../../environment';
 
@@ -29,14 +28,6 @@ function darkenAbsolute(originalColor, absoluteChange) {
 
 function generateAccentStyle(accentColorStr) {
   let style = '';
-
-  for (const property of Object.keys(themeInfo)) {
-    style += `
-      ${themeInfo[property]} {
-        ${property}: ${accentColorStr};
-      }
-    `;
-  }
 
   let accentColor = color(DEFAULT_APP_SETTINGS.accentColor);
   try {

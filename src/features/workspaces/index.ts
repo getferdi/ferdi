@@ -12,10 +12,8 @@ export default function initWorkspaces(stores, actions) {
 
   // Toggle workspace feature
   reaction(
-    () => (
-      features.features.isWorkspaceEnabled
-    ),
-    (isEnabled) => {
+    () => features.features.isWorkspaceEnabled,
+    isEnabled => {
       if (isEnabled && !workspaceStore.isFeatureActive) {
         debug('Initializing `workspaces` feature');
         workspaceStore.start(stores, actions);

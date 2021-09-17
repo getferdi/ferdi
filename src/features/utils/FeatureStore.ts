@@ -1,7 +1,7 @@
 export class FeatureStore {
-  _actions = [];
+  _actions: any[] = [];
 
-  _reactions = [];
+  _reactions: any[] = [];
 
   stop() {
     this._stopActions();

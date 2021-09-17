@@ -28,8 +28,10 @@ export default class Workspace {
       services.push(KEEP_WS_LOADED_USID);
     } else if (data.saving && data.services.includes(KEEP_WS_LOADED_USID)) {
       // Don't keep loaded
-      services = services.filter((e) => e !== KEEP_WS_LOADED_USID);
+      services = services.filter(e => e !== KEEP_WS_LOADED_USID);
     }
+
+    // @ts-expect-error Property 'replace' does not exist on type 'never[]'.
     this.services.replace(services);
 
     this.userId = data.userId;

@@ -2,7 +2,7 @@ import { ipcMain, BrowserWindow } from 'electron';
 import net from 'net';
 import { LOCAL_HOSTNAME, LOCAL_PORT } from '../../config';
 import { userDataPath } from '../../environment';
-import startServer from '../../internal-server/start';
+import { server } from '../../internal-server/start';
 
 const portInUse = (port: number): Promise<boolean> =>
   new Promise(resolve => {
@@ -35,7 +35,7 @@ export default (params: { mainWindow: BrowserWindow }) => {
         }
         console.log('Starting local server on port', port);
 
-        startServer(userDataPath(), port);
+        server(userDataPath(), port);
 
         params.mainWindow.webContents.send('localServerPort', {
           port,

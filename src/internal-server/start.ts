@@ -15,16 +15,16 @@
 |     Make sure to pass a relative path from the project root.
 */
 
-const fold = require('@adonisjs/fold');
-const { Ignitor } = require('@adonisjs/ignitor');
-const fs = require('fs-extra');
-const path = require('path');
-const { LOCAL_HOSTNAME } = require('../config');
-const { isWindows } = require('../environment');
+import fold from '@adonisjs/fold';
+import { Ignitor } from '@adonisjs/ignitor';
+import fs from 'fs-extra';
+import path from 'path';
+import { LOCAL_HOSTNAME } from '../config';
+import { isWindows } from '../environment';
 
 process.env.ENV_PATH = path.join(__dirname, 'env.ini');
 
-module.exports = async (userPath, port) => {
+export const server = async (userPath: string, port: number) => {
   const dbPath = path.join(userPath, 'server.sqlite');
   const dbTemplatePath = path.join(__dirname, 'database', 'template.sqlite');
 
@@ -45,7 +45,7 @@ module.exports = async (userPath, port) => {
   process.env.DB_PATH = dbPath;
   process.env.USER_PATH = userPath;
   process.env.HOST = LOCAL_HOSTNAME;
-  process.env.PORT = port;
+  process.env.PORT = port.toString();
 
-  new Ignitor(fold).appRoot(__dirname).fireHttpServer().catch(console.error); // eslint-disable-line no-console
+  new Ignitor(fold).appRoot(__dirname).fireHttpServer().catch(console.error);
 };

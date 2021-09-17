@@ -1,6 +1,6 @@
-const path = require('path');
-const fs = require('fs-extra');
-const server = require('./start');
+import path from 'path';
+import fs from 'fs-extra';
+import { server } from './start';
 
 const dummyUserFolder = path.join(__dirname, 'user_data');
 
