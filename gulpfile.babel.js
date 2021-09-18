@@ -33,7 +33,7 @@ const getTargetEnv = isDevBuild ? 'development' : 'production';
 const tsProject = ts.createProject('tsconfig.json');
 
 const styleConfig = Object.keys(rawStyleConfig).map(key => {
-  const isHex = /^#[0-9A-F]{6}$/i.test(rawStyleConfig[key]);
+  const isHex = /^#[\da-f]{6}$/i.test(rawStyleConfig[key]);
   return {
     [`$raw_${kebabCase(key)}`]: isHex
       ? hexRgb(rawStyleConfig[key], { format: 'array' }).splice(0, 3).join(',')
@@ -151,7 +151,7 @@ export function mvLernaPackages() {
 
 export function mvPostinstallScript() {
   return gulp
-    .src(['./scripts/postinstall.js'])
+    .src(['./scripts/postinstall.ts'])
     .pipe(gulp.dest(`${paths.dest}/scripts`));
 }
 

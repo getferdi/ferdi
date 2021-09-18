@@ -1,8 +1,8 @@
 /**
  * Apply Ferdi branding to i18n translations
  */
-const fs = require('fs-extra');
-const path = require('path');
+import fs from 'fs-extra';
+import path from 'path';
 
 console.log('Applying Ferdi branding to translations...');
 

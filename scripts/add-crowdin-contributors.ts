@@ -1,3 +1,7 @@
+import fs from 'fs-extra';
+import path from 'path';
+import allContributors from 'all-contributors-cli';
+
 /**
  * Add CrowdIn Contributors to AllContributors list
  *
@@ -48,17 +52,13 @@ console.clear();
 console.log(JSON.stringify(members));
 
  * 3. Paste the output of the script (JSON Array) below to set 'list' to that value
- * 4. Execute this script using 'node scripts/add-crowdin-contributors.js'
+ * 4. Execute this script using 'npm run add-crowdin-contributors'
  * 5. Regenerate the README table using the CLI ('all-contributors generate')
  * Please check if the generated data is ok and no data is lost.
 */
-const list = [];
+const list: any[] = [];
 
-const fs = require('fs-extra');
-const path = require('path');
-const allContributors = require('all-contributors-cli');
-
-const infoPath = path.join(__dirname, '..', '..', '.all-contributorsrc');
+const infoPath = path.join(__dirname, '..', '.all-contributorsrc');
 
 (async () => {
   const info = await fs.readJSON(infoPath);

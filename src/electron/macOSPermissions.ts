@@ -15,7 +15,7 @@ debug(
 
 const filePath = userDataPath('.has-app-requested-screen-capture-permissions');
 
-function hasPromptedForScreenCapturePermission(): boolean {
+function hasPromptedForScreenCapturePermission(): string | boolean {
   if (!isExplicitScreenCapturePermissionReqd) {
     return false;
   }

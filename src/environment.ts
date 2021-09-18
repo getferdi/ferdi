@@ -24,7 +24,9 @@ import {
 } from './config';
 
 import { asarPath } from './helpers/asar-helpers';
-import * as buildInfo from './buildInfo.json'; // eslint-disable-line import/no-unresolved
+
+// @ts-expect-error Cannot find module './buildInfo.json' or its corresponding type declarations.
+import * as buildInfo from './buildInfo.json';
 
 export const { app } = electronApi;
 export const ferdiVersion = app.getVersion();
@@ -38,7 +40,11 @@ if (process.env.FERDI_APPDATA_DIR != null) {
   app.setPath('appData', process.env.FERDI_APPDATA_DIR);
   app.setPath('userData', join(app.getPath('appData')));
 } else if (process.env.PORTABLE_EXECUTABLE_DIR != null) {
-  app.setPath('appData', process.env.PORTABLE_EXECUTABLE_DIR, `${app.name}AppData`);
+  app.setPath(
+    'appData',
+    process.env.PORTABLE_EXECUTABLE_DIR,
+    `${app.name}AppData`,
+  );
   app.setPath('userData', join(app.getPath('appData'), `${app.name}AppData`));
 } else if (is.windows) {
   app.setPath('appData', process.env.APPDATA);
@@ -50,17 +56,17 @@ if (isDevMode) {
   app.setPath('userData', join(app.getPath('appData'), `${app.name}Dev`));
 }
 
-export function userDataPath(...segments) {
-  return join(app.getPath('userData'), ...([segments].flat()));
+export function userDataPath(...segments: string[]) {
+  return join(app.getPath('userData'), ...[segments].flat());
 }
 
-export function userDataRecipesPath(...segments) {
-  return userDataPath('recipes', ...([segments].flat()));
+export function userDataRecipesPath(...segments: any[]) {
+  return userDataPath('recipes', ...[segments].flat());
 }
 
 // Replacing app.asar is not beautiful but unfortunately necessary
-export function asarRecipesPath(...segments) {
-  return join(asarPath(join(__dirname, 'recipes')), ...([segments].flat()));
+export function asarRecipesPath(...segments: any[]) {
+  return join(asarPath(join(__dirname, 'recipes')), ...[segments].flat());
 }
 
 export const useLiveAPI = process.env.USE_LIVE_API;
@@ -79,22 +85,31 @@ export const is64Bit = osArch.match(/64/);
 const ctrlKey = isMac ? '⌘' : 'Ctrl';
 const cmdKey = isMac ? 'Cmd' : 'Ctrl';
 
-export const altKey = (isAccelerator = true) => (!isAccelerator && isMac ? '⌥' : 'Alt');
-export const shiftKey = (isAccelerator = true) => (!isAccelerator && isMac ? '⇧' : 'Shift');
+export const altKey = (isAccelerator = true) =>
+  !isAccelerator && isMac ? '⌥' : 'Alt';
+export const shiftKey = (isAccelerator = true) =>
+  !isAccelerator && isMac ? '⇧' : 'Shift';
 
 // Platform specific shortcut keys
-export const cmdOrCtrlShortcutKey = (isAccelerator = true) => (isAccelerator ? cmdKey : ctrlKey);
-export const lockFerdiShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+${shiftKey(isAccelerator)}+L`;
-export const todosToggleShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+T`;
-export const workspaceToggleShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+D`;
-export const muteFerdiShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+${shiftKey(isAccelerator)}+M`;
-export const addNewServiceShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+N`;
-export const settingsShortcutKey = (isAccelerator = true) => `${cmdOrCtrlShortcutKey(isAccelerator)}+${isMac ? ',' : 'P'}`;
+export const cmdOrCtrlShortcutKey = (isAccelerator = true) =>
+  isAccelerator ? cmdKey : ctrlKey;
+export const lockFerdiShortcutKey = (isAccelerator = true) =>
+  `${cmdOrCtrlShortcutKey(isAccelerator)}+${shiftKey(isAccelerator)}+L`;
+export const todosToggleShortcutKey = (isAccelerator = true) =>
+  `${cmdOrCtrlShortcutKey(isAccelerator)}+T`;
+export const workspaceToggleShortcutKey = (isAccelerator = true) =>
+  `${cmdOrCtrlShortcutKey(isAccelerator)}+D`;
+export const muteFerdiShortcutKey = (isAccelerator = true) =>
+  `${cmdOrCtrlShortcutKey(isAccelerator)}+${shiftKey(isAccelerator)}+M`;
+export const addNewServiceShortcutKey = (isAccelerator = true) =>
+  `${cmdOrCtrlShortcutKey(isAccelerator)}+N`;
+export const settingsShortcutKey = (isAccelerator = true) =>
+  `${cmdOrCtrlShortcutKey(isAccelerator)}+${isMac ? ',' : 'P'}`;
 
-let api;
-let wsApi;
-let web;
-let todos;
+let api: string;
+let wsApi: string;
+let web: string;
+let todos: string;
 if (!isDevMode || (isDevMode && useLiveAPI)) {
   api = LIVE_FERDI_API;
   wsApi = LIVE_WS_API;
