@@ -11,7 +11,7 @@ import {
   readJsonSync,
   removeSync,
 } from 'fs-extra';
-import { require as remoteRequire } from '@electron/remote';
+import fetch from 'electron-fetch';
 
 import ServiceModel from '../../models/Service';
 import RecipePreviewModel from '../../models/RecipePreview';
@@ -44,8 +44,6 @@ import { removeServicePartitionDirectory } from '../../helpers/service-helpers';
 const debug = require('debug')('Ferdi:ServerApi');
 
 module.paths.unshift(getDevRecipeDirectory(), getRecipeDirectory());
-
-const { default: fetch } = remoteRequire('electron-fetch');
 
 export default class ServerApi {
   recipePreviews = [];
