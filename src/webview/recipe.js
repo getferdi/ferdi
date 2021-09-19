@@ -100,7 +100,7 @@ window.open = (url, frameName, features) => {
   }
 };
 
-// We can't override APIs here, so we first expose functions via window.ferdi,
+// We can't override APIs here, so we first expose functions via 'window.ferdi',
 // then overwrite the corresponding field of the window object by injected JS.
 contextBridge.exposeInMainWorld('ferdi', {
   open: window.open,
@@ -108,7 +108,6 @@ contextBridge.exposeInMainWorld('ferdi', {
   safeParseInt: text => badgeHandler.safeParseInt(text),
   displayNotification: (title, options) =>
     notificationsHandler.displayNotification(title, options),
-  releaseServiceWorkers: () => sessionHandler.releaseServiceWorkers(),
   getDisplayMediaSelector,
 });
 
