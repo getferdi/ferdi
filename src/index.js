@@ -550,6 +550,20 @@ ipcMain.on('stop-find-in-page', (e, action) => {
   e.returnValue = null;
 });
 
+ipcMain.on('set-spellchecker-locales', (e, { locale, serviceId }) => {
+  if (serviceId === undefined) {
+    return;
+  }
+
+  const serviceSession = session.fromPartition(`persist:service-${serviceId}`);
+  const [defaultLocale] = serviceSession.getSpellCheckerLanguages();
+  debug(`Spellchecker default locale is: ${defaultLocale}`);
+
+  const locales = [locale, defaultLocale, DEFAULT_APP_SETTINGS.fallbackLocale];
+  debug(`Setting spellchecker locales to: ${locales}`);
+  serviceSession.setSpellCheckerLanguages(locales);
+});
+
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar

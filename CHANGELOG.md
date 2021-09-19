@@ -1,8 +1,14 @@
+# [v5.6.3-nightly.9](https://github.com/getferdi/ferdi/compare/v5.6.3-nightly.8...v5.6.3-nightly.9) (2021-09-21)
+
+### Under the hood
+
+- Removed more references to `@electron/remote` from the codebase (#1968) 💖 #kris7t, @vraravam
+
 # [v5.6.3-nightly.8](https://github.com/getferdi/ferdi/compare/v5.6.3-nightly.7...v5.6.3-nightly.8) (2021-09-20)
 
 ### Under the hood
 
-- Removed the final references to `@electron/remote` from the codebase (#1967) 💖 @vraravam
+- Removed more references to `@electron/remote` from the codebase (#1967) 💖 #kris7t, @vraravam
 
 # [v5.6.3-nightly.7](https://github.com/getferdi/ferdi/compare/v5.6.3-nightly.4...v5.6.3-nightly.7) (2021-09-19)
 

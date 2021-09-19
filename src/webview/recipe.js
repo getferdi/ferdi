@@ -275,8 +275,8 @@ class RecipeController {
     }
 
     if (this.settings.app.enableSpellchecking) {
-      debug('Setting spellchecker language to', this.spellcheckerLanguage);
       let { spellcheckerLanguage } = this;
+      debug(`Setting spellchecker language to ${spellcheckerLanguage}`);
       if (spellcheckerLanguage.includes('automatic')) {
         this.automaticLanguageDetection();
         debug(
@@ -285,7 +285,7 @@ class RecipeController {
         );
         spellcheckerLanguage = this.settings.app.locale;
       }
-      switchDict(spellcheckerLanguage);
+      switchDict(spellcheckerLanguage, this.settings.service.id);
     } else {
       debug('Disable spellchecker');
     }
@@ -440,7 +440,7 @@ class RecipeController {
           spellcheckerLocale,
         );
         if (spellcheckerLocale) {
-          switchDict(spellcheckerLocale);
+          switchDict(spellcheckerLocale, this.settings.service.id);
         }
       }, 225),
     );

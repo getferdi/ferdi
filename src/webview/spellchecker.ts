@@ -1,12 +1,8 @@
-import { getCurrentWebContents } from '@electron/remote';
+import { ipcRenderer } from 'electron';
 import { SPELLCHECKER_LOCALES } from '../i18n/languages';
-import { DEFAULT_APP_SETTINGS, isMac } from '../environment';
+import { isMac } from '../environment';
 
 const debug = require('debug')('Ferdi:spellchecker');
-
-const { session } = getCurrentWebContents();
-const [defaultLocale] = session.getSpellCheckerLanguages();
-debug('Spellchecker default locale is', defaultLocale);
 
 export function getSpellcheckerLocaleByFuzzyIdentifier(identifier: string) {
   const locales = Object.keys(SPELLCHECKER_LOCALES).filter((key) => key.toLocaleLowerCase() === identifier.toLowerCase() || key.split('-')[0] === identifier.toLowerCase());
@@ -14,22 +10,16 @@ export function getSpellcheckerLocaleByFuzzyIdentifier(identifier: string) {
   return locales.length > 0 ? locales[0] : null;
 }
 
-export function switchDict(locale: string) {
+export function switchDict(fuzzyLocale: string, serviceId: string) {
   if (isMac) {
     debug('Ignoring dictionary changes on macOS');
     return;
   }
 
-  debug('Setting spellchecker locale to', locale);
-
-  const locales: string[] = [];
-
-  const foundLocale = getSpellcheckerLocaleByFuzzyIdentifier(locale);
-  if (foundLocale) {
-    locales.push(foundLocale);
+  debug(`Setting spellchecker locale from: ${fuzzyLocale}`);
+  const locale = getSpellcheckerLocaleByFuzzyIdentifier(fuzzyLocale);
+  if (locale) {
+    debug(`Sending spellcheck locales to host: ${locale}`);
+    ipcRenderer.send('set-spellchecker-locales', { locale, serviceId });
   }
-
-  locales.push(defaultLocale, DEFAULT_APP_SETTINGS.fallbackLocale);
-
-  session.setSpellCheckerLanguages(locales);
 }
