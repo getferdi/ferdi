@@ -2,7 +2,7 @@ const Service = use('App/Models/Service');
 const { validateAll } = use('Validator');
 const Env = use('Env');
 
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 const path = require('path');
 const fs = require('fs-extra');
 const { LOCAL_HOSTNAME, DEFAULT_SERVICE_ORDER } = require('../../../../config');
