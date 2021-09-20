@@ -75,7 +75,6 @@
     "classnames": "2.3.1",
     "cld": "2.7.0",
     "color": "4.0.1",
-    "css": "2.2.4",
     "csstype": "3.0.8",
     "darkreader": "4.9.34",
     "dbus-next": "0.9.2",
@@ -125,12 +124,12 @@
     "route-parser": "0.0.5",
     "semver": "7.3.5",
     "sqlite3": "5.0.0",
-    "tar": "4.4.18",
+    "tar": "6.1.11",
     "tslib": "2.3.1",
     "useragent-generator": "1.1.1-amkt-22079-finish.0",
     "uuid": "8.3.2",
-    "validator": "11.0.0",
-    "ws": "7.4.6"
+    "validator": "13.6.0",
+    "ws": "8.2.2"
   },
   "devDependencies": {
     "@babel/cli": "7.14.8",
