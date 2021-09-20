@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { BrowserWindow, desktopCapturer, getCurrentWebContents } from '@electron/remote';
+import { BrowserWindow } from '@electron/remote';
 import { pathExistsSync, readFileSync, existsSync } from 'fs-extra';
 
 const debug = require('debug')('Ferdi:Plugin:RecipeWebview');
@@ -31,18 +31,8 @@ class RecipeWebview {
   }
 
   // TODO Remove this once we implement a proper wrapper.
-  get desktopCapturer() {
-    return desktopCapturer;
-  }
-
-  // TODO Remove this once we implement a proper wrapper.
   get BrowserWindow() {
     return BrowserWindow;
-  }
-
-  // TODO Remove this once we implement a proper wrapper.
-  get getCurrentWebContents() {
-    return getCurrentWebContents;
   }
 
   /**
