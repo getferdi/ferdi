@@ -87,7 +87,7 @@
     "electron-find": "1.0.7",
     "electron-react-titlebar": "0.8.2",
     "electron-updater": "4.3.9",
-    "electron-util": "0.17.2",
+    "electron-util": "dertieran/electron-util#replace-remote",
     "electron-window-state": "5.0.3",
     "fs-extra": "10.0.0",
     "jsonwebtoken": "8.5.1",
