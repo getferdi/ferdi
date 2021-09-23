@@ -343,6 +343,11 @@ class EditServiceForm extends Component {
                         </p>
                       </>
                   )}
+                  {recipe.allowFavoritesDelineationInUnreadCount && (
+                    <Toggle
+                      field={form.$('onlyShowFavoritesInUnreadCount')}
+                    />
+                  )}
                 </div>
 
                 <div className="settings__settings-group">

@@ -81,6 +81,10 @@ const messages = defineMessages({
     id: 'settings.service.form.darkReaderSepia',
     defaultMessage: 'Dark Reader Sepia',
   },
+  onlyShowFavoritesInUnreadCount: {
+    id: 'settings.service.form.onlyShowFavoritesInUnreadCount',
+    defaultMessage: 'Only show Favorites in unread count',
+  },
   enableProxy: {
     id: 'settings.service.form.proxy.isEnabled',
     defaultMessage: 'Use Proxy',
@@ -285,6 +289,16 @@ class EditServiceScreen extends Component {
           label: intl.formatMessage(messages.indirectMessages),
           value: service.isIndirectMessageBadgeEnabled,
           default: true,
+        },
+      });
+    }
+
+    if (recipe.allowFavoritesDelineationInUnreadCount) {
+      Object.assign(config.fields, {
+        onlyShowFavoritesInUnreadCount: {
+          label: intl.formatMessage(messages.onlyShowFavoritesInUnreadCount),
+          value: service.onlyShowFavoritesInUnreadCount,
+          default: false,
         },
       });
     }

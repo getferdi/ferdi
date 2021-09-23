@@ -1,6 +1,10 @@
 import semver from 'semver';
 import { pathExistsSync } from 'fs-extra';
 import { join } from 'path';
+import {
+  ifUndefinedString,
+  ifUndefinedBoolean,
+} from '../jsUtils';
 
 interface IRecipe {
   id: string;
@@ -22,6 +26,7 @@ interface IRecipe {
     autoHibernate?: boolean;
     partition?: string;
     message?: string;
+    allowFavoritesDelineationInUnreadCount?: boolean;
   };
 }
 
@@ -59,6 +64,8 @@ export default class Recipe {
 
   message: string = '';
 
+  allowFavoritesDelineationInUnreadCount: boolean = false;
+
   disablewebsecurity: boolean = false;
 
   autoHibernate: boolean = false;
@@ -81,30 +88,31 @@ export default class Recipe {
     }
 
     this.id = data.id || this.id;
-    this.name = data.name || this.name;
-    this.version = data.version || this.version;
+    this.name = ifUndefinedString(data.name, this.name);
+    this.version = ifUndefinedString(data.version, this.version);
     this.aliases = data.aliases || this.aliases;
     this.path = data.path;
 
-    this.serviceURL = data.config.serviceURL || this.serviceURL;
+    this.serviceURL = ifUndefinedString(data.config.serviceURL, this.serviceURL);
 
-    this.hasDirectMessages = data.config.hasDirectMessages || this.hasDirectMessages;
-    this.hasIndirectMessages = data.config.hasIndirectMessages || this.hasIndirectMessages;
-    this.hasNotificationSound = data.config.hasNotificationSound || this.hasNotificationSound;
-    this.hasTeamId = data.config.hasTeamId || this.hasTeamId;
-    this.hasCustomUrl = data.config.hasCustomUrl || this.hasCustomUrl;
-    this.hasHostedOption = data.config.hasHostedOption || this.hasHostedOption;
+    this.hasDirectMessages = ifUndefinedBoolean(data.config.hasDirectMessages, this.hasDirectMessages);
+    this.hasIndirectMessages = ifUndefinedBoolean(data.config.hasIndirectMessages, this.hasIndirectMessages);
+    this.hasNotificationSound = ifUndefinedBoolean(data.config.hasNotificationSound, this.hasNotificationSound);
+    this.hasTeamId = ifUndefinedBoolean(data.config.hasTeamId, this.hasTeamId);
+    this.hasCustomUrl = ifUndefinedBoolean(data.config.hasCustomUrl, this.hasCustomUrl);
+    this.hasHostedOption = ifUndefinedBoolean(data.config.hasHostedOption, this.hasHostedOption);
 
-    this.urlInputPrefix = data.config.urlInputPrefix || this.urlInputPrefix;
-    this.urlInputSuffix = data.config.urlInputSuffix || this.urlInputSuffix;
+    this.urlInputPrefix = ifUndefinedString(data.config.urlInputPrefix, this.urlInputPrefix);
+    this.urlInputSuffix = ifUndefinedString(data.config.urlInputSuffix, this.urlInputSuffix);
 
     this.disablewebsecurity = data.config.disablewebsecurity || this.disablewebsecurity;
 
     this.autoHibernate = data.config.autoHibernate || this.autoHibernate;
 
-    this.partition = data.config.partition || this.partition;
+    this.partition = ifUndefinedString(data.config.partition, this.partition);
 
-    this.message = data.config.message || this.message;
+    this.message = ifUndefinedString(data.config.message, this.message);
+    this.allowFavoritesDelineationInUnreadCount = ifUndefinedBoolean(data.config.allowFavoritesDelineationInUnreadCount, this.allowFavoritesDelineationInUnreadCount);
   }
 
   // TODO: Need to remove this if its not used anywhere

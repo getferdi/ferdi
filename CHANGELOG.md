@@ -1,3 +1,9 @@
+# [v5.6.3-nightly.12](https://github.com/getferdi/ferdi/compare/v5.6.3-nightly.10...v5.6.3-nightly.12) (2021-09-24)
+
+### Services
+
+- Update 'skype' and 'discord' to properly relinquish window object for image overlay 💖 @vraravam
+- Allow services to delineate favorites vs non-favorites in unread counts (eg Outlook) (getferdi/recipes#721) 💖 @vraravam
 
 # [v5.6.3-nightly.10](https://github.com/getferdi/ferdi/compare/v5.6.3-nightly.9...v5.6.3-nightly.10) (2021-09-22)
 

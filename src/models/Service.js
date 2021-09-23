@@ -83,6 +83,8 @@ export default class Service {
 
   @observable isHibernationRequested = false;
 
+  @observable onlyShowFavoritesInUnreadCount = false;
+
   @observable lastUsed = Date.now(); // timestamp
 
   @observable lastHibernated = null; // timestamp
@@ -144,6 +146,10 @@ export default class Service {
       data.hasCustomIcon,
       this.hasCustomUploadedIcon,
     );
+    this.onlyShowFavoritesInUnreadCount = ifUndefinedBoolean(
+      data.onlyShowFavoritesInUnreadCount,
+      this.onlyShowFavoritesInUnreadCount,
+    );
     this.proxy = ifUndefinedString(data.proxy, this.proxy);
     this.spellcheckerLanguage = ifUndefinedString(
       data.spellcheckerLanguage,
@@ -191,6 +197,7 @@ export default class Service {
       team: this.team,
       url: this.url,
       hasCustomIcon: this.hasCustomIcon,
+      onlyShowFavoritesInUnreadCount: this.onlyShowFavoritesInUnreadCount,
     };
   }
 
