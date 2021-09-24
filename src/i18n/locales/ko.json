@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "When enabled, a service will be shut down after a period of time to save system resources.",
   "settings.service.form.isMutedInfo": "비활성화 시 모든 알림 소리도 꺼집니다.",
   "settings.service.form.name": "이름",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "darkmode.css 열기",
   "settings.service.form.openUserCss": "user.css 열기",
   "settings.service.form.openUserJs": "user.js 열기",
