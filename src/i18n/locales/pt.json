@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "When enabled, a service will be shut down after a period of time to save system resources.",
   "settings.service.form.isMutedInfo": "Quando desativado, as notificações sonoras e áudio serão silenciados",
   "settings.service.form.name": "Nome",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "Abrir darkmode.css",
   "settings.service.form.openUserCss": "Abrir user.css",
   "settings.service.form.openUserJs": "Abrir user.js",
