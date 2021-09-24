@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "When enabled, a service will be shut down after a period of time to save system resources.",
   "settings.service.form.isMutedInfo": "When disabled, all notification sounds and audio playback are muted",
   "settings.service.form.name": "שם",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "פתח את darkmode.css",
   "settings.service.form.openUserCss": "פתח את user.css",
   "settings.service.form.openUserJs": "פתח את user.js",
