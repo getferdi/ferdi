@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "有効にすると、システムリソースを節約するために一定時間後にサービスが閉じられます。",
   "settings.service.form.isMutedInfo": "無効化されている場合、全ての通知音やオーディオ再生は無音になります",
   "settings.service.form.name": "名前",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "darkmode.cssを開く",
   "settings.service.form.openUserCss": "user.cssを開く",
   "settings.service.form.openUserJs": "user.jsを開く",
