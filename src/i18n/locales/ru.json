@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "Когда включено, служба будет отключена по истечении времени, чтобы сохранить системные ресурсы.",
   "settings.service.form.isMutedInfo": "Когда выключено, все звуковые уведомления будут отключены",
   "settings.service.form.name": "Имя",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "Open darkmode.css",
   "settings.service.form.openUserCss": "Открыть user.css",
   "settings.service.form.openUserJs": "Открыть user.js",
