@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "Wenn aktiviert, wird ein Dienst nach einer Zeitspanne heruntergefahren, um Systemressourcen zu sparen.",
   "settings.service.form.isMutedInfo": "Sämtliche Wiedergabe von Tönen wird deaktiviert",
   "settings.service.form.name": "Name",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "Öffne darkmode.css",
   "settings.service.form.openUserCss": "Öffne user.css",
   "settings.service.form.openUserJs": "Öffne user.js",
