@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "When enabled, a service will be shut down after a period of time to save system resources.",
   "settings.service.form.isMutedInfo": "Når deaktiveret, er alle notifikationslyde og lydafspilning slået fra",
   "settings.service.form.name": "Navn",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "Åbn darkmode.css",
   "settings.service.form.openUserCss": "Åbn user.css",
   "settings.service.form.openUserJs": "Åbn user.js",
