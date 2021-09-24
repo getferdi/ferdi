@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "Khi được kích hoạt, một dịch vụ sẽ bị tắt sau một khoảng thời gian để tiết kiệm tài nguyên hệ thống.",
   "settings.service.form.isMutedInfo": "Khi bị vô hiệu hóa, tất cả âm thanh thông báo và phát lại âm thanh sẽ bị tắt tiếng",
   "settings.service.form.name": "Tên",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "Mở darkmode.css",
   "settings.service.form.openUserCss": "Mở user.css",
   "settings.service.form.openUserJs": "Mở user.js",
