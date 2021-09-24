@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "When enabled, a service will be shut down after a period of time to save system resources.",
   "settings.service.form.isMutedInfo": "Коли вимкнено, всі сповищення та відтворення ігноруються",
   "settings.service.form.name": "Ім'я",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "Open darkmode.css",
   "settings.service.form.openUserCss": "Відкрити user.css",
   "settings.service.form.openUserJs": "Відкрити user.js",
