@@ -321,6 +321,7 @@
   "settings.service.form.isHibernatedEnabledInfo": "When enabled, a service will be shut down after a period of time to save system resources.",
   "settings.service.form.isMutedInfo": "Ha kikapcsolod, minden értesítési és lejátszott hang némításra kerül",
   "settings.service.form.name": "Név",
+  "settings.service.form.onlyShowFavoritesInUnreadCount": "Only show Favorites in unread count",
   "settings.service.form.openDarkmodeCss": "Open darkmode.css",
   "settings.service.form.openUserCss": "User.css megnyitása",
   "settings.service.form.openUserJs": "User.js megnyitása",
