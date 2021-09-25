@@ -1,7 +1,8 @@
 import os from 'os';
 import { join } from 'path';
 
-import { is, api as electronApi } from 'electron-util';
+import { app as electronApp } from 'electron';
+import { is, api as electronApi, electronVersion as elecVersion, chromeVersion as crVersion } from 'electron-util';
 
 import { DEFAULT_ACCENT_COLOR } from '@meetfranz/theme';
 
@@ -28,10 +29,10 @@ import { asarPath } from './helpers/asar-helpers';
 // @ts-expect-error Cannot find module './buildInfo.json' or its corresponding type declarations.
 import * as buildInfo from './buildInfo.json';
 
-export const { app } = electronApi;
+export const app = electronApp;
 export const ferdiVersion = app.getVersion();
-export const electronVersion = process.versions.electron;
-export const chromeVersion = process.versions.chrome;
+export const electronVersion = elecVersion;
+export const chromeVersion = crVersion;
 export const nodeVersion = process.versions.node;
 export const ferdiLocale = app.getLocale();
 
@@ -47,7 +48,7 @@ if (process.env.FERDI_APPDATA_DIR != null) {
   app.setPath('userData', join(app.getPath('appData'), app.name));
 }
 
-export const isDevMode = is.development;
+export const isDevMode = process.env.ELECTRON_IS_DEV !== undefined ? Number.parseInt(process.env.ELECTRON_IS_DEV, 10) === 1 : !app.isPackaged;
 if (isDevMode) {
   app.setPath('userData', join(app.getPath('appData'), `${app.name}Dev`));
 }
