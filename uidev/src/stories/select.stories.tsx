@@ -1,5 +1,5 @@
 import React from 'react';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import { Select } from '@meetfranz/forms';
 import { storiesOf } from '../stores/stories';
@@ -282,35 +282,18 @@ const defaultProps = () => {
     },
     actionText: 'Select country',
     // defaultValue: 'AT',
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log('changed event', e),
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+      console.log('changed event', e),
   };
 };
 
 storiesOf('Select')
-  .add('Basic', () => (
-    <Select
-      {...defaultProps()}
-    />
-  ))
+  .add('Basic', () => <Select {...defaultProps()} />)
   .add('With preselection', () => (
-    <Select
-      {...defaultProps()}
-      defaultValue="AT"
-    />
+    <Select {...defaultProps()} defaultValue="AT" />
   ))
-  .add('With search', () => (
-    <Select
-      {...defaultProps()}
-      showSearch
-    />
-  ))
-  .add('Disabled', () => (
-    <Select
-      {...defaultProps()}
-      showSearch
-      disabled
-    />
-  ))
+  .add('With search', () => <Select {...defaultProps()} showSearch />)
+  .add('Disabled', () => <Select {...defaultProps()} showSearch disabled />)
   .add('With error', () => (
     <Select
       {...defaultProps()}

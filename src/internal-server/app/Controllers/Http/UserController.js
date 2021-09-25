@@ -5,7 +5,7 @@ const { validateAll } = use('Validator');
 
 const btoa = require('btoa');
 const fetch = require('node-fetch');
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 const crypto = require('crypto');
 const {
   DEFAULT_APP_SETTINGS,

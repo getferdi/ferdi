@@ -10,7 +10,7 @@
     "jsx": "react",
     "typeRoots": ["@types", "node_modules/@types"],
     "moduleResolution": "node",
-    "types": ["node"],
+    "types": ["node", "mocha"],
     "sourceMap": true,
     "skipLibCheck": true,
     "noImplicitAny": false, // TODO: Need to switch
