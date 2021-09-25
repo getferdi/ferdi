@@ -1,17 +1,10 @@
-import { getCurrentWebContents } from '@electron/remote';
+import { ipcRenderer } from 'electron';
 
 const debug = require('debug')('Ferdi:Plugin:SessionHandler');
 
 export class SessionHandler {
-  clearStorageData(storageLocations: string[]) {
-    try {
-      debug('Clearing storageLocations:', storageLocations);
-      const { session } = getCurrentWebContents();
-      session.flushStorageData();
-      session.clearStorageData({ storages: storageLocations });
-    } catch (error) {
-      debug(error);
-    }
+  clearStorageData(serviceId: string, targetsToClear: object = {}) {
+    ipcRenderer.send('clear-storage-data', { serviceId, targetsToClear });
   }
 
   async releaseServiceWorkers() {

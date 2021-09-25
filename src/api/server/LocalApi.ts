@@ -1,5 +1,4 @@
 import { ipcRenderer } from 'electron';
-import { session } from '@electron/remote';
 import du from 'du';
 
 import { getServicePartitionsDirectory } from '../../helpers/service-helpers';
@@ -41,12 +40,7 @@ export default class LocalApi {
   }
 
   async clearCache(serviceId: string | null = null) {
-    const s = serviceId
-      ? session.fromPartition(`persist:service-${serviceId}`)
-      : session.defaultSession;
-
-    debug('LocalApi::clearCache resolves', serviceId || 'clearAppCache');
-    await s.clearStorageData({
+    const targetsToClear = {
       storages: [
         'appcache',
         'filesystem',
@@ -57,7 +51,8 @@ export default class LocalApi {
         'cachestorage',
       ],
       quotas: ['temporary', 'persistent', 'syncable'],
-    });
-    return s.clearCache();
+    };
+    ipcRenderer.send('clear-storage-data', { serviceId, targetsToClear });
+    return ipcRenderer.invoke('clear-cache', { serviceId });
   }
 }

@@ -2,13 +2,13 @@ import { observable, computed, action } from 'mobx';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import localStorage from 'mobx-localstorage';
-import { session } from '@electron/remote';
+import { ipcRenderer } from 'electron';
 
+import { TODOS_PARTITION_ID } from '../config';
 import { isDevMode } from '../environment';
 import Store from './lib/Store';
 import Request from './lib/Request';
 import CachedRequest from './lib/CachedRequest';
-import { TODOS_PARTITION_ID } from '../config';
 
 const debug = require('debug')('Ferdi:UserStore');
 
@@ -256,8 +256,7 @@ export default class UserStore extends Store {
     this.stores.services.allServicesRequest.invalidate().reset();
 
     if (this.stores.todos.isTodosEnabled) {
-      const sess = session.fromPartition(TODOS_PARTITION_ID);
-      sess.clearStorageData();
+      ipcRenderer.send('clear-storage-data', { sessionId: TODOS_PARTITION_ID });
     }
   }
 
