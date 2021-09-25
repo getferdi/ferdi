@@ -151,8 +151,6 @@ jobs:
           npm uninstall node-gyp
           npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
           npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
-      - name: Fix corrupted node cache
-        run: npm cache clean --force
       - name: Install node dependencies recursively
         run: npx lerna bootstrap
       - name: Package recipes
@@ -257,8 +255,6 @@ jobs:
           npm uninstall node-gyp
           npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
           npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
-      - name: Fix corrupted node cache
-        run: npm cache clean --force
       - name: Install node dependencies recursively
         run: npx lerna bootstrap
       - name: Figure out used package.json version
@@ -384,9 +380,6 @@ jobs:
           npm uninstall node-gyp
           npm ls -g node-gyp@8.1.0 || npm i -g node-gyp@8.1.0
           npm ls -g lerna@4.0.0 || npm i -g lerna@4.0.0
-        shell: bash
-      - name: Fix corrupted node cache
-        run: npm cache clean --force
         shell: bash
       - name: Install node dependencies recursively
         run: npx lerna bootstrap
