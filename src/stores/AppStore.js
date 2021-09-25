@@ -258,7 +258,7 @@ export default class AppStore extends Store {
         body: 'Have a wonderful day & happy messaging.',
       });
 
-      localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, true);
+      localStorage.setItem(CATALINA_NOTIFICATION_HACK_KEY, 'true');
     }
   }
 

@@ -126,8 +126,8 @@ class RecipeWebview {
     }
   }
 
-  clearStorageData(storageLocations) {
-    this.sessionHandler.clearStorageData(storageLocations);
+  clearStorageData(serviceId, targetsToClear) {
+    this.sessionHandler.clearStorageData(serviceId, targetsToClear);
   }
 
   releaseServiceWorkers() {
